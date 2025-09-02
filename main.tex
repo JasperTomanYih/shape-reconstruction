@@ -370,7 +370,17 @@ Similarly the GRT slice theorem with $F(p) = (1 + zp)^{-1}$ is
 % One case of interest: Suppose $|f(x)| \leq M$. Then $|GR_f(\omega, p)| \leq M \sqrt{2\pi}$, and the slice theorem holds if $F(p)$ is integrable.
 \newpage
 \section{The Markov and Hamburger Transforms}
-Let $g(z) = \int (1+zp)^{-1}d\mu$, where $\mu$ is a positive Borel measure with infinite support and finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. When $\mu$ has bounded (unbounded resp.) support we call $g(z)$ the Markov (Hamburger resp.) transform of the measure $\mu$. 
+Let $\mu$ be a positive Borel measure with infinite support and finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. 
+
+\begin{definition}
+The function on $\CC$ defined by
+\[
+    g(z) = \int_\infty^\infty\frac{d\mu}{1+zp}
+\]
+is called the Markov (Hamburger resp.) transform of $\mu$ when $\mu$ has bounded (unbounded resp.) support.
+\end{definition}
+
+Let us consider the domain of definition for $g(z)$. The denominator $1 + zp$ vanishes whenever $z = -\frac1p$. Since $p \in \RR$ it seems that $g(z)$ is at least defined when $\im z \neq 0$. In fact:
 
 \begin{proposition}
 The function $g(z)$ is holomorphic on the upper half plane $\im z > 0$.
@@ -397,11 +407,14 @@ Note that as a compact subset of the upper half plane $\gamma$ must have positiv
 By Morera's theorem $g(z)$ is holomorphic on the upper half plane.
 \end{proof}
 
-The function $g(z)$ is holomorphic on the open half planes $\im z \neq 0$ and admits a formal assymptotic expansion $\sum_{n=0}^\infty c_n(-z)^n$ — which we will call the Markov (Hamburger resp.) series — in the sense that
+The function $g(z)$ is a sort of generating function encoding the moment sequence $(c_k)_{k \in \NN_0}$ of the measure $\mu$. In particular it admits a formal assymptotic expansion $\sum_{n=0}^\infty c_n(-z)^n$, which we will call the Markov (Hamburger resp.) series.
+\begin{proposition}
+For all $n \in \NN_0$
 \begin{equation}
     g(z) = c_0 - c_1z + c_2z^2 - \cdots + c_n(-z)^n + z^n h_n(z) \label{assexp}
 \end{equation}
-where $\lim_{z \rightarrow 0} h_n(z) = 0$ non-tangentially for all $n = 0, 1, \ldots$.
+where $\lim_{z \rightarrow 0} h_n(z) = 0$ non-tangentially.
+\end{proposition}
 
 
 We first note that 
