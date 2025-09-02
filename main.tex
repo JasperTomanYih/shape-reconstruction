@@ -366,7 +366,7 @@ Similarly the GRT slice theorem with $F(p) = (1 + zp)^{-1}$ is
 % One case of interest: Suppose $|f(x)| \leq M$. Then $|GR_f(\omega, p)| \leq M \sqrt{2\pi}$, and the slice theorem holds if $F(p)$ is integrable.
 \newpage
 \section{The Markov and Hamburger Transforms}
-Let $g(z) = \int (1+zu)^{-1}d\mu$, where $\mu$ is a Borel measure with infinite support. When $\mu$ has bounded (unbounded resp.) support we call $g(z)$ the Markov (Hamburger resp.) transform of the measure $\mu$. 
+Let $g(z) = \int (1+zp)^{-1}d\mu$, where $\mu$ is a Borel measure with infinite support. When $\mu$ has bounded (unbounded resp.) support we call $g(z)$ the Markov (Hamburger resp.) transform of the measure $\mu$. 
 
 The function $g(z)$ is holomorphic on the open half planes $\text{Im}~z \neq 0$ and admits a formal assymptotic expansion $\sum_{n=0}^\infty c_n(-z)^n$ — which we will call the Markov (Hamburger resp.) series — in the sense that
 \begin{equation}
@@ -378,14 +378,14 @@ where $\lim_{z \rightarrow 0} h_n(z) = 0$ non-tangentially for all $n = 0, 1, \l
 We first note that 
 \[
     \sum_{k=0}^{n} c_k (-z)^k 
-    = \sum_{k=0}^{n} \int_{-\infty}^\infty (-zx)^k d\mu
+    = \sum_{k=0}^{n} \int_{-\infty}^\infty (-zp)^k d\mu
     % = \int_{-\infty}^\infty \sum_{k=0}^{n} (-zx)^k d\mu
-    = \int_{-\infty}^\infty \frac{1 - (-zx)^{n+1}}{1 + zx} d\mu
+    = \int_{-\infty}^\infty \frac{1 - (-zp)^{n+1}}{1 + zp} d\mu
 \]
 and so
 \begin{align*}
     h_n(z) = \frac1{z^n}\left\{g(z) - \sum_{k=0}^{n} c_k (-z)^k\right\}
-    &= \int_{-\infty}^\infty \frac{zx^{n+1}}{1 + zx}d\mu.
+    &= \int_{-\infty}^\infty \frac{zx^{n+1}}{1 + zp}d\mu.
 \end{align*}
 It remains to determine if and in what sense this trailing term $h_n(z)$ vanishes at the origin. 
 
@@ -411,11 +411,11 @@ In the case when $\mu$ has bounded support, $h_n(z)$ exists in a neighborhood of
 \end{figure}
 
 When $\mu$ has unbounded support $h_n(z)$ may not be well defined on the real line. We turn to a weaker notion of convergence, namely \textit{non-tangential} limits. For any $0 < \delta < \pi/2$ let $\Gamma_\delta$ be the \textit{wedge} (or \textit{cone}) domain, $\Gamma_\delta = \{\delta < \arg z < \pi - \delta\}$.
-Restricting $z$ to $\Gamma_\delta$ gives us the following inequalities for any $x \in \RR$,
+Restricting $z$ to $\Gamma_\delta$ gives us the following inequalities for any $p \in \RR$,
 \[
-    |x - z| \geq |x| \sin \delta 
+    |p - z| \geq |p| \sin \delta 
     \quad\text{and} \quad
-    |x - z| \geq |z| \sin \delta.
+    |p - z| \geq |p| \sin \delta.
 \]
 We will show that
 \[
@@ -429,17 +429,17 @@ from which the corresponding limit for odd orders will immediately follow from t
 For the sake of convenience we define $w = -\frac1z$. Note that $|w| = \frac1{|z|}$ and if $z$ is in the wedge $\Gamma_\delta$ then so is $w$. Now 
 \begin{align*}
     |h_{2n}(z)| 
-    &\leq \int_{-\infty}^\infty \frac{|x|^{2n+1}}{|x - w|}d\mu \\
-    &\leq \frac{|z|}{\sin \delta} \int_{|x| \leq A} |x|^{2n+1} d\mu
-    + \frac1{\sin \delta} \int_{|x| \geq A} x^{2n} d\mu \\
+    &\leq \int_{-\infty}^\infty \frac{|p|^{2n+1}}{|p - w|}d\mu \\
+    &\leq \frac{|z|}{\sin \delta} \int_{|p| \leq A} |p|^{2n+1} d\mu
+    + \frac1{\sin \delta} \int_{|p| \geq A} p^{2n} d\mu \\
     &\leq \frac{2|z| A^{2n+2}}{\sin \delta}
-    + \frac1{\sin \delta} \int_{|x| \geq A} x^{2n} d\mu
+    + \frac1{\sin \delta} \int_{|p| \geq A} p^{2n} d\mu
 \end{align*}
 Thus 
 \[
-    \lim_{z \rightarrow 0} |h_{2n}(z)| \leq \frac1{\sin \delta} \int_{|x| \geq A} x^{2n} d\mu, \quad z \in \Gamma_\delta.
+    \lim_{z \rightarrow 0} |h_{2n}(z)| \leq \frac1{\sin \delta} \int_{|p| \geq A} p^{2n} d\mu, \quad z \in \Gamma_\delta.
 \]
-Since $A$ is arbitrary and the integral $\int x^{2n} d\mu = c_{2n}$ is convergent we are done.
+Since $A$ is arbitrary and the integral $\int p^{2n} d\mu = c_{2n}$ is convergent we are done.
 
 Evidently the assymptotic series expansion $g(z) \simeq \sum_{k=0}^\infty c_k (-z)^k$ is generally formal, having zero radius of convergence except in the Markov case. However as we will see in the next section, rational functions constructed from this formal series exist which approximate $g(z)$ on the upper half plane $\{\text{Im} z > 0\}$.
 
