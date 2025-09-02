@@ -50,6 +50,9 @@
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\PP}{\mathbb{P}}
 
+\newcommand{\re}{\text{Re}~}
+\newcommand{\im}{\text{Im}~}
+
 \def\mclimits_#1{\limits_{\mathclap{#1}}}
 
 
@@ -366,9 +369,34 @@ Similarly the GRT slice theorem with $F(p) = (1 + zp)^{-1}$ is
 % One case of interest: Suppose $|f(x)| \leq M$. Then $|GR_f(\omega, p)| \leq M \sqrt{2\pi}$, and the slice theorem holds if $F(p)$ is integrable.
 \newpage
 \section{The Markov and Hamburger Transforms}
-Let $g(z) = \int (1+zp)^{-1}d\mu$, where $\mu$ is a Borel measure with infinite support. When $\mu$ has bounded (unbounded resp.) support we call $g(z)$ the Markov (Hamburger resp.) transform of the measure $\mu$. 
+Let $g(z) = \int (1+zp)^{-1}d\mu$, where $\mu$ is a positive Borel measure with infinite support and finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. When $\mu$ has bounded (unbounded resp.) support we call $g(z)$ the Markov (Hamburger resp.) transform of the measure $\mu$. 
 
-The function $g(z)$ is holomorphic on the open half planes $\text{Im}~z \neq 0$ and admits a formal assymptotic expansion $\sum_{n=0}^\infty c_n(-z)^n$ — which we will call the Markov (Hamburger resp.) series — in the sense that
+\begin{proposition}
+The function $g(z)$ is holomorphic on the upper half plane $\im z > 0$.
+\end{proposition}
+\begin{proof}
+Let $\gamma$ be a closed piecewise $C^1$ curve in the upper half plane. 
+\begin{align*}
+    |zg(z)| 
+    &\leq \int_{-\infty}^\infty \frac{d\mu}{|\frac1z + p|} \\
+    &\leq \int_{-\infty}^\infty \frac{d\mu}{|\im \frac1z|} \\
+    &= \frac{c_0}{|\im \frac1z|}.
+\end{align*}
+Thus
+\[
+    |g(z)| \leq \frac{c_0}{|z \im \frac1z|} = \left|\frac{c_0 z}{\im z}\right|.
+\]
+As a consequence $g(z)$ is bounded on $\gamma$, and by Fubini's theorem
+\begin{align*}
+    \oint_\gamma g(z) dz
+    &= \oint_\gamma \int_{-\infty}^\infty \frac{d\mu}{1 + zp} ~dz \\
+    &= \int_{-\infty}^\infty \oint_\gamma \frac{dz}{1 + zp} ~d\mu \\
+    &= \int_{-\infty}^\infty 0 ~d\mu = 0.
+\end{align*}
+By Morera's theorem $g(z)$ is holomorphic on the upper half plane.
+\end{proof}
+
+The function $g(z)$ is holomorphic on the open half planes $\im z \neq 0$ and admits a formal assymptotic expansion $\sum_{n=0}^\infty c_n(-z)^n$ — which we will call the Markov (Hamburger resp.) series — in the sense that
 \begin{equation}
     g(z) = c_0 - c_1z + c_2z^2 - \cdots + c_n(-z)^n + z^n h_n(z) \label{assexp}
 \end{equation}
@@ -923,67 +951,6 @@ For a simple example let $n = 2$ and let $f(x)$ be the charactaristic function o
 \]
 
 Unit ball in $\RR^3$? Annulus in $\RR^2$? Some assymmetric or off-center examples?
-
-
-% \section{Radon transform picture}
-
- 
-%  %\begin{wrapfigure}{l}{0.2\textwidth}
-%   %\begin{center}
-% \resizebox{.5 \textwidth}{!}{%
-
-%      \begin{tikzpicture}[scale=2, rotate=-30]  
-   
-
-% \coordinate (A) at (0,0);
-
-% \coordinate (B) at (0,1.5);
-
-% \coordinate (C) at (1,0);
-
-% \coordinate (D) at (0.5,0.5);
-
-% \coordinate (E) at (0.5,2);
-
-% \coordinate (F) at (1.5,0.5);
-
-% \coordinate (G) at (-1,0);
-
-% \coordinate (H) at (-0.5,0.5); 
-
-% \coordinate (I) at (0,-0.25); 
-% \coordinate (J) at (0.5,0.25); 
-
- 
-
-
-
-
- 
-
-% \shadedraw[blue, rotate=30] (G)--(A)--(C)--(F)--(D)--(H)--(G);
-
-% \draw[blue] (-.75,.15)--(.5,.45);
-% \draw[blue] (.5,.15)--(.75,.45);
-%  \coordinate [label=left:\textcolor{purple}{${}_L$}] (P) at (0.5,0.25);
- 
- 
-
- 
-%  \coordinate [label=below:\textcolor{purple}{$ {Rf(L)= \int_Lf(x)\,dx}$}] (u) at (.5,0.15);
- 
-
-% %\draw[blue] (A)--(D);
- 
-% %\draw[->](O)--(u);
-
- 
-
-%  \end{tikzpicture}
-%  }
- %\end{center}
- %\end{wrapfigure}
- 
 
 
 \end{document}
