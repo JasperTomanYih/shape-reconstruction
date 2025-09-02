@@ -192,7 +192,7 @@ Let $f$ be a multivariable function on the $n$-dimensional Euclidean space $\RR^
 \[
     R_f(\Lambda) = \int_{\Lambda} f(x) ~dx,
 \]
-which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by unit normal vector, $\omega \in \RR^n$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$.
+which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by unit normal vector, $\omega \in \RR^n$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter for clarity.
 
 \begin{definition}
     Let $f$ be a positive measurable function on $\mathbb{R}^n$. The \textbf{Radon transform} (\textbf{RT}) of $f$ is a function which, given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, is defined as
@@ -202,7 +202,7 @@ which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more 
     provided the integral converges.
 \end{definition}
 
-Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform. This transform is very similar to the RT, but the inclusion of a Gaussian weight in the integral allows for convergence on a larger class of functions $f$.
+Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform. This transform is very similar to the RT, but the inclusion of a Gaussian weight in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
 
 \begin{definition}
 The \textbf{Gaussian Radon transform} (\textbf{GRT}) of $f$ is defined similarly to the RT. Given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, the GRT is
@@ -210,7 +210,7 @@ The \textbf{Gaussian Radon transform} (\textbf{GRT}) of $f$ is defined similarly
     GR_f(\omega, p) = 
     \int\mclimits_{\langle x, \omega \rangle = p} f(x) e^{-\frac{\|x - p\omega\|^2} 2} ~dx.
 \]
-provided the integral converges. Note the weighting function $e^{-\|x - p\omega\|^2/2}$ is centered on the point of the hyperplane closest to the origin, $p\omega$.
+provided the integral converges. Note the Gaussian function $e^{-\|x - p\omega\|^2/2}$ is centered on the point of the hyperplane closest to the origin.
 \end{definition}
 
 \begin{remark}
@@ -227,10 +227,11 @@ where we used the Pythagorean relation $\|x\|^2 = \|x - p\omega\|^2 + \|p\omega\
 The relation above provides decent intuition for the GRT, and is also a useful tool proving some basic properties of the transform.
 \end{remark}
 
+Now imagine sweeping a hyperplanar "slice" across $\RR^n$. As a function of $p$, the RT $R(\omega, p)$ can be seen as a projection of $f$ onto the linear subspace spanned by $\omega$. It is not surprising that integrating this projection over $-\infty < p < \infty$ we get the same result as the $n$-fold integral of $f$ over $\RR^n$.
 \[
     \int_{-\infty}^\infty R(\omega, p) ~dp = \int_{\RR^n} f(x) ~dx
 \]
-The so called "slice theorem" generalizes further generalizes this observation.
+The so called "slice theorem" further generalizes this observation.
 % In fact, the following "slice theorem" gives a formula for integrating a projection against any weighting function $F(p)$, assuming the integral converges. 
 \begin{theorem}[Slice Theorem]
     If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega \rangle)| dx < \infty$ then
