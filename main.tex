@@ -380,8 +380,7 @@ The function on $\CC$ defined by
 is called the Markov (Hamburger resp.) transform of $\mu$ when $\mu$ has bounded (unbounded resp.) support.
 \end{definition}
 
-Let us consider the domain of definition for $g(z)$. The denominator $1 + zp$ vanishes whenever $z = -\frac1p$. Since $p \in \RR$ it seems that $g(z)$ is at least defined when $\im z \neq 0$. In fact:
-
+Let us consider the domain of definition for $g(z)$. Since $p$ is a real number, the denominator $1 + zp$ can only vanish if $\im z = 0$ In fact:
 \begin{proposition}
 The function $g(z)$ is holomorphic on the upper half plane $\im z > 0$.
 \end{proposition}
@@ -407,7 +406,30 @@ Note that as a compact subset of the upper half plane $\gamma$ must have positiv
 By Morera's theorem $g(z)$ is holomorphic on the upper half plane.
 \end{proof}
 
-The function $g(z)$ is a sort of generating function encoding the moment sequence $(c_k)_{k \in \NN_0}$ of the measure $\mu$. In particular it admits a formal assymptotic expansion $\sum_{n=0}^\infty c_n(-z)^n$, which we will call the Markov (Hamburger resp.) series.
+\begin{remark}
+Similarly one can show $g(z)$ is holomorphic on the lower half plane $\im z < 0$. Moreover $g(z)$ commutes with conjugation:
+\[
+    g(\bar z) = \int_\infty^\infty\frac{d\mu}{1+\bar zp} = \overline{\int_\infty^\infty\frac{d\mu}{1+zp}} = \overline{g(z)}
+\]
+since $\mu$ is a real measure.
+\end{remark}
+
+
+When $z$ is a real number $g(z)$ may not converge. In particular $g(z)$ does not converge when $z = -1/p$ for some $p$ in the support of $\mu$. Thus if $\mu$ has bounded support $g$ converges in a neighborhood of $0$. On the other hand if $\mu$ has unbounded support $g(0)$ is not defined. However — as we will see — even in the Hamburger transform case, a formal series expansion at $z = 0$ holds valuable information.
+
+By a simple geometric series expansion,
+\[
+    \frac1{1 + zp} = \sum_{k = 0}^\infty (-z)^kp^k 
+\]
+when $|zp| < 1$. This suggests the connection between $g(z)$ and the moment sequence $(c_k)_{k \in \NN_0}$. Indeed, at least formally,
+\begin{align*}
+    \int_\infty^\infty\frac{d\mu}{1+zp}
+    &= \int_\infty^\infty \sum_{k = 0}^\infty (-z)^kp^k ~d\mu \\
+    &= \sum_{k = 0}^\infty (-z)^k \int_\infty^\infty p^k ~d\mu \\
+    &= \sum_{k = 0}^\infty c_k(-z)^k.
+\end{align*}
+In the Markov case we have a positive radius of convergence. But even in the Hamburger case, there is a sense in which this assymptotic expansion holds "non-tangentially".
+
 \begin{proposition}
 For all $n \in \NN_0$
 \begin{equation}
@@ -427,7 +449,7 @@ We first note that
 and so
 \begin{align*}
     h_n(z) = \frac1{z^n}\left\{g(z) - \sum_{k=0}^{n} c_k (-z)^k\right\}
-    &= \int_{-\infty}^\infty \frac{zx^{n+1}}{1 + zp}d\mu.
+    &= \int_{-\infty}^\infty \frac{zp^{n+1}}{1 + zp}d\mu.
 \end{align*}
 It remains to determine if and in what sense this trailing term $h_n(z)$ vanishes at the origin. 
 
