@@ -106,7 +106,9 @@ Storrs, CT 06269–1009, USA}
 
 \section{Introduction}
 
-\tc{To be done later.}
+
+
+
 \newpage
 \section{Notation}
 
@@ -114,9 +116,9 @@ First recall the conventional multiindex notation. Let $\NN_0$ denote the nonneg
 \[
     x^\alpha = x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n}.
 \]
-The multinomial formula gives a convenient expansion for multinomial powers. Let $k \in \NN_0$ and $b = b_1 + b_2 + \cdots + b_n$. Then
+The multinomial formula gives a convenient expansion for multinomial powers. Let $k \in \NN_0$. Then
 \[
-    b^k = \sum_{|\alpha| = k} \binom{k}{\alpha} b^\alpha
+    (b_1 + b_2 + \cdots + b_n)^k = \sum_{|\alpha| = k} \binom{k}{\alpha} b^\alpha
 \] 
 where the multinomial coefficients are defined
 \[
@@ -128,7 +130,7 @@ We denote the standard euclidean inner product
 \[
     \langle x,y \rangle = x_1y_1 + x_2y_2 + \cdots x_ny_n
 \]
-where $y = (y_1, y_2, \ldots, y_n) \in \RR^n$. When discussing hyperplanes in $\RR^n$ we index them by a unit normal vector, $\omega \in \RR^n$, and distance from origin $-\infty < p < \infty$, and we write for example $\langle x, \omega \rangle = p$. Note that $\langle x, -\omega \rangle = p$ is the same hyperplane. It is perhaps more correct, in later defining the Radon and Gaussian Radon transforms, to identify these indexes and define the transforms over a projective space. We omit this discussion as it is not relevant within the scope of this work.
+where $y = (y_1, y_2, \ldots, y_n) \in \RR^n$. When discussing hyperplanes in $\RR^n$ we index them by a unit normal vector, $\omega \in \S^{n-1}$, and distance from origin $-\infty < p < \infty$, and we write for example $\langle x, \omega \rangle = p$. Note that $\langle x, -\omega \rangle = p$ is the same hyperplane. It is perhaps more correct, in later defining the Radon and Gaussian Radon transforms, to identify these indexes and define the transforms over a projective space. We omit this discussion as it is not relevant within the scope of this work.
 \begin{figure}
     \begin{tikzpicture}[plane/.style={<->,thick,blue},
         vector/.style={->,red},
@@ -150,7 +152,7 @@ where $y = (y_1, y_2, \ldots, y_n) \in \RR^n$. When discussing hyperplanes in $\
     \end{tikzpicture}
 \end{figure}
 
-Unless otherwise indicated all measures are Euclidean measures, that is the Borel measure assocciated with the standard Euclidean metric on a given space. In particular the Euclidean measure on a hyperplane of $\RR^n$ is equivalent to the Euclidean measure on $\RR^{n-1}$. We chose for convenience to denote measures by their associated variable such as $dx$, $dp$, $dz$, and others. It should be stated that this notation, while uniform, is context dependent; it is a loving abuse of notation. For example in the integrals
+Unless otherwise indicated all measures are Euclidean measures, that is the Borel measure assocciated with the standard Euclidean metric on a given space. In particular the Euclidean measure on a hyperplane of $\RR^n$ is equivalent to the Euclidean measure on $\RR^{n-1}$. We chose for convenience to denote measures by their associated variable such as $dx$, $dp$, $dz$, and others. It should be stated that this notation, while uniform, is context dependent. For example in the integrals
 \[
     \int_{\RR^n}~dx \qquad \text{and} \qquad \int_{\langle x, \omega\rangle = p} ~dx,
 \]
@@ -194,18 +196,20 @@ Let $f$ be a multivariable function on the $n$-dimensional Euclidean space $\RR^
 \]
 which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by unit normal vector, $\omega \in \RR^n$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter for clarity.
 
+The Radon transform (RT) is a thing that I will discuss the history of, with references, in this paragraph.
+
 \begin{definition}
-    Let $f$ be a positive measurable function on $\mathbb{R}^n$. The \textbf{Radon transform} (\textbf{RT}) of $f$ is a function which, given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, is defined as
+    Let $f$ be a nonnegative measurable function on $\mathbb{R}^n$. The \textbf{Radon transform} $R_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is a function which, given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, is defined as
     \[
         R_f(\omega, p) = \int\mclimits_{\langle x, \omega \rangle = p} f(x) ~dx,
     \]
     provided the integral converges.
 \end{definition}
 
-Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform. This transform is very similar to the RT, but the inclusion of a Gaussian weight in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
+Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian weight in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
 
 \begin{definition}
-The \textbf{Gaussian Radon transform} (\textbf{GRT}) of $f$ is defined similarly to the RT. Given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, the GRT is
+The \textbf{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR$ of $f$ is defined similarly to the RT. Given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, the GRT is
 \[
     GR_f(\omega, p) = 
     \int\mclimits_{\langle x, \omega \rangle = p} f(x) e^{-\frac{\|x - p\omega\|^2} 2} ~dx.
@@ -370,7 +374,7 @@ Similarly the GRT slice theorem with $F(p) = (1 + zp)^{-1}$ is
 % One case of interest: Suppose $|f(x)| \leq M$. Then $|GR_f(\omega, p)| \leq M \sqrt{2\pi}$, and the slice theorem holds if $F(p)$ is integrable.
 \newpage
 \section{The Markov and Hamburger Transforms}
-Let $\mu$ be a positive Borel measure with infinite support and finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. 
+Let $\mu$ be a Borel measure with infinite support and finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. 
 
 \begin{definition}
 The function on $\CC$ defined by
@@ -710,7 +714,7 @@ Since the Hankel determinants give a useful form for expressing some conditions 
 \]
 Note in particular that the sufficient condition $Q^{[L/M]}(0) \neq 0$ for the existence of $R^{[L/M]}(z)$ is equivalent to $H(L-M+1, M-1) \neq 0$
 
-We now narrow our focus to Pad\'e approximants to a Humburger series. Let $\mu$ be a positive Borel measure on $\RR$ with infinite support and finite moments $c_k = \int p^k ~d\mu$. Recall that the Hamburger transform of $\mu$,
+We now narrow our focus to Pad\'e approximants to a Humburger series. Let $\mu$ be a Borel measure on $\RR$ with infinite support and finite moments $c_k = \int p^k ~d\mu$. Recall that the Hamburger transform of $\mu$,
 \[
     g(z) := \int_\RR \frac{d\mu}{1+pz}
 \]
