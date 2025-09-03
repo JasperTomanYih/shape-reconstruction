@@ -466,14 +466,21 @@ in which curves approach $0$ with an angle at least $\delta$ from the real line.
 
 While $g(z)$ does not generally converge at $z = 0$, in a non-tangential sense the afformentioned assymptotic expansion holds:
 \begin{proposition}
-For all $n \in \NN_0$
+\begin{enumerate}
+\item If $\mu$ has bounded support
+\[
+    g(z) = \sum_{k = 0}^\infty c_k(-z)^k
+\]
+in a neighboorhood of $z=0$.
+\item For all $n \in \NN_0$
 \begin{equation}
     g(z) = \sum_{k = 0}^{n-1} c_k(-z)^k + z^n h_n(z) \label{assexp}
 \end{equation}
 where $h_n$ is such that $\lim_{z \rightarrow 0} h_n(z) = 0$ non-tangentially.
+\end{enumerate}
 \end{proposition}
 
-
+\begin{proof}
 We first note that 
 \[
     \sum_{k=0}^{n} c_k (-z)^k 
@@ -488,10 +495,9 @@ and so
 \end{align*}
 It remains to determine if and in what sense this trailing term $h_n(z)$ vanishes at the origin. 
 
-In the case when $\mu$ has bounded support, $h_n(z)$ exists in a neighborhood of $0$ and vanishes as $z \rightarrow 0$ in this neighboorhood. Thus the assymptotic expansion \ref{assexp} is the Taylor expansion: The Markov transform is analytic at the origin.
+As expected in the case when $\mu$ has bounded support, $h_n(z)$ exists in a neighborhood of $0$ and vanishes as $z \rightarrow 0$ in this neighboorhood. Thus the assymptotic expansion \ref{assexp} is the Taylor expansion: The Markov transform is analytic at the origin.
 
-When $\mu$ has unbounded support $h_n(z)$ may not be well defined on the real line. We turn to a weaker notion of convergence, namely \textit{non-tangential} limits. For any $0 < \delta < \pi/2$ let $\Gamma_\delta$ be the \textit{wedge} (or \textit{cone}) domain, $\Gamma_\delta = \{\delta < \arg z < \pi - \delta\}$.
-Restricting $z$ to $\Gamma_\delta$ gives us the following inequalities for any $p \in \RR$,
+When $\mu$ has unbounded support and $h_n(z)$ may not be well defined on the real line, so we must weaken our result to non-tangential convergence. If $z \in \Gamma_\delta$ then we have the following inequalities for any $p \in \RR$,
 \[
     |p - z| \geq |p| \sin \delta 
     \quad\text{and} \quad
@@ -506,7 +512,7 @@ from which the corresponding limit for odd orders will immediately follow from t
     h_{2n-1}(z)
     = zh_{2n}(z) + c_{2n}z^{2n}.
 \] 
-For the sake of convenience we define $w = -\frac1z$. Note that $|w| = \frac1{|z|}$ and if $z$ is in the wedge $\Gamma_\delta$ then so is $w$. Now 
+Here for the sake of convenience we define $w = -\frac1z$, following a more classical approach. Note that $|w| = \frac1{|z|}$ and if $z$ is in the wedge $\Gamma_\delta$ then so is $w$. Now 
 \begin{align*}
     |h_{2n}(z)| 
     &\leq \int_{-\infty}^\infty \frac{|p|^{2n+1}}{|p - w|}d\mu \\
@@ -520,8 +526,11 @@ Thus
     \lim_{z \rightarrow 0} |h_{2n}(z)| \leq \frac1{\sin \delta} \int_{|p| \geq A} p^{2n} d\mu, \quad z \in \Gamma_\delta.
 \]
 Since $A$ is arbitrary and the integral $\int p^{2n} d\mu = c_{2n}$ is convergent we are done.
+\end{proof}
 
 Evidently the assymptotic series expansion $g(z) \simeq \sum_{k=0}^\infty c_k (-z)^k$ is generally formal, having zero radius of convergence except in the Markov case. However as we will see in the next section, rational functions constructed from this formal series exist which approximate $g(z)$ on the upper half plane $\{\text{Im} z > 0\}$.
+
+\tc{Convergence results for multivariate Hamburger transforms?}
 
 \section{Pad\'e approximants}
 
