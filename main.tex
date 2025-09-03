@@ -430,31 +430,10 @@ when $|zp| < 1$. This suggests the connection between $g(z)$ and the moment sequ
 \end{align*}
 In the Markov case we have a positive radius of convergence. But even in the Hamburger case, there is a sense in which this assymptotic expansion holds "non-tangentially".
 
-\begin{proposition}
-For all $n \in \NN_0$
-\begin{equation}
-    g(z) = c_0 - c_1z + c_2z^2 - \cdots + c_n(-z)^n + z^n h_n(z) \label{assexp}
-\end{equation}
-where $\lim_{z \rightarrow 0} h_n(z) = 0$ non-tangentially.
-\end{proposition}
-
-
-We first note that 
+Non-tangential convergence at $z = 0$ is, as the name implies, convergence along curves not tangent to the real line at $0$. More precisely, one defines a "wedge domain"
 \[
-    \sum_{k=0}^{n} c_k (-z)^k 
-    = \sum_{k=0}^{n} \int_{-\infty}^\infty (-zp)^k d\mu
-    % = \int_{-\infty}^\infty \sum_{k=0}^{n} (-zx)^k d\mu
-    = \int_{-\infty}^\infty \frac{1 - (-zp)^{n+1}}{1 + zp} d\mu
+    \Gamma_\delta = \{\delta \leq \arg z \leq \pi - \delta\}
 \]
-and so
-\begin{align*}
-    h_n(z) = \frac1{z^n}\left\{g(z) - \sum_{k=0}^{n} c_k (-z)^k\right\}
-    &= \int_{-\infty}^\infty \frac{zp^{n+1}}{1 + zp}d\mu.
-\end{align*}
-It remains to determine if and in what sense this trailing term $h_n(z)$ vanishes at the origin. 
-
-In the case when $\mu$ has bounded support, $h_n(z)$ exists in a neighborhood of $0$ and vanishes as $z \rightarrow 0$ in this neighboorhood. Thus the assymptotic expansion \ref{assexp} is the Taylor expansion: The Markov transform is analytic at the origin.
-
 \begin{figure}
     \begin{tikzpicture}[wedge/.style={blue, fill=blue, fill opacity = 0.3},
         angle/.style={red},
@@ -473,6 +452,43 @@ In the case when $\mu$ has bounded support, $h_n(z)$ exists in a neighborhood of
     \draw[red] (-1,0) arc (180:135:1)node[midway, left]{$\delta$};
     \end{tikzpicture}
 \end{figure}
+in which curves approach $0$ with an angle at least $\delta$ from the real line.
+
+\begin{definition} (Non-Tangential Limit)
+    We say $g(z) \rightarrow z_0$ non-tangentially at $z = 0$ if, for any $\delta > 0$, the limit 
+    \[
+        \lim_{z \rightarrow 0} g(z) = z_0
+    \]
+    holds for $z$ in the $\Gamma_\delta$.
+    % If for any $\delta > 0$ the limit $g(z) \rightarrow L$ holds 
+\end{definition}
+
+
+While $g(z)$ does not generally converge at $z = 0$, in a non-tangential sense the afformentioned assymptotic expansion holds:
+\begin{proposition}
+For all $n \in \NN_0$
+\begin{equation}
+    g(z) = \sum_{k = 0}^{n-1} c_k(-z)^k + z^n h_n(z) \label{assexp}
+\end{equation}
+where $h_n$ is such that $\lim_{z \rightarrow 0} h_n(z) = 0$ non-tangentially.
+\end{proposition}
+
+
+We first note that 
+\[
+    \sum_{k=0}^{n} c_k (-z)^k 
+    = \sum_{k=0}^{n} \int_{-\infty}^\infty (-zp)^k d\mu
+    % = \int_{-\infty}^\infty \sum_{k=0}^{n} (-zx)^k d\mu
+    = \int_{-\infty}^\infty \frac{1 - (-zp)^{n+1}}{1 + zp} d\mu
+\]
+and so
+\begin{align*}
+    h_n(z) = \frac1{z^n}\left\{g(z) - \sum_{k=0}^{n} c_k (-z)^k\right\}
+    &= \int_{-\infty}^\infty \frac{zp^{n+1}}{1 + zp}d\mu.
+\end{align*}
+It remains to determine if and in what sense this trailing term $h_n(z)$ vanishes at the origin. 
+
+In the case when $\mu$ has bounded support, $h_n(z)$ exists in a neighborhood of $0$ and vanishes as $z \rightarrow 0$ in this neighboorhood. Thus the assymptotic expansion \ref{assexp} is the Taylor expansion: The Markov transform is analytic at the origin.
 
 When $\mu$ has unbounded support $h_n(z)$ may not be well defined on the real line. We turn to a weaker notion of convergence, namely \textit{non-tangential} limits. For any $0 < \delta < \pi/2$ let $\Gamma_\delta$ be the \textit{wedge} (or \textit{cone}) domain, $\Gamma_\delta = \{\delta < \arg z < \pi - \delta\}$.
 Restricting $z$ to $\Gamma_\delta$ gives us the following inequalities for any $p \in \RR$,
