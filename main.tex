@@ -237,7 +237,7 @@ Now imagine sweeping a hyperplanar "slice" across $\RR^n$. As a function of $p$,
 \]
 The so called "slice theorem" further generalizes this observation.
 % In fact, the following "slice theorem" gives a formula for integrating a projection against any weighting function $F(p)$, assuming the integral converges. 
-\begin{theorem}[Slice Theorem]
+\begin{proposition}[Slice Theorem]
     If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega \rangle)| dx < \infty$ then
     \begin{align}
         \label{eq:ST}
@@ -245,7 +245,7 @@ The so called "slice theorem" further generalizes this observation.
         % &= \int_{-\infty}^\infty \int_{\langle x, \omega \rangle = p} f(x) F(p) ~d\mu(x) ~dp 
         &= \int_{\mathbb{R}^n} f(x) F(\langle x, \omega \rangle) dx.
     \end{align}
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
 Inserting the definition of the RT, the left side is
@@ -256,7 +256,7 @@ Inserting the definition of the RT, the left side is
 Up to a rigid transformation (under which the Euclidean measures are invariant) this is essentially an itterated integral over $\RR$ and $\RR^{n-1}$. Thus given the integrability requirement, Fubini's theorem applies and the theorem is proved.
 \end{proof}
 
-%  We can specify various conditions for convergence of this integral, say by H\"older's inequality \tc{not very helpful on RHS, $F(\langle x, \omega\rangle)$ is not $L^p(\mathbb{R}^n)$ for $p < \infty$, $n > 1$, but LHS maybe}. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.
+ We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.
 
 If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p) dp < \infty$ then (\ref{eq:ST}) becomes the well known Fourier slice theorem
 \[
@@ -266,13 +266,13 @@ If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p
 which is often articulated as saying that the $1$-D Fourier transform of the Radon transform is the $N$-D Fourier transform of $f$.
 
 By way of the relation (\ref{eq:1}) we can prove an analagous slice theorem for the GRT. 
-\begin{proposition}[Gaussian Slice Theorem] If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) e^{-\|x\|^2/2}dx < \infty$ then
+\begin{theorem}[Gaussian Slice Theorem] If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) e^{-\|x\|^2/2}dx < \infty$ then
 \begin{equation}\label{eq:GST}
     \int_{-\infty}^\infty GR_f(\omega, p)F(p) e^{-\frac{p^2} 2} ~dp
     = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) e^{-\frac{\|x\|^2} 2} ~dx. 
 \end{equation}
 % \tc{Whatever conditions are sufficient for (\ref{eq:2}) are then sufficient conditions to be checked for $g(x) = f(x)e^{-\|x\|^2}$ and $G(p) = F(p)e^{p^2}$.}
-\end{proposition}
+\end{theorem}
 \begin{proof}
 From (\ref{eq:1})
 \[
