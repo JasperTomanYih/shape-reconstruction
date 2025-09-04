@@ -106,6 +106,30 @@ Storrs, CT 06269–1009, USA}
 
 \section{Introduction}
 
+% An outline of my "research" is as follows
+% \begin{enumerate}
+% \item Krawtchouk polynomials
+% \item The Radon Transform and Gaussian Radon Transform
+% \item Discrete Radon Transforms
+% \item Shape reconstruction
+% \end{enumerate}
+
+% The shape reconstruction method (ref cuyt) is summarized as follows
+% \begin{enumerate}
+% \item Suppose a certain number of multivariate moments are given for an unknown shape $A$ of bounded support.
+% \item From the moments one constructs Cuyt's multivariate pade approximants to multivairate Markov transform of $A$.
+% \item The multivariate Markov transform is simultaneously approximated by a cubature formula with nodes on a cubic or near cubic latice.
+% \item By equating these two approximants — and tuning their order appropriately — we form a linear system which can, in theory, be solved to approximate $A$ at each latice node. After quantization we have a pixel image approximating $A$
+% \end{enumerate}
+% Since a key property of Cuyt's multivariate Pade approximants was their equivalence to univariate approximants to the radon transform when restricted to one dimensional subspaces, we chose to bypass the multivariate approximants. We agknowledged the possibility that some computational efficiency is gained by computing a single multivariate approximant over many univariate ones.
+
+% Here's a slightly more verbose outline of the method:
+
+% Let $A$ be a bounded subset of $\RR^n$, and $f(x)$ its indicator function. Since $A$ is bounded, $f$ has finite moments 
+% \[
+%     c_\alpha = \int_{\RR^n} f(x) x^\alpha ~dx < \infty, \qquad \alpha \in \NN_0^n
+% \]
+% Now suppose we are given the moment sequence $c_\alpha$. The goal is to reconstruct $f$ — and thus $A$. Our strategy is to pass through a generating function: The moment sequence can be seen as series coefficients for a certain holomorphic function $g(z)$, called the Markov transform of $f$. 
 
 
 
@@ -194,7 +218,7 @@ Let $f$ be a multivariable function on the $n$-dimensional Euclidean space $\RR^
 \[
     R_f(\Lambda) = \int_{\Lambda} f(x) ~dx,
 \]
-which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by unit normal vector, $\omega \in \RR^n$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter for clarity.
+which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by normal vector, $\omega \in S^{n-1}$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter for clarity.
 
 The Radon transform (RT) is a thing that I will discuss the history of, with references, in this paragraph.
 
@@ -209,7 +233,7 @@ The Radon transform (RT) is a thing that I will discuss the history of, with ref
 Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian weight in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
 
 \begin{definition}
-The \textbf{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR$ of $f$ is defined similarly to the RT. Given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, the GRT is
+The \textbf{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR$ of $f$ is defined similarly to the RT. Given $\omega \in S^{n-1}$ and $-\infty < p < \infty$, the GRT is
 \[
     GR_f(\omega, p) = 
     \int\mclimits_{\langle x, \omega \rangle = p} f(x) e^{-\frac{\|x - p\omega\|^2} 2} ~dx.
