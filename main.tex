@@ -9,8 +9,7 @@
 \usepackage{tikz-cd}
 
 \usepackage{tikz-3dplot}
-
-
+\usepackage{amsrefs}
 \usepackage{pgfplots}
 
 \pgfplotsset{%
@@ -106,6 +105,7 @@ Storrs, CT 06269–1009, USA}
 
 \section{Introduction}
 
+as~\cite{fasc-paper}asd
 % An outline of my "research" is as follows
 % \begin{enumerate}
 % \item Krawtchouk polynomials
@@ -131,11 +131,12 @@ Storrs, CT 06269–1009, USA}
 % \]
 % Now suppose we are given the moment sequence $c_\alpha$. The goal is to reconstruct $f$ — and thus $A$. Our strategy is to pass through a generating function: The moment sequence can be seen as series coefficients for a certain holomorphic function $g(z)$, called the Markov transform of $f$. 
 
-
+\cite{fasc-paper}
 
 \newpage
 \section{Notation}
 
+\cite{Soka196}
 First recall the conventional multiindex notation. Let $\NN_0$ denote the nonnegative integers. A multiindex $\alpha = (\alpha_1, \alpha_2, \ldots, \alpha_n) \in \NN_0^n$ is an $n$-tuple of nonnegative integers. The degree of a multiindex is $|\alpha| = \alpha_1 + \alpha_2 + \cdots + \alpha_n$. Multivariate exponentiation is defined as follows. For $x = (x_1, x_2, \ldots, x_n) \in \RR^n$,
 \[
     x^\alpha = x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n}.
@@ -233,7 +234,7 @@ The Radon transform (RT) is a thing that I will discuss the history of, with ref
 Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian weight in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
 
 \begin{definition}
-The \textbf{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR$ of $f$ is defined similarly to the RT. Given $\omega \in S^{n-1}$ and $-\infty < p < \infty$, the GRT is
+The \textbf{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is defined similarly to the RT. Given $\omega \in S^{n-1}$ and $-\infty < p < \infty$, the GRT is
 \[
     GR_f(\omega, p) = 
     \int\mclimits_{\langle x, \omega \rangle = p} f(x) e^{-\frac{\|x - p\omega\|^2} 2} ~dx.
@@ -1042,4 +1043,6 @@ For a simple example let $n = 2$ and let $f(x)$ be the charactaristic function o
 Unit ball in $\RR^3$? Annulus in $\RR^2$? Some assymmetric or off-center examples?
 
 
+
+\bibliography{references}
 \end{document}
