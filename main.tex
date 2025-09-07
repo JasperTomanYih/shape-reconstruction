@@ -362,8 +362,9 @@ Inserting the definition of the RT, the left side is
 \]
 Up to a rigid transformation (under which the Euclidean measures are invariant) this is essentially an itterated integral over $\RR$ and $\RR^{n-1}$. Thus given the integrability requirement, Fubini's theorem applies and the theorem is proved.
 \end{proof}
-
- We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.
+\begin{remark}
+We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.  
+\end{remark}
 
 If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p) dp < \infty$ then (\ref{eq:ST}) becomes the well known Fourier slice theorem
 \[
@@ -378,7 +379,9 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analagous slice theo
     \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp
     = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) w_n(x) ~dx. 
 \end{equation}
-Whatever conditions are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked for $g(x) = f(x)w_n(p)$ and $G(p) = F(p)w(p)$.
+\begin{remark}
+Whatever conditions are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked for $f(x)w_n(x)$ and $F(p)w(p)$. For example it is sufficient that $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty$. Note in particular that this applies bounded functions of potentially unbounded support, and to all polynomials $f \in \RR[x]$.
+\end{remark}
 \end{theorem}
 \begin{proof}
 From (\ref{eq:GRTPythag})
@@ -460,19 +463,6 @@ Thus
 %     =: \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha c_\alpha^G
 % \end{align*}
 \end{proof}
-
-Finally we prove two formulas regarding the Hamburger transform of a projection, defined more preceisely in the next section. For now we note that the transform is closely related to the projection moments and has the integral representation
-\[
-    g(z) = \int_\infty^\infty \frac{R(\omega, p)}{1 + zp} dp
-\]
-By applying the slice theorem, with $F(p) = (1+zp)^{-1}$ we see that the Hamburger transform of a projection can be represented by a similar multivariable integral of $f$ over $\RR^n$.
-\[
-    \int_{-\infty}^\infty \frac{R_f(\omega, p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)}{1 + z\langle x, \omega \rangle} dx
-\]
-Similarly the GRT slice theorem with $F(p) = (1 + zp)^{-1}$ is
-\[
-    \int_{-\infty}^\infty \frac{GR_f(\omega, p) w(p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)w_n(x)}{1 + z\langle x, \omega \rangle} dx.
-\]
 
 % \tc{Is this really the assumption we want? Check more carefully.}
 % For our purposes it will suffice to assume that $f(x) e^{-\|x\|^2/2}$ is bounded and $\int_{-\infty}^\infty |F(p)e^{p^2/2}| dp < \infty$.
@@ -641,7 +631,21 @@ Since $A$ is arbitrary and the integral $\int p^{2n} d\mu = c_{2n}$ is convergen
 
 Evidently the assymptotic series expansion $g(z) \simeq \sum_{k=0}^\infty c_k (-z)^k$ is generally formal, having zero radius of convergence except in the Markov case. However as we will see in the next section, rational functions constructed from this formal series exist which approximate $g(z)$ on the upper half plane $\{\text{Im} z > 0\}$.
 
-\tc{Convergence results for multivariate Hamburger transforms?}
+Finally we prove two formulas regarding the Hamburger transform of a RT projection. Let $\omega \in S^{n-1}$ be fixed and consider.
+\[
+    g(z) = \int_\infty^\infty \frac{R(\omega, p)}{1 + zp} dp
+\]
+By applying the slice theorem, with $F(p) = (1+zp)^{-1}$ we see that the Hamburger transform of a projection can be represented by a similar multivariable integral of $f$ over $\RR^n$.
+\[
+    \int_{-\infty}^\infty \frac{R_f(\omega, p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)}{1 + z\langle x, \omega \rangle} dx
+\]
+Similarly the GRT slice theorem with $F(p) = (1 + zp)^{-1}$ is
+\[
+    \int_{-\infty}^\infty \frac{GR_f(\omega, p) w(p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)w_n(x)}{1 + z\langle x, \omega \rangle} dx.
+\]
+
+
+
 
 \section{Pad\'e approximants}
 
