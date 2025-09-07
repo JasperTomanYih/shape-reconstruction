@@ -214,32 +214,80 @@ In particular let us discuss multivariate moment problems. Let $f(x)$ be a measu
 \[
     c_\alpha = \int_{\RR^n} f(x)x^\alpha ~ dx.
 \]
-The moment sequence $(c_\alpha)_{\alpha \in \NN_0^n}$ is now multiindexed. No precise general conditions are known for the solvability or determinacy of multivariate moment problems. However some sufficient conditions have been discovered by leveraging classical moment problem theory. 
+The moment sequence $(c_\alpha)_{\alpha \in \NN_0^n}$ is now multiindexed. No precise general conditions are known for the solvability or determinacy of multivariate moment problems. However some sufficient conditions have been discovered by leveraging classical moment problem theory. \cite{Pete82}
+
 
 \newpage
 \section{Gaussian Functions and Gaussian Measures}
+Let $w(p) : \RR \rightarrow \RR$  be the standard Gaussian density on $\RR$,
+\[
+    w(p) = \frac1{\sqrt{2\pi}}e^{\frac{-p^2}2}
+\]
+and $w_n(x) : \RR^n \rightarrow \RR$ the standard Gaussian density on $\RR^n$,
+\[
+    w_n(x) = (2\pi)^{-\frac n2} e^{\frac{-\|x\|^2}2}.
+\]
+Note that $w = w_1$.
+
+A relationship between the univariate and multivariate Gaussian densities can be seen as follows: Let $x, y \in \RR^n$, $n \geq 2$. Suppose $y = p\omega$ where $\omega \in S^1$ and $p \in \RR$, so that $p\omega$ is the orthogonal projection of $x$ onto the span of $y$. Then the Pythagorean relation,
+\[
+    \|x\|^2 = \|x - p\omega\|^2 + \|p\omega\|^2 = \|x - p\omega\|^2 + p^2
+\]
+implies that
+\begin{align*}
+    w_n(x) 
+    &= (2\pi)^{-\frac n2} e^{\frac{-\|x\|^2}2} \\
+    &= (2\pi)^{-\frac{n-1}2} e^{\frac{-\|x - p\omega\|^2}2} (2\pi)^{-\frac12} e^{\frac{-p^2}2} \\
+    &= w_{n-1}(x - p\omega)w(p)
+\end{align*}
+The equation
+\begin{equation}\label{eq:gaussPythag}
+    w_n(x) = w_{n-1}(x - p\omega)w(p)
+\end{equation}
+is in some respect the defining property of the Gaussian measure defined below. Indeed if $x = (x_1, x_2, \ldots, x_n)$, by repeated application of (\ref{eq:gaussPythag}) one can write the decomposition
+\[
+    w_n(x) = \prod_{k = 1}^n w(x_k).
+\]
+Thus the $w_n(x)$ is the product of $n$ copies of $w$. The standard Gaussian measure $\gamma^n$ is thus a measure whose cardinal projections are standard Gaussian measures.
 
 \begin{definition}
-Let $\gamma^n$ be a Borel measure on $\RR^n$ such that
+Let $\gamma^n$ be a the Borel measure on $\RR^n$ with density $w_n$,
 \[
-    \int_{\RR^n} f(x) d\gamma^n = C^n \int_{\RR^n} f(x) e^{-\frac{\|x\|^2}2} ~dx, \quad C = \frac1{\sqrt{2\pi}}.
+    \int_{\RR^n} f(x) d\gamma^n = \int_{\RR^n} f(x) w_n(x) ~dx.
 \]
-We call $\gamma^n$ the standard Gaussian measure. More generally, 
+We call $\gamma^n$ the standard Gaussian measure. More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following $\gamma^{n}_{a, \sigma^2}$ are Gaussian measures,
 \begin{align*}
     \int_{\RR^n} f(x) d\gamma^n_{a,\sigma^2}
-    &= C_\sphericalangle^n \int_{\RR^n} f(x) e^{-\frac{\|x - a\|^2}{2\sigma^2}} ~dx, \quad C_\sigma 
-    = \frac1{\sigma\sqrt{2\pi}} \\
+    &= \frac{(2\pi)^{-\frac n2}}{\sigma}  \int_{\RR^n} f(x) e^{-\frac{\|x - a\|^2}{2\sigma^2}} ~dx \\
     &= \int_{\RR^n} f(\sigma x + a) d\gamma^n
 \end{align*}
-are Gaussian measures.
+(Most general defn of Gaussian measures includes degenerate $\delta$ functions, and any product of Gaussian measures).
 \end{definition}
 
-\[
-    GR_f(\omega, p) = \int_{\langle x, \omega \rangle = p} f(x) d\gamma^{n-1}
-\]
-\[
-    \int_{-\infty}^\infty GR_f(\omega, p) d\gamma = \int_{\RR^n} f(x) d\gamma^n
-\]
+
+
+% In this sense the GRT is defined
+% \[
+%     GR_f(\omega, p) = \int_{\langle x, \omega \rangle = p} f(x) d\gamma^{n-1}
+% \]
+% or equivalently
+% \[
+%     GR_f(\omega, p) \frac{d\gamma}{dp} = R_g(\omega, p), \quad g(x) := g(x) \frac{d\gamma^n}{dx}
+% \]
+% and the GRT slice theorem takes the form
+% \[
+%     \int_{-\infty}^\infty GR_f(\omega, p) d\gamma = \int_{\RR^n} f(x) d\gamma^n
+% \]
+
+
+% \begin{align*}
+%     GR_f(\omega, p) = \int_{\langle x, \omega \rangle = p} x^\alpha d\gamma^{n-1}
+% \end{align*}
+ 
+% \begin{align*}
+    
+% \end{align*}
+
 \newpage
 \section{Basics of the Radon and Gaussian Radon transforms}
 
@@ -259,27 +307,33 @@ The Radon transform \cite{Helg65} (RT) is a thing that I will discuss the histor
     provided the integral converges.
 \end{definition}
 
-Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian weight in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces \cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
+Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian density $w_{n-1}(x)$ in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces \cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
+
+% Recall $w_{n-1}(x) = (2\pi)^{-n/2}\exp(-\|x\|^2/2)$
 
 \begin{definition}
 The \textbf{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is defined similarly to the RT. Given $\omega \in S^{n-1}$ and $-\infty < p < \infty$, the GRT is
 \[
     GR_f(\omega, p) = 
-    \int\mclimits_{\langle x, \omega \rangle = p} f(x) e^{-\frac{\|x - p\omega\|^2} 2} ~dx.
+    \int\mclimits_{\langle x, \omega \rangle = p} f(x) w_{n-1}(x - p\omega) ~dx.
 \]
-provided the integral converges. Note the Gaussian function $e^{-\|x - p\omega\|^2/2}$ is centered on the point of the hyperplane closest to the origin.
+provided the integral converges. Note the Gaussian density 
+\[
+    w_{n-1}(x - p\omega) = (2\pi)^{-(n-1)/2}e^{-\|x - p\omega\|^2/2}
+\] 
+is centered on the point of the hyperplane closest to the origin.
 \end{definition}
 
 \begin{remark}
-It may be helpful to understand the GRT as a simple modification of the RT with respect to a Gaussian measure on $\RR^n$. Let $g(x) := f(x)e^{-\|x\|^2/2}$. The RT of $g$ can be rewritten
+It may be helpful to understand the GRT as a simple modification of the RT with respect to a Gaussian measure on $\RR^n$. Let $g(x) := f(x)w_n(x)$. The RT of $g$ can be rewritten
 \begin{align*}
-    \int\mclimits_{\langle x, \omega \rangle = p} f(x) e^{-\frac{\|x\|^2} 2} ~dx
-    &= \int\mclimits_{\langle x, \omega \rangle = p} f(x) e^{-\frac{\|x - p\omega\|^2} 2} ~dx~ e^{-\frac{\|p\omega\|^2} 2},
+    \int\mclimits_{\langle x, \omega \rangle = p} f(x) w_n(x) ~dx
+    &= \int\mclimits_{\langle x, \omega \rangle = p} f(x) w_{n-1}(x) ~dx~ w(p),
 \end{align*}
 where we used the Pythagorean relation $\|x\|^2 = \|x - p\omega\|^2 + \|p\omega\|^2$. Since $\omega$ is a unit vector, $\|p\omega\|^2 = p^2$. In short, we have proved the formula
 \begin{equation}
-    \label{eq:1}
-    R_g(\omega, p) = GR_f(\omega, p)e^{-\frac{p^2} 2}, \qquad g(x) := f(x)e^{-\frac{\|x\|^2} 2}.
+    \label{eq:GRTPythag}
+    R_g(\omega, p) = GR_f(\omega, p) w(p), \qquad g(x) := f(x)w_n(x).
 \end{equation}
 The relation above provides decent intuition for the GRT, and is also a useful tool proving some basic properties of the transform.
 \end{remark}
@@ -318,24 +372,24 @@ If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p
 \]
 which is often articulated as saying that the $1$-D Fourier transform of the Radon transform is the $N$-D Fourier transform of $f$.
 
-By way of the relation (\ref{eq:1}) we can prove an analagous slice theorem for the GRT. 
-\begin{theorem}[Gaussian Slice Theorem] If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) e^{-\|x\|^2/2}dx < \infty$ then
+By way of the relation (\ref{eq:GRTPythag}) we can prove an analagous slice theorem for the GRT. 
+\begin{theorem}[Gaussian Slice Theorem] If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) w_n(x)| dx < \infty$ then
 \begin{equation}\label{eq:GST}
-    \int_{-\infty}^\infty GR_f(\omega, p)F(p) e^{-\frac{p^2} 2} ~dp
-    = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) e^{-\frac{\|x\|^2} 2} ~dx. 
+    \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp
+    = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) w_n(x) ~dx. 
 \end{equation}
-% \tc{Whatever conditions are sufficient for (\ref{eq:2}) are then sufficient conditions to be checked for $g(x) = f(x)e^{-\|x\|^2}$ and $G(p) = F(p)e^{p^2}$.}
+Whatever conditions are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked for $g(x) = f(x)w_n(p)$ and $G(p) = F(p)w(p)$.
 \end{theorem}
 \begin{proof}
-From (\ref{eq:1})
+From (\ref{eq:GRTPythag})
 \[
-    \int_{-\infty}^\infty GR_f(\omega, p)F(p) e^{-\frac{p^2} 2} ~dp 
+    \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp 
     = \int_{-\infty}^\infty R_g(\omega, p) F(p) ~dp
 \]
 where $g(x) = f(x)e^{-\|x\|^2/2}$. Then applying the slice theorem:
 \[
     \int_{-\infty}^\infty R_g(\omega, p) F(p) ~dp 
-    = \int_{\RR^n} f(x)F(\langle x, \omega \rangle) e^{-\frac{\|x\|^2} 2} ~dx,
+    = \int_{\RR^n} f(x)F(\langle x, \omega \rangle) w_n(x) ~dx,
 \]
 completing the proof.
 \end{proof}
@@ -378,7 +432,7 @@ where the integrands are precisely the $k$th degree multivariate moments of $f$.
 % \end{align*}
 Similarly, moments of the GRT (Gaussian projection moments) can be expressed in terms of multivariate gaussian moments.
 \begin{proposition}
-Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k e^{-p^2/2} dp$ be the Gaussian weighted moments of the GRT of $f$ at a fixed $\omega$. Let $c^G_\alpha = \int_{\RR^n} f(x) e^{-\|x\|^2/2} x^\alpha dx$ be the Gaussian weighted multivariate moments of $f$. Then
+Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) dp$ be the Gaussian weighted moments of the GRT of $f$ at a fixed $\omega$. Let $c^G_\alpha = \int_{\RR^n} f(x) w_n(x) x^\alpha dx$ be the Gaussian weighted multivariate moments of $f$. Then
 \[
     c^G_k(\omega) = \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c^G_\alpha.
 \]
@@ -387,13 +441,13 @@ Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k e^{-p^2/2} dp$ be
 \begin{proof}
 The proof follows as it did for the RT. This time we apply the GRT slice theorem (\ref{eq:GST}) with $F(p) = p^k$, 
 \begin{align*}
-    \int_{-\infty}^\infty GR_f(\omega, p) p^k e^{-\frac{p^2}2} ~dp
-    &= \int_{\RR^n} f(x) \langle x, \omega \rangle^k e^{-\frac{\|x\|^2}2} ~dx
+    \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) ~dp
+    &= \int_{\RR^n} f(x) \langle x, \omega \rangle^k w_n(x) ~dx
 \end{align*}
-Again we use the multinomial expansion and rearange:
+Again we use the multinomial expansion of $\langle x, \omega\rangle^n$ and rearange:
 \[
-    \int_{\RR^n} f(x) \langle x, \omega \rangle^k e^{-\frac{\|x\|^2}2} ~dx
-    = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha \int_{\RR^n} f(x) e^{-\frac{\|x\|^2}2}x^\alpha dx. 
+    \int_{\RR^n} f(x) \langle x, \omega \rangle^k w_n(x) ~dx
+    = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha \int_{\RR^n} f(x) w_n(x)x^\alpha dx. 
 \]
 Thus
 \[
@@ -417,7 +471,7 @@ By applying the slice theorem, with $F(p) = (1+zp)^{-1}$ we see that the Hamburg
 \]
 Similarly the GRT slice theorem with $F(p) = (1 + zp)^{-1}$ is
 \[
-    \int_{-\infty}^\infty \frac{GR_f(\omega, p) e^{-p^2/2}}{1 + zp} dp = \int_{\RR^n} \frac{f(x)e^{-\|x\|^2/2}}{1 + z\langle x, \omega \rangle} dx.
+    \int_{-\infty}^\infty \frac{GR_f(\omega, p) w(p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)w_n(x)}{1 + z\langle x, \omega \rangle} dx.
 \]
 
 % \tc{Is this really the assumption we want? Check more carefully.}
