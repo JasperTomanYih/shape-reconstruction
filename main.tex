@@ -426,6 +426,7 @@ Inserting the definition of the RT, the left side is
 \]
 Up to a rigid transformation (under which the Euclidean measures are invariant) this is essentially an itterated integral over $\RR$ and $\RR^{n-1}$. Thus given the integrability requirement, Fubini's theorem applies and the theorem is proved.
 \end{proof}
+
 \begin{remark}
 We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.  
 \end{remark}
@@ -436,6 +437,8 @@ If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p
     = \int_{\mathbb{R}^n} f(x) e^{-i\langle x, \omega\rangle} ~dx,
 \]
 which is often articulated as saying that the $1$-D Fourier transform of the Radon transform is the $N$-D Fourier transform of $f$.
+
+An early and natural question in the study of the RT is that of inversion. Radon himself derived the "Radon inversion formula," \cite{Rado17} \cite{Rado86} which is often proved via the above Fourier slice theorem. The groundbreaking inversion formula is the basis for what, in application, called "filtered backpropogation." 
 
 By way of the relation (\ref{eq:GRTPythag}) we can prove an analagous slice theorem for the GRT. 
 \begin{theorem}[Gaussian Slice Theorem] If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) w_n(x)| dx < \infty$ then
