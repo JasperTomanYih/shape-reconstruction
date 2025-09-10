@@ -361,7 +361,7 @@ Let $f$ be a multivariable function on the $n$-dimensional Euclidean space $\RR^
 \]
 which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by normal vector, $\omega \in S^{n-1}$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter for clarity.
 
-The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the history of, with references, in this paragraph.
+The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the history of, with references, in this paragraph. The transform gets its name from Johann Radon, whose first defined the tranform in the form below in 1917, although a similar transform was introduced by Paul Funk in 1911~\cite{????}. It is interesting to note that the primary application of the RT in medical imaging (CT scans) was not invented for another half century.
 
 \begin{definition}
     Let $f$ be a nonnegative measurable function on $\mathbb{R}^n$. The \textbf{Radon transform} $R_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is a function which, given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, is defined as
@@ -436,9 +436,11 @@ If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p
     \int_{-\infty}^\infty R_f(\omega, p) e^{-ip} ~dp
     = \int_{\mathbb{R}^n} f(x) e^{-i\langle x, \omega\rangle} ~dx,
 \]
-which is often articulated as saying that the $1$-D Fourier transform of the Radon transform is the $N$-D Fourier transform of $f$.
+which is often articulated as saying that the $1$-dimensional Fourier transform of the Radon transform is the $n$-dimenstional Fourier transform of $f$.
 
-An early and natural question in the study of the RT is that of inversion. Radon himself derived the ``Radon inversion formula'',~\cite{Rado17}~\cite{Rado86} which is often proved via the above Fourier slice theorem. The groundbreaking inversion formula is the basis for what, in application, called ``filtered backpropogation''. 
+An early and natural question in the study of the RT is that of inversion. Radon himself derived the ``Radon inversion formula''~\cite{Rado17}~\cite{Rado86}, which is often proved via the above Fourier slice theorem. The groundbreaking inversion formula is the basis for what, in application, called ``filtered backpropogation''.
+
+If one is interested in inverting the RT then a prerequisite consern is of course: Is the transform injective? The answer clearly depends on what space we draw the function $f$ from. Radon~\cite{Rado17}~\cite{Rado86} provides a set of sufficient regularity conditions such that the RT is invertible. Other similar results followed \cite{????}. On the other hand counterexamples have been constructed by, for example, Lawrence Zalcman~\cite{Zalc82}, of continuous and nontrivial functions for which the RT is identically zero.
 
 By way of the relation (\ref{eq:GRTPythag}) we can prove an analagous slice theorem for the GRT.\@
 \begin{theorem}[Gaussian Slice Theorem] If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) w_n(x)| dx < \infty$ then
@@ -1185,7 +1187,6 @@ from which we should be able to recover the value of $f$ on our cubature nodes $
 
 \section{An example}
 
-For a simple example let $n = 2$ and let $f(x)$ be the charactaristic function of an infinite ``strip'' of unit width centered on the origin and perpendicular to $\varphi \in S^1$:
 \[
     f(x) =
     \begin{cases}
