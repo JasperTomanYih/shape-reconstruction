@@ -163,8 +163,6 @@ From a theoretical standpoint, proving the validity of the proposed method prese
 \]
 one can start to see a problem: If $f(x)$ has unbounded support $g(y)$ has the potential to not converge for any $y \in \RR^n$. In particular $g(y)$ may not exist in a neighborhood of $0$, meaning our series expansion and thus the explicit conection to moments, may be broken. We need now to consider $g$ as a function on some non-real domain. Here, as it turns out, Pade approximants can be computed from moments which approximate $g$ on, for example, a half space. The convergence of these approximants is tied to the question determinacy of the moment problem, which as mentioned above is not difficult to resolve. Thus we simply take sample points avoiding the problematic real space and — at least in theory — the method is validated.
 
-There remain some minor practical conserns about, for example, the choice of quadrature formula and sample points. An obvious choice would be to continue with the Gauss-Legendre product formula, now applied on a Gaussian-weighted $f$. Some consideration should be taken as to the viability of other Gaussian quadrature formulas defined particulary for the Gaussian measure. 
-
 
 % But if $x$ ranges over $\RR^n$
 % \begin{align*}
@@ -391,6 +389,10 @@ provided the integral converges. Note the Gaussian density
 \] 
 is centered on the point of the hyperplane closest to the origin.
 \end{definition}
+
+\begin{figure}[h]
+\includegraphics[width=0.7\textwidth]{geogebra-export.png}
+\end{figure}
 
 \begin{remark}
 It may be helpful to understand the GRT as a simple modification of the RT with respect to a Gaussian measure on $\RR^n$. Let $g(x) := f(x)w_n(x)$. The RT of $g$ can be rewritten
@@ -1211,6 +1213,8 @@ The truncated SVD matrix $\tilde{A} = U \tilde{\Sigma} V^\top$ is optimal in the
 The SVD and truncated SVD are used to solve the linear least squares problem as follows: From $U\Sigma V^\top f = p$ we get $f=V \Sigma^{-1} U^\top p$, and similarly $f = \tilde{V} \tilde{\Sigma}^{-1} U^\top p$. Note that the psuedoinverse $\tilde\Sigma^{-1}$ is a diagonal matrix made up of the reciprocal singular values.
 
 Mathematica offers a few built in functions for this. LeastSquares packages a number of methods to solve a linear least squares based on the sparsity of the System (our system is dense). SingularValueDecomposition can be restricted to a certain number of singular values. PsuedoInverse can specify a ``tolerance'' zeroing out singular values less than some proportion of  the maximum singular value. While LeastSquares is the simplest option, it does not seem to support truncated solutions. Between SingularValueDecomposition and PsuedoInverse, both can handle truncated problems, but the latter seems — at least superficially — better suited for out application.
+
+On Gaussian shape reconstruction. There remain some minor practical concerns about, for example, the choice of quadrature formula and sample points. An obvious choice would be to continue with the Gauss-Legendre product formula, now applied on a Gaussian-weighted $f$. Some consideration should be taken as to the viability of other Gaussian quadrature formulas defined particulary for the Gaussian measure. 
 
 Now, a fundamental limitation with the proposed method which we have neglected to mention is the practical one: As a computational method we are necessarily restriced to the finite — finite moments, finite order approximations, and most problamatic, bounded domains. In what application would one even be interested in unbounded shape reconstruction, while also having access of Gaussian moments? It would be reasonable to question the use of a computational method in an unbounded context. As with any finite approximation, the unboundedness should be thought of as an idealized limit; perhaps an unbounded approximation is a limit of bounded approximations. But then, the original method applies just as well if all we wanted was a sequence of reconstructions expanding in range. We can only speculate at this point that perhaps this method, being taylored specifically for unbounded reconstruction, could hold some practical advantages over its predecessor; or be satisfied with impracticality.
 
