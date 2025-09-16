@@ -113,7 +113,7 @@ Here is a sort of to-do list for whatever this document is:
 \begin{itemize}
 \item \sout{Intro. Place discussion of Mathematica implementation into its own section.}
 \item Intro. Discuss in the role of the Radon transform in proofs supporting the method, as well as its extension to the Gaussian transform.
-\item RT/GRT.\@ Notation for Gaussian measure on hyperplanes is not good. The symbols $w$ and $\omega$ are too similar. Also is it $w_{n-1}(x - p\omega) = \exp(-\|x - p\omega\|_{\RR^{n-1}}^2)$ or $w_{n-1}(x - p\omega) = \exp(-\|x - p\omega\|_{\RR^n}^2)$? Equivalent? Notation is confusing.
+\item RT/GRT.\@ Work on notation for Gaussian measure. In particular $w$ and $\omega$ are too similar. Also the Euclidean norm is inconsistent when going from $\RR^n$ to $\RR^{n-1}$. We think the notation is understandble, but it might be more precise to disambiguate norms in different dimensions? Possible that they can all be dexribed in terms of a seminorm on some space in which each $\RR^n$ is embedded? 
 \item RT/GRT.\@ Search for references on G slice theorem and G projection moments etc\ldots If none, congrats.
 \item RT/GTT.\@ Expand background, historical context, etc\ldots
 \item RT/GRT.\@ Swap sufficient working condition with Fubini condition in slice theorems.
@@ -137,14 +137,11 @@ Here is a sort of to-do list for whatever this document is:
 
 The shape reconstruction method: In a 2005 paper, Annie Cuyt et. al. \cite{Cuyt05} proposed a method for shape reconstruction from moments, via Pade approximants to a multidimensional integral transform. Given a set of multivariate moments of some region $A$ in $\RR^n$, the method produces a pixel image approximating $A$. 
 
-Suppose $A \subset \RR^n$ is suitably well behaved subset of $\RR^n$. In particular we assume $A$ is bounded and thus has finite moments. The moment sequence gives Taylor coefficients for a certain holomorphic function with integral representation
-% \[
-%     g(z) = \int_{\RR^n} \frac{f(x)}{1 + z\langle x, \omega \rangle} ~dx
-% \]
+Suppose $A \subset \RR^n$ is suitably well behaved subset of $\RR^n$, and let $f(x)$ be its indicator function. In particular we may assume $f$ is measurable, has bounded support, and finite moments. The moment sequence gives Taylor coefficients for a certain holomorphic function with integral representation
 \begin{align*}
     g(y) = \int_{\RR^n} \frac{f(x)}{1 + \langle x, y\rangle} ~dx = \sum_{\alpha \in \NN_0^n} \binom{|\alpha|}{\alpha} c_\alpha {(-y)}^\alpha.
 \end{align*}
-If $f$ has bounded support then $g$ converges in some neighborhood of zero. Otherwise it may not (still haven't resolved how to complexify the domain/what exactly the pade approximants converge to). Pad\`e approximants (more accurate than truncated series?) thus converge to $g$.
+Thus the function $g(y)$ may be approximated to a certain degree of accuracy depending on the number of available moments.
 
 At the same time $g$ can, in theory, be approximated by a multivarirate quadrature formula
 \[
@@ -152,13 +149,25 @@ At the same time $g$ can, in theory, be approximated by a multivarirate quadratu
     = \sum_{i} \frac1{1+\langle x_i, y\rangle} f(x_i)
     = \sum_{i} w(x_i, y) f(x_i)
 \]
-Where the nodes $x_i$ lie, for example, on a cubic lattice. We can then sample a Pade approximant to $g$ at some sufficinetly large group of points $y = y_j$ (unclear what sample points are appropriate) forming a linear system of equations, from which we — at least in theory — solve for $f(x_i)$. If all goes well we have approximations of $f(x_i)$ on a node lattice, which can be turned into a pixel image of $A$.
+Where the nodes $x_i$ lie, for example, on a cubic lattice. We can then sample a Pade approximant to $g$ at some sufficinetly large group of points $y = y_j$ forming a linear system of equations, from which we — again, at least in theory — solve for $f(x_i)$. If all goes well we have approximations of $f(x_i)$ on a node lattice, which can be turned into a pixel image of $A$.
 
-Now let us briefly discuss our proposed modification to the shape reconstruction moments, the theoretical complications and computational considerations. Essentially what we are proposing is to recreate the method with a Gaussian measure applied, thus allowing for convergence on a larger class of regions $A$. In particular, the proposed method would apply to unbounded regions. 
+For now we will gloss over the numerical discussion of quadrature and linear systems, taking for granted that such methods are applicable in at least some simple cases. Computational tests (to be included in, say, section 10) further support the validity of the method. Our focus will be on demonstrating that one can approximate $g$ by rational Pad\'e approximants constructed from moments. To this end we show that, when restricted to one dimensional subspaces, $g$ is equivalent to the Stieltjes transform of the Radon transform of $f$ at a fixed projection angle. 
+\[
+    g(z\omega) = \int_{-\infty}^\infty \frac{R_f(\omega,p)}{1 + zp}dp
+\]
+where $\omega \in S^{n-1}, z\in \RR$. Thus we are able to leverage the more well understood properties of these univariate transforms. 
 
-How does this modification impact the method? First and foremost instead of classical moments, we are now given a Gaussian moment sequence — that is, moments with respect to the standard Gaussian measure on $\RR^n$. On the other end, the reconstructed region may be recovered as normal by simply inverting the Gaussian weight. 
+In particular, the ``projection moments'' of $R_f(\omega, p)$ in any fixed direction $\omega$, may be computed from the multivariate moments of $f$. Further, it can be shown that Pad\'e approximants to a moment sequence converge to the Stieltjes transform, and thus to $g$. Returning to shape reconstruction, it then follows that one can approximate $g$ at various sample points $y_j = z_j\omega_j$ via Pad\'e approximants on linear subspaces at a selection of angles $\omega$.
 
-From a theoretical standpoint, proving the validity of the proposed method presents a few challenges. Firstly, even a quick glance at the classical literature tells us that moment problems on bounded domains are substantially better behaved than their unbounded counterparts. Whereas all continuous moment problems on a bounded interval are determinate, we now have the potential to run in to indeterminate problems. This turns out to be not so much of an issue at all, since we can guarentee determinacy in a Gaussian-weighted $L^2$ completion of the space of polynomials, which of course includes indicator functions. A second major complication arrises when we try to define the function $g(y)$. From the integral representation
+Now let us briefly discuss our proposed modification to the shape reconstruction moments, the theoretical complications and computational considerations. Essentially what we propose is to recreate the method with a Gaussian measure applied, thus allowing for convergence on a larger class of regions $A$. In particular, the proposed method would apply to unbounded regions. 
+
+Here we will briefly discuss the potential challenges that this proposed method presents, which we address more carefully in sections 5 through 8. First and foremost instead of classical moments, we are now given a Gaussian moment sequence — that is, moments with respect to the standard Gaussian measure on $\RR^n$. On the other end, the reconstructed region may be recovered as normal by simply inverting the Gaussian weight. 
+
+From a theoretical standpoint, proving the validity of the proposed method presents a few challenges. Firstly, even a quick glance at the classical literature tells us that moment problems on bounded domains are substantially better behaved than their unbounded counterparts. Whereas all continuous moment problems on a bounded interval are determinate, we now have the potential to run in to indeterminate problems. This turns out to be not so much of a challenge, since we can guarentee determinacy in a Gaussian-weighted $L^2$ completion of the space of polynomials. This of course includes our primary use case: indicator functions. 
+
+Secondly, we must address the effect of the proposed modifications on the Radon and Stieltjes transforms. We will define the Gaussian Radon transform, which has been the subject of decades of study in its own right. We build off of this previous work, together with some (possibly) new results, to validate our method. The Stieltjes transform in the Gaussian context is likewise not a significant complication. The main complication here arrises from the claim that our method should apply to unbounded regions:
+
+A final major complication arrises when we try to define the function $g(y)$. From the integral representation
 \[
     g(y) = \int_{\RR^n} \frac{f(x)}{1 + \langle x, y\rangle} ~dx,
 \]
