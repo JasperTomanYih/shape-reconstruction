@@ -111,8 +111,8 @@ Here is a sort of to-do list for whatever this document is:
 \begin{itemize}
 \item To write:
 \begin{itemize}
-\item \sout{Intro. Place discussion of Mathematica implementation into its own section.}
-\item Intro. Discuss in the role of the Radon transform in proofs supporting the method, as well as its extension to the Gaussian transform.
+\item \sout{Intro. Place discussion of Mathematica implementation and other numerical stuff into its own section.}
+\item \sout{Intro. Discuss in the role of the Radon transform in proofs supporting the method, as well as its extension to the Gaussian transform.}
 \item RT/GRT.\@ Work on notation for Gaussian measure. In particular $w$ and $\omega$ are too similar. Also the Euclidean norm is inconsistent when going from $\RR^n$ to $\RR^{n-1}$. We think the notation is understandble, but it might be more precise to disambiguate norms in different dimensions? Possible that they can all be dexribed in terms of a seminorm on some space in which each $\RR^n$ is embedded? 
 \item RT/GRT.\@ Search for references on G slice theorem and G projection moments etc\ldots If none, congrats.
 \item RT/GTT.\@ Expand background, historical context, etc\ldots
@@ -373,6 +373,22 @@ The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the histor
     provided the integral converges.
 \end{definition}
 
+\begin{example}
+For computation it is convenient to write the Radon Transform with an explicit isometric parameterization $x(t)$ of the hyperplane $\langle x, \omega\rangle = p$. In particular we note that there exists a map $x : \RR^{n-1} \longrightarrow \RR^n$ such that $x(0) = p\omega$ and
+\[
+    R_f(\omega, p) = \int_{\RR^{n-1}} f(x(t)) dt.
+\]
+
+For reference let's specify an hyperplane parameterization for the $n=2$ case. In $\RR^2$ often we identify $\omega$ with the angle $0 \leq \theta < 2\pi$ such that $\omega = (\cos \theta, \sin \theta)$. We define $x(t)$ by
+\begin{align*}
+    x(t) = (t \sin \theta + p \cos \theta, -t \cos \theta + p \sin \theta), \qquad -\infty < t < \infty.
+\end{align*}
+It is not difficult to show that $x(0) = p\omega$, $\langle x(t), \omega \rangle = p$, and most importantly
+\[
+    R_f(\omega, p) = \int_{-\infty}^\infty f(t \sin \theta + p \cos \theta, -t \cos \theta + p \sin \theta)~dt
+\]
+\end{example}
+
 Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian density $w_{n-1}(x)$ in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces~\cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
 
 % Recall $w_{n-1}(x) = (2\pi)^{-n/2}\exp(-\|x\|^2/2)$
@@ -407,6 +423,18 @@ where we used the Pythagorean relation $\|x\|^2 = \|x - p\omega\|^2 + \|p\omega\
 \end{equation}
 The relation above provides decent intuition for the GRT, and is also a useful tool proving some basic properties of the transform.
 \end{remark}
+
+\begin{example}
+If $x(t):\RR^{n-1} \longrightarrow \RR^n$ is a parametrization of $\langle x, \omega\rangle = p$ as described above, then
+\[
+    GR_f(\omega, p) = \int_{\RR^{n-1}}f(x(t)) w(t) dt
+\]
+In particular for $f:\RR^2 \rightarrow \RR$
+\[
+    GR_f(\omega, p) = \int_{-\infty}^\infty f(t \sin \theta + p \cos \theta, -t \cos \theta + p \sin \theta) w(t)~dt
+\]
+where $\omega = (\cos \theta, \sin \theta)$.
+\end{example}
 
 Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p$, the RT $R(\omega, p)$ can be seen as a projection of $f$ onto the linear subspace spanned by $\omega$. It is not surprising that integrating this projection over $-\infty < p < \infty$ we get the same result as the $n$-fold integral of $f$ over $\RR^n$.
 \[
