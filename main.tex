@@ -122,7 +122,7 @@ Here is a sort of to-do list for whatever this document is:
 
 \item To research:
 \begin{itemize}
-\item Everywhere. Provide examples for $n = 2, 3$ of as many results as we can.
+\item Everywhere (ongoing). Provide examples for $n = 2, 3$ of as many results as we can.
 \item GRT.\@ Domains of defintion, i.e. $GRT: L^2 \rightarrow L^2$ and such.
 \item GRT.\@ Integration by parts formula for $GRT$ of $\partial f/\partial x_i$
 \item Mathematica. Compute tables of GRT on monomials (polynomials). Do they look like anything? \sout{Compute GRT on Hermite polynomials?}
@@ -464,6 +464,33 @@ Up to a rigid transformation (under which the Euclidean measures are invariant) 
 \begin{remark}
 We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.  
 \end{remark}
+
+\begin{example}
+Let $B(r) = \{x : |x| \leq r\} \subseteq \RR^n$ be the ball of radius $r$. Then 
+\[
+    R_{B(r)}(\omega, p) = 
+    \begin{cases}
+        V_{n-1}(\sqrt{r^2 - p^2}), & |p| \leq r \\
+        0 & |p| > r
+    \end{cases}    
+\]
+where $V_n(r)$ is the volume of a hypersphere of radius $r$,
+\[
+    V_n(r) = \frac{\pi^{n/2}}{\Gamma(\frac n2+1)} r^n.
+\]
+We can use this formula to determine the RT of an anulus. Let $A(r_1, r_2) = \{x \in \RR^n: r_1 \leq \|x\| \leq r_2\}$. Then
+\begin{align*}
+    R_{A(r_1, r_2)}(\omega, p) 
+    &= R_{B(r_2)}(\omega, p) - R_{B(r_1)}(\omega, p) \\
+    &= 
+    \begin{cases}
+        V_{n-1}(\sqrt{r_2^2 - p^2}) - V_{n-1}(\sqrt{r_1^2 - p^2}), & |p| < r_1 \\
+        V_{n-1}(\sqrt{r_2^2 - p^2}), & r_1 \leq |p| \leq r_2 \\
+        0, & |p| \geq r_2
+    \end{cases}
+\end{align*}
+\end{example}
+
 
 If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p) dp < \infty$ then (\ref{eq:ST}) becomes the well known Fourier slice theorem
 \[
