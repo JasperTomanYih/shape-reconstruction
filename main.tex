@@ -283,6 +283,22 @@ In particular let us discuss multivariate moment problems. Let $f(x)$ be a measu
 \]
 The moment sequence ${(c_\alpha)}_{\alpha \in \NN_0^n}$ is now multiindexed. No precise general conditions are known for the solvability or determinacy of multivariate moment problems. However some sufficient conditions have been discovered by leveraging classical moment problem theory~\cite{Pete82}.
 
+\begin{example}
+Let $A = {[0,1]}^n \subseteq \RR^n$ and $f$ its characteristic function. Then $f$ has multivariable moments
+\begin{align*}
+    \int_{\RR^n} f(x) x^\alpha ~dx 
+    &= \int_A x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n} dx \\
+    &= \int_0^1 \int_0^1 \cdots \int_0^1 x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n} ~dx_1~dx_2\cdots~dx_n \\
+    &= \int_0^1 x_1^{\alpha_1} ~dx_1 \int_0^1 x_2^{\alpha_2} ~dx_2 \cdots \int_0^1 x_n^{\alpha_n} ~dx_n \\
+    &= \frac{x_1^{\alpha_1 + 1}x_2^{\alpha_2 + 1} \cdots x_n^{\alpha_n+1}}{(\alpha_1+1) (\alpha_2+1) \cdots (\alpha_n+1)}
+\end{align*}
+Similarly for any rectanglular region $A = \prod_{i = 1}^n [a_i, b_i]$
+\[
+    \int_A x^\alpha ~dx 
+    = \prod_{i=1}^n \int_{a_i}^{b_i} x_i^{\alpha_i}
+    = \prod_{i = 1}^n \frac{b_i^{\alpha_i + 1} - a_i^{\alpha_i + 1}}{\alpha_i + 1}
+\]
+\end{example}
 
 \newpage
 \section{Gaussian Functions and Gaussian Measures}
@@ -513,15 +529,15 @@ Otherwise,
 \[
     R_S(\theta, p) = \sec \theta
 \]
-More generally, if $S(\varphi, r_1, r_2) = \{(x,y) : r_1 \leq x \cos \varphi + y \sin \varphi \leq r_2\}$ is a strip then (I'm guessing here)
-\[
-    R_{S(\varphi, r_1, r_2)} =
-    \begin{cases}
-        (r_2 - r_1) \sec (\theta - \varphi), & \theta \neq \varphi \pm \frac\pi2 \\
-        \infty, & \theta = \varphi \pm \frac\pi2 \text{ and } p \in [r_1, r_2] \\
-        0, & \theta = \varphi \pm \frac\pi2 \text{ and } p \not\in [r_1,r_2]
-    \end{cases}
-\]
+% More generally, if $S(\varphi, r_1, r_2) = \{(x,y) : r_1 \leq x \cos \varphi + y \sin \varphi \leq r_2\}$ is a strip then (I'm guessing here)
+% \[
+%     R_{S(\varphi, r_1, r_2)} =
+%     \begin{cases}
+%         (r_2 - r_1) \sec (\theta - \varphi), & \theta \neq \varphi \pm \frac\pi2 \\
+%         \infty, & \theta = \varphi \pm \frac\pi2 \text{ and } p \in [r_1, r_2] \\
+%         0, & \theta = \varphi \pm \frac\pi2 \text{ and } p \not\in [r_1,r_2]
+%     \end{cases}
+% \]
 \end{example}
 
 If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p) dp < \infty$ then (\ref{eq:ST}) becomes the well known Fourier slice theorem
