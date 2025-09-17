@@ -407,7 +407,7 @@ is centered on the point of the hyperplane closest to the origin.
 \end{definition}
 
 \begin{figure}[h]
-\includegraphics[width=0.7\textwidth]{geogebra-export.png}
+\includegraphics[width=0.7\textwidth]{Images/GRT.png}
 \end{figure}
 
 \begin{remark}
@@ -491,6 +491,33 @@ We can use this formula to determine the RT of an anulus. Let $A(r_1, r_2) = \{x
 \end{align*}
 \end{example}
 
+\begin{figure}[h]
+\includegraphics[width=0.7\textwidth]{Images/Ball RT.png}
+\end{figure}
+
+\begin{example}
+Let $S = \{(x,y) : |y| \leq \frac12\} \subseteq \RR^2$ be a strip centered on the $x$-axis with width $1$. Clearly if $\theta = \pi/2$ or $3\pi/2$ then 
+\[
+    R_S(\theta, p) = 
+    \begin{cases}
+        \infty, & |p| \leq \frac12 \\
+        0, & |p| > \frac12
+    \end{cases}.
+\]
+Otherwise, 
+\[
+    R_S(\theta, p) = \sec \theta
+\]
+More generally, if $S(\varphi, r_1, r_2) = \{(x,y) : r_1 \leq x \cos \varphi + y \sin \varphi \leq r_2\}$ is a strip then (I'm guessing here)
+\[
+    R_{S(\varphi, r_1, r_2)} =
+    \begin{cases}
+        (r_2 - r_1) \sec (\theta - \varphi), & \theta \neq \varphi \pm \frac\pi2 \\
+        \infty, & \theta = \varphi \pm \frac\pi2 \text{ and } p \in [r_1, r_2] \\
+        0, & \theta = \varphi \pm \frac\pi2 \text{ and } p \not\in [r_1,r_2]
+    \end{cases}
+\]
+\end{example}
 
 If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p) dp < \infty$ then (\ref{eq:ST}) becomes the well known Fourier slice theorem
 \[
