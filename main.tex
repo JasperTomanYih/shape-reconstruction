@@ -227,7 +227,7 @@ We denote the standard euclidean inner product
     \langle x,y \rangle = x_1y_1 + x_2y_2 + \cdots x_n y_n
 \]
 where $y = (y_1, y_2, \ldots, y_n) \in \RR^n$. When discussing hyperplanes in $\RR^n$ we index them by a unit normal vector, $\omega \in S^{n-1}$, and distance from origin $-\infty < p < \infty$, and we write for example $\langle x, \omega \rangle = p$. Note that $\langle x, -\omega \rangle = p$ is the same hyperplane. It is perhaps more correct, in later defining the Radon and Gaussian Radon transforms, to identify these indexes and define the transforms over a projective space. We omit this discussion as it is not relevant within the scope of this work.
-\begin{figure}
+\begin{figure}[h]
     \begin{tikzpicture}[plane/.style={<->,thick,blue},
         vector/.style={->,red},
         axis/.style={->,black}]
@@ -246,6 +246,7 @@ where $y = (y_1, y_2, \ldots, y_n) \in \RR^n$. When discussing hyperplanes in $\
     \draw[very thin, red] (\ra, -\ra) -- (1+\ra, -1-\ra);
     \draw[<->,very thin, red] (1+\ra, -1-\ra) -- (2+\ra, -\ra) node[midway,below right]{$p$};
     \end{tikzpicture}
+    \caption{Hyperplane equation}\label{fig:HypEq}
 \end{figure}
 
 Unless otherwise indicated all measures are Euclidean measures, that is the Borel measure assocciated with the standard Euclidean metric on a given space. In particular the Euclidean measure on a hyperplane of $\RR^n$ is equivalent to the Euclidean measure on $\RR^{n-1}$. We chose for convenience to denote measures by their associated variable such as $dx$, $dp$, $dz$, and others. It should be stated that this notation, while uniform, is context dependent. For example in the integrals
@@ -407,7 +408,9 @@ is centered on the point of the hyperplane closest to the origin.
 \end{definition}
 
 \begin{figure}[h]
-\includegraphics[width=0.7\textwidth]{Images/GRT.png}
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/GRT.png}
+    \caption{The GRT}\label{fig:GRT}
 \end{figure}
 
 \begin{remark}
@@ -492,7 +495,9 @@ We can use this formula to determine the RT of an anulus. Let $A(r_1, r_2) = \{x
 \end{example}
 
 \begin{figure}[h]
-\includegraphics[width=0.7\textwidth]{Images/Ball RT.png}
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Ball RT.png}
+    \caption{The RT of a ball}\label{fig:RTBall}
 \end{figure}
 
 \begin{example}
@@ -709,6 +714,7 @@ Non-tangential convergence at $z = 0$ is, as the name implies, convergence along
     \draw[red] (1,0) arc (0:45:1) node[midway, right]{$\delta$};
     \draw[red] (-1,0) arc (180:135:1)node[midway, left]{$\delta$};
     \end{tikzpicture}
+    \caption{A wedge domain}\label{fig:wedge}
 \end{figure}
 in which curves approach $0$ with an angle at least $\delta$ from the real line.
 
