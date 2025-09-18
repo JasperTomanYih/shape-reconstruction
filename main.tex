@@ -113,12 +113,13 @@ Here is a sort of to-do list for whatever this document is:
 \begin{itemize}
 \item Document. Transfer into the thesis template.
 \item \sout{Everywhere. Remove the term classical.}
-\item \sout{Intro. Rephrase stuff about numerical "in theory".}
+\item \sout{Intro. Rephrase stuff about numerical ``in theory''.}
 \item Intro. Add formulas to intro.
 \item \sout{Intro. BE MORE PRECISE}
+\item Moments. Prove: Bounded regions are uniquely determined by moments? Maybe fits in RT/GRT since it can be formulated in terms of RT.\@
 \item GF/M.\@ Define Hermite polynomials, uni- and multivariate.
-\item GF/M.\@ Example: Integral of Gaussian, and even multivariable moments.
-\item RT/GRT.\@ Work on notation for Gaussian measure. In particular $w$ and $\omega$ are too similar. Also the Euclidean norm is inconsistent when going from $\RR^n$ to $\RR^{n-1}$. We think the notation is understandble, but it might be more precise to disambiguate norms in different dimensions? Possible that they can all be dexribed in terms of a seminorm on some space in which each $\RR^n$ is embedded? 
+\item GF/M.\@ \sout{Example: Integral of Gaussian, and even multivariable moments.}
+\item RT/GRT.\@ Work on notation for Gaussian measure. In particular $w$ and $\omega$ are too similar. \sout{Also the Euclidean norm is inconsistent when going from $\RR^n$ to $\RR^{n-1}$. We think the notation is understandble, but it might be more precise to disambiguate norms in different dimensions? Possible that they can all be dexribed in terms of a seminorm on some space in which each $\RR^n$ is embedded?} 
 \item RT/GRT.\@ Search for references on G slice theorem and G projection moments etc\ldots If none, congrats.
 \item RT/GTT.\@ Expand background, historical context, etc\ldots
 \item RT/GRT.\@ Swap sufficient working condition with Fubini condition in slice theorems.
@@ -230,9 +231,15 @@ Note that the multinomial expansion sums over all multiindeces $\alpha \in \NN_0
 
 We denote the standard euclidean inner product
 \[
-    \langle x,y \rangle = x_1y_1 + x_2y_2 + \cdots x_n y_n
+    \langle x,y \rangle = x_1y_1 + x_2y_2 + \cdots + x_n y_n
 \]
-where $y = (y_1, y_2, \ldots, y_n) \in \RR^n$. When discussing hyperplanes in $\RR^n$ we index them by a unit normal vector, $\omega \in S^{n-1}$, and distance from origin $-\infty < p < \infty$, and we write for example $\langle x, \omega \rangle = p$. Note that $\langle x, -\omega \rangle = p$ is the same hyperplane. It is perhaps more correct, in later defining the Radon and Gaussian Radon transforms, to identify these indexes and define the transforms over a projective space. We omit this discussion as it is not relevant within the scope of this work.
+where $y = (y_1, y_2, \ldots, y_n) \in \RR^n$ and the Euclidean norm 
+\[
+    \|x\| = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
+\]
+We may slightly abuse notation by using the inner product and norm in different dimensions, even in the same equation. This can be excused if one views each euclidean space $\RR^n$ as embedded in the sequence space $\ell^2(\RR^\NN)$ in which the inner product and norm are equivalent.
+
+When discussing hyperplanes in $\RR^n$ we index them by a unit normal vector, $\omega \in S^{n-1}$, and distance from origin $-\infty < p < \infty$, and we write for example the implicit hyperplane equation $\langle x, \omega \rangle = p$. Note that $\langle x, -\omega \rangle = -p$ represents the same hyperplane. It is perhaps more correct, in later defining the Radon and Gaussian Radon transforms, to identify these indexes and define the transforms over a projective space. We omit this discussion as it is not relevant within the scope of this work.
 \begin{figure}[h]
     \begin{tikzpicture}[plane/.style={<->,thick,blue},
         vector/.style={->,red},
@@ -293,8 +300,8 @@ The moment sequence ${(c_\alpha)}_{\alpha \in \NN_0^n}$ is now multiindexed. No 
 Let $A = {[0,1]}^n \subseteq \RR^n$ and $f$ its characteristic function. Then $f$ has multivariable moments
 \begin{align*}
     \int_{\RR^n} f(x) x^\alpha ~dx 
-    &= \int_A x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n} dx \\
-    &= \int_0^1 \int_0^1 \cdots \int_0^1 x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n} ~dx_1~dx_2\cdots~dx_n \\
+    % &= \int_A x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n} dx \\
+    % &= \int_0^1 \int_0^1 \cdots \int_0^1 x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n} ~dx_1~dx_2\cdots~dx_n \\
     &= \int_0^1 x_1^{\alpha_1} ~dx_1 \int_0^1 x_2^{\alpha_2} ~dx_2 \cdots \int_0^1 x_n^{\alpha_n} ~dx_n \\
     &= \frac{1}{(\alpha_1+1) (\alpha_2+1) \cdots (\alpha_n+1)}
 \end{align*}
@@ -308,15 +315,61 @@ Similarly for any rectanglular region $A = \prod_{i = 1}^n [a_i, b_i]$
 
 \newpage
 \section{Gaussian Functions and Gaussian Measures}
+\begin{definition}
 Let $w(p) : \RR \rightarrow \RR$  be the standard Gaussian density on $\RR$,
 \[
-    w(p) = \frac1{\sqrt{2\pi}}e^{\frac{-p^2}2}
+    w(p) = \frac1{\sqrt{2\pi}} e^{\frac{-p^2}2}
 \]
 and $w_n(x) : \RR^n \rightarrow \RR$ the standard Gaussian density on $\RR^n$,
 \[
     w_n(x) = {(2\pi)}^{-\frac n2} e^{\frac{-\|x\|^2}2}.
 \]
 Note that $w = w_1$.
+\end{definition}
+
+A couple of formula: First the Gaussian integral,
+\[
+    \int_{-\infty}^\infty w(p) ~dp = 1.
+\]
+This can be proven in a number of clever ways.
+
+Second: The derivative
+\[
+    w'(p) = -pw(p).
+\]
+
+Third: The Gaussian function dominates polynomials in the sense that
+\[
+    \lim_{p \rightarrow -\infty} P(p)w(p) = 0 = \lim_{p \rightarrow \infty} P(p)w(p)
+\]
+for any polynomial $P$.
+
+The moments of $w(p)$ are
+\[
+    c_k 
+    = \begin{cases}
+        (k-1)!!, & k~\text{even} \\
+        0, & k~\text{odd}
+    \end{cases}
+\]
+We have already seen $c_0 = 1$. Furthermore it is not hard to see that for odd $k$, 
+\[
+    c_k = \int_{-\infty}^\infty p^k w(p) ~dp = 0
+\]
+since $p^k w(p)$ is an odd function.
+
+Now for $k \geq 2$ even, we derive a recurrence by integrating by parts
+\begin{align*}
+    c_k
+    &= \int_{-\infty}^\infty p^k w(p) ~dp \\
+    &= -\int_{-\infty}^\infty p^{k-1} \left(-p w(p)\right) ~dp \\
+    &= - \left[p^{k-1} w(p)\right]_{-\infty}^\infty + (k-1)\int_{-\infty}^\infty p^{k-2} w(p) ~dp \\
+    &= (k-1)c_{k-2}
+\end{align*}
+and thus 
+\[
+    c_k = (k - 1)(k - 3) \cdots c_0 = (k-1)!!.
+\]
 
 A relationship between the univariate and multivariate Gaussian densities can be seen as follows: Let $x, y \in \RR^n$, $n \geq 2$. Suppose $y = p\omega$ where $\omega \in S^1$ and $p \in \RR$, so that $p\omega$ is the orthogonal projection of $x$ onto the span of $y$. Then the Pythagorean relation,
 \[
@@ -344,15 +397,47 @@ Let $\gamma^n$ be a the Borel measure on $\RR^n$ with density $w_n$,
 \[
     \int_{\RR^n} f(x) d\gamma^n = \int_{\RR^n} f(x) w_n(x) ~dx.
 \]
-We call $\gamma^n$ the standard Gaussian measure. More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following $\gamma^{n}_{a, \sigma^2}$ are Gaussian measures,
+We call $\gamma^n$ the standard Gaussian measure. 
+More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following $\gamma^{n}_{a, \sigma^2}$ are Gaussian measures,
 \begin{align*}
     \int_{\RR^n} f(x) d\gamma^n_{a,\sigma^2}
     &= \frac{{(2\pi)}^{-\frac n2}}{\sigma}  \int_{\RR^n} f(x) e^{-\frac{\|x - a\|^2}{2\sigma^2}} ~dx \\
     &= \int_{\RR^n} f(\sigma x + a) d\gamma^n
 \end{align*}
-(Most general defn of Gaussian measures includes degenerate $\delta$ functions, and any product of Gaussian measures).
+% (Most general defn of Gaussian measures includes degenerate $\delta$ functions, and any product of Gaussian measures).
 \end{definition}
 
+\begin{example}
+The multivariate moments, $\{c_\alpha\}_{\alpha \in \NN_0^n}$, of $w_n(x)$ can be written as
+\begin{align*}
+    c_\alpha 
+    &= \int_{\RR^n} x^\alpha w_n(x) ~dx \\
+    &= \prod_{\ell = 1}^n \int_{-\infty}^\infty x_\ell^{\alpha_\ell} w(x_\ell) ~dx \\
+    &= \prod_{\ell = 1}^n c_{\alpha_\ell}
+\end{align*}
+where $\{c_k\}_{k \in \NN}$ are the univariate moments of $w(p)$.
+Thus $c_\alpha = 0$ if any $\alpha_i$ is odd. Otherwise, if every $\alpha_i$ is even then
+\[
+        c_\alpha = \prod_{\ell = 1}^n (\alpha_\ell - 1)!!
+\]
+\end{example}
+
+\begin{definition}
+The Hermite polynomials can be defined by the Rodriguez formula
+\[
+    H_k(p) = {(-1)}^k \frac{w^{(k)}(p)}{w(p)}
+\]
+note that $H_k$ is a polynomial of degree $k$.
+\end{definition}
+The Hermite polynomials have the following properties:
+
+\begin{align*}
+    \int H_k(p) H_\ell(p) w(p)~dp 
+    = \begin{cases}
+        \sqrt{2\pi} k!, & k = \ell \\
+        0, & k \neq \ell
+    \end{cases}
+\end{align*}
 
 
 % In this sense the GRT is defined
@@ -384,9 +469,9 @@ Let $f$ be a multivariable function on the $n$-dimensional Euclidean space $\RR^
 \[
     R_f(\Lambda) = \int_{\Lambda} f(x) ~dx,
 \]
-which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by normal vector, $\omega \in S^{n-1}$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter for clarity.
+which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by normal vector, $\omega \in S^{n-1}$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter definition for clarity.
 
-The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the history of, with references, in this paragraph. The transform gets its name from Johann Radon, whose first defined the tranform in the form below in 1917, although a similar transform was introduced by Paul Funk in 1911~\cite{????}. It is interesting to note that the primary application of the RT in medical imaging (CT scans) was not invented for another half century.
+The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the history of, with references, in this paragraph. The transform gets its name from Johann Radon, whose first defined the tranform in the form below in 1917, although a similar transform was introduced by Paul Funk in 1911~\cite{????}. It is interesting to note that the primary application of the RT in medical imaging (CT scans) was not invented for another half century. I can only hope that in 2076 my dissertation will serve as an absorbant coffee coaster for a sleep deprived student.
 
 \begin{definition}
     Let $f$ be a nonnegative measurable function on $\mathbb{R}^n$. The \textbf{Radon transform} $R_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is a function which, given a unit vector $\omega \in \RR^n$ and $-\infty < p < \infty$, is defined as
@@ -412,9 +497,69 @@ It is not difficult to show that $x(0) = p\omega$, $\langle x(t), \omega \rangle
 \]
 \end{example}
 
-Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian density $w_{n-1}(x)$ in the integral allows for convergence on a larger class of functions $f$. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces~\cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
+\begin{example}
+Let $B(r) = \{x : |x| \leq r\} \subseteq \RR^n$ be the ball of radius $r$.
+\[
+    R_{B(r)}(\omega, p) = 
+    \begin{cases}
+        V_{n-1}\left(\sqrt{r^2 - p^2}\right), & |p| \leq r \\
+        0 & |p| > r
+    \end{cases}    
+\]
+where $V_n(r)$ is the volume of a hypersphere of radius $r$,
+\[
+    V_n(r) = \frac{\pi^{n/2}}{\Gamma(\frac n2+1)} r^n.
+\]
+Note that as a bounded domain, we can guarentee $B(r)$ is integrable on all hyperplanes. In fact the RT of any subset of $B(r)$ is sharply bounded by $R_{B(r)} \leq V_{n-1}(r)$. Also note that $B(r)$ is rotation invariant, hence $R_{B(r)}(\omega, p)$ is independent of $\omega$.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Ball RT.png}
+    \caption{The RT of a ball}\label{fig:RTBall}
+\end{figure}
 
-% Recall $w_{n-1}(x) = (2\pi)^{-n/2}\exp(-\|x\|^2/2)$
+We can use this formula to determine the RT of an anulus. Let $A(r_1, r_2) = \{x \in \RR^n: r_1 \leq \|x\| \leq r_2\}$. Then
+\begin{align*}
+    R_{A(r_1, r_2)}(\omega, p) 
+    &= R_{B(r_2)}(\omega, p) - R_{B(r_1)}(\omega, p) \\
+    &= 
+    \begin{cases}
+        V_{n-1}(\sqrt{r_2^2 - p^2}) - V_{n-1}(\sqrt{r_1^2 - p^2}), & |p| < r_1 \\
+        V_{n-1}(\sqrt{r_2^2 - p^2}), & r_1 \leq |p| \leq r_2 \\
+        0, & |p| \geq r_2
+    \end{cases}
+\end{align*}
+\end{example}
+
+
+
+Now consider an example of an unbounded region.
+
+\begin{example}
+Let $S = \{(x,y) : |y| \leq \frac12\} \subseteq \RR^2$ be a strip centered on the $x$-axis with width $1$. Clearly if $\theta = \pi/2$ or $3\pi/2$ then 
+\[
+    R_S(\theta, p) = 
+    \begin{cases}
+        \infty, & |p| \leq \frac12 \\
+        0, & |p| > \frac12
+    \end{cases}.
+\]
+Otherwise, 
+\[
+    R_S(\theta, p) = \sec \theta
+\]
+Note because $S$ is unbounded, that $R_S$ is not only unbounded, but even divergent in some cases.
+% More generally, if $S(\varphi, r_1, r_2) = \{(x,y) : r_1 \leq x \cos \varphi + y \sin \varphi \leq r_2\}$ is a strip then (I'm guessing here)
+% \[
+%     R_{S(\varphi, r_1, r_2)} =
+%     \begin{cases}
+%         (r_2 - r_1) \sec (\theta - \varphi), & \theta \neq \varphi \pm \frac\pi2 \\
+%         \infty, & \theta = \varphi \pm \frac\pi2 \text{ and } p \in [r_1, r_2] \\
+%         0, & \theta = \varphi \pm \frac\pi2 \text{ and } p \not\in [r_1,r_2]
+%     \end{cases}
+% \]
+\end{example}
+
+Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian density $w_{n-1}(x)$ in the integral allows for convergence on a larger class of functions $f$. This includes for example unbounded regions. In a broader context the Gaussian Radon transform also has the advantages of generalizng to infite dimensional Hilbert spaces~\cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
 
 \begin{definition}
 The \textbf{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is defined similarly to the RT.\@ Given $\omega \in S^{n-1}$ and $-\infty < p < \infty$, the GRT is
@@ -436,12 +581,12 @@ is centered on the point of the hyperplane closest to the origin.
 \end{figure}
 
 \begin{remark}
-It may be helpful to understand the GRT as a simple modification of the RT with respect to a Gaussian measure on $\RR^n$. Let $g(x) := f(x)w_n(x)$. The RT of $g$ can be rewritten
+It may be helpful to understand the GRT as a simple modification of the RT with respect to a Gaussian measure on $\RR^n$. From the relation
 \begin{align*}
     \int\mclimits_{\langle x, \omega \rangle = p} f(x) w_n(x) ~dx
     &= \int\mclimits_{\langle x, \omega \rangle = p} f(x) w_{n-1}(x) ~dx~ w(p),
 \end{align*}
-where we used the Pythagorean relation $\|x\|^2 = \|x - p\omega\|^2 + \|p\omega\|^2$. Since $\omega$ is a unit vector, $\|p\omega\|^2 = p^2$. In short, we have proved the formula
+we can express the GRT of $f$ in terms of the $RT$ of the function $g(x) = f(x)w_n(x)$:
 \begin{equation}
     \label{eq:GRTPythag}
     R_g(\omega, p) = GR_f(\omega, p) w(p), \qquad g(x) := f(x)w_n(x).
@@ -452,13 +597,20 @@ The relation above provides decent intuition for the GRT, and is also a useful t
 \begin{example}
 If $x(t):\RR^{n-1} \longrightarrow \RR^n$ is a parametrization of $\langle x, \omega\rangle = p$ as described above, then
 \[
-    GR_f(\omega, p) = \int_{\RR^{n-1}}f(x(t)) w(t) dt
+    GR_f(\omega, p) = \int_{\RR^{n-1}}f(x(t)) w_{n-1}(t) dt
 \]
 In particular for $f:\RR^2 \rightarrow \RR$
 \[
     GR_f(\omega, p) = \int_{-\infty}^\infty f(t \sin \theta + p \cos \theta, -t \cos \theta + p \sin \theta) w(t)~dt
 \]
 where $\omega = (\cos \theta, \sin \theta)$.
+\end{example}
+
+\begin{example}
+The Gaussian Radon transform is bounded for any measurable region $A \subseteq \RR^n$. Indeed 
+\[
+    GR_A(\omega, p) \leq GR_1(\omega, p) = \int_{\RR^{n-1}} w_{n-1}(t)dt w(p) = w(p)
+\]
 \end{example}
 
 Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p$, the RT $R(\omega, p)$ can be seen as a projection of $f$ onto the linear subspace spanned by $\omega$. It is not surprising that integrating this projection over $-\infty < p < \infty$ we get the same result as the $n$-fold integral of $f$ over $\RR^n$.
@@ -468,7 +620,7 @@ Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p
 The so called ``slice theorem'' further generalizes this observation.
 % In fact, the following "slice theorem" gives a formula for integrating a projection against any weighting function $F(p)$, assuming the integral converges. 
 \begin{proposition}[Slice Theorem]
-    If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega \rangle)| dx < \infty$ then
+    If $f \in L^1(\RR^n)$ and $F(p) \in L^\infty(\RR)$ then
     \begin{align}
         \label{eq:ST}
         \int_{-\infty}^\infty R_f(\omega, p) F(p) dp 
@@ -483,68 +635,17 @@ Inserting the definition of the RT, the left side is
     \int_{-\infty}^\infty \int\mclimits_{\langle x, \omega \rangle = p} f(x) ~dx~ F(p) ~dp 
     = \int_{-\infty}^\infty \int\mclimits_{\langle x, \omega \rangle = p} f(x) F(\langle x, \omega \rangle) ~dx dp.
 \]
-Up to a rigid transformation (under which the Euclidean measures are invariant) this is essentially an itterated integral over $\RR$ and $\RR^{n-1}$. Thus given the integrability requirement, Fubini's theorem applies and the theorem is proved.
+Up to a rigid transformation (under which the Euclidean measures are invariant) this is essentially an itterated integral over $\RR$ and $\RR^{n-1}$. Thus given the integrability requirement, Fubini's theorem applies and the slice theorem is proved.
 \end{proof}
 
 \begin{remark}
-We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.  
+The sufficient conditions for the slice theorem above can loosened significantly. We can take for example the straightforward Fubini condition 
+\[
+    \int_{\RR^n} |f(x)F(\langle x, \omega \rangle )| < \infty
+\]
+which is necessary, but not particularly verifiable. We may also use the condition $f$ has bounded support and $F \in L^1_{loc}(\RR)$.
+% We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.  
 \end{remark}
-
-\begin{example}
-Let $B(r) = \{x : |x| \leq r\} \subseteq \RR^n$ be the ball of radius $r$. Then 
-\[
-    R_{B(r)}(\omega, p) = 
-    \begin{cases}
-        V_{n-1}(\sqrt{r^2 - p^2}), & |p| \leq r \\
-        0 & |p| > r
-    \end{cases}    
-\]
-where $V_n(r)$ is the volume of a hypersphere of radius $r$,
-\[
-    V_n(r) = \frac{\pi^{n/2}}{\Gamma(\frac n2+1)} r^n.
-\]
-We can use this formula to determine the RT of an anulus. Let $A(r_1, r_2) = \{x \in \RR^n: r_1 \leq \|x\| \leq r_2\}$. Then
-\begin{align*}
-    R_{A(r_1, r_2)}(\omega, p) 
-    &= R_{B(r_2)}(\omega, p) - R_{B(r_1)}(\omega, p) \\
-    &= 
-    \begin{cases}
-        V_{n-1}(\sqrt{r_2^2 - p^2}) - V_{n-1}(\sqrt{r_1^2 - p^2}), & |p| < r_1 \\
-        V_{n-1}(\sqrt{r_2^2 - p^2}), & r_1 \leq |p| \leq r_2 \\
-        0, & |p| \geq r_2
-    \end{cases}
-\end{align*}
-\end{example}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Images/Ball RT.png}
-    \caption{The RT of a ball}\label{fig:RTBall}
-\end{figure}
-
-\begin{example}
-Let $S = \{(x,y) : |y| \leq \frac12\} \subseteq \RR^2$ be a strip centered on the $x$-axis with width $1$. Clearly if $\theta = \pi/2$ or $3\pi/2$ then 
-\[
-    R_S(\theta, p) = 
-    \begin{cases}
-        \infty, & |p| \leq \frac12 \\
-        0, & |p| > \frac12
-    \end{cases}.
-\]
-Otherwise, 
-\[
-    R_S(\theta, p) = \sec \theta
-\]
-% More generally, if $S(\varphi, r_1, r_2) = \{(x,y) : r_1 \leq x \cos \varphi + y \sin \varphi \leq r_2\}$ is a strip then (I'm guessing here)
-% \[
-%     R_{S(\varphi, r_1, r_2)} =
-%     \begin{cases}
-%         (r_2 - r_1) \sec (\theta - \varphi), & \theta \neq \varphi \pm \frac\pi2 \\
-%         \infty, & \theta = \varphi \pm \frac\pi2 \text{ and } p \in [r_1, r_2] \\
-%         0, & \theta = \varphi \pm \frac\pi2 \text{ and } p \not\in [r_1,r_2]
-%     \end{cases}
-% \]
-\end{example}
 
 If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p) dp < \infty$ then (\ref{eq:ST}) becomes the well known Fourier slice theorem
 \[
@@ -558,15 +659,22 @@ An early and natural question in the study of the RT is that of inversion. Radon
 If one is interested in inverting the RT then a prerequisite consern is of course: Is the transform injective? The answer clearly depends on what space we draw the function $f$ from. Radon~\cite{Rado17}~\cite{Rado86} provides a set of sufficient regularity conditions such that the RT is invertible. Other similar results followed \cite{????}. On the other hand counterexamples have been constructed by, for example, Lawrence Zalcman~\cite{Zalc82}, of continuous and nontrivial functions for which the RT is identically zero.
 
 By way of the relation (\ref{eq:GRTPythag}) we can prove an analagous slice theorem for the GRT.\@
-\begin{theorem}[Gaussian Slice Theorem] If $\int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) w_n(x)| dx < \infty$ then
+\begin{theorem}[Gaussian Slice Theorem] If $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty(\RR, w)$ then
 \begin{equation}\label{eq:GST}
     \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp
     = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) w_n(x) ~dx. 
 \end{equation}
-\begin{remark}
-Whatever conditions are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked for $f(x)w_n(x)$ and $F(p)w(p)$. For example it is sufficient that $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty$. Note in particular that this applies bounded functions of potentially unbounded support, and to all polynomials $f \in \RR[x]$.
-\end{remark}
 \end{theorem}
+\begin{remark}
+Again the more general Fubini condition 
+\[
+    \int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) w_n(x)| dx < \infty
+\]
+may be used. Further, whatever conditions on $f$ and $F$ are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked of $f(x)w_n(x)$ and $F(p)w(p)$. I'll need to check these conditions more carefully.
+\end{remark}
+
+
+
 \begin{proof}
 From (\ref{eq:GRTPythag})
 \[
