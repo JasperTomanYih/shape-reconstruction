@@ -118,7 +118,7 @@ Here is a sort of to-do list for whatever this document is:
 \item \sout{Intro. BE MORE PRECISE}
 \item Moments. Prove: Bounded regions are uniquely determined by moments? Maybe fits in RT/GRT since it can be formulated in terms of RT.\@
 \item GF/M.\@ Define Hermite polynomials, uni- and multivariate.
-\item GF/M.\@ \sout{Example: Integral of Gaussian, and even multivariable moments.}
+\item \sout{GF/M.\@ Example: Integral of Gaussian, and even multivariable moments.}
 \item RT/GRT.\@ Work on notation for Gaussian measure. In particular $w$ and $\omega$ are too similar. \sout{Also the Euclidean norm is inconsistent when going from $\RR^n$ to $\RR^{n-1}$. We think the notation is understandble, but it might be more precise to disambiguate norms in different dimensions? Possible that they can all be dexribed in terms of a seminorm on some space in which each $\RR^n$ is embedded?} 
 \item RT/GRT.\@ Search for references on G slice theorem and G projection moments etc\ldots If none, congrats.
 \item RT/GTT.\@ Expand background, historical context, etc\ldots
@@ -219,6 +219,15 @@ First recall the conventional multiindex notation. Let $\NN_0$ denote the nonneg
 \[
     x^\alpha = x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n}.
 \]
+Here we will use the convention $0^0 = 1$ so that for example $(x, y, z)^{(0, 1, 0)} = y$. We will use $e_i \in \RR^n$ to represent the canonical unit vector
+\[
+    e_i = (0, \ldots, 0, 1, 0, \ldots, 0)
+\]
+which can also be interpreted as a multiindex so for example
+\[
+    (x,y,z)^{2e_1 + e_3} = x^2z
+\]
+
 The multinomial formula gives a convenient expansion for multinomial powers. Let $k \in \NN_0$. Then
 \[
     {(b_1 + b_2 + \cdots + b_n)}^k = \sum_{|\alpha| = k} \binom{k}{\alpha} b^\alpha
@@ -482,7 +491,7 @@ The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the histor
 \end{definition}
 
 \begin{example}
-For computation it is convenient to write the Radon Transform with an explicit isometric parameterization $x(t)$ of the hyperplane $\langle x, \omega\rangle = p$. In particular we note that there exists a map $x : \RR^{n-1} \longrightarrow \RR^n$ such that $x(0) = p\omega$ and
+For computation it is convenient to write the Radon Transform with an explicit isometric parameterization $x(t)$ of the hyperplane $\langle x, \omega\rangle = p$. In particular we note that there exists a map $x : \RR^{n-1} \rightarrow \RR^n$ such that $x(0) = p\omega$ and
 \[
     R_f(\omega, p) = \int_{\RR^{n-1}} f(x(t)) dt.
 \]
@@ -613,7 +622,7 @@ The Gaussian Radon transform is bounded for any measurable region $A \subseteq \
 \]
 \end{example}
 
-Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p$, the RT $R(\omega, p)$ can be seen as a projection of $f$ onto the linear subspace spanned by $\omega$. It is not surprising that integrating this projection over $-\infty < p < \infty$ we get the same result as the $n$-fold integral of $f$ over $\RR^n$.
+Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p$, $R(\omega, p)$ can be seen as a projection of $f$ onto the linear subspace spanned by $\omega$. It is not surprising that integrating this projection over $-\infty < p < \infty$ we get the same result as the $n$-fold integral of $f$ over $\RR^n$.
 \[
     \int_{-\infty}^\infty R(\omega, p) ~dp = \int_{\RR^n} f(x) ~dx
 \]
@@ -693,7 +702,7 @@ completing the proof.
 %     For an equivalent 
 % \end{remark}
 
-As an applications of the slice theorems going forward, we first show that, fixing $\omega$, the $k$th projection moment at $\omega$ can be written as a weighted sum of the degree $k$ multivariate moments of $f$. 
+As an applications of the slice theorems we first show that, fixing $\omega$, the $k$th projection moment at $\omega$ can be written as a weighted sum of the degree $k$ multivariate moments of $f$. 
 \begin{proposition}
     Let $c_\alpha (\omega) = \int_{-\infty}^\infty R_f(\omega, p) p^k dp$ be the projection moments of $f$ at a fixed $\omega$, and $c_\alpha$ the multivariate moments of $f$. Then
     \[
@@ -719,19 +728,34 @@ Thus after a bit of rearranging we get
 \end{align*}
 where the integrands are precisely the $k$th degree multivariate moments of $f$.
 \end{proof}
-% \begin{align*}
-%     c_k(\omega) &:= \int_{-\infty}^\infty R_f(\omega, p) p^k dp \\
-%     &= \int_{\RR^n} f(x) \langle x, \omega \rangle^k dx \\
-%     &= \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha \int_{\RR^n} f(x) x^\alpha dx
-%     =: \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c_\alpha
-% \end{align*}
+
+\begin{example}
+Let $e_1, e_2, \ldots, e_n \in S^{n-1}$ be the standard unit vectors
+\[
+    e_i = (0, \ldots, 0, 1, 0, \ldots, 0)
+\]
+Then $\langle x, e_i \rangle = x_i$ is the natural projection of $\RR^n$ onto the $e_i$ axis. The standard projection moments can be calculated as follows
+\begin{align*}
+    c_k(e_i) 
+    &= \sum_{|\alpha| = k} \binom{k}{\alpha} e_i^\alpha c_\alpha \\
+    &= c_{ke_i}
+\end{align*}
+since $e_i^\alpha = 0$ unless $\alpha = ke_i$. 
+\end{example}
+
+\begin{proposition}
+    If $A \subseteq \RR^n$ is a measurable and bounded region, then the multivariate moment problem is determinate.
+\end{proposition}
+
 Similarly, moments of the GRT (Gaussian projection moments) can be expressed in terms of multivariate gaussian moments.
+
 \begin{proposition}
 Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) dp$ be the Gaussian weighted moments of the GRT of $f$ at a fixed $\omega$. Let $c^G_\alpha = \int_{\RR^n} f(x) w_n(x) x^\alpha dx$ be the Gaussian weighted multivariate moments of $f$. Then
 \[
     c^G_k(\omega) = \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c^G_\alpha.
 \]
 \end{proposition}
+
 
 \begin{proof}
 The proof follows as it did for the RT.\@ This time we apply the GRT slice theorem (\ref{eq:GST}) with $F(p) = p^k$, 
@@ -755,6 +779,8 @@ Thus
 %     =: \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha c_\alpha^G
 % \end{align*}
 \end{proof}
+
+
 
 % \tc{Is this really the assumption we want? Check more carefully.}
 % For our purposes it will suffice to assume that $f(x) e^{-\|x\|^2/2}$ is bounded and $\int_{-\infty}^\infty |F(p)e^{p^2/2}| dp < \infty$.
