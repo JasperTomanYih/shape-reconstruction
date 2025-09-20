@@ -1,0 +1,70 @@
+\documentclass[12pt]{uconnthesis}
+% You can choose 10pt, 11pt or 12pt as font size.
+
+% Draft Versions : Uncomment this if you want to see the name of labels that you declare.
+%\usepackage{showkeys}  
+
+% Always keep the settings and the definitions
+\input{settings.tex}
+\input{definitions.tex}
+
+% Only activate the parts that you want to compile. You might want
+% to go chapter by chapter. Keep the bibliography included, because 
+% you will probably refer to it in every chapter.
+
+% If you don't have a notationpage, comment it out.
+
+% If you don't want a chapter that says "Introduction" instead of "Chapter 1",
+% comment out the line with introchapter.
+
+\includeonly{
+  front_matter,
+  notationpage,
+  introchapter,
+  chapter1,
+  chapter2,
+  chapter3,
+  % chapter4,
+  % chapter5,
+  % chapter6,
+%  chapter7,
+%  chapter8,
+%  appendixa,
+%  appendixb,
+%  appendixc,
+%  appendixd, 
+  bibliography
+}
+
+
+\begin{document}
+
+\include{front_matter}
+\include{notationpage}
+
+% Activate this only if you want double spacing.
+% \setcounter{myLineSpacing}{2}
+
+% In theory, you should never have to go past this line.
+
+\begin{thethesiscore}
+  
+  \include{introchapter}
+  \include{chapter1}
+  \include{chapter2}
+  \include{chapter3}
+  \include{chapter4}
+  \include{chapter5}
+  \include{chapter6}
+  \include{chapter7}
+  \include{chapter8}
+  \include{appendixa}
+  \include{appendixb}
+  \include{appendixc}
+  \include{appendixd}
+
+\end{thethesiscore}
+
+\include{bibliography}
+
+\end{document}

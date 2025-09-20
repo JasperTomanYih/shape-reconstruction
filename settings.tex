@@ -1,0 +1,174 @@
+%%
+%% BOF settings.tex
+%%
+
+
+%%
+%% MARGIN DECLARATIONS
+%%
+%% The Graduate School requires the following minimal margins: 1in on top, right and bottom 
+%% and 1.5in on the left. And yes, this feature, they check.
+          
+\voffset -15mm
+\hoffset 2mm
+\setlength{\textheight}{220mm}
+\setlength{\textwidth}{145mm}
+
+
+%%
+%% LaTeX EXTENSIONS
+%%
+
+% Most of these packages are not needed for the UConn Thesis class, but are quite useful
+% for writing your thesis. Documentation about these packages can be found in your
+% average LaTeX manual or by doing the following Google search :
+% "latex <name-of-the-package> documentation site:www.tug.org" 
+
+\usepackage{amsmath} % AMS math commands like \frac{}{} 
+\usepackage{amscd} % commutative diagrams made easy -  has to be loaded after amsmath
+\usepackage{amsthm}  % theorem, lemma, definition, ... -  has to be loaded after amsmath
+\usepackage{calc} % minimal calculator operations
+
+\usepackage{graphicx} % Imports figures : pdf, jpg, png, tif (one f)
+                      % Use the package graphics if you use eps files.
+                      % Warning : It is very difficult to use both graphics and graphicx.
+
+\usepackage{enumerate} % extends enumerate environment
+\usepackage{dsfont, marvosym, latexsym, amssymb, wasysym, mathbbol} % extra symbols 
+\usepackage{color} % use colors red/blue/green/yellow/magenta
+\usepackage{fancyhdr} % headers
+\usepackage{fancybox} % oval boxes and stuff
+\usepackage{ifthen} % if-then-else structure
+\usepackage{rotate} % rotate and mirror commands
+
+% Caligraphic Alphabet - used by the definitions of \cA, \cB, \cC and so on.
+\usepackage[mathcal]{euscript}       
+% Very Curly Caligraphic Alphabet - used by the definitions of \ccA, \ccB, \ccC and so on.
+\usepackage{mathrsfs}       
+
+%%
+%% FONT DECLARATIONS
+%%
+
+% There are many fonts out there for LaTeX. If you want to see what your thesis looks like
+% in this font, uncomment one of them. If all of them remain inactive, the system default will
+% be chosen (usually Courier). A few warnings:
+% (a) The Graduate School wants the fonts to be simular to Times New Roman, Helvetica or Arial.
+%     Yes, Courier is fine. As you will notice many of the options below are only slightly different.
+%     Of these fonts, cmbright and pxfonts are slightly outlandish and bookman is somewhat (too?) heavy.
+% (b) Changeing from one font to another can give (rather small) changes in layout.
+% (c) Some of these declarations need LaTeX extensions, so don't move this section before the previous one. 
+%
+% Choose one of the following:
+% avant, bookman, charter, cmbright, courier, helvet, newcent, times, palatino, pxfonts
+
+\usepackage{times}
+
+%%
+%% JASPER'S PACKAGES
+%%
+\usepackage{amsrefs} % ams style references
+\usepackage{ulem} % strikeout and various underline types
+\usepackage{tikz} % tikz figures
+\usepackage{mathtools} % mathclap primarily
+
+%%
+%% DEF. THM. LEMMA AND THE REST 
+%%
+
+% Comment the following line out if you want "Theorem 1.2.3" and not "1.2.3 Theorem"
+% \swapnumbers 
+
+% Equations will be numbered with their section number, i.e. (1.1.1), (1.1.2), (1.2.1) and so on.
+% Commenting this out put will result in all equations being numbered (1), (2), (3), ... (999) which
+% is not the best idea for a document as long as a thesis.
+\numberwithin{equation}{section}                      
+
+% There are three theoremstyles: plain, definition and remark.
+% Notice that "definition" produces the most standard output.
+\theoremstyle{definition}
+
+% If you want to use subsections, change the word "section" to "subsection" in the following declaration.
+% however, be advised that then all numbering labels will contain 4 numbers and that you should divide
+% up _every_ section into subsections or get labels like (2.2.0.1), (2.2.0.2), (2.2.0.3) etc.
+\newtheorem{theorem}{Theorem}[section]
+
+% These commands use the amsthm package. If you want to add a declatarion, it has to be of the form
+% \newtheorem{environment-name}[theorem]{Word-you-want-printed}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{definitions}[theorem]{Definitions}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{myexample}[theorem]{Example}
+\newtheorem{myexamples}[theorem]{Examples}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{properties}[theorem]{Properties}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{notations}[theorem]{Notations}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{introduction}[theorem]{Introduction}
+\newtheorem{framework}[theorem]{Framework}
+\newtheorem{conditions}[theorem]{Conditions}
+
+% The Q.E.D. symbol can be defined in any way.  
+% Commenting this out will give the default which is an empty square.
+% \renewcommand{\qedsymbol}{{\slshape Qed}}
+
+
+%%
+%% PARINDENT 0
+%%
+
+% Needed to keep titles of Section and Subsections in their place,
+% amongst other reasons. Do not change.
+\parindent 0pt 
+
+
+%%
+%% DEFAULT ENUMERATE FORMATS
+%%
+
+\renewcommand\theenumi{\roman{enumi}}
+\newcommand\labelenumi{(\theenumi)\ \ }
+\renewcommand\theenumii{\alph{enumii}}
+\newcommand\labelenumii{(\theenumii)\ }
+\renewcommand\theenumiii{\roman{enumiii}}
+\newcommand\labelenumiii{(\theenumiii)\ }
+\renewcommand\theenumiv{\Alph{enumiv}}
+\newcommand\labelenumiv{(\theenumiv)\ }
+\leftmargini 30pt 
+\leftmarginii 15pt 
+\leftmarginiii 15pt 
+\leftmarginiv 10pt 
+\labelsep 5pt
+
+
+%%
+%% DEFAULT ITEMIZE FORMATS
+%%
+
+\newcommand\labelitemi{\textbullet}
+\newcommand\labelitemii{\normalfont\bfseries\textendash}
+\newcommand\labelitemiii{\textasteriskcentered}
+\newcommand\labelitemiv{\textperiodcentered}
+
+
+%%
+%% EOF settings.tex
+%%
+
+
+%%
+%% JASPER'S COMMANDS
+%%
+
+\newcommand{\RR}{\mathbb{R}} % Real numbers
+\newcommand{\CC}{\mathbb{C}} % Complex numbers
+\newcommand{\NN}{\mathbb{N}} % Natural numbers
+\newcommand{\PP}{\mathbb{P}} % Projective Space
+\newcommand{\re}{\text{Re}~} % Real part
+\newcommand{\im}{\text{Im}~} % Imaginary part
+
+\def\mclimits_#1{\limits_{\mathclap{#1}}} % Collapsable limits
