@@ -68,11 +68,12 @@
 %% JASPER'S PACKAGES
 %%
 \usepackage{amsrefs} % ams style references
-\newcommand{\description}{}
+\newcommand{\description}{} % necessary for some reason
 \usepackage{enumitem} % better than enumerate
 \usepackage{ulem} % strikeout and various underline types
 \usepackage{tikz} % tikz figures
 \usepackage{mathtools} % mathclap primarily
+\usepackage{hyperref} % in-document hyperlinks
 
 %%
 %% DEF. THM. LEMMA AND THE REST 
@@ -113,6 +114,9 @@
 \newtheorem{introduction}[theorem]{Introduction}
 \newtheorem{framework}[theorem]{Framework}
 \newtheorem{conditions}[theorem]{Conditions}
+
+% Jasper's theorem commands
+\newtheorem{myclaim}[theorem]{Claim}
 
 % The Q.E.D. symbol can be defined in any way.  
 % Commenting this out will give the default which is an empty square.

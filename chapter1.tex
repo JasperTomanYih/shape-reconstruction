@@ -8,7 +8,7 @@
 
 \chapter{Multivariate moment problems and the Radon transform}{}
 
-\section{Classical and multivariate moment mroblems}
+\section{Classical and multivariate moment problems}
 Let $f(x)$ be a measurable function on $\RR$. For $k \in \NN_0$, define the $k$th moment of $f$ as
 \[
   c_k = \int_{-\infty}^\infty f(x)x^k ~dx.
@@ -27,7 +27,22 @@ There are two natural questions one can ask about a moment problem:
   \item Solvability: Does a solution $f$ exist possessing the given moments?
   \item Determinacy: Is a solution unique? If not, what can be said about the set of solutions?
 \end{enumerate}
-In the classical cases (Markov, Stieltjes, Hamburger) these questions have been resolved. Precise conditions for solvable and determinate moment problems exist, and the nature of solution sets to indeterminate moment problems are well understood. For instance, in the class of continuous functions on the unit interval, all solvable moments problems are determinate. However many classes of generalized moment problems remain in active study.
+In the classical cases (Markov, Stieltjes, Hamburger) these questions have been more or less resolved. Precise conditions for solvable and determinate moment problems have been found, and the nature of solution sets to indeterminate moment problems are well understood. For instance, all solvable Markov moment problems are unique.
+
+\begin{proposition}
+  Let $\mu, \nu$ be Borel measures on the unit interval $[0,1]$ with equal moments:
+  \[
+    \int_{[0,1]} x^k d\mu = c_k = \int_{[0,1]} x^k d\nu
+  \]
+  for all $k \in \NN_0$. Then $\mu = \nu$.
+\end{proposition}
+
+% \begin{proof}
+%   By linearity it is sufficient to show that if $c_k = 0$ for all $k \in \NN_0$, then $\mu = 0$. Furthermore, 
+% \end{proof}
+
+
+However many classes of generalized moment problems remain in active study.
 
 In particular let us discuss multivariate moment problems. Let $f(x)$ be a measureable function now on $\RR^n$. For $\alpha \in \NN_0^n$, define the $\alpha$th multivariate moment of $f$ as 
 \[
@@ -51,6 +66,14 @@ The moment sequence ${(c_\alpha)}_{\alpha \in \NN_0^n}$ is now multiindexed. No 
     = \prod_{i = 1}^n \frac{b_i^{\alpha_i + 1} - a_i^{\alpha_i + 1}}{\alpha_i + 1}
   \]
 \end{myexample}
+We claim that multivariate moment problems on bounded domains are determinate, provided a solution exists. Without loss of generality:
+\begin{myclaim}
+  If $\mu$ is a Radon measure on the unit cube $A = {[0,1]}^n$, with moments
+  \[
+    c_\alpha = \int_{A} x^\alpha d\mu, \qquad \alpha \in \NN_0^n
+  \]
+  then the moment sequence $(c_\alpha)_{\alpha \in \NN_0^n}$ is determinate.
+\end{myclaim}
 
 
 \section{Gaussian functions and measures}
@@ -189,6 +212,10 @@ The Hermite polynomials have the following properties:
   \end{cases}
 \end{align*}
 
+The Hermite polynomials form an orthonormal basis for $L^2(\RR, w)$.
+% \begin{proposition}
+%    $f$
+% \end{proposition}
 
 \section{The Radon and Gaussian Radon transforms}
 
