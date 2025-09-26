@@ -1,2 +1,109 @@
-\chapter{Discrete Radon transforms}{}
+\chapter{Shape reconstruction}{}
+
+\section{Implementation}
+
+While the authors describe forming multivariate ``homogeneous'' Pade approximants — perhaps first proposed by Cuyt herself in~\cite{Cuyt84} — we opt to bypass this step using univariate approximants instead. Indeed, the only benefit to Cuyt's approximants explicitly cited by the authors, as compared to other multivariate generalizations of the Pade approximants, is that they are ``the only satisfying the following powerful slice theorem''~\cite{Cuyt05}. This slice theorem simply states that the homogeneous approximants when restricted to one dimensional subspaces, are equivalent to univariate Pade approximants. Since we only need a finite number of sample points it seems reasonable to compute a series of univariate approximants at various projection angles.
+
+The decision to drop the homogenous approximants has the following potential consequences: On the one hand, the univariate approximants are simpler to compute, with methods built in to many CASs. On the other, while the authors select sample points from a cubic lattice, it would be inefficient (though potentially less so with careful selection of projection angles via, say, Farey sequences) to do so with one dimensional subspaces. Instead we take a collection of equidistant projection angles forming a radial grid of sample points. This seems acceptable, as it is unclear if there is any benefit to the sample points having a particular geometric structure. We should also agknowledge the potential that forming a single homogeneous appoximant is more computationally efficient than many univariate approximants. This requires further investigation, but we note that (anecdotally) in computational tests the formation of approximants is not very intensive compared to the subsequent solving of the high dimensional linear system. Some thought was given to the possibility that sampling from a cubic lattice provides some structure which makes the system easier to solve, but so far we have no hard evidence of this.
+
+A couple of notes on computational details: First we should be explicit about the line of computation. At the outset, the given information is a certain multivariate moment sequence (up to a finite order with some accuracy assumption) which we assume belongs to a region within some fixed bounding box. In evaluating the computational viability of the method we take note of which steps depend on the moments, and which can be precomputed. In order to form univariate approximants we first compute projection moments. While these of course depend on the moment sequence, the multinomial formula used for this computation only depends on the projection angle. Thus with a preditermined set of projection angles this is partially precomputed. Since the cubature formula itself only depends on the choice of quadrature nodes and sample points, it can be precomputed and applied to any moment sequence. The choice of quadrature formula is somewhat arbitrary. Lacking expertise in the area of numerical integration, we follow the authors, opting for the four-point Gauss-Legendre product formula. This formula takes nodes from a nearly cubic lattice, which is implicitly quantized when forming the pixel image. We have not evaluated the error introduced by this quantization but expect it to be minimal and to approach zero with higher pixel resolution.
+
+We don't expect the linear system to have an exact solution, let alone one that whose computation is tractable for high resolutions. We may try Mathematica's LeastSquares method, but Cuyt et al.\ specifically mention using a truncated singular value decomposition.
+
+For my own benefit, let's review singular value decompositions. An $i \times j$ matrix $A$ of rank $r$ can be written as 
+\[
+  A=U\Sigma V^\top,
+\]
+where $\Sigma$ is the diagonal matrix of singular values $\sigma_1, \sigma_2, \ldots, \sigma_r$, and $U$ and $V$ are unitary matrices. The truncated singular value decomposition gives us a reduced rank approximation to $A$ by replacing all but the largest (first) $k$ singular values in $\Sigma$ with zeros,
+\[
+  \tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \ldots, \sigma_k, 0, \ldots, 0)
+\] 
+The truncated SVD matrix $\tilde{A} = U \tilde{\Sigma} V^\top$ is optimal in the sense that it is the closest rank-$k$ matrix to $A$ in the Frobenius norm.
+
+The SVD and truncated SVD are used to solve the linear least squares problem as follows: From $U\Sigma V^\top f = p$ we get $f=V \Sigma^{-1} U^\top p$, and similarly $f = \tilde{V} \tilde{\Sigma}^{-1} U^\top p$. Note that the psuedoinverse $\tilde\Sigma^{-1}$ is a diagonal matrix made up of the reciprocal singular values.
+
+Mathematica offers a few built in functions for this. LeastSquares packages a number of methods to solve a linear least squares based on the sparsity of the System (our system is dense). SingularValueDecomposition can be restricted to a certain number of singular values. PsuedoInverse can specify a ``tolerance'' zeroing out singular values less than some proportion of  the maximum singular value. While LeastSquares is the simplest option, it does not seem to support truncated solutions. Between SingularValueDecomposition and PsuedoInverse, both can handle truncated problems, but the latter seems — at least superficially — better suited for out application.
+
+On Gaussian shape reconstruction. There remain some minor practical concerns about, for example, the choice of quadrature formula and sample points. An obvious choice would be to continue with the Gauss-Legendre product formula, now applied on a Gaussian-weighted $f$. Some consideration should be taken as to the viability of other Gaussian quadrature formulas defined particulary for the Gaussian measure. 
+
+Now, a fundamental limitation with the proposed method which we have neglected to mention is the practical one: As a computational method we are necessarily restriced to the finite — finite moments, finite order approximations, and most problamatic, bounded domains. In what application would one even be interested in unbounded shape reconstruction, while also having access of Gaussian moments? It would be reasonable to question the use of a computational method in an unbounded context. As with any finite approximation, the unboundedness should be thought of as an idealized limit; perhaps an unbounded approximation is a limit of bounded approximations. But then, the original method applies just as well if all we wanted was a sequence of reconstructions expanding in range. We can only speculate at this point that perhaps this method, being taylored specifically for unbounded reconstruction, could hold some practical advantages over its predecessor; or be satisfied with impracticality.
+
+
+\section{An example}
+
+% \[
+%     w(x) = w_1(x) = \frac1{\sqrt{2\pi}}e^{-\frac{x^2}2}
+% \]
+% \[
+%     w_2(x, y) = \frac1{2\pi}e^{-\frac{x^2 + y^2}2}
+% \]
+
+\[
+    f : \RR^2 \rightarrow \RR
+\]
+\begin{align*}
+  GR_f(\theta, p) 
+  &= \int_{-\infty}^\infty f(x(t), y(t)) w(t)~dt \\
+  &= \int_{-\infty}^\infty f(t \sin\theta + p \cos\theta, -t \cos\theta + p \sin\theta) w(t)~dt
+\end{align*}
+
+% Let $f_{i,j} = x^i y^j$ for $i, j \in \NN_0$. Define $G_{i,j}(\theta, p) = GR_{f_{i,j}}(\theta, p)$
+% \[
+%     G_{i,j}(\theta, p)
+%     = \frac1{\sqrt{2\pi}}\int_{-\infty}^\infty {(t \sin\theta + p \cos\theta)}^i {(-t \cos\theta + p \sin\theta)}^j e^{-\frac{t^2}2}~dt
+% \]
+% In particular 
+% \begin{align*}
+%     G_{0,0}(\theta, p) 
+%     &= 1 \\
+%     G_{1,0}(\theta, p) 
+%     &= \frac1{\sqrt{2\pi}}\int_{-\infty}^\infty (t \sin\theta + p \cos\theta) e^{-\frac{t^2}2}~dt
+% \end{align*}
+
+Let $H_\alpha(x) = H_{\alpha_1}(x_1)H_{\alpha_2}(x_2) \cdots H_{\alpha_n}(x_n)$ for $\alpha \in \NN_0^n$ and when $n=2$,
+\[
+  H_{i,j}(x,y) = H_i(x)H_j(y)
+\]
+Mathematica table: $\frac{GR_{H_{i,j}}(\theta,p)}{\cos^i\theta \sin^j\theta}$ for $i,j \leq 4$
+\[
+  \begin{array}{ccccc}
+    1 & p & p^2-1 & p^3-3 p & p^4-6 p^2+3 \\
+    p & p^2-1 & p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p \\
+    p^2-1 & p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 \\
+    p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 & p^7-21 p^5+105 p^3-105 p \\
+    p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 & p^7-21 p^5+105 p^3-105 p & p^8-28 p^6+210 p^4-420 p^2+105 \\
+  \end{array}
+\]
+
+\textbf{Conjecture:} Based on a Mathematica table (at least up to $i,j\leq4$) it seems that the following formula holds:
+\[
+  GR_{H_{i,j}}(\theta, p) = H_{i+j}(p) \cos^i \theta \sin^j \theta 
+\]
+We further expect 
+\[
+  GR_{H_\alpha}(\omega, p) = H_{|\alpha|}(p) \omega^\alpha
+\]
+for $\alpha \in \NN_0^n$.
+
+Bogachev (for example): $(H_\alpha)_{\alpha \in \NN_0^n}$ is an orthogonal basis in $L^2(\gamma_n)$
+
+Mathematica table: $GR_f(a, p)$ for $f(x,y) = x^i y^i$
+\[
+\begin{array}{cccc}
+  1 & p \sin (a) & p^2 \sin ^2(a)+\cos ^2(a) & p \sin (a) \left(p^2 \sin ^2(a)+3 \cos ^2(a)\right) \\
+  p \cos (a) & \left(p^2-1\right) \sin (a) \cos (a) & p \cos (a) \left(\left(p^2-2\right) \sin ^2(a)+\cos ^2(a)\right) & \sin (a) \cos (a) \left(p^2 \left(p^2-3\right) \sin ^2(a)+3 \left(p^2-1\right) \cos ^2(a)\right) \\
+  p^2 \cos ^2(a)+\sin ^2(a) & p \sin (a) \left(\left(p^2-2\right) \cos ^2(a)+\sin ^2(a)\right) & \frac{1}{8} \left(-\left(p^4-6 p^2+3\right) \cos (4 a)+p^4+2 p^2+3\right) & \frac{1}{8} p \sin (a) \left(8 \left(p^2-3\right) \cos (2 a)-\left(p^4-10 p^2+15\right) \cos (4 a)+p^4+6 p^2-9\right) \\
+  p \cos (a) \left(p^2 \cos ^2(a)+3 \sin ^2(a)\right) & \frac{1}{4} \sin (2 a) \left(\left(p^4-6 p^2+3\right) \cos (2 a)+p^4-3\right) & \frac{1}{8} p \cos (a) \left(-8 \left(p^2-3\right) \cos (2 a)-\left(p^4-10 p^2+15\right) \cos (4 a)+p^4+6 p^2-9\right) & \frac{1}{16} \sin (2 a) \left(-\left(p^6-15 p^4+45 p^2-15\right) \cos (4 a)+p^6+9 p^4-27 p^2-15\right) \\
+  \end{array}
+\]
+
+\[
+  f(x) =
+  \begin{cases}
+    1, & \langle x, \varphi \rangle \leq 1/2 \\
+    0, & \text{otherwise}
+  \end{cases}
+\]
+
+Unit ball in $\RR^3$? Annulus in $\RR^2$? Some assymmetric or off-center examples?
 

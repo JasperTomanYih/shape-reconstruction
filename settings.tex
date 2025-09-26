@@ -62,7 +62,10 @@
 % Choose one of the following:
 % avant, bookman, charter, cmbright, courier, helvet, newcent, times, palatino, pxfonts
 
-\usepackage{times}
+\usepackage{courier}
+\DeclareEmphSequence{\textbf}
+% \usepackage{fontspec}
+% \setmainfont{Arial}
 
 %%
 %% JASPER'S PACKAGES
@@ -176,5 +179,8 @@
 \newcommand{\PP}{\mathbb{P}} % Projective Space
 \newcommand{\re}{\text{Re}~} % Real part
 \newcommand{\im}{\text{Im}~} % Imaginary part
+
+\newcommand{\cn}{[citation needed]}
+
 
 \def\mclimits_#1{\limits_{\mathclap{#1}}} % Collapsable limits
