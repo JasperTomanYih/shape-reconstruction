@@ -16,9 +16,9 @@
 % The sequence ${(c_k)}_{k \in \NN_0}$ is called a moment sequence or a moment problem, and the function $f$ is called a solution to the moment problem. Loosly speaking a moment problem poses the question: Under given constraints (e.g.\ domain, continuity, etc\ldots), to what extent can one determine the solution $f$ from its moments?
 Let $\mu$ be a Borel measure on $\RR$. For $k \in \NN_0$, define the $k$th moment of $\mu$ as
 \[
-  c_k = \int_{-\infty}^\infty x^k ~d\mu(x).
+  c_k = \int_{-\infty}^\infty x^k ~d\mu(x)
 \]
-The sequence ${(c_k)}_{k \in \NN_0}$ is called a moment sequence or a moment problem, and the measure $\mu$ is called a solution to the moment problem. Loosly speaking a moment problem poses the question: Under given constraints (e.g.\ measures supported within a fixed subset of $\RR^n$), to what extent can one determine the solution $\mu$ from its moments?
+provided the integral converges. The sequence ${(c_k)}_{k \in \NN_0}$ is called a moment sequence or a moment problem, and the measure $\mu$ is called a solution to the moment problem. Loosly speaking a moment problem poses the question: Under given constraints (e.g.\ measures supported within a fixed subset of $\RR^n$), to what extent can one determine the solution $\mu$ from its moments?
 
 The classical study of moment problems is divided into three cases depending on the support of $\mu$. In each case there is a standard choice of support, from which general results are often derived by a change of variables.
 \begin{enumerate}[label=]
@@ -446,6 +446,21 @@ is centered on the point of the hyperplane closest to the origin.
   \]
 \end{myexample}
 
+\begin{myexample}
+  Consider the Strip $S \subseteq \RR^2$ from [earlier example]. While the RT of $S$ was divergent for $\theta = \pi/2 or 3\pi/2$, the GRT converges. In particular,
+  \[
+    GR_S(\theta, p)
+    = \begin{cases}
+      \frac1{\sqrt{2\pi}}e^{-\frac{p^2}2}, & |p| \leq \frac12 \\
+      0, & |p| > \frac12
+    \end{cases}
+  \]
+  This is the density of a ``truncated'' normal distribution on $[-\frac12,\frac12]$. For other angles $GR_S(\theta, p)$ is likewise the density of a truncated normal distribution, this time with arbitrary endpoints $[a, b]$, given by
+  \[
+    a = ?, \qquad b = a + \sec\theta
+  \]
+\end{myexample}
+
 Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p$, $R(\omega, p)$ can be seen as a projection of $f$ onto the linear subspace spanned by $\omega$. It is not surprising that integrating this projection over $-\infty < p < \infty$ we get the same result as the $n$-fold integral of $f$ over $\RR^n$.
 \[
     \int_{-\infty}^\infty R(\omega, p) ~dp = \int_{\RR^n} f(x) ~dx
@@ -529,7 +544,35 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
 %     For an equivalent 
 % \end{remark}
 
-As an applications of the slice theorems we first show that, fixing $\omega$, the $k$th projection moment at $\omega$ can be written as a weighted sum of the degree $k$ multivariate moments of $f$. 
+\section{Application of the Radon transform to Moment problems}
+
+Taking from the context of classical moment problems we should define the notion of the Radon transform of a measure $\mu$. Let $\mu$ be a Borel measure on $\RR^n$ with finite moments $c_\alpha$, $\alpha \in \NN_0^n$. The projection $\pi_\omega : \RR^n \rightarrow \RR$ given by
+\[
+  \pi_\omega(x) = \langle x, \omega \rangle
+\] 
+is a Borel function, thus we may define the push-forward measure $\mu_\omega = \mu \circ \pi_\omega^{-1}$ which for Borel sets $A \subseteq \RR$ is given by,
+\[
+  \mu_\omega(A) = \mu(\pi_\omega^{-1}(A)) = \mu(\{x : \langle x, \omega \rangle \in A\}).
+\]
+We may call $\mu_\omega$ the \emph{marginal projection measure} of $\mu$ with direction vector $\omega$.
+
+Notice that if $\mu$ is absolutely continuous with density representation $\mu = f(x)dx$ then the slice theorem with $F(p)$ the characteristic function of $A$ gives,
+\[
+  \mu(\pi_\omega^{-1}(A)) = \int\mclimits_{\langle x, \omega \rangle \in A} f(x)dx = \int_A R_f(\omega, p) dp
+\]
+so that in fact $\mu_\omega$ is absolutely continuous with respect to the Lebesgue measure $dp$ and it's density is precisely the Radon transform $R_f(\omega, p)$. In this sense the marginal projection $\mu_\omega$ is a natural generalization of the RT, so we define
+
+\begin{definition}
+  The Radon transform of a Borel measure $\mu$ on $\RR$ is defined as the push-forward measure $\mu_\omega = \mu \circ \pi_\omega^{-1}$ on $\RR$, where $\pi_\omega: \RR^n \rightarrow \RR$ is the projection 
+  \[
+    \pi_\omega(x) = \langle x, \omega \rangle.
+  \]
+  We may denote this measure by $R_\mu^\omega = \mu_\omega$.
+\end{definition}
+
+How can we similarly define the GRT of a measure?
+
+As an application of the slice theorems we first show that, fixing $\omega$, the $k$th projection moment at $\omega$ can be written as a weighted sum of the degree $k$ multivariate moments of $f$. 
 
 \begin{proposition}
   Let $c_\alpha (\omega) = \int_{-\infty}^\infty R_f(\omega, p) p^k dp$ be the projection moments of $f$ at a fixed $\omega$, and $c_\alpha$ the multivariate moments of $f$. Then
@@ -559,9 +602,9 @@ As an applications of the slice theorems we first show that, fixing $\omega$, th
 \end{proof}
 
 \begin{myexample}
-  Let $e_1, e_2, \ldots, e_n \in S^{n-1}$ be the standard unit vectors
+  Let $e_1, e_2, \ldots, e_n \in S^{n-1}$ be the the standard basis for $\RR^n$,
   \[
-    e_i = (0, \ldots, 0, 1, 0, \ldots, 0)
+    (1, 0, \ldots, 0),~ (0, 1, \ldots, 0),~ \ldots,~ (0,0, \ldots, 1)
   \]
   Then $\langle x, e_i \rangle = x_i$ is the natural projection of $\RR^n$ onto the $e_i$ axis. The standard projection moments can be calculated as follows
   \begin{align*}
@@ -569,19 +612,30 @@ As an applications of the slice theorems we first show that, fixing $\omega$, th
     &= \sum_{|\alpha| = k} \binom{k}{\alpha} e_i^\alpha c_\alpha \\
     &= c_{ke_i}
   \end{align*}
-  since $e_i^\alpha = 0$ unless $\alpha = ke_i$. 
+  since $e_i^\alpha = 0$ unless $\alpha = ke_i$. (This is based on the quirky assumption $0^0 = 1$ in the definition of multiindex powers, but is fundamental to the multinomial theorem).
 \end{myexample}
 
-\section{Application of the Radon transform to Moment problems}
-
-\begin{proposition}
-  If $A \subseteq \RR^n$ is a measurable and bounded region, then the multivariate moment problem is determinate.
+The following theorem, due to Petersen \cn, gives a way us to reduce the question of determinacy for multivariate moment problems to the classical case.
+\begin{proposition}[Petersen's theorem]
+  Let $\mu$ be a Borel measure on $\RR^n$, and $e_1, \ldots, e_n$ the standard basis for $\RR^n$. If each $R_\mu^{e_1}, \ldots, R_\mu^{e_n}$ is determinate, then $\mu$ is determinate.
 \end{proposition}
+\begin{proof}
+  \pn
+\end{proof}
+\begin{remark}
+  Conjecture? We expect this result to hold true for any basis. Will have to check this.
+\end{remark}
 
+\begin{corollary}
+  If $A \subseteq \RR^n$ is a measurable and bounded region, then the multivariate moment problem is determinate.
+\end{corollary}
+\begin{proof}
+  \pn
+\end{proof}
 Similarly, moments of the GRT (Gaussian projection moments) can be expressed in terms of multivariate gaussian moments.
 
 \begin{proposition}
-  Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) dp$ be the Gaussian weighted moments of the GRT of $f$ at a fixed $\omega$. Let $c^G_\alpha = \int_{\RR^n} f(x) w_n(x) x^\alpha dx$ be the Gaussian weighted multivariate moments of $f$. Then
+  Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) dp$ be the Gaussian moments of the GRT of $f$ at a fixed $\omega$. Let $c^G_\alpha = \int_{\RR^n} f(x) w_n(x) x^\alpha dx$ be the Gaussian multivariate moments of $f$. Then
   \[
     c^G_k(\omega) = \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c^G_\alpha.
   \]
@@ -603,11 +657,14 @@ Similarly, moments of the GRT (Gaussian projection moments) can be expressed in 
   \[
     c^G(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha c^G_\alpha.
   \]
-  % \begin{align*}
-  %     c_k^G(\omega) &:= \int_{-\infty}^\infty GR_f(\omega, p) p^k e^{-p^2/2} dp \\
-  %     &= \int_{\RR^n} f(x) e^{-\|x\|^2/2}\langle x, \omega\rangle^k dx \\
-  %     &= \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha \int_{\RR^n} f(x) e^{-\|x\|^2/2}x^\alpha dx 
-  %     =: \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha c_\alpha^G
-  % \end{align*}
 \end{proof}
 
+We show in section (2.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate (although perhaps this should be moved to section 1.2). Petersen's theorem allows us to generalize this result to $\RR^n$:
+
+\begin{corollary}
+  If $f \in L^2(\RR^n, \gamma^n)$, then $f$ is determinate.
+\end{corollary}
+
+\begin{proof}
+  \pn
+\end{proof}

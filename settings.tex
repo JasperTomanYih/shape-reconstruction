@@ -40,6 +40,7 @@
 \usepackage{fancybox} % oval boxes and stuff
 \usepackage{ifthen} % if-then-else structure
 \usepackage{rotate} % rotate and mirror commands
+% \usepackage[raggedleft]{titlesec}
 
 % Caligraphic Alphabet - used by the definitions of \cA, \cB, \cC and so on.
 \usepackage[mathcal]{euscript}       
@@ -133,6 +134,14 @@
 % Needed to keep titles of Section and Subsections in their place,
 % amongst other reasons. Do not change.
 \parindent 0pt 
+\parskip 0.5\baselineskip % If we're not identing we should at least have a gap between paragraphs.
+
+% Uncomment for double-spacing
+% \setcounter{myLineSpacing}{2}
+
+% \parskip{.5\baselineskip + 2pt}
+% \titleformat{\section}[⟨shape⟩]{⟨format⟩}{⟨label⟩}{⟨sep⟩}{⟨before-code⟩}[⟨after-code⟩]
+% \titlespacing*{\section}{0pt}{0pt}{0pt}
 
 
 %%
@@ -179,8 +188,12 @@
 \newcommand{\PP}{\mathbb{P}} % Projective Space
 \newcommand{\re}{\text{Re}~} % Real part
 \newcommand{\im}{\text{Im}~} % Imaginary part
+\newcommand{\cM}{\mathcal{cM}~} % Family of measures
+\newcommand{\supp}{\text{supp}} % Support
 
-\newcommand{\cn}{[citation needed]}
-
+\newcommand{\cn}{\emph{[CITATION NEEDED]}} 
+\newcommand{\pn}{\emph{[PROOF NEEDED]}}
+\newcommand{\needed}[1]{\emph{#1 NEEDED}}
+% \newcommand{\mysection}[2]{\noindent\section{#1}{#2}}z
 
 \def\mclimits_#1{\limits_{\mathclap{#1}}} % Collapsable limits
