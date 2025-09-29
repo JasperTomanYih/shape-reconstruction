@@ -6,25 +6,25 @@
 % both places.
 
 
-\introchapter{Introduction}{}
+\introchapter{\needed{TITLE?}}{}
 
-\section{Shape Reconstruction}
-Here is a sort of to-do list for whatever this document is:
+
+\section{TO DO}
 \begin{itemize}
     \item To write:
     \begin{itemize}
         \item Document. Fix bibliography
-        \item Document. Fix section spacing and indentation. Ideally sections are left aligned with no indent, and the first paragraph of a section is not indented. Also should probably not indent after displaymath or similar mid-paragraph clauses (e.g.\ enumerate, itemize, etc)
-        \item Intro. Add formulas to intro.
-        \item Moments. Prove: Bounded regions are uniquely determined by moments? Maybe fits in RT/GRT since it can be formulated in terms of RT.\@
+        \item \sout{Document. Fix section spacing and indentation. Ideally sections are left aligned with no indent, and the first paragraph of a section is not indented. Also should probably not indent after displaymath or similar mid-paragraph clauses (e.g.\ enumerate, itemize, etc)}
+        \item Intro. More formulas in intro.
         \item Moments. Prove: Determinacy result for gaussian weighted L2.
         \item Moments. Find good reference for terminology and history. 
-        \item Moments. Define problems for measures before functions
-        \item RT/GRT.\@ Slice theorem connect sufficient conditions to Fubini conditions.
-        \item GF/M.\@ Define Hermite polynomials, uni- and multivariate.
+        \item \sout{Moments. Define problems for measures before functions.}
+        \item GF/M.\@ Define Hermite polynomials, uni- and multi-variate.
+        \item RT/GRT.\@ Slice theorem: connect sufficient conditions to Fubini conditions.
         \item RT/GRT.\@ Work on notation for Gaussian measure. In particular $w$ and $\omega$ are too similar. 
         \item RT/GRT.\@ Search for references on G slice theorem and G projection moments etc
         \item RT/GRT.\@ Expand background, historical context, etc\ldots
+        \item Moments. Prove: Bounded regions are uniquely determined by moments? Maybe fits in RT/GRT since it can be formulated in terms of RT.\@
         \item Implementation. Output some figures from Mathematica. For example sample points, moment tables, and reconstructions.
         \item Example. Try to prove the conjecture (RT Hermite)
         \item Split Ch2 in half: Theory and application.
@@ -42,6 +42,7 @@ Here is a sort of to-do list for whatever this document is:
     \end{itemize}
 \end{itemize}
 
+\section{Shape Reconstruction}
 The shape reconstruction method: In a 2005 paper, Annie Cuyt et.\ al.\ \cite{Cuyt05} proposed a method for shape reconstruction from moments, via Pade approximants to a multidimensional integral transform. Given a set of multivariate moments of some region $A$ in $\RR^n$, the method produces a pixel image approximating $A$. 
 
 Suppose $A \subset \RR^n$, and let $f(x)$ be its indicator function. We may assume $f$ is measurable and has bounded support, and thus finite moments. The moment sequence gives Taylor coefficients in a neighborhood of zero for a certain holomorphic function with integral representation

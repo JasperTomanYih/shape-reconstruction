@@ -465,33 +465,46 @@ Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p
 \[
     \int_{-\infty}^\infty R(\omega, p) ~dp = \int_{\RR^n} f(x) ~dx
 \]
-The so called ``slice theorem'' further generalizes this observation.
-% In fact, the following "slice theorem" gives a formula for integrating a projection against any weighting function $F(p)$, assuming the integral converges. 
+The so called ``slice theorem'' further generalizes this observation:
+
 \begin{proposition}[Slice Theorem]
-  If $f \in L^1(\RR^n)$ and $F(p) \in L^\infty(\RR)$ then
+  % If $f: \RR^n \rightarrow \RR$ and $F: \RR \rightarrow \RR$ are measureable, then
+  % If $f \in L^1(\RR^n)$ and $F \in L^\infty(\RR)$, then
+  If $f \in C_c(\RR^n)$ and $F \in L^1_{loc}(\RR)$, then
+  % \needed{EXTRA CONDITIONS} (i.e. non-negative Fubnini,  Tonelli)
   \begin{align}
     \label{eq:ST}
     \int_{-\infty}^\infty R_f(\omega, p) F(p) dp 
     % &= \int_{-\infty}^\infty \int_{\langle x, \omega \rangle = p} f(x) F(p) ~d\mu(x) ~dp 
-    &= \int_{\mathbb{R}^n} f(x) F(\langle x, \omega \rangle) dx.
+    &= \int_{\mathbb{R}^n} f(x) F(\langle x, \omega \rangle) dx,
   \end{align}
+  % so long as one of the two is finite.
 \end{proposition}
 
 \begin{proof}
-  Inserting the definition of the RT, the left side is
+  This is a corollary of the Fubini-Tonelli theorem, which guarentees the slice formula as the integrals on eather side converge absolutely. To see this note that there is a rigid transformation (Hilbert space isorphism) taking this to an itterated integral over $\RR^{n-1}$ and $\RR$. Further, $F(\langle x, \omega \rangle) \in L^\infty(\RR^n)$, so the proposition follows by H\"older's inequality
   \[
-    \int_{-\infty}^\infty \int\mclimits_{\langle x, \omega \rangle = p} f(x) ~dx~ F(p) ~dp 
-    = \int_{-\infty}^\infty \int\mclimits_{\langle x, \omega \rangle = p} f(x) F(\langle x, \omega \rangle) ~dx dp.
-  \]
-  Up to a rigid transformation (under which the Euclidean measures are invariant) this is essentially an itterated integral over $\RR$ and $\RR^{n-1}$. Thus given the integrability requirement, Fubini's theorem applies and the slice theorem is proved.
+    \int_{\RR^n} \left|f(x) F(\langle x, \omega \rangle)\right| ~dx \leq \int_{\RR^n}|f(x)| ~dx \|F(\langle x, \omega \rangle)\|_\infty <  \infty
+  \] 
+  % (under which the Euclidean measures are invariant), the is an integral over $\RR^{n-1}$
+  % Fubini's theorem applies since if 
+  % Inserting the definition of the RT, the left side is
+  % \[
+  %   \int_{-\infty}^\infty \int\mclimits_{\langle x, \omega \rangle = p} f(x) ~dx~ F(p) ~dp 
+  %   = \int_{-\infty}^\infty \int\mclimits_{\langle x, \omega \rangle = p} f(x) F(\langle x, \omega \rangle) ~dx dp.
+  % \]
+  % Up to a rigid transformation (under which the Euclidean measures are invariant) this is essentially an itterated integral over $\RR$ and $\RR^{n-1}$. Thus given the integrability requirement, Fubini's theorem applies and the slice theorem is proved.
 \end{proof}
 
 \begin{remark}
+  % Although we invoke the general Fubini condition here, we note a couple of more convenient sufficient conditions. First, if $f \in L^1(\RR^n)$ and $F \in L^\infty(\RR)$ then,
   The sufficient conditions for the slice theorem above can loosened significantly. We can take for example the straightforward Fubini condition 
   \[
       \int_{\RR^n} |f(x)F(\langle x, \omega \rangle )| < \infty
   \]
-  which is necessary, but not convenient. We may also use the condition $f$ has bounded support and $F \in L^1_{loc}(\RR)$.
+  which is necessary \cn, but not convenient. We may also use the condition $f$ has bounded support and $F \in L^1_{loc}(\RR)$.
+
+  The conditions on $f$ and $F$ can be reduced somewhat. In general the convergence of either the left or right side above is sufficient. One 
   % We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.  
 \end{remark}
 
@@ -509,7 +522,7 @@ If one is interested in inverting the RT then a prerequisite concern is of cours
 By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@
 
 \begin{theorem}[Gaussian Slice Theorem] 
-  If $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty(\RR, w)$ then
+  Let $f:\RR^n \rightarrow \RR$ and $F:\RR \rightarrow \RR$ be measurable functions. If $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty(\RR)$ then
   \begin{equation}\label{eq:GST}
     \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp
     = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) w_n(x) ~dx. 
@@ -532,7 +545,7 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
     \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp 
     = \int_{-\infty}^\infty R_g(\omega, p) F(p) ~dp
   \]
-  where $g(x) = f(x)e^{-\|x\|^2/2}$. Then applying the slice theorem:
+  where $g(x) = f(x)e^{-\|x\|^2/2}$. Note that $\|g\|_1 = \|f\|_{1,w_n} < \infty$ and. Then applying the slice theorem:
   \[
     \int_{-\infty}^\infty R_g(\omega, p) F(p) ~dp 
     = \int_{\RR^n} f(x)F(\langle x, \omega \rangle) w_n(x) ~dx,
@@ -544,7 +557,7 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
 %     For an equivalent 
 % \end{remark}
 
-\section{Application of the Radon transform to Moment problems}
+\section{Projection moments}
 
 Taking from the context of classical moment problems we should define the notion of the Radon transform of a measure $\mu$. Let $\mu$ be a Borel measure on $\RR^n$ with finite moments $c_\alpha$, $\alpha \in \NN_0^n$. The projection $\pi_\omega : \RR^n \rightarrow \RR$ given by
 \[
@@ -570,6 +583,13 @@ so that in fact $\mu_\omega$ is absolutely continuous with respect to the Lebesg
   We may denote this measure by $R_\mu^\omega = \mu_\omega$.
 \end{definition}
 
+\begin{remark}
+  It seems that the slice theorem is analogous to, perhaps generalized by the change of variables formula for the pushforward measure $R^\omega_\mu$:
+  \[
+    \int_{-\infty}^\infty F(p) dR^\omega_\mu(p) = \int_{\RR^n} F(\pi_\omega(x)) d\mu
+  \]
+  where $F:\RR \rightarrow \RR$ is integrable with respect to $dR^\omega_\mu$ if and only if $F\circ\pi_\omega : \RR^n \rightarrow \RR$ is integrable with respct to $\mu$.
+\end{remark}
 How can we similarly define the GRT of a measure?
 
 As an application of the slice theorems we first show that, fixing $\omega$, the $k$th projection moment at $\omega$ can be written as a weighted sum of the degree $k$ multivariate moments of $f$. 
