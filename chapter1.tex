@@ -519,15 +519,15 @@ An early and natural question in the study of the RT is that of inversion. Radon
 
 If one is interested in inverting the RT then a prerequisite concern is of course: Is the transform injective? The answer clearly depends on what space we draw the function $f$ from. Radon~\cite{Rado17}~\cite{Rado86} provides a set of sufficient regularity conditions such that the RT is invertible. Other similar results followed \cite{????}. On the other hand counterexamples have been constructed by, for example, Lawrence Zalcman~\cite{Zalc82}, of continuous and nontrivial functions for which the RT is identically zero.
 
-By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@
+By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@ Mihai and Sengupta prove the general result if real, separable, infinite Hilbert spaces \cn.
 
-\begin{theorem}[Gaussian Slice Theorem] 
+\begin{proposition}[Gaussian Slice Theorem] 
   Let $f:\RR^n \rightarrow \RR$ and $F:\RR \rightarrow \RR$ be measurable functions. If $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty(\RR)$ then
   \begin{equation}\label{eq:GST}
     \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp
     = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) w_n(x) ~dx. 
   \end{equation}
-\end{theorem}
+\end{proposition}
 
 \begin{remark}
   Again the more general Fubini condition 
@@ -584,15 +584,13 @@ so that in fact $\mu_\omega$ is absolutely continuous with respect to the Lebesg
 \end{definition}
 
 \begin{remark}
-  It seems that the slice theorem is analogous to, perhaps generalized by the change of variables formula for the pushforward measure $R^\omega_\mu$:
+  It seems that the slice theorem is analogous to — and perhaps generalized by — the change of variables formula for the pushforward measure $R^\omega_\mu$:
   \[
     \int_{-\infty}^\infty F(p) dR^\omega_\mu(p) = \int_{\RR^n} F(\pi_\omega(x)) d\mu
   \]
   where $F:\RR \rightarrow \RR$ is integrable with respect to $dR^\omega_\mu$ if and only if $F\circ\pi_\omega : \RR^n \rightarrow \RR$ is integrable with respct to $\mu$.
 \end{remark}
-How can we similarly define the GRT of a measure?
-
-As an application of the slice theorems we first show that, fixing $\omega$, the $k$th projection moment at $\omega$ can be written as a weighted sum of the degree $k$ multivariate moments of $f$. 
+Can we similarly define the GRT of a measure?
 
 \begin{proposition}
   Let $c_\alpha (\omega) = \int_{-\infty}^\infty R_f(\omega, p) p^k dp$ be the projection moments of $f$ at a fixed $\omega$, and $c_\alpha$ the multivariate moments of $f$. Then
@@ -621,37 +619,6 @@ As an application of the slice theorems we first show that, fixing $\omega$, the
   where the integrands are precisely the $k$th degree multivariate moments of $f$.
 \end{proof}
 
-\begin{myexample}
-  Let $e_1, e_2, \ldots, e_n \in S^{n-1}$ be the the standard basis for $\RR^n$,
-  \[
-    (1, 0, \ldots, 0),~ (0, 1, \ldots, 0),~ \ldots,~ (0,0, \ldots, 1)
-  \]
-  Then $\langle x, e_i \rangle = x_i$ is the natural projection of $\RR^n$ onto the $e_i$ axis. The standard projection moments can be calculated as follows
-  \begin{align*}
-    c_k(e_i) 
-    &= \sum_{|\alpha| = k} \binom{k}{\alpha} e_i^\alpha c_\alpha \\
-    &= c_{ke_i}
-  \end{align*}
-  since $e_i^\alpha = 0$ unless $\alpha = ke_i$. (This is based on the quirky assumption $0^0 = 1$ in the definition of multiindex powers, but is fundamental to the multinomial theorem).
-\end{myexample}
-
-The following theorem, due to Petersen \cn, gives a way us to reduce the question of determinacy for multivariate moment problems to the classical case.
-\begin{proposition}[Petersen's theorem]
-  Let $\mu$ be a Borel measure on $\RR^n$, and $e_1, \ldots, e_n$ the standard basis for $\RR^n$. If each $R_\mu^{e_1}, \ldots, R_\mu^{e_n}$ is determinate, then $\mu$ is determinate.
-\end{proposition}
-\begin{proof}
-  \pn
-\end{proof}
-\begin{remark}
-  Conjecture? We expect this result to hold true for any basis. Will have to check this.
-\end{remark}
-
-\begin{corollary}
-  If $A \subseteq \RR^n$ is a measurable and bounded region, then the multivariate moment problem is determinate.
-\end{corollary}
-\begin{proof}
-  \pn
-\end{proof}
 Similarly, moments of the GRT (Gaussian projection moments) can be expressed in terms of multivariate gaussian moments.
 
 \begin{proposition}
@@ -679,12 +646,61 @@ Similarly, moments of the GRT (Gaussian projection moments) can be expressed in 
   \]
 \end{proof}
 
-We show in section (2.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate (although perhaps this should be moved to section 1.2). Petersen's theorem allows us to generalize this result to $\RR^n$:
+\begin{myexample}
+  Let $e_1, e_2, \ldots, e_n \in S^{n-1}$ be the the standard basis for $\RR^n$,
+  \[
+    (1, 0, \ldots, 0),~ (0, 1, \ldots, 0),~ \ldots,~ (0,0, \ldots, 1)
+  \]
+  Then $\langle x, e_i \rangle = x_i$ is the natural projection of $\RR^n$ onto the $e_i$ axis. The standard projection moments can be calculated as follows
+  \begin{align*}
+    c_k(e_i) 
+    &= \sum_{|\alpha| = k} \binom{k}{\alpha} e_i^\alpha c_\alpha \\
+    &= c_{ke_i}
+  \end{align*}
+  since $e_i^\alpha = 0$ unless $\alpha = ke_i$. (This is based on the quirky assumption $0^0 = 1$ in the definition of multiindex powers, but is fundamental to the multinomial theorem).
+\end{myexample}
+
+The following theorem, due to Petersen \cn, gives a way us to reduce the question of determinacy for multivariate moment problems to the classical case.
+
+\begin{proposition}[Petersen's theorem]
+  Let $\mu$ be a Borel measure with finite moments on $\RR^n$, and $e_1, \ldots, e_n$ the standard basis for $\RR^n$. If each $R_\mu^{e_1}, \ldots, R_\mu^{e_n}$ is determinate, then $\mu$ is determinate.
+\end{proposition}
+
+\begin{proof}
+  An outline of the proof is as follows. Preliminarly, note that the solution set $[\mu]$ of Borel measures with equivalent moments to $\mu$ is convex \cn, and a $\mu$ is an extreme point in $[\mu]$ if and only if polynomials are dense in $L^1(\RR^n, \mu)$ \cn. Thus it suffices to show that polynomials are dense in $L^1(\RR^n, \mu')$ for any $\mu' \in [\mu]$.
+  
+  The family of products of continuous functions of compact support $f(x) = \prod_{i=1}^n f_i(x_i)$ where each $f_i \in C_c(\RR)$, is dense in $L_1(\mu)$ \cn. Furthermore, since $R_\mu^{e_i}$, $i = 1, \ldots, n$ are determinate, polynomials are dense in each $L^2(\RR, R_\mu^{e_i})$ \cn. Petersen constructs a series of polynomials $P_i : \RR \rightarrow \RR$ such that the polynomial product $P(x) = \prod_{i = 1}^n P_i(x_i)$ arbitrarily close to $f$ in $L^1(\mu)$. Thus polynomials are dense in $L^1(\RR^n, \mu)$ and the moment problem is determinate. \pn 
+  
+  Note Schm\"udgen proves this via Borel characteristic functions. Not clear what the benefit is.
+\end{proof}
+
+\begin{remark}
+  Conjecture? We expect this result to hold true for any basis. Will have to check this. Arguable benefit for us is that we in theory can use any $n$ linearly independent projections to reconstruct $\mu$.
+\end{remark}
+
+\begin{corollary}
+  If $\mu$ is compactly supported Borel measure on $\RR^n$, then the multivariate moment problem is determinate.
+\end{corollary}
+
+\begin{proof}
+  It suffices to note that the projections $R_\mu^{e_i}$ are compactly supported Borel measures on $\RR$, and thus determinate by \cn.
+\end{proof}
+
+
+We show in section (2.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate (maybe this should be moved to section 1.2). Petersen's theorem allows us to generalize this result to $\RR^n$.
 
 \begin{corollary}
   If $f \in L^2(\RR^n, \gamma^n)$, then $f$ is determinate.
 \end{corollary}
 
 \begin{proof}
+  % This follows from the product decomposition of the the Gaussian density
+  % \[
+  %   w_n(x) = \prod_{i = 1}^n w(x_i)
+  % \]
+  % so that
+  % \[
+  %   R_f(e_i, p) = \int_{x_i=p} f(x) w_n(x) dx
+  % \]
   \pn
 \end{proof}
