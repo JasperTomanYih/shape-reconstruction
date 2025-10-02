@@ -18,7 +18,7 @@ Let $\mu$ be a Borel measure on $\RR$. For $k \in \NN_0$, define the $k$th momen
 \[
   c_k = \int_{-\infty}^\infty x^k ~d\mu(x)
 \]
-provided the integral converges. The sequence ${(c_k)}_{k \in \NN_0}$ is called a moment sequence or a moment problem, and the measure $\mu$ is called a solution to the moment problem. Loosly speaking a moment problem poses the question: Under given constraints (e.g.\ measures supported within a fixed subset of $\RR^n$), to what extent can one determine the solution $\mu$ from its moments?
+provided the integral converges. The sequence ${(c_k)}_{k \in \NN_0}$ is called a moment sequence or a moment problem, and the measure $\mu$ is called a solution to the moment problem. Loosly speaking a moment problem poses the question: Under given constraints (e.g.\ measures supported within a fixed subset of $\RR^n$), to what extent can one determine a solution $\mu$ from a moment sequence, if one exists? 
 
 The classical study of moment problems is divided into three cases depending on the support of $\mu$. In each case there is a standard choice of support, from which general results are often derived by a change of variables.
 \begin{enumerate}[label=]
@@ -42,12 +42,13 @@ In some special cases we will denote the moments $c_k$ in a particular form:
   \[
     c_k = \int f(x)x^k dx
   \]
-  where $f(x)$ is the density of $\mu$ with respect to $dx$
+  where $f(x)$ is the density of $\mu$ with respect to $dx$.
   \item When $\mu$ is the Lebesgue measure on a set $A$ of finite measure, moments can be defined by
   \[
-    c_k = \int_A x^k dx
+    c_k = \int_A x^k dx.
   \]
 \end{enumerate}
+We often use these representations interchangeably. For example, we may say a function $f$ is determinate, or a set $A$ is indeterminate, if the corresponding measure $\mu$ has that property.
 
 There are two natural questions one can ask about a moment problem:
 \begin{itemize}[label=]
@@ -55,6 +56,7 @@ There are two natural questions one can ask about a moment problem:
   \item \emph{Determinacy}: Is a solution unique? If not, what can be said about the set of solutions?
 \end{itemize}
 
+For our purposes we will assume existence. In terms of the shape reconstruction method of Chapter 3 it is taken as a given that a solution exists, but that we have access only to the moments. Furthermore in practical application we encounter a followup question to determintacy: How can we reconstruct the solution?
 
 In the classical cases (Markov, Stieltjes, Hamburger) these questions have been more or less resolved. Precise conditions for solvable and determinate moment problems have been found, and the nature of solution sets to indeterminate moment problems are well understood. For instance, all solvable Markov moment problems are unique. This result follows from the Weierstrass approximation theorem:
 
@@ -70,13 +72,15 @@ In the classical cases (Markov, Stieltjes, Hamburger) these questions have been 
 %   By linearity it is sufficient to show that if $c_k = 0$ for all $k \in \NN_0$, then $\mu = 0$. Furthermore, 
 % \end{proof}
 
+\begin{myexample}
+  An example of an indeterminate stieltjes moment problem?
+\end{myexample}
 
-However, many classes of generalized moment problems remain in active study.
-
-In particular we will discuss multivariate moment problems. Let $\mu$ be a Borel measure now on $\RR^n$. For $\alpha \in \NN_0^n$. Define the $\alpha$th multivariate moment of $f$ as 
+However, in the case of multivariable moment problems remain largely open. Let $\mu$ be a Borel measure now on $\RR^n$. For $\alpha \in \NN_0^n$. Define the $\alpha$th multivariate moment of $f$ as 
 \[
   c_\alpha = \int_{\RR^n} x^\alpha ~d\mu(x).
 \]
+
 \begin{myexample}
   Let $A = {[0,1]}^n \subseteq \RR^n$ be the unit cube and $\mu$ the Lebesgue measure on $A$. Then $\mu$ has multivariable moments
   \begin{align*}
@@ -93,20 +97,18 @@ In particular we will discuss multivariate moment problems. Let $\mu$ be a Borel
     = \prod_{i = 1}^n \frac{b_i^{\alpha_i + 1} - a_i^{\alpha_i + 1}}{\alpha_i + 1}
   \]
 \end{myexample}
-The moment sequence ${(c_\alpha)}_{\alpha \in \NN_0^n}$ is now multiindexed, but the notions of solvability and determinacy are analogous: It is solvable provided there exists a Borel measure with these moments, and it is determinate provided such a measure is unique. Similarly, we divide multivariate moment problems into three cases:
-
-
+The moment sequence ${(c_\alpha)}_{\alpha \in \NN_0^n}$ is now multiindexed, but the notions of solvability and determinacy are analogous: It is solvable provided there exists a Borel measure with these moments, and it is determinate provided such a measure is unique. Here, we divide multivariate moment problems into two cases:
 
 \begin{enumerate}[label=]
-  \item \emph{Markov} (or \emph{Haussdorf}) multivariate moment problems within a bounded support.
+  \item \emph{Bounded} multivariate moment problems within a bounded support.
   \[
     \text{supp}(\mu) \subseteq {[0,1]}^n
   \]
-  \item \emph{Stieltjes} multivatiate moment problems within a half-plane. 
-  \[
-    \text{supp}(\mu) \subseteq \RR^{n-1} \times [0, \infty)
-  \]
-  \item \emph{Hamburger} multivariate moment problems within a totally unbounded (?) support.
+  % \item \emph{Stieltjes} multivatiate moment problems within a half-plane. 
+  % \[
+  %   \text{supp}(\mu) \subseteq \RR^{n-1} \times [0, \infty)
+  % \]
+  \item \emph{Unbounded} multivariate moment problems within an unbounded support.
   \[
     \text{supp}(\mu) \subseteq \RR^n
   \]
@@ -114,16 +116,19 @@ The moment sequence ${(c_\alpha)}_{\alpha \in \NN_0^n}$ is now multiindexed, but
 
 While conditions for the solvability or determinacy of multivariate moment problems have been found in certain cases \cn, they are nowhere near as comprehensive as those of classical moment problems. One straightforward, albeit limited, approach is to reduce and $n$-variate moment problem to a set of $n$ univariate moment problems~\cite{Pete82}. For example, we employ this strategy in our proofs of propositions [determinacy for bounded domain and gaussian measures].
 
-We claim that multivariate moment problems on bounded domains are determinate, provided a solution exists. That is, without loss of generality,
-\begin{myclaim}
+As in the classical case of Markov moment problems, determinacy is a consequence of Stone-Weierstrass ($n$-variate polinomials):
+\begin{proposition}
   If $\mu$ is a Borel measure on the unit cube $A = {[0,1]}^n$, with moments
   \[
     c_\alpha = \int_{A} x^\alpha d\mu, \qquad \alpha \in \NN_0^n
   \]
   then the moment problem $(c_\alpha)_{\alpha \in \NN_0^n}$ is determinate.
-\end{myclaim}
-This claim is proved in proposition [].
+\end{proposition}
+We present a simple alternate proof in section 1.4 via the Radon transform.
 
+\begin{myexample}
+  An example of an indeterminate, unbounded, multivariable moment problem?
+\end{myexample}
 
 \section{Gaussian functions and measures}
 \begin{definition}
@@ -138,7 +143,7 @@ This claim is proved in proposition [].
   Note that $w = w_1$.
 \end{definition}
 
-A couple of formula: First the Gaussian integral,
+A couple of formulas: First the Gaussian integral,
 \[
   \int_{-\infty}^\infty w(p) ~dp = 1.
 \]
@@ -178,19 +183,37 @@ for any polynomial $P$.
   \]
   since $p^k w(p)$ is an odd function.
 
-  Now for $k \geq 2$ even, we derive a recurrence by integrating by parts
+  Now for $\ell = 1, 2, \ldots$, we derive a recurrence formula for $c_{2\ell}$ by integrating by parts
   \begin{align*}
-    c^G_k
-    &= \int_{-\infty}^\infty p^k w(p) ~dp \\
-    &= -\int_{-\infty}^\infty p^{k-1} \left(-p w(p)\right) ~dp \\
-    &= - \left[p^{k-1} w(p)\right]_{-\infty}^\infty + (k-1)\int_{-\infty}^\infty p^{k-2} w(p) ~dp \\
-    &= (k-1)c^G_{k-2}.
+    c^G_{2\ell}
+    &= \int_{-\infty}^\infty p^{2\ell} w(p) ~dp \\
+    &= -\int_{-\infty}^\infty p^{2\ell-1} \left(-p w(p)\right) ~dp \\
+    &= - \left[p^{2\ell-1} w(p)\right]_{-\infty}^\infty + (2\ell-1)\int_{-\infty}^\infty p^{2\ell-2} w(p) ~dp \\
+    &= (2\ell-1)c^G_{2\ell-2}.
   \end{align*}
   Thus by induction,
   \[
-    c^G_k = (k - 1)(k - 3) \cdots c_0 = (k-1)!!.
+    c^G_{2\ell} = (2\ell - 1)(2\ell - 3) \cdots c_0 = (2\ell-1)!!.
+  \]
+
+  As an alternate derivation, for readers familiar with the gamma function $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}$ we present the following. Since $p^2\ell w(x)$ is even,
+  \begin{align*}
+    \int_{-\infty}^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
+      &= 2\int_0^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
+  \end{align*}
+  Now substituting $t = \frac{p^2}2$, whereby $dt = p dp$,
+  \begin{align*}
+    2\int_0^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
+      &= 2\int_0^\infty p^{2\ell - 1} e^{-\frac{p^2}2} dt \\
+      &= 2^{\ell+\frac12}\int_0^\infty t^{\ell - \frac12}e^{-t} dt \\
+      &= 2^{\ell+\frac12} \Gamma\left(\ell + \frac12\right)
+  \end{align*}
+  so that
+  \[
+    c^G_{2\ell} = \frac{2^{\ell}}{\sqrt{\pi}} \Gamma\left(\ell + \frac12\right) = (2\ell - 1)!!
   \]
 \end{myexample}
+
 
 
 A relationship between the univariate and multivariate Gaussian densities can be seen as follows: Let $x, y \in \RR^n$, $n \geq 2$. Suppose $y = p\omega$ where $\omega \in S^1$ and $p \in \RR$, so that $p\omega$ is the orthogonal projection of $x$ onto the span of $y$. Then the Pythagorean relation,
@@ -245,7 +268,7 @@ More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following
 \end{myexample}
 
 \begin{definition}
-  The \textit{Hermite polynomials} can be defined by the Rodriguez formula
+  The \textit{Hermite polynomials} can be defined by the Rodrigues formula
   \[
       H_k(p) = {(-1)}^k \frac{w^{(k)}(p)}{w(p)}
   \]
@@ -657,7 +680,7 @@ Similarly, moments of the GRT (Gaussian projection moments) can be expressed in 
     &= \sum_{|\alpha| = k} \binom{k}{\alpha} e_i^\alpha c_\alpha \\
     &= c_{ke_i}
   \end{align*}
-  since $e_i^\alpha = 0$ unless $\alpha = ke_i$. (This is based on the quirky assumption $0^0 = 1$ in the definition of multiindex powers, but is fundamental to the multinomial theorem).
+  since $e_i^\alpha = 0$ unless $\alpha = ke_i$.
 \end{myexample}
 
 The following theorem, due to Petersen \cn, gives a way us to reduce the question of determinacy for multivariate moment problems to the classical case.
