@@ -12,56 +12,83 @@ Here we, hear ye, discuss the convergence of rational approximations to the Stie
 
 \section{The Markov and Hamburger transforms}
 
-Let $\mu$ be a Borel measure with infinite support and finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. 
+Let $\mu$ be a Borel measure with finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. 
 
 \begin{definition}
-  The function on $\CC$ defined by
+  The complex function $g$ defined by
   \[
     g(z) = \int_\infty^\infty\frac{d\mu}{1+zp}
   \]
   is called the Markov (Hamburger resp.) transform of $\mu$ when $\mu$ has bounded (unbounded resp.) support.
 \end{definition}
 
-Let us consider the domain of definition for $g(z)$. Since $p$ is a real number, the denominator $1 + zp$ can only vanish if $\im z = 0$ In fact:
+It is worth noting at the outset that $g(z)$ is defined at least for non-real $z$. To see this we note that if $\im z \neq 0$,
+\begin{align*}
+  \frac1{|1 + zp|} 
+  &= \frac{|1/z|}{|\frac1z + p|} \\
+  &\leq \frac{|1/z|}{|\im \frac1z|} \\
+  &= \frac{|\overline{z}|/|z|^2}{|\im \overline{z}|/|z|^2} \\
+  &= \frac{|z|}{|\im z|}
+\end{align*}
+which gives the bound
+\begin{equation}
+  |g(z)| 
+  \leq \int_{-\infty}^\infty \frac{|z|}{|\im z|} d\mu(p) 
+  = \frac{|z|}{|\im z|}c_0
+\end{equation}
+
+Since the integrand diverges when $p = -1/z$ a Markov transform must converge in some neighborhood of zero. This cannot be said in general for a Hamburger transform. 
+
+\begin{remark}
+  The bound above has a useful geometric interpretation. For starters we note that,
+  \[
+    \frac{|\im z|}{|z|} = |\sin(\arg z)|,
+  \]
+  which can be seen by considering the right triangle formed by the points $0$, $z$, and $\re z$. Thus this bound essentially depends on the angle of separation between $z$ and the real line. 
+\end{remark}
 
 \begin{proposition}
-  The function $g(z)$ is holomorphic on the upper half plane $\im z > 0$.
+  The function $g(z)$ is analytic on the upper and lower half planes $\im z \neq 0$.
 \end{proposition}
 
 \begin{proof}
-  Let $\gamma$ be a closed piecewise $C^1$ curve in the upper half plane. 
+  Let $z, w$ be complex numbers with non-zero imaginary part. We have
   \begin{align*}
-    |zg(z)| 
-    &\leq \int_{-\infty}^\infty \frac{d\mu}{|\frac1z + p|} \\
-    &\leq \int_{-\infty}^\infty \frac{d\mu}{|\im \frac1z|} \\
-    &= \frac{c_0}{|\im \frac1z|}.
+    g(w) - g(z)
+    &= \int_{-\infty}^\infty \frac{1}{1 + wp} - \frac1{1 + zp}d\mu(p) \\
+    &= \int_{-\infty}^\infty \frac{(1 + zp) - (1 + wp)}{(1 + wp)(1 + zp)}d\mu(p) \\
+    &= (w - z) \int_{-\infty}^\infty \frac{-p}{(1 + wp)(1 + zp)}d\mu(p).
   \end{align*}
-  Thus
+  Thus it seems
   \[
-    |g(z)| \leq \frac{c_0}{|z \im \frac1z|} = c_0\left|\frac{z}{\im z}\right|.
+    \lim_{w \rightarrow z} \frac{g(w) - g(z)}{w - z} = \int_{-\infty}^\infty \frac{-p}{(1+zp)^2}d\mu(p).
   \]
-  Note that as a compact subset of the upper half plane $\gamma$ must have positive distance from the real line. As a consequence $g(z)$ is bounded on $\gamma$, and by Fubini's theorem
-  \begin{align*}
-    \oint_\gamma g(z) dz
-    &= \oint_\gamma \int_{-\infty}^\infty \frac{d\mu}{1 + zp} ~dz \\
-    &= \int_{-\infty}^\infty \oint_\gamma \frac{dz}{1 + zp} ~d\mu \\
-    &= \int_{-\infty}^\infty 0 ~d\mu = 0.
-  \end{align*}
-  By Morera's theorem $g(z)$ is holomorphic on the upper half plane.
+  To be precise we may justify the interchange of limit and integral here by dominated convergence. By the previously discussed bound,
+  \[
+    \left|\frac{-p}{(1 + wp)(1 + zp)}\right| \leq |p|\frac{|wz|}{|\im w ~\im z|}.
+  \]
+  Furthermore since $|w|/|\im w|$ is clearly continuous on the half planes, there exists $\delta > 0$ so that if $|w - z| \leq \delta$ then
+  \[
+    |p|\frac{|wz|}{|\im w ~\im z|} \leq |p|\left(\frac{|z|^2}{|\im z|^2} + \epsilon\right)
+  \]
+  for any $\epsilon > 0$. Finally, we note that the right hand dominating function above is integrable since $\mu$ has finite moments: 
+  \[
+    \int_{-\infty}^\infty |p| d\mu \leq \int_{-\infty}^\infty p^2 + 1 ~d\mu = c_2 + c_0
+  \]
 \end{proof}
 
 \begin{remark}
-  Similarly one can show $g(z)$ is holomorphic on the lower half plane $\im z < 0$. Moreover $g(z)$ commutes with conjugation:
+  Since $\mu$ is a real measure, $g(z)$ commutes with conjugation,
   \[
-    g(\bar z) = \int_\infty^\infty\frac{d\mu}{1+\bar zp} = \overline{\int_\infty^\infty\frac{d\mu}{1+zp}} = \overline{g(z)}
+    g(\bar z) = \int_\infty^\infty\frac{d\mu}{1+\bar zp} = \overline{\int_\infty^\infty\frac{d\mu}{1+zp}} = \overline{g(z)}.
   \]
-  since $\mu$ is a real measure.
+  Thus, although $g(z)$ is defined for all non-real $z$, we will only concern ourselves with its values on the upper half plane $\im z > 0$ going forward. In chapter 3 we should restrict our sample points to the upper half plane, since samples in the lower half may be redundant.
 \end{remark}
 
 
-When $z$ is a real number $g(z)$ may not converge. In particular $g(z)$ does not converge when $z = -1/p$ for some $p$ in the support of $\mu$. Thus if $\mu$ has bounded support $g$ converges in a neighborhood of $0$. On the other hand if $\mu$ has unbounded support $g(0)$ is not defined. However — as we will see — even in the Hamburger transform case, a formal series expansion at $z = 0$ holds valuable information.
+When $z$ is a real number $g(z)$ may not converge. In particular $g(z)$ does not converge when $z = -1/p$ for some $p$ in the support of $\mu$ \pn.  Thus if $\mu$ has bounded support $g$ converges in a neighborhood of $0$. On the other hand if $\mu$ has unbounded support $g(0)$ is not defined. However — as we will see — even in the Hamburger transform case, a formal series expansion at $z = 0$ holds valuable information. The results of this section are described in detail in section 5.6 of (Baker) \cn
 
-By a simple geometric series expansion,
+By a geometric series expansion,
 \[
   \frac1{1 + zp} = \sum_{k = 0}^\infty {(-z)}^k p^k 
 \]
@@ -98,15 +125,22 @@ Non-tangential convergence at $z = 0$ is, as the name implies, convergence along
 \end{figure}
 in which curves approach $0$ with an angle at least $\delta$ from the real line.
 
-\begin{definition} (Non-Tangential Limit)
-    We say $g(z) \rightarrow z_0$ non-tangentially at $z = 0$ if, for any $\delta > 0$, the limit 
-    \[
-      \lim_{z \rightarrow 0} g(z) = z_0
-    \]
-    holds for $z$ in the $\Gamma_\delta$.
+\begin{definition} (Non-tangential convergence and assymptotic expansion)
+  We say $h(z) \rightarrow 0$ non-tangentially as $z \rightarrow 0$ if, for any $\delta > 0$, the limit 
+  \[
+    \lim_{z \rightarrow 0} h(z) = 0
+  \]
+  holds for $z$ in the $\Gamma_\delta$. If a formal power series $\sum_{k=0}^\infty a_k z^k$ and a function $g(z)$ are such that for all $n\in \NN_0$,
+  \[
+    g(z) = \sum_{k = 0}^{n-1} c_k{(-z)}^k + z^n h_n(z)
+  \]
+  where the trailing terms $h_n(z)$ converge to $0$ non-tangentially as $z \rightarrow 0$, we say that $\sum_{k=0}^\infty a_k z^k$ is an assymptotic expansion of $g(z)$. We use the notation
+  \[
+    g(z) \simeq \sum_{k=0}^\infty a_k z^k
+  \]
+  for assymptotic expansions.
     % If for any $\delta > 0$ the limit $g(z) \rightarrow L$ holds 
 \end{definition}
-
 
 While $g(z)$ does not generally converge at $z = 0$, in a non-tangential sense the afformentioned assymptotic expansion holds:
 \begin{proposition}
@@ -172,12 +206,34 @@ While $g(z)$ does not generally converge at $z = 0$, in a non-tangential sense t
   Since $A$ is arbitrary and the integral $\int p^{2n} d\mu = c_{2n}$ is convergent we are done.
 \end{proof}
 
+\begin{remark}
+  An interesting connection — which I don't know enough about to discuss yet — is begining to be revealed here between moment problems and analytic functions on the upper half plane (in particular, their behaviour near the real boundary). This leads us to the notion of interpolation problems \cn.
+\end{remark}
+
 Evidently the assymptotic series expansion $g(z) \simeq \sum_{k=0}^\infty c_k {(-z)}^k$ is generally formal, having zero radius of convergence except in the Markov case. However as we will see in the next section, rational functions constructed from this formal series exist which approximate $g(z)$ on the upper half plane $\{\text{Im} z > 0\}$.
 
-Finally we prove two formulas regarding the Hamburger transform of a RT projection. Let $\omega \in S^{n-1}$ be fixed and consider.
+Finally we prove two propositions regarding the Hamburger transform of a RT projection. Let $\omega \in S^{n-1}$ be fixed and consider
 \[
   g(z) = \int_\infty^\infty \frac{R(\omega, p)}{1 + zp} dp
 \]
+for some function $f: \RR^n \to \RR$. 
+\begin{definition}
+  The multivariate Markov (Hamburger resp.) transform of a borel measure $\mu$ on $\RR^n$ of bounded (unbounded resp.) support is defined by
+  \[
+    g(y) = \int_{\RR^n} \frac{d\mu(x)}{1 + \langle x, y\rangle} \simeq \sum_{\alpha \in \NN_0^n} c_\alpha(-y)^\alpha
+  \]
+  when $\mu$ has finite moments $c_\alpha = \int_{\RR^n} x^\alpha d\mu$.
+\end{definition}
+% \begin{proposition}
+%   The Hamburger transform of the Radon transform of a function $f$ is 
+%   \[
+%     \int_{-\infty}^\infty \frac{R_f(\omega, p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)}{1 + z\langle x, \omega \rangle} dx
+%   \]
+% \end{proposition}
+
+% \begin{proposition}
+  
+% \end{proposition}
 By applying the slice theorem, with $F(p) = {(1+zp)}^{-1}$ we see that the Hamburger transform of a projection can be represented by a similar multivariable integral of $f$ over $\RR^n$.
 \[
   \int_{-\infty}^\infty \frac{R_f(\omega, p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)}{1 + z\langle x, \omega \rangle} dx
@@ -216,7 +272,7 @@ It is helpful to consider the related, and necessary condition
 \end{equation}
 In the classical theory of Pad\'e approximants (\ref{eq:CPade}) was often taken as a definition. It is always possible to find polynomials of the required degree satisfying this second condition, however they do not necessarily attain the degree of accuracy required by the first. We follow Baker, defining $R^{[L/M]}(z)$ by (\ref{eq:BPade}), provided such a rational function exists.
 
-\begin{definition}
+\begin{definition}[Baker's definition of Pad\'e approximants]
   The Pad\'e approximant $R^{[L/M]}$ to a (possibly formal) power series is a the unique rational function with nummerator (denominator resp.) degree at most $L$ ($M$ resp.) satisfying the condition (\ref{eq:BPade}). If no such rational function exists we say the Pad\'e approximant does not exist.
 \end{definition}
 
@@ -236,7 +292,7 @@ and,
   &\vdots \\
   0 &= b_{M}c_L + b_{M-1}c_{L+1} + \cdots + b_0c_{L+M}
 \end{align*}
-where for convenience we set $c_k = 0$ for $k < 0$. The first systems shows the numerator $P^{[L/M]}$ is determined by the denominator $Q^{[L/M]}$. From the second system we can derive a determinantal formula for $Q^{[L/M]}$. Augmented with the desired definition, 
+where for convenience we set $c_k = 0$ for $k < 0$. The first system shows the numerator $P^{[L/M]}$ is determined by the denominator $Q^{[L/M]}$. From the second system we can derive a determinantal formula for $Q^{[L/M]}$. Augmented with the desired definition, 
 \[
   Q^{[L/M]}(z) = b_M z^M + b_{M-1}z^{M-1} + \cdots + b_0
 \]
@@ -367,7 +423,7 @@ Since the Hankel determinants give a useful form for expressing some conditions 
 \]
 Note in particular that the sufficient condition $Q^{[L/M]}(0) \neq 0$ for the existence of $R^{[L/M]}(z)$ is equivalent to $H(L-M+1, M-1) \neq 0$
 
-We now narrow our focus to Pad\'e approximants to a Humburger series. Let $\mu$ be a Borel measure on $\RR$ with infinite support and finite moments $c_k = \int p^k ~d\mu$. Recall that the Hamburger transform of $\mu$,
+We now narrow our focus to Pad\'e approximants to a Humburger series. Let $\mu$ be a Borel measure on $\RR$ with \emph[infinite support] \needed{CLARITY AND PURPOSE} and finite moments $c_k = \int p^k ~d\mu$. Recall that the Hamburger transform of $\mu$,
 \[
     g(z) := \int_\RR \frac{d\mu}{1+pz}
 \]
@@ -385,13 +441,13 @@ We call this formal power series a Hamburger series.
 \end{remark}
 
 \begin{lemma}
-  The hamburger moments $c_k$ satisfy the determinental condition $H(2n, m) \neq 0$ for $n,m = 0, 1, \ldots$. 
+  The Hamburger moments $c_k$ satisfy the determinental condition $H(2n, m) \neq 0$ for $n,m = 0, 1, \ldots$. 
 \end{lemma}
 
 \begin{proof}
-  Consider the quadratic form given by
+  Consider the binary quadratic form given by
   \[
-    G(\mathbf{x}, \mathbf{y}) := 
+    G(\mathbf{x}, \mathbf{y}) :=
     \mathbf{x}^\top
     \begin{pmatrix}
       c_{2n} & \cdots & c_{2n+m} \\
@@ -413,7 +469,7 @@ We call this formal power series a Hamburger series.
   \[
     \int p^{2n}{\left(\sum_{k=0}^m x_k p^{k}\right)}^2 ~d\mu = 0
   \]
-  if and only if $\mu$ is supported entirely on the zeros of the polynomial $p^n\sum_{k=0}^m x_k p^{k}$. However by assumption $\mu$ has infinite support. So in fact $G$ is strictly positive definite. We conclude, by Sylvester's criterion for example, that assocciated hankel matrix has positive determinant. That is, $D(2n, m) > 0$.
+  if and only if $\mu$ is supported entirely on the zeros of the polynomial $p^n\sum_{k=0}^m x_k p^{k}$. However by assumption $\mu$ has infinite support. So in fact $G$ is strictly positive definite. We conclude, by Sylvester's criterion for example, that assocciated hankel matrix has positive determinant. That is, $H(2n, m) > 0$.
 \end{proof}
 
 The previous lemma guarentees the existence of certain Pad\'e approximants, specifically those with $L-M+1$ even. 
@@ -605,23 +661,6 @@ It remains to discuss the determinacy of the Hamburger moment problem. Here we n
 % \tc{...insert the construction of multi pade}
 
 \section{Convergence results for the Gaussian Radon transform}
-% What is the relationship between the Gaussian and Classical Radon Transform
-% \[
-%     GR_f(\omega, p)e^{-p^2/2} 
-%     = e^{-p^2/2} \int_{\langle x, \omega \rangle = p} e^{-|p\omega-x|^2/2} f(x) dx
-%     = \int_{\langle x, \omega \rangle = p} e^{-|x|^2/2} f(x) dx
-%     = R_g(\omega, p)
-% \]
-% where $g(x) = e^{-|x|^2/2} f(x)$
-
-% \begin{tikzcd}
-%     f \arrow[d, "\psi"] \arrow[r, "\eta"]
-%     & Gf \arrow[d, "\psi"] \\
-%     R_f \arrow[r, "\eta"]
-%     & GR_f
-% \end{tikzcd}
-
-
 
 Now we are in the position to assemble all the previous results into an approximation scheme to be used for reconstruction shapes of unbounded domains.
 

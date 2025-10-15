@@ -204,7 +204,7 @@ for any polynomial $P$.
   Now substituting $t = \frac{p^2}2$, whereby $dt = p dp$,
   \begin{align*}
     2\int_0^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
-      &= 2\int_0^\infty p^{2\ell - 1} e^{-\frac{p^2}2} dt \\
+      % &= 2\int_0^\infty p^{2\ell - 1} e^{-\frac{p^2}2} dt \\
       &= 2^{\ell+\frac12}\int_0^\infty t^{\ell - \frac12}e^{-t} dt \\
       &= 2^{\ell+\frac12} \Gamma\left(\ell + \frac12\right)
   \end{align*}
@@ -492,8 +492,8 @@ The so called ``slice theorem'' further generalizes this observation:
 
 \begin{proposition}[Slice Theorem]
   % If $f: \RR^n \rightarrow \RR$ and $F: \RR \rightarrow \RR$ are measureable, then
-  % If $f \in L^1(\RR^n)$ and $F \in L^\infty(\RR)$, then
-  If $f \in C_c(\RR^n)$ and $F \in L^1_{loc}(\RR)$, then
+  If $f \in L^1(\RR^n)$ and $F \in L^\infty(\RR)$, then
+  % If $f \in C_c(\RR^n)$ and $F \in L^1_{loc}(\RR)$, then
   % \needed{EXTRA CONDITIONS} (i.e. non-negative Fubnini,  Tonelli)
   \begin{align}
     \label{eq:ST}
@@ -580,7 +580,9 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
 %     For an equivalent 
 % \end{remark}
 
-\section{Projection moments}
+\section{The Radon transform of measures and distributions}
+
+% Here we extend the definitions of the RT and GRT to apply to 
 
 Taking from the context of classical moment problems we should define the notion of the Radon transform of a measure $\mu$. Let $\mu$ be a Borel measure on $\RR^n$ with finite moments $c_\alpha$, $\alpha \in \NN_0^n$. The projection $\pi_\omega : \RR^n \rightarrow \RR$ given by
 \[
