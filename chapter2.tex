@@ -17,7 +17,7 @@ Let $\mu$ be a Borel measure with finite moments $c_k = \int_{-\infty}^\infty p^
 \begin{definition}
   The complex function $g$ defined by
   \[
-    g(z) = \int_\infty^\infty\frac{d\mu}{1+zp}
+    g(z) = \int_{-\infty}^\infty\frac{d\mu}{1+zp}
   \]
   is called the Markov (Hamburger resp.) transform of $\mu$ when $\mu$ has bounded (unbounded resp.) support.
 \end{definition}
@@ -37,7 +37,7 @@ which gives the bound
   = \frac{|z|}{|\im z|}c_0
 \end{equation}
 
-Since the integrand diverges when $p = -1/z$ a Markov transform must converge in some neighborhood of zero. This cannot be said in general for a Hamburger transform. 
+Since the integrand has a singularity only when $p = -1/z$ a Markov transform must converge in some neighborhood of zero. This cannot be said in general for a Hamburger transform. 
 
 \begin{remark}
   The bound above has a useful geometric interpretation. For starters we note that,
@@ -63,17 +63,21 @@ Since the integrand diverges when $p = -1/z$ a Markov transform must converge in
   \[
     \lim_{w \rightarrow z} \frac{g(w) - g(z)}{w - z} = \int_{-\infty}^\infty \frac{-p}{(1+zp)^2}d\mu(p).
   \]
-  To be precise we may justify the interchange of limit and integral here by dominated convergence. By the previously discussed bound,
+  To be precise we may justify the interchange of limit and integral here by dominated convergence. Recall that it suffices to find an integrable function $h : \RR \to \CC$ such that, for any $w$ in a neighborhood of $z$,
+  \[
+    \left|\frac{-p}{(1 + wp)(1 + zp)}\right| \leq h(p) \qquad \hbox{for all $p \in \RR$}.
+  \]
+  It should be noted that our particular dominating function $h(p)$ is somewhat arbitrary, and not a sharp bound. By the previously discussed bound we have,
   \[
     \left|\frac{-p}{(1 + wp)(1 + zp)}\right| \leq |p|\frac{|wz|}{|\im w ~\im z|}.
   \]
-  Furthermore since $|w|/|\im w|$ is clearly continuous on the half planes, there exists $\delta > 0$ so that if $|w - z| \leq \delta$ then
+  Furthermore $|w|/|\im w|$ is clearly continuous on the half planes, so in some neighborhood of 
   \[
     |p|\frac{|wz|}{|\im w ~\im z|} \leq |p|\left(\frac{|z|^2}{|\im z|^2} + \epsilon\right)
   \]
-  for any $\epsilon > 0$. Finally, we note that the right hand dominating function above is integrable since $\mu$ has finite moments: 
+  for an arbitrary $\epsilon > 0$. Finally, we note that the right hand dominating function above is integrable since $\mu$ has finite moments: 
   \[
-    \int_{-\infty}^\infty |p| d\mu \leq \int_{-\infty}^\infty p^2 + 1 ~d\mu = c_2 + c_0
+    \int_{-\infty}^\infty |p| d\mu \leq \int_{-\infty}^\infty \frac12(p^2 + 1) ~d\mu = c_2 + c_0
   \]
 \end{proof}
 
@@ -82,7 +86,7 @@ Since the integrand diverges when $p = -1/z$ a Markov transform must converge in
   \[
     g(\bar z) = \int_\infty^\infty\frac{d\mu}{1+\bar zp} = \overline{\int_\infty^\infty\frac{d\mu}{1+zp}} = \overline{g(z)}.
   \]
-  Thus, although $g(z)$ is defined for all non-real $z$, we will only concern ourselves with its values on the upper half plane $\im z > 0$ going forward. In chapter 3 we should restrict our sample points to the upper half plane, since samples in the lower half may be redundant.
+  For this reason, although $g(z)$ is defined for all non-real $z$, we will only concern ourselves with its values on the upper half plane $\im z > 0$ going forward. In chapter 3 we should restrict our sample points to the upper half plane, since samples in the lower half may be redundant.
 \end{remark}
 
 

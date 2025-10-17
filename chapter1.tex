@@ -130,7 +130,7 @@ We present a simple alternate proof in section 1.4 via the Radon transform.
   An example of an indeterminate, unbounded, multivariable moment problem?
 \end{myexample}
 
-\section{Gaussian functions and measures}
+\section{Gaussian measures and the Hermite polynomials}
 \begin{definition}
   Let $w(p) : \RR \rightarrow \RR$  be the standard Gaussian density on $\RR$,
   \[
@@ -201,7 +201,7 @@ for any polynomial $P$.
     \int_{-\infty}^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
       &= 2\int_0^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
   \end{align*}
-  Now substituting $t = \frac{p^2}2$, whereby $dt = p dp$,
+  Now substituting $t = \frac{p^2}2$, whereby $dt = p~dp$,
   \begin{align*}
     2\int_0^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
       % &= 2\int_0^\infty p^{2\ell - 1} e^{-\frac{p^2}2} dt \\
@@ -238,7 +238,7 @@ is in some respect the defining property of the Gaussian measure described below
 Thus the $w_n(x)$ is the product of $n$ copies of $w$. The standard Gaussian measure $\gamma^n$ is thus a measure whose cardinal projections are standard Gaussian measures.
 
 \begin{definition}
-Let $\gamma^n$ be a the Borel measure on $\RR^n$ with density $w_n$,
+Let $\gamma^n$ be the Borel measure on $\RR^n$ with density $w_n$,
 \[
   \int_{\RR^n} f(x) d\gamma^n = \int_{\RR^n} f(x) w_n(x) ~dx.
 \]
@@ -267,27 +267,85 @@ More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following
   \]
 \end{myexample}
 
+% Next we discuss the Hermite polynomials. They can be defined in many equivalent ways, as orthogonal polynomials with respect to the Gaussian weight, as eigenfunctions for 
+
 \begin{definition}
   The \textit{Hermite polynomials} can be defined by the Rodrigues formula
   \[
       H_k(p) = {(-1)}^k \frac{w^{(k)}(p)}{w(p)}
   \]
-  note that $H_k$ is a polynomial of degree $k$.
+  
 \end{definition}
-The Hermite polynomials have the following properties:
 
+We can derive a recurrence relation with some basic differential calculus. First multiplying both sides by $(-1)^kw(p)$, we get
+\[
+   w^{(k)}(p) = {(-1)}^k w(p)H_k(p)
+\]
+Now we differentiate both sides 
+\[
+  w^{(k+1)}(p) 
+    = {(-1)}^{k} (-pw(p)H_k(p) + w(p)H_k'(p)) 
+    = {(-1)}^{k+1} w(p)(pH_k(p) - H_k'(p))
+\]
+so that, dividing both sides by ${(-1)}^{k+1} w(p)$, we have
+\[
+  H_{k+1}(p) = pH(p) - H_k'(p)
+\]
+Since $H_0(p)$ is trivially the constant $1$ we can derive the first handful of polynomials.
 \begin{align*}
-  \int_{-\infty}^\infty H_k(p) H_\ell(p) w(p)~dp 
-  = \begin{cases}
-    \sqrt{2\pi} k!, & k = \ell \\
-    0, & k \neq \ell
-  \end{cases}
+  H_0(p) &= 1 \\
+  H_1(p) &= p \\
+  H_2(p) &= p^2 - 1 \\
+  H_3(p) &= p^3 - 3p \\
+  H_4(p) &= p^4 - 6p^2 + 3 \\
+  H_5(p) &= p^5 - 10p^3 + 15p
 \end{align*}
+Note that each $H_k$ is a monic polynomial of  degree $k$, and they are even (odd resp.) when $k$ is even (odd resp.).
+The Hermite polynomials are mutually orthogonal in the sense that for nonnegative integers $\ell < k$,
+\begin{align*}
+  \int_{-\infty}^\infty H_\ell(p) H_k(p) w(p)~dp 
+  = 0
+\end{align*}
+To see this, substitute the Rodrigues formula for $H_k$,
+\[
+  (-1)^k \int_{-\infty}^\infty H_\ell(p) w^{(k)}(p)~dp
+\]
+and integrate by parts
+\begin{align*}
+  (-1)^k \left(\left[H_k(p)w^{(k-1)}(p)\right]_{-\infty}^\infty - \int_{-\infty}^\infty H'_\ell(p) w^{(k-1)}(p)~dp\right) \\
+  = (-1)^{k-1}\int_{-\infty}^\infty H'_\ell(p) w^{(k-1)}(p)
+\end{align*}
+where the boundary term $\left[H_k(p)w^{(k-1)}(p)\right]_{-\infty}^\infty$ vanishes because of $w(p)$'s rapid decay at $\pm \infty$.
 
-The Hermite polynomials form an orthonormal basis for $L^2(\RR, w)$.
-% \begin{proposition}
-%    $f$
-% \end{proposition}
+The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the space of function $f : \RR \to \RR$ for which $\int_{-\infty}^\infty f(p)^2 w(p)~dp < \infty$. This is a Hilbert space with inner product $\langle f, g \rangle = \int_{-\infty}^\infty |f(p)g(p)| w(p)~dp$.
+\begin{proposition}
+   The linear span of the Hermite polynomials $H_0(p), H_1(p), \ldots$ is dense in $L^2(\RR, w)$.
+\end{proposition}
+
+\begin{corollary}
+  For any $f \in L^2(\RR)$ the moment problem given by
+  \[
+    c_n \int_{-\infty}^\infty f(p) w(p) dp
+  \]
+  is determinate.
+\end{corollary}
+
+In the next section we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for the generating function 
+\[
+  e^{pt - \frac{t^2}2} = \sum_{k = 0}^\infty \frac{H_k(p)}{k!}t^k.
+\]
+Note that
+\[
+  e^{pt - \frac{t^2}2} 
+    = \frac{e^{-\frac{(p-t)^2}2}}{e^{-\frac{p^2}2}} 
+    = \frac{w(p - t)}{w(p)}
+\]
+so that the Taylor coefficients are precisely
+\[
+  \left[\frac{d^k}{dt^k}\frac{w(p - t)}{w(p)}\right]_{t = 0} 
+    = (-1)^k \frac{w^{(k)}(p)}{w(p)} = H_k(p).
+\]
+
 
 \section{The Radon and Gaussian Radon transforms}
 
