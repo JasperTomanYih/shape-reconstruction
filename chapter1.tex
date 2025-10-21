@@ -18,7 +18,7 @@ Let $\mu$ be a Borel measure on $\RR$. For $k \in \NN_0$, define the $k$th momen
 \[
   c_k = \int_{-\infty}^\infty x^k ~d\mu(x)
 \]
-provided the integral converges. The sequence ${(c_k)}_{k \in \NN_0}$ is called a moment sequence or a moment problem, and the measure $\mu$ is called a solution to the moment problem. Loosly speaking a moment problem poses the question: Under given constraints (e.g.\ measures supported within a fixed subset of $\RR^n$), to what extent can one determine a solution $\mu$ from a moment sequence, if one exists? 
+provided the integral converges. The sequence ${(c_k)}_{k \in \NN_0}$ is called a moment sequence or a moment problem, and the measure $\mu$ is called a solution to the moment problem. Loosly speaking a moment problem poses the question: Under given constraints (e.g.\ measures supported within a fixed subset of $\RR^n$), to what extent can one determine a solution $\mu$ (if one exists) from a moment sequence? 
 
 The classical study of moment problems is divided into three cases depending on the support of $\mu$. In each case there is a standard choice of support, from which general results are often derived by a change of variables.
 \begin{enumerate}[label=]
@@ -270,14 +270,14 @@ More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following
 % Next we discuss the Hermite polynomials. They can be defined in many equivalent ways, as orthogonal polynomials with respect to the Gaussian weight, as eigenfunctions for 
 
 \begin{definition}
-  The \textit{Hermite polynomials} can be defined by the Rodrigues formula
+  The \emph{Hermite polynomials} can be defined by the Rodrigues formula
   \[
       H_k(p) = {(-1)}^k \frac{w^{(k)}(p)}{w(p)}
   \]
   
 \end{definition}
 
-We can derive a recurrence relation with some basic differential calculus. First multiplying both sides by $(-1)^kw(p)$, we get
+We can derive a recurrence relation for $H_k$ with some basic differential calculus. First multiplying both sides by $(-1)^k w(p)$, we get
 \[
    w^{(k)}(p) = {(-1)}^k w(p)H_k(p)
 \]
@@ -291,7 +291,7 @@ so that, dividing both sides by ${(-1)}^{k+1} w(p)$, we have
 \[
   H_{k+1}(p) = pH(p) - H_k'(p)
 \]
-Since $H_0(p)$ is trivially the constant $1$ we can derive the first handful of polynomials.
+Since $H_0(p)$ is trivially the constant $1$ we compute the first handful of polynomials:
 \begin{align*}
   H_0(p) &= 1 \\
   H_1(p) &= p \\
@@ -300,12 +300,12 @@ Since $H_0(p)$ is trivially the constant $1$ we can derive the first handful of 
   H_4(p) &= p^4 - 6p^2 + 3 \\
   H_5(p) &= p^5 - 10p^3 + 15p
 \end{align*}
-Note that each $H_k$ is a monic polynomial of  degree $k$, and they are even (odd resp.) when $k$ is even (odd resp.).
+Note that each $H_k$ is a monic polynomial of  degree $k$, and $H_k$ is an even (odd resp.) function if $k$ is even (odd resp.).
 The Hermite polynomials are mutually orthogonal in the sense that for nonnegative integers $\ell < k$,
-\begin{align*}
+\begin{align}\label{eq:HOrth}
   \int_{-\infty}^\infty H_\ell(p) H_k(p) w(p)~dp 
   = 0
-\end{align*}
+\end{align}
 To see this, substitute the Rodrigues formula for $H_k$,
 \[
   (-1)^k \int_{-\infty}^\infty H_\ell(p) w^{(k)}(p)~dp
@@ -315,7 +315,11 @@ and integrate by parts
   (-1)^k \left(\left[H_k(p)w^{(k-1)}(p)\right]_{-\infty}^\infty - \int_{-\infty}^\infty H'_\ell(p) w^{(k-1)}(p)~dp\right) \\
   = (-1)^{k-1}\int_{-\infty}^\infty H'_\ell(p) w^{(k-1)}(p)
 \end{align*}
-where the boundary term $\left[H_k(p)w^{(k-1)}(p)\right]_{-\infty}^\infty$ vanishes because of $w(p)$'s rapid decay at $\pm \infty$.
+where the boundary term $\left[H_k(p)w^{(k-1)}(p)\right]_{-\infty}^\infty$ vanishes because of $w(p)$'s rapid decay at $\pm \infty$. Repeat this process until $H_\ell$ is annihilated.
+
+% \begin{remark}
+%   We describe (\ref{eq:HOrth}) in terms of ``orthogonality'' because 
+% \end{remark}
 
 The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the space of function $f : \RR \to \RR$ for which $\int_{-\infty}^\infty f(p)^2 w(p)~dp < \infty$. This is a Hilbert space with inner product $\langle f, g \rangle = \int_{-\infty}^\infty |f(p)g(p)| w(p)~dp$.
 \begin{proposition}
@@ -330,10 +334,17 @@ The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the 
   is determinate.
 \end{corollary}
 
-In the next section we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for the generating function 
-\[
-  e^{pt - \frac{t^2}2} = \sum_{k = 0}^\infty \frac{H_k(p)}{k!}t^k.
-\]
+In the next section we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for an exponential generating function.
+\begin{proposition}
+  The Hermite polynomials have the \emph{generating function},
+  \[
+    e^{pt - \frac{t^2}2} 
+      = \sum_{k = 0}^\infty \frac{H_k(p)}{k!}t^k.
+  \]
+  which converges absolutely for all $p, t \in \RR$.
+\end{proposition}
+
+\begin{proof}
 Note that
 \[
   e^{pt - \frac{t^2}2} 
@@ -345,11 +356,52 @@ so that the Taylor coefficients are precisely
   \left[\frac{d^k}{dt^k}\frac{w(p - t)}{w(p)}\right]_{t = 0} 
     = (-1)^k \frac{w^{(k)}(p)}{w(p)} = H_k(p).
 \]
+\end{proof}
+
+We can now define a straight forward multivariable analogue or the 
+Hermite polynomials 
+
+\begin{definition}
+  For $\alpha \in \NN_0^n$ we define the \emph{multivariable Hermite polynomial} $H_\alpha$ by
+\[
+  H_{\alpha}(x) = H_{\alpha_1}(x_1) \cdots H_{\alpha_n}(x_n), \qquad x = (x_1, \ldots x_n) \in \RR^n 
+\]
+\end{definition}
+
+The multivariable Hermite polynomials have many useful properties corresponding to those of the classical polynomials. In particular we have the Rodrigues formula
+\[
+  H_\alpha(x) 
+    = (-1)^{|\alpha|}\frac{D^{\alpha}w_n(x)}{w_n(x)}
+\]
+where $D^\alpha = \frac{\partial^{\alpha_1 + \cdots + \alpha_n}}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}}$. Just like the classical case, this formula can be used to define $H_\alpha$ as multivariate Taylor coefficients for the generating function:
+\[
+  e^{\langle x, y\rangle - \frac{\|y\|^2}2} 
+    = \frac{w_n(x - y)}{w_n(x)} 
+      = \sum_{\alpha \in \NN_0^n} \frac{H_\alpha(x)}{\alpha!}y^\alpha
+\]
+
+% An interesting formula relating the classical and multivariate Hermite polynomials:
+% \[
+%   \sum_{|\alpha| = k} \frac{H_\alpha(x)}{\alpha!}y^\alpha 
+%     = \frac{H_k\left(\frac{\langle x, y \rangle}{\|y\|}\right)}{k!}|y|^k
+% \]
+% can be found in a more general form, from Erd\'elyi, Rosier, and others \cn. If $\|y\| = 1$ this says
+% \[
+%   \sum_{|\alpha| = k} \frac{H_\alpha(x)}{\alpha!}y^\alpha 
+%     = \frac{H_k\left(\langle x, y \rangle\right)}{k!}
+% \]
+
+% A related formula, assuming $\|y\| = 1$,
+% \[
+%   \sum_{|\alpha| = k} \frac{H_k(p)}{\alpha!}(y^\alpha)^2
+%     = \frac{H_k(p)}{k!}
+% \]
+% derived independently by Sengupta, looks similar but is very different. z
 
 
 \section{The Radon and Gaussian Radon transforms}
 
-Let $f$ be a multivariable function on the $n$-dimensional Euclidean space $\RR^n$. We imagine taking ``slices'' of $f$ by restricting it to a $(n-1)$-dimensional hyperplane $\Lambda$. These hyperplanes form the domain of the Radon Transform. More precisely, the Radon Transform associates each slice with a corresponding integral
+Let $f$ be a function on the $n$-dimensional Euclidean space $\RR^n$. We imagine taking ``slices'' of $f$ by restricting it to a $(n-1)$-dimensional hyperplane $\Lambda$. These hyperplanes form the domain of the Radon Transform. More precisely, the Radon Transform associates each slice with a corresponding integral
 \[
   R_f(\Lambda) = \int_{\Lambda} f(x) ~dx,
 \]
@@ -528,7 +580,7 @@ is centered on the point of the hyperplane closest to the origin.
 \end{myexample}
 
 \begin{myexample}
-  Consider the Strip $S \subseteq \RR^2$ from [earlier example]. While the RT of $S$ was divergent for $\theta = \pi/2 or 3\pi/2$, the GRT converges. In particular,
+  Consider the Strip $S \subseteq \RR^2$ from [earlier example]. While the RT of $S$ was divergent for $\theta = \pi/2$ or $3\pi/2$, the GRT converges. In particular,
   \[
     GR_S(\theta, p)
     = \begin{cases}
@@ -611,7 +663,7 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
 \end{proposition}
 
 \begin{remark}
-  Again the more general Fubini condition 
+  Again the more general Fubini condition
   \[
     \int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) w_n(x)| dx < \infty
   \]
@@ -638,7 +690,7 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
 %     For an equivalent 
 % \end{remark}
 
-\section{The Radon transform of measures and distributions}
+\section{The Radon transform of measures}
 
 % Here we extend the definitions of the RT and GRT to apply to 
 
@@ -750,7 +802,7 @@ The following theorem, due to Petersen \cn, gives a way us to reduce the questio
 \end{proposition}
 
 \begin{proof}
-  An outline of the proof is as follows. Preliminarly, note that the solution set $[\mu]$ of Borel measures with equivalent moments to $\mu$ is convex \cn, and a $\mu$ is an extreme point in $[\mu]$ if and only if polynomials are dense in $L^1(\RR^n, \mu)$ \cn. Thus it suffices to show that polynomials are dense in $L^1(\RR^n, \mu')$ for any $\mu' \in [\mu]$.
+  An outline of the proof is as follows. Preliminarily, note that the solution set $[\mu]$ of Borel measures with equivalent moments to $\mu$ is convex \cn, and a $\mu$ is an extreme point in $[\mu]$ if and only if polynomials are dense in $L^1(\RR^n, \mu)$ \cn. Thus it suffices to show that polynomials are dense in $L^1(\RR^n, \mu')$ for any $\mu' \in [\mu]$.
   
   The family of products of continuous functions of compact support $f(x) = \prod_{i=1}^n f_i(x_i)$ where each $f_i \in C_c(\RR)$, is dense in $L_1(\mu)$ \cn. Furthermore, since $R_\mu^{e_i}$, $i = 1, \ldots, n$ are determinate, polynomials are dense in each $L^2(\RR, R_\mu^{e_i})$ \cn. Petersen constructs a series of polynomials $P_i : \RR \rightarrow \RR$ such that the polynomial product $P(x) = \prod_{i = 1}^n P_i(x_i)$ arbitrarily close to $f$ in $L^1(\mu)$. Thus polynomials are dense in $L^1(\RR^n, \mu)$ and the moment problem is determinate. \pn 
   
@@ -758,7 +810,7 @@ The following theorem, due to Petersen \cn, gives a way us to reduce the questio
 \end{proof}
 
 \begin{remark}
-  Conjecture? We expect this result to hold true for any basis. Will have to check this. Arguable benefit for us is that we in theory can use any $n$ linearly independent projections to reconstruct $\mu$.
+  Conjecture? We expect this result to hold true for any orthonormal basis, and likely any basis. Will have to check this. Arguable benefit for us is that we in theory can use any $n$ linearly independent projections to reconstruct $\mu$.
 \end{remark}
 
 \begin{corollary}
@@ -787,3 +839,264 @@ We show in section (2.2) that any function $f$ in the weighted space $L^2(\RR, \
   % \]
   \pn
 \end{proof}
+
+\section{The Radon transform of multivariate Hermite polynomials over general affine subspaces}
+
+% The goal of this section will be to explore the generalizations of the RT and GRT as functions of general affine subspaces. We discuss the analogues of many of the previous results in this context.
+We begin this section by proving a formula for the GRT of the multivariate Hermite polynomials defined in the previous section. Recall that for $\alpha \in \NN_0^n$ the polynomials $H_\alpha(x)$ can be defined by the generating function
+\[
+  e^{\langle x, y\rangle - \frac{\|y\|^2}2} = \sum_{\alpha \in \NN_0^n} \frac{H_\alpha(x)}{\alpha!} y^\alpha
+\]
+where $\alpha! = \alpha_1! \cdots \alpha_n!$. These are related to the classical Hermite polynomials by
+\[
+  H_\alpha(x) = \prod_{i=1}^n H_{\alpha_i}(x_i)
+\]
+where, for $k \in \NN_0^\infty$, the classical polynomials $H_{k}(p)$ can be defined by
+\[
+  e^{pt - \frac{t^2}2} = \sum_{k = 0}^\infty \frac{H_k(p)}{k!}t^k.
+\]
+
+\begin{proposition} \label{prop:GRTHermite}
+  Let $\omega \in S^{n-1}$ and $p \in \RR$ be fixed. If $|\alpha| = k$, then the GRT of the multivariate Hermite polynomial $H_\alpha$ is
+  \[
+    GR_{H_\alpha}(\omega, p) = H_k(p)\omega^\alpha
+  \]
+\end{proposition}
+
+\begin{proof}
+  Recall that the generating function $\phi(x) = e^{\langle x, y\rangle - \frac{\|y\|^2}2}$ converges absolutely for all $x,y \in \RR^n$. Consider the GRT of $\phi$,
+  \begin{align*}
+    GR_{\phi}(\omega, p) 
+      &= \int\mclimits_{\langle x, \omega \rangle = p} \phi(x) w_{n-1}(x - p\omega)~dx.
+    % \\&= \int\mclimits_{\langle x, \omega \rangle = 0} \phi(x + p\omega) w_{n-1}(x)~dx
+  \end{align*}
+  Immediately we can expand $\phi(x)$, interchanging integral and series, to see
+  \begin{equation} \label{eq:GRTPhiExpansion1}
+    \begin{split}
+      GR_{\phi}(\omega, p)
+        &= \sum_{\alpha \in \NN_0^n} \frac1{\alpha!} y^\alpha \int\mclimits_{\langle x, \omega\rangle = p} H_\alpha(x) w_{n-1}(x - p\omega)~dx
+      \\&= \sum_{\alpha \in \NN_0^n} \frac{GR_{H_\alpha}(\omega, p)}{\alpha!} y^\alpha.
+    \end{split}
+  \end{equation}
+  On the other hand, we will be able to show that
+  \begin{equation} \label{eq:GRTPhiExpansion2}
+    GR_{\phi}(\omega, p) 
+    = \sum_{k = 0}^\infty \sum_{|\alpha| = k} \frac{H_k(p)\omega^\alpha}{\alpha!} y^\alpha.
+  \end{equation}
+  Thus, being careful to note that the series (\ref{eq:GRTPhiExpansion1}) and (\ref{eq:GRTPhiExpansion2}) converge absolutely, we can compare coefficients for the desired formula. In order to derive the second expansion we begin by translating our integral onto the linear subspace $\langle x, \omega\rangle = 0$, via the change of variables $x \mapsto x + p\omega$:
+  \begin{equation}\label{eq:GRTPhiExpansion21}
+    \begin{split}
+      GR_{\phi}(\omega, p) 
+        &= \int\mclimits_{\langle x, \omega\rangle = 0} \phi(x + p\omega) w_{n-1}(x) ~dx 
+      \\&= \int\mclimits_{\langle x, \omega\rangle = 0} e^{\langle x + p\omega, y \rangle - \frac{\|y\|^2}2}(2\pi)^{-\frac{n-1}2}e^{-\frac{\|x\|^2}2} ~dx
+      \\&= e^{p \langle \omega, y\rangle - \frac{\|y\|^2}2} \int\mclimits_{\langle x, \omega\rangle = 0}e^{\langle x, y\rangle - \frac{\|x\|^2}2} (2\pi)^{-\frac{n-1}2} ~dx
+    \end{split}
+  \end{equation}
+  Now in order to compute the right side integral we consider the orthogonal decomposition $y = y_\omega + y_{\omega^\perp}$, where
+  \[
+    y_\omega = \langle y, \omega \rangle \omega \qquad y_{\omega^\perp} = y - y_\omega.
+  \]
+  We make two observations about this decomposition of $y$: First, 
+  \begin{equation}\label{eq:GRTPhiExpansion22}
+    \|y\|^2 
+      = \|y_\omega\|^2 + \|y_{\omega^\perp}\|^2 
+      = \langle y, \omega\rangle^2 + \|y_{\omega^\perp}\|^2
+  \end{equation}
+  and second, for $x$ in the linear subspace $\langle x, \omega\rangle = 0$ we have
+  \[
+    \langle x, y \rangle
+      = \langle x, \omega \rangle \langle y, \omega \rangle + \langle x, y_{\omega^\perp} \rangle 
+      = \langle x, y_{\omega^\perp} \rangle.
+  \]
+  This second observation allows us to solve the integral at the end of (\ref{eq:GRTPhiExpansion21}). By completing the square $\|x - y_{\omega^\perp}\| = \|y_{\omega^\perp}\|^2 - 2\langle x, y_{\omega^\perp} \rangle + \|x\|^2$, we have
+  \begin{align*}
+    \int\mclimits_{\langle x, \omega\rangle = 0}e^{\langle x, y\rangle - \frac{\|x\|^2}2} (2\pi)^{-\frac{n-1}2} ~dx
+      &= e^{-\frac{\|y_{\omega^\perp}\|^2}2} \int\mclimits_{\langle x, \omega\rangle = 0}e^{-\frac{\|y_{\omega^\perp}\|^2}2 + \langle x, y_{\omega^\perp}\rangle - \frac{\|x\|^2}2} (2\pi)^{-\frac{n-1}2} ~dx
+    \\&= e^{-\frac{\|y_{\omega^\perp}\|^2}2} \int\mclimits_{\langle x, \omega\rangle = 0}e^{-\frac{\|x - y_{\omega^\perp}\|}2} (2\pi)^{-\frac{n-1}2} ~dx
+    % \\&= e^{-\frac{\|p_{\omega^\perp}\|^2}2}
+  \end{align*}
+  which is just $e^{-\frac{\|p_{\omega^\perp}\|^2}2}$. It was important here to invoke the orthogonal projection $y_{\omega^\perp}$ so that the integrand becomes the translation of a standard Gaussian function on the hyperplane $\langle x, \omega \rangle = 0$. Now returning to (\ref{eq:GRTPhiExpansion21}), we have
+  \begin{align*}
+    GR_{\phi}(\omega, p) 
+      &= e^{p \langle \omega, y\rangle - \frac{\|y\|^2}2-\frac{\|y_{\omega^\perp}\|^2}2}
+    \\
+      &= e^{p \langle \omega, y\rangle - \frac{\langle y, \omega\rangle^2}2}
+  \end{align*}
+  where we used (\ref{eq:GRTPhiExpansion22}). This looks like the generating function for the univariate Hermite polynomials $H_k(p)$ with $t = \langle \omega, y \rangle$, so we expand
+  \begin{align*}
+    GR_{\phi}(\omega, p) 
+      &= \sum_{k = 0}^\infty \frac{H_k(p)}{k!} \langle \omega, y\rangle^k.
+  \end{align*}
+  Finally we apply the multinomial expansion of $\langle \omega, y\rangle^k$, recalling the multinomial coefficients $\binom{k}{\alpha} = \frac{k!}{\alpha!}$. Therefore
+  \begin{align*}
+    GR_{\phi}(\omega, p)
+      &= \sum_{k = 0}^\infty \sum_{|\alpha| = k} \frac{H_k(p)}{k!} \binom{k}\alpha y^\alpha\omega^\alpha
+    \\
+      &= \sum_{k = 0}^\infty \sum_{|\alpha| = k} \frac{H_k(p)\omega^\alpha}{\alpha!} y^\alpha
+  \end{align*}
+  as needed.
+\end{proof}
+
+\begin{remark}
+  The proof above was written by Dr. Sengupta.
+\end{remark}
+
+In section 1.4 we defined the RT and GRT as the integrals of a function $f: \RR^n \rightarrow \RR$ over $n-1$ dimensional hyperplanes, the standard definitions. But there are many examples of geometric integral transforms, closely related to the hyperplane RT, which can be thought of as ``generalized Radon transforms''. In fact, the ``Funk transform'', which relates a function on the sphere $S^{3}$ to its integrals over great circles, was first introduced by Paul Funk in 1911, half a decade before Radon introduced the hyperplane RT. In the remainder of this chapter we discuss the notion of the RT and GRT on general $d$-dimensional affine subspaces of $\RR^n$, where $d = 0, \ldots, n$. For context, note that when $d = 1$, this is the so called ``X-ray transform'' which gets it's name from the direct application to radiology.
+
+Let $\Lambda_0$ be a $d$-dimensional linear subspace of $\RR^n$, and $p \in \RR^n$. Then the translation of $\Lambda_0$ by $p$
+\[
+  \Lambda = p + \Lambda_0
+\]
+is called an \emph{affine subspace} of $\RR^n$. The representation above is clearly not unique since adding any member of $\Lambda_0$ to $p$ does not change $\Lambda$. However, given an affine subspace $\Lambda$ we have a canonical choice for $p$ as the closest point in $\Lambda$ to the origin. This point exists and is unique since $\Lambda$ is closed and convex. Furthermore the point $p$ defined in this way must be orthogonal to any vector in the linear subspace $\Lambda_0$. That is, $p \in \Lambda_0^\perp$, where $\Lambda_0^\perp$ is the linear subspace
+\[
+  \Lambda_0^\perp = \{x \in \RR^n : \langle x, y \rangle = 0 \text{ for all } y \in \Lambda\}
+\]
+also known as the \emph{orthogonal complement} of $\Lambda_0$. Thus we rephrase our definition as follows:
+
+\begin{definition}
+  An \emph{affine subspace} $\Lambda$ of dimension $d$ in $\RR^n$ is defined uniquely by
+  \[
+    \Lambda = p + \Lambda_0
+  \]
+  where $\Lambda_0$ is a linear subspace of dimension $d$ and $p \in \Lambda_0^\perp$. Sometimes we call $\Lambda$ a ``$d$-plane''.
+\end{definition}
+
+\begin{remark}
+  Note that the hyperplanes in the original definition of the RT are $(n-1)$-planes, and the lines in the ``X-ray transform'' are $1$-planes.
+\end{remark}
+
+Recall that if $\Lambda_0$ is a fixed linear subspace of dimension $d$, the orthogonal complements $\Lambda_0^\perp$ is a linear subspace of dimension $n - d$. For any $x \in \RR^n$ there is a unique orthogonal decomposition $x = x_{\Lambda_0} + x_{\Lambda_0^\perp}$ where $x_{\Lambda_0} \in \Lambda_0$ and $x_{\Lambda_0^\perp} \in \Lambda_0^\perp$. This idea can be summarized by the expression
+\[
+  \RR^n = \Lambda_0 \oplus \Lambda_0^\perp.
+\]
+
+Sometimes it is convenient to have an explicit coordinate system on an affine subspace. If $u^{(1)}, \ldots, u^{(d)}$ is a orthonormal basis for $\Lambda_0$ then there is an isometric embedding of $\RR^d$ into $\RR^n$ with image $\Lambda$ given by $x(t) : \RR^d \rightarrow \Lambda$ where
+\[
+  x(t) = p + t_1u^{(1)} + \cdots + t_d u^{(d)}, \qquad t \in \RR^d.
+\]
+By this embedding can define the Euclidean measure $dx$ on $\Lambda$ as the push-forward of the Lebesgue measure on $\RR^n$, and the standard Gaussian measure on $\Lambda$ as the push-forward of $\gamma^n$. Note the $x(t)$ is defined in such a way that $x(0) = p$ which is essential when defining the Gaussian measure on $\Lambda$.
+
+Other times we prefer not to invoke a basis-dependent isometry, and while $x(t)$ clearly depends on the choice of $u^{1}, \ldots, u^{(d)}$, we should note that the Euclidean and Gaussian measures on $\Lambda$ are independent of basis \pn.
+
+
+Now we can define the natural analogue of the RT for affine subspaces, which is sometimes called the \emph{d-plane transform}.
+
+\begin{definition}
+  Let $f:\RR^n \rightarrow \RR$. For any affine subspace $\Lambda = p + \Lambda_0$, we define the \emph{Radon Transform of $f$ on $\Lambda$} by
+  \[
+    R_f(\Lambda) = \int_{\Lambda} f(x)~dx
+  \]
+  and the \emph{Gaussian Radon Transform of $f$ on $\Lambda$} by 
+  \[
+    GR_f(\Lambda) = \int_{\Lambda} f(x) w_d(x - p) ~dx
+  \]
+  where $d$ is the dimension of $\Lambda_0$.
+\end{definition}
+\begin{remark}
+  Explicitly, if $x(t): \RR^d \rightarrow \Lambda$ is an Euclidean isometry then 
+  \[
+    R_f(\Lambda) = \int_{\RR^d} f(x(t))~dt
+  \]
+  If furthermore $x(0) = p$ then
+  \[
+    GR_f(\Lambda) = \int_{\RR^d} f(x(t))w(t)~dt
+  \]
+  However keep in mind that these definitions are independent of the particular isometry \pn.
+\end{remark}
+
+% To illustrate the calculation of a GRT with an explicit isometry, let
+% \[
+%   f(x) = e^{\langle x, y\rangle}
+% \]
+% for some $y \in \RR$. Suppose $\Lambda = p + \Lambda_0$ is a $d$-dimensional affine subspace and $x(t) : \RR^d \rightarrow \Lambda$ is the isometry given by
+% \[
+%   x(t) = p + \sum_{i = 1}^d t_iu^{(i)}
+% \]
+% where $u^{(1)}, \ldots, u^{(d)}$ is an orthonormal basis for $\Lambda_0$. Furthermore let $y = y_{\Lambda_0} + y_{\Lambda_0^\perp}$ and note that $\langle x, y \rangle = \langle x, y_{\Lambda_0}\rangle$ for $x \in \Lambda_0$. Then
+% \begin{align*}
+%   GR_f(\Lambda) 
+%     &= \int_{\RR^d} e^{\langle x(t), y \rangle} (2\pi)^{-\frac{d}2} e^{-\frac{\|t\|^2}2}~dt
+%   \\
+%     &= e^{\langle p, y \rangle} \int_{\RR^d} e^{\sum_{i = 1}^d t_i\langle u^{(i)}, y_{\Lambda_0}\rangle - \frac{\|t\|^2}2} (2\pi)^{-\frac{d}2} ~dt
+%   \\
+%     &= e^{\langle p, y \rangle} \int_{-\infty}^\infty \prod_{i=1}^d e^{t_i\langle u^{(i)}, y_{\Lambda_0}\rangle - \frac{t_i^2}2} (2\pi)^{-\frac12} dt_i
+% \end{align*}
+% Now notice in each exponential in the product we can complete the square $\|t_iu^{(i)} - y_{\Lambda_0}\|^2 = \|y_{\Lambda_0}\|^2 - 2t_i\langle u^{(i)}, y_{\Lambda_0}\rangle + t_i^2$, that is
+% \[
+%   e^{t_i\langle u^{(i)}, y_{\Lambda_0}\rangle - \frac{t_i^2}2}
+%     = e^{\frac12\|y_{\Lambda_0^\perp}\|}e^{-\frac12\|t_iu^{(i)} - y_{\Lambda_0}\|^2}
+% \]
+% for $i = 1, \ldots, d$. The right hand integral is a Gaussian integral equal to $1$. Thus
+% \[
+%   GR_f(\Lambda) = e^{\langle p, y \rangle} \prod_{i=1}^d 
+% \]
+
+% Let's see if we can derive a formula for the GRT of the multivariate Hermite polynomials on a general affine plane.
+
+% Following the proof for the hyperplane GRT, we begin again with the transform of the generating function
+% \[
+%   GR_\phi(\Lambda)
+%     = e^{p\langle \omega, y\rangle - \frac{\|y\|^2}2} \int_{\Lambda_0} e^{\langle x, y\rangle - \frac{\|x\|^2}2} (2\pi)^{-\frac d2}~dx
+% \]
+% which can be immediately expanded as 
+% \[
+%   GR_\phi(\Lambda) = \sum_{\alpha!}\frac{GR_{H_\alpha}(\Lambda)}{\alpha!}y^\alpha
+% \]
+% As before, we decompose $y = y_{\Lambda_0} + y_{\Lambda_0^\perp}$, substitute $y_{\Lambda_0}$ for $y$ and complete the square so that the right hand integral is $e^{\frac{\|y_{\Lambda_0}\|^2}2}$.
+% \[
+%   GR_\phi(\Lambda) 
+%     = e^{p\langle \omega, y\rangle - \frac{\|y\|^2}2 + \frac{\|P_{\Lambda_0} y\|}2}
+% \]
+% Now we have $\|y\|^2 = \|y_{\Lambda_0}\|^2 + \|y_{\Lambda_0^\perp}\|^2$, so
+% \[
+%   GR_\phi(\Lambda) 
+%     = e^{p\langle \omega, y\rangle - \frac{\|y_{\Lambda_0^\perp}\|^2}2}
+% \]
+% Here we encounter a problem we didn't see in the hyperplane case: 
+% In the hyperplane case $\dim(\Lambda_0^\perp) = 1$ so that $y_{\Lambda_0^\perp}$ was necessarily in the span of $\omega$. But for lower dimensional affine subspaces there is no immediate relation between $y_{\Lambda_0^\perp}$ and $\langle \omega, y\rangle$. 
+
+% If we suppose for the moment that $y \in \Lambda_0^\perp$. Then we do have 
+% \[
+%   GR_\phi(\Lambda) 
+%     = e^{p\langle \omega, y\rangle - \frac{\|y\|^2}2}
+%     = \sum_{\alpha \in \NN_0^n} \frac{H_{\alpha}(p\omega)}{\alpha!}y^\alpha
+% \]
+% so can we conclude $GR_{H_\alpha}(\Lambda) = H_\alpha(p\omega)$? That doesn't feel right.
+
+% If we further suppose that $y$ is in the span of $\omega$ then we find
+% \[
+%   something else
+% \]
+% via Ambar
+
+% What if we just assume $\|y_{\Lambda_0^\perp}\|^2 = \langle\omega, y\rangle^2$? This is true essentially if $y \in \omega\RR + \Lambda_0$. In this case we have what we want,
+% \[
+%   \sum_{\alpha \in \NN_0^n} \frac{GR_{H_\alpha}(\Lambda)}{\alpha!} y^\alpha = \sum_{k=0}^\infty \sum_{|\alpha| = k} \frac{H_k(p)\omega^\alpha}{\alpha!} y^\alpha
+% \]
+% It doesn't seem like it should be enough for this to hold on a $d+1$ subspace, to conclude that we can compare coefficients. 
+% Now if $\omega$ and $P_{\Lambda_0^\perp} y$ are potentially linearly independent, where can we go from here?
+
+% Recall $\omega$ was chosen from $S^{n-1} \cap \Lambda_0^\perp$ and $y \in \RR^n$ is arbitrary, while $P_{\Lambda_0^\perp} y$ is in $\Lambda_0^\perp$. Suppose that $v^{(1)}, \ldots, v^{(n - d)}$ is an orthonormal basis for $\Lambda_0^\perp$. We can write
+% \[
+%   \omega = \sum_{i = 1}^{n-d} r_i v^{(i)}, \qquad y = \sum_{i = 1}^{n-d} s_i v^{(i)}
+% \]
+% for some $r,s \in \RR^{n-d}$.
+
+% Is it true that $\langle \omega, y \rangle = \langle \omega, P_{\lambda_0^\perp} y\rangle$? Well, yes: $y = P_{\Lambda_0} y + P_{\Lambda_0^\perp} y$, so
+% \[
+%   \langle \omega, y \rangle = \langle \omega, P_{\Lambda_0} y \rangle + \langle \omega, P_{\Lambda_0^\perp} y \rangle
+% \]
+% and $\langle \omega, P_{\Lambda_0} y \rangle = 0$. Then 
+% \begin{align*}
+%   e^{p\langle \omega, y\rangle - \frac{\|P_{\Lambda_0^\perp} y\|^2}2}
+%     &= e^{p\langle \omega, P_{\Lambda_0^\perp} y \rangle - \frac{\|P_{\Lambda_0^\perp} y\|^2}2}
+%   \\&= \sum_{\alpha \in \NN_0^n} \frac{H_\alpha(p\omega)}{\alpha!} (P_{\Lambda_0^\perp} y)^\alpha
+%   \\&=? \sum_{\alpha \in \NN_0^{n-d}} \frac{H_\alpha(p\omega)}{\alpha!} (P_{\Lambda_0^\perp} y)^\alpha
+% \end{align*}
+% We still cannot compare coefficients with
+% \[
+%   \int_\Lambda e^{\langle x, y\rangle - \frac{\|y\|^2}2} w_{d}(x -p\omega)~dx
+%     = \sum_{\alpha \in \NN_0^n} \frac{GR_{H_\alpha}(\omega, p)}{\alpha!} y^\alpha
+% \]
+
+
