@@ -394,7 +394,7 @@ Solving for $b_0$ by Cramer's Rule we get,
   \right| 
   Q^{[L/M]}(z).
 \]
-The LHS is a polynomial by Laplace expansion, and is nonzero if the RHS minor has nonzero determinant. Thus if the so called Hankel determinant
+The LHS is a polynomial by Laplace expansion, and is nonzero if the RHS minor has nonzero determinant. Thus if the determinant
 \[
   \left|
   \begin{matrix}
@@ -417,9 +417,27 @@ is nonzero, then up to the aforementioned constant factor,
   \right| 
   \label{eq:Qdet}
 \end{equation}
-By convention we normalize $R^{[L/M]}(z)$ so that $b_0 = Q^{[L/M]}(0) = 1$. 
-
-Since the Hankel determinants give a useful form for expressing some conditions of interest we will define $H(n,m)$ to be the determinant of the $(m + 1) \times (m + 1)$ Hankel matrix starting with $c_n$,
+By convention we normalize $R^{[L/M]}(z)$ so that $b_0 = Q^{[L/M]}(0) = 1$. In terms of the determinental formula above, we can write $Q^{[L/M]}(0)$ as
+\[
+  Q^{[L/M]}(0) = 
+  \left|
+  \begin{matrix}
+    c_{L-M+1} & \cdots & c_{L} & c_{L+1} \\
+    \vdots & \ddots & \vdots & \vdots \\
+    c_{L} & \cdots & c_{L+M-1} & c_{L+M} \\
+    0^M & \cdots & 0 & 1
+  \end{matrix}
+  \right|
+  =
+  \left|
+  \begin{matrix}
+    c_{L-M+1} & \cdots & c_{L}  \\
+    \vdots & \ddots & \vdots  \\
+    c_{L} & \cdots & c_{L+M-1}
+  \end{matrix}
+  \right|
+\]
+Matrices (determinants resp.) of this type — that is with antidiagonals all constant — is called a Hankel matrices (Hankel determinants resp.).  Since the Hankel determinants give a useful form for expressing some conditions of interest we will define $H(n,m)$ to be the determinant of the $(m + 1) \times (m + 1)$ Hankel matrix with $c_n, \ldots, c_{n + 2m}$ in the antidiagonals,
 \[
   H(n,m) :=
   \left|
@@ -428,11 +446,13 @@ Since the Hankel determinants give a useful form for expressing some conditions 
     \vdots & \ddots & \vdots  \\
     c_{n+m} & \cdots & c_{n+2m} 
   \end{matrix}
-  \right|
+  \right|.
 \]
-Note in particular that the sufficient condition $Q^{[L/M]}(0) \neq 0$ for the existence of $R^{[L/M]}(z)$ is equivalent to $H(L-M+1, M-1) \neq 0$
-
-
+We can relate the two previous equations by
+\[
+  Q^{[L/M]}(0) = H(L - M + 1, M - 1)
+\]
+so that the sufficient condition for the existence of $R^{[L/M]}(z)$ is $H(L-M+1, M-1) \neq 0$.
 
 We now narrow our focus to Pad\'e approximants to a Hamburger transform. Let $\mu$ be a Borel measure on $\RR$ with finite moments $c_k = \int p^k ~d\mu$. 
 
@@ -456,11 +476,21 @@ We call this formal power series a Hamburger series.
 % \end{remark}
 
 \begin{lemma}
-  The Hamburger moments $c_k$ satisfy the determinental condition $H(2n, m) \neq 0$ for $n,m = 0, 1, \ldots$. 
+  The Hamburger moments $c_k$ satisfy the determinental condition $H(2n, m) \neq 0$ for $n,m = 0, 1, \ldots$. That is,
+  \[
+    \left|
+    \begin{matrix}
+      c_{2n} & \cdots & c_{2n+m} \\
+      \vdots & \ddots & \vdots  \\
+      c_{2n+m} & \cdots & c_{2n+2m}
+    \end{matrix}
+    \right| \neq 0
+  \]
 \end{lemma}
 
 \begin{proof}
-  Consider the binary quadratic form given by
+  
+  Consider the bilinear quadratic form given by
   \[
     G(\mathbf{x}, \mathbf{y}) :=
     \mathbf{x}^\top
@@ -681,11 +711,11 @@ Now we are in the position to assemble all the previous results into an approxim
 
 Take a non-negative Lebesgue measureable function $f(x)$ on $\RR^n$ with finite multivariate Gaussian moments
 \[
-  c^G_\alpha = \int_{\RR^n} f(x)e^{-\|x\|/2} x^\alpha dx
+  c^G_\alpha = \int_{\RR^n} f(x)e^{-\|x\|^2/2} x^\alpha dx
 \]
-We have seen that the multivariate Stieltjes transform of $f$, 
+We have seen that the multivariate Stieltjes transform of $f(x)w_n(x)$, 
 \[
-  g(z) = \int_{\RR^n} \frac{f(x)e^{-\|x\|/2}}{1 + \langle x, \omega \rangle z} dx,
+  g(z) = \int_{\RR^n} \frac{f(x)e^{-\|x\|^2/2}}{1 + \langle x, \omega \rangle z} dx,
 \]
 is equal to the Hamburger transform of $GR_f(\omega, p)$, whose moments in turn are easily computed from the moments of $f$, for fixed $\omega$. Thus for $z$ in the one dimensional subspace spanned by $\omega$, $g(z)$ can be approximated well by Pad\'e approximants, under the integrability condition $GR_f(\omega, p) \in L^2(\RR, e^{-p^2}~dp)$. On the other hand as an integral on $\RR^n$, we can also approximate $g(z)$ by cubature formula,
 \[

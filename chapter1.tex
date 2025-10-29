@@ -334,15 +334,15 @@ The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the 
   is determinate.
 \end{corollary}
 
-In the next section we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for an exponential generating function.
-\begin{proposition}
+In the section 1.5 we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for an exponential generating function.
+\begin{lemma}
   The Hermite polynomials have the \emph{generating function},
   \[
-    e^{pt - \frac{t^2}2} 
+    \phi(p) = e^{pt - \frac{t^2}2} 
       = \sum_{k = 0}^\infty \frac{H_k(p)}{k!}t^k.
   \]
   which converges absolutely for all $p, t \in \RR$.
-\end{proposition}
+\end{lemma}
 
 \begin{proof}
 Note that
@@ -358,27 +358,28 @@ so that the Taylor coefficients are precisely
 \]
 \end{proof}
 
-We can now define a straight forward multivariable analogue or the 
+We can now define a straight forward multivariate analogue or the 
 Hermite polynomials 
 
 \begin{definition}
-  For $\alpha \in \NN_0^n$ we define the \emph{multivariable Hermite polynomial} $H_\alpha$ by
+  For $\alpha \in \NN_0^n$ we define the \emph{multivariate Hermite polynomial} $H_\alpha$ by
 \[
   H_{\alpha}(x) = H_{\alpha_1}(x_1) \cdots H_{\alpha_n}(x_n), \qquad x = (x_1, \ldots x_n) \in \RR^n 
 \]
 \end{definition}
 
-The multivariable Hermite polynomials have many useful properties corresponding to those of the classical polynomials. In particular we have the Rodrigues formula
+The multivariate Hermite polynomials have many useful properties corresponding to those of the classical polynomials. In particular we have the Rodrigues formula
 \[
   H_\alpha(x) 
-    = (-1)^{|\alpha|}\frac{D^{\alpha}w_n(x)}{w_n(x)}
+    = (-1)^{|\alpha|}\frac{D_{\alpha}w_n(x)}{w_n(x)}
 \]
-where $D^\alpha = \frac{\partial^{\alpha_1 + \cdots + \alpha_n}}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}}$. Just like the classical case, this formula can be used to define $H_\alpha$ as multivariate Taylor coefficients for the generating function:
+where $D_\alpha = \frac{\partial^{\alpha_1 + \cdots + \alpha_n}}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}}$. Just like the classical case, this formula can be used to define $H_\alpha$ as multivariate Taylor coefficients for the generating function:
 \[
-  e^{\langle x, y\rangle - \frac{\|y\|^2}2} 
+  \phi(x) = e^{\langle x, y\rangle - \frac{\|y\|^2}2} 
     = \frac{w_n(x - y)}{w_n(x)} 
       = \sum_{\alpha \in \NN_0^n} \frac{H_\alpha(x)}{\alpha!}y^\alpha
 \]
+which we note is absolutely convergent for all $x, y \in \RR^n$. Here we use the same symbol $\phi$ for the univariate and multivariate generating functions at the risk of confusion. It should be clear from context.
 
 % An interesting formula relating the classical and multivariate Hermite polynomials:
 % \[
@@ -407,7 +408,7 @@ Let $f$ be a function on the $n$-dimensional Euclidean space $\RR^n$. We imagine
 \]
 which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by normal vector, $\omega \in S^{n-1}$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter definition for clarity.
 
-The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the history of, with references, in this paragraph. The transform gets its name from Johann Radon, whose first defined the tranform in the form below in 1917, although a similar transform was introduced by Paul Funk in 1911~\cite{????}. It is interesting to note that the primary application of the RT in medical imaging (CT scans) was not invented for another half century. I can only hope that in 2076 my dissertation will serve as an absorbant coffee coaster for a sleep deprived student.
+The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the history of, with references, in this paragraph. The transform gets its name from Johann Radon, whose first defined the transform in the form below in 1917, although a similar transform was introduced by Paul Funk in 1911~\cn. It is interesting to note that the primary application of the RT in medical imaging (CT scans) was not invented for another half century. I can only hope that in 2076 my dissertation will serve as an absorbent coffee coaster for a sleep deprived student.
 
 \begin{definition}
   Let $f$ be a nonnegative measurable function on $\mathbb{R}^n$. The \emph{Radon transform} $R_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is a function which, given a unit vector $\omega \in \RR^n$ and $p \in \RR$, is defined as
@@ -446,7 +447,7 @@ The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the histor
   \[
     V_n(r) = \frac{\pi^{n/2}}{\Gamma(\frac n2+1)} r^n.
   \]
-  Note that as a bounded domain, we can guarentee $B(r)$ is integrable on all hyperplanes. In fact the RT of any subset of $B(r)$ is sharply bounded by $R_{B(r)} \leq V_{n-1}(r)$. Also note that $B(r)$ is rotation invariant, hence $R_{B(r)}(\omega, p)$ is independent of $\omega$.
+  Note that as a bounded domain, we can guarantee $B(r)$ is integrable on all hyperplanes. In fact the RT of any subset of $B(r)$ is sharply bounded by $R_{B(r)} \leq V_{n-1}(r)$. Also note that $B(r)$ is rotation invariant, hence $R_{B(r)}(\omega, p)$ is independent of $\omega$.
   
   \begin{figure}[h]
     \centering
@@ -561,11 +562,11 @@ is centered on the point of the hyperplane closest to the origin.
 \end{remark}
 
 \begin{myexample}
-  If $x(t):\RR^{n-1} \longrightarrow \RR^n$ is a parametrization of $\langle x, \omega\rangle = p$ as described above, then
+  If $x(t):\RR^{n-1} \to \RR^n$ is a parametrization of $\langle x, \omega\rangle = p$ as described above, then
   \[
     GR_f(\omega, p) = \int_{\RR^{n-1}}f(x(t)) w_{n-1}(t) dt
   \]
-  In particular for $f:\RR^2 \rightarrow \RR$
+  In particular for $f:\RR^2 \to \RR$
   \[
     GR_f(\omega, p) = \int_{-\infty}^\infty f(t \sin \theta + p \cos \theta, -t \cos \theta + p \sin \theta) w(t)~dt
   \]
@@ -858,9 +859,9 @@ where, for $k \in \NN_0^\infty$, the classical polynomials $H_{k}(p)$ can be def
 
 \begin{proposition} \label{prop:GRTHermite}
   Let $\omega \in S^{n-1}$ and $p \in \RR$ be fixed. If $|\alpha| = k$, then the GRT of the multivariate Hermite polynomial $H_\alpha$ is
-  \[
+  \begin{equation}\label{eq:GRH}
     GR_{H_\alpha}(\omega, p) = H_k(p)\omega^\alpha
-  \]
+  \end{equation}
 \end{proposition}
 
 \begin{proof}
@@ -938,16 +939,44 @@ where, for $k \in \NN_0^\infty$, the classical polynomials $H_{k}(p)$ can be def
 \end{proof}
 
 \begin{remark}
-  The proof above was written by Dr. Sengupta.
+  The proof above was written by Dr. Sengupta. Recall that the Hermite polynomials $H_\alpha$ form a complete orthogonal basis for $L^2(\RR^n, w_n)$. In this sense the formula (\ref{eq:GRH}) completely defines the Gaussian Radon transform on this space. Indeed, it can be shown that any function $f \in L^2(\RR^n, w_n)$ has an expansion
+  \[
+    f(x) = \sum_{\alpha \in \NN_0^n} a^{(f)}_\alpha H_\alpha(x)
+  \]
+  where
+  \[
+    a_\alpha^{(f)} = \int_{\RR^n} f(x)H_\alpha(x) w_n(x) ~dx.
+  \]
+  If this expansion converges uniformly on $\Lambda$ then
+  \begin{align*}
+    GR_f(\Lambda) 
+    &= \int_\Lambda f(x) w_n(x-p_0)~dx 
+    \\ 
+    &= \int_\Lambda \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} H_\alpha(x) w_n(x-p_0) ~dx
+    \\
+    &= \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} \int_\Lambda H_\alpha(x) w_n(x-p_0) ~dx
+    \\
+    &= \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} GR_{H_\alpha}(\Lambda)
+  \end{align*}
+  If $\Lambda$ is a hyperplane $\inner{x, \omega} = p$ with $\omega \in S^{n-1}$ then this gives
+  \begin{align*}
+    GR_f(\Lambda) 
+    &= \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} GR_{H_\alpha}(\Lambda)
+    \\
+    &= \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} H_{|\alpha|}(p) \omega^\alpha
+    \\
+    &= \sum_{k=0}^\infty H_k(p) \sum_{|\alpha| = k} a_\alpha^{(f)} \omega^\alpha
+  \end{align*}
+  For details on modes convergence see (Dunkl or Thangavelu) \cn. 
 \end{remark}
 
 In section 1.4 we defined the RT and GRT as the integrals of a function $f: \RR^n \rightarrow \RR$ over $n-1$ dimensional hyperplanes, the standard definitions. But there are many examples of geometric integral transforms, closely related to the hyperplane RT, which can be thought of as ``generalized Radon transforms''. In fact, the ``Funk transform'', which relates a function on the sphere $S^{3}$ to its integrals over great circles, was first introduced by Paul Funk in 1911, half a decade before Radon introduced the hyperplane RT. In the remainder of this chapter we discuss the notion of the RT and GRT on general $d$-dimensional affine subspaces of $\RR^n$, where $d = 0, \ldots, n$. For context, note that when $d = 1$, this is the so called ``X-ray transform'' which gets it's name from the direct application to radiology.
 
-Let $\Lambda_0$ be a $d$-dimensional linear subspace of $\RR^n$, and $p \in \RR^n$. Then the translation of $\Lambda_0$ by $p$
+Let $\Lambda_0$ be a $d$-dimensional linear subspace of $\RR^n$, and $v \in \RR^n$. Then the translation of $\Lambda_0$ by $p$
 \[
-  \Lambda = p + \Lambda_0
+  \Lambda = v + \Lambda_0
 \]
-is called an \emph{affine subspace} of $\RR^n$. The representation above is clearly not unique since adding any member of $\Lambda_0$ to $p$ does not change $\Lambda$. However, given an affine subspace $\Lambda$ we have a canonical choice for $p$ as the closest point in $\Lambda$ to the origin. This point exists and is unique since $\Lambda$ is closed and convex. Furthermore the point $p$ defined in this way must be orthogonal to any vector in the linear subspace $\Lambda_0$. That is, $p \in \Lambda_0^\perp$, where $\Lambda_0^\perp$ is the linear subspace
+is called an \emph{affine subspace} of $\RR^n$. The representation above is clearly not unique since adding any member of $\Lambda_0$ to $v$ does not change $\Lambda$. However, given an affine subspace $\Lambda$ we have a canonical choice for $v$ as the closest point in $\Lambda$ to the origin. This point exists and is unique since $\Lambda$ is closed and convex. Furthermore the point $v$ defined in this way must be orthogonal to any vector in the linear subspace $\Lambda_0$. That is, $v \in \Lambda_0^\perp$, where $\Lambda_0^\perp$ is the linear subspace
 \[
   \Lambda_0^\perp = \{x \in \RR^n : \langle x, y \rangle = 0 \text{ for all } y \in \Lambda\}
 \]
@@ -956,9 +985,9 @@ also known as the \emph{orthogonal complement} of $\Lambda_0$. Thus we rephrase 
 \begin{definition}
   An \emph{affine subspace} $\Lambda$ of dimension $d$ in $\RR^n$ is defined uniquely by
   \[
-    \Lambda = p + \Lambda_0
+    \Lambda = v + \Lambda_0
   \]
-  where $\Lambda_0$ is a linear subspace of dimension $d$ and $p \in \Lambda_0^\perp$. Sometimes we call $\Lambda$ a ``$d$-plane''.
+  where $\Lambda_0$ is a linear subspace of dimension $d$ and $v \in \Lambda_0^\perp$. Sometimes we call $\Lambda$ a ``$d$-plane''.
 \end{definition}
 
 \begin{remark}
@@ -972,23 +1001,23 @@ Recall that if $\Lambda_0$ is a fixed linear subspace of dimension $d$, the orth
 
 Sometimes it is convenient to have an explicit coordinate system on an affine subspace. If $u^{(1)}, \ldots, u^{(d)}$ is a orthonormal basis for $\Lambda_0$ then there is an isometric embedding of $\RR^d$ into $\RR^n$ with image $\Lambda$ given by $x(t) : \RR^d \rightarrow \Lambda$ where
 \[
-  x(t) = p + t_1u^{(1)} + \cdots + t_d u^{(d)}, \qquad t \in \RR^d.
+  x(t) = v + t_1u^{(1)} + \cdots + t_d u^{(d)}, \qquad t \in \RR^d.
 \]
-By this embedding can define the Euclidean measure $dx$ on $\Lambda$ as the push-forward of the Lebesgue measure on $\RR^n$, and the standard Gaussian measure on $\Lambda$ as the push-forward of $\gamma^n$. Note the $x(t)$ is defined in such a way that $x(0) = p$ which is essential when defining the Gaussian measure on $\Lambda$.
+By this embedding can define the Euclidean measure $dx$ on $\Lambda$ as the push-forward of the Lebesgue measure on $\RR^n$, and the standard Gaussian measure on $\Lambda$ as the push-forward of $\gamma^n$. Note the $x(t)$ is defined in such a way that $x(0) = v$ which is essential when defining the Gaussian measure on $\Lambda$.
 
 Other times we prefer not to invoke a basis-dependent isometry, and while $x(t)$ clearly depends on the choice of $u^{1}, \ldots, u^{(d)}$, we should note that the Euclidean and Gaussian measures on $\Lambda$ are independent of basis \pn.
 
 
-Now we can define the natural analogue of the RT for affine subspaces, which is sometimes called the \emph{d-plane transform}.
+Now we can define the natural analogue of the RT for affine subspaces, which is sometimes called the \emph{$d$-plane transform}. To be consistent with the hyperplane RT we will write $v = p\omega$, where $\omega \in S^{n-1} \cap \Lambda_o^\perp$ and $p \in \RR$. Of course this notation is unique only up to the identification $(\omega, p) = (-\omega, -p)$.
 
 \begin{definition}
-  Let $f:\RR^n \rightarrow \RR$. For any affine subspace $\Lambda = p + \Lambda_0$, we define the \emph{Radon Transform of $f$ on $\Lambda$} by
+  Let $f:\RR^n \rightarrow \RR$. For any affine subspace $\Lambda = p\omega + \Lambda_0$, we define the \emph{Radon Transform of $f$ on $\Lambda$} by
   \[
     R_f(\Lambda) = \int_{\Lambda} f(x)~dx
   \]
   and the \emph{Gaussian Radon Transform of $f$ on $\Lambda$} by 
   \[
-    GR_f(\Lambda) = \int_{\Lambda} f(x) w_d(x - p) ~dx
+    GR_f(\Lambda) = \int_{\Lambda} f(x) w_d(x - p\omega) ~dx
   \]
   where $d$ is the dimension of $\Lambda_0$.
 \end{definition}
@@ -997,29 +1026,53 @@ Now we can define the natural analogue of the RT for affine subspaces, which is 
   \[
     R_f(\Lambda) = \int_{\RR^d} f(x(t))~dt
   \]
-  If furthermore $x(0) = p$ then
+  If furthermore $x(0) = p\omega$ then
   \[
     GR_f(\Lambda) = \int_{\RR^d} f(x(t))w(t)~dt
   \]
   However keep in mind that these definitions are independent of the particular isometry \pn.
 \end{remark}
 
+
+\section{Krawtchouk polynomials and discrete Radon transforms}
+
+The formula (\ref{eq:GRH}) gives us a path toward defining a discrete analogue to the Gaussian Radon transform. Here $x \in \RR^n$ and $p \in [0,1]$.
+
+We begin with the binomial distribution $d\gamma_N$. Let $N \in \NN$ and $[N] = \{0, \ldots, N - 1\}$. For $x \in [N]$
+\[
+  \binom{N}{x}p^x(p-1)^{N-x}
+\]
+
+\begin{definition}
+  The Krawtchouk polynomials $K_{N,p}(x)$ are defined by 
+  \[
+    K_{N,p}(x) = \binom{N}{n}^{-n} \sum_{k=0}^n \binom{N - x}{n - k}\binom{x}{k}\left(-\frac{1-p}{p}\right)^k
+  \]
+\end{definition}
+
+Generating function
+\[
+  \sum K_{N,p}(x) y^k = 
+\]
+
+The Krawtchouk 
+
 % To illustrate the calculation of a GRT with an explicit isometry, let
 % \[
 %   f(x) = e^{\langle x, y\rangle}
 % \]
-% for some $y \in \RR$. Suppose $\Lambda = p + \Lambda_0$ is a $d$-dimensional affine subspace and $x(t) : \RR^d \rightarrow \Lambda$ is the isometry given by
+% for some $y \in \RR$. Suppose $\Lambda = p\omega + \Lambda_0$ is a $d$-dimensional affine subspace, where $\Lambda$ is a linear subspace, $\omega \in \Lambda_0^\perp$, $y \in \RR$, and let $x(t) : \RR^d \rightarrow \Lambda$ be the isometry given by
 % \[
-%   x(t) = p + \sum_{i = 1}^d t_iu^{(i)}
+%   x(t) = p\omega + \sum_{i = 1}^d t_iu^{(i)}
 % \]
 % where $u^{(1)}, \ldots, u^{(d)}$ is an orthonormal basis for $\Lambda_0$. Furthermore let $y = y_{\Lambda_0} + y_{\Lambda_0^\perp}$ and note that $\langle x, y \rangle = \langle x, y_{\Lambda_0}\rangle$ for $x \in \Lambda_0$. Then
 % \begin{align*}
 %   GR_f(\Lambda) 
 %     &= \int_{\RR^d} e^{\langle x(t), y \rangle} (2\pi)^{-\frac{d}2} e^{-\frac{\|t\|^2}2}~dt
 %   \\
-%     &= e^{\langle p, y \rangle} \int_{\RR^d} e^{\sum_{i = 1}^d t_i\langle u^{(i)}, y_{\Lambda_0}\rangle - \frac{\|t\|^2}2} (2\pi)^{-\frac{d}2} ~dt
+%     &= e^{p \langle \omega, y \rangle} \int_{\RR^d} e^{\sum_{i = 1}^d t_i\langle u^{(i)}, y_{\Lambda_0}\rangle - \frac{\|t\|^2}2} (2\pi)^{-\frac{d}2} ~dt
 %   \\
-%     &= e^{\langle p, y \rangle} \int_{-\infty}^\infty \prod_{i=1}^d e^{t_i\langle u^{(i)}, y_{\Lambda_0}\rangle - \frac{t_i^2}2} (2\pi)^{-\frac12} dt_i
+%     &= e^{p \langle \omega, y \rangle} \int_{-\infty}^\infty \prod_{i=1}^d e^{t_i\langle u^{(i)}, y_{\Lambda_0}\rangle - \frac{t_i^2}2} (2\pi)^{-\frac12} dt_i
 % \end{align*}
 % Now notice in each exponential in the product we can complete the square $\|t_iu^{(i)} - y_{\Lambda_0}\|^2 = \|y_{\Lambda_0}\|^2 - 2t_i\langle u^{(i)}, y_{\Lambda_0}\rangle + t_i^2$, that is
 % \[
@@ -1028,19 +1081,24 @@ Now we can define the natural analogue of the RT for affine subspaces, which is 
 % \]
 % for $i = 1, \ldots, d$. The right hand integral is a Gaussian integral equal to $1$. Thus
 % \[
-%   GR_f(\Lambda) = e^{\langle p, y \rangle} \prod_{i=1}^d 
+%   GR_f(\Lambda) = e^{p \langle \omega, y \rangle} \prod_{i=1}^d 
 % \]
 
 % Let's see if we can derive a formula for the GRT of the multivariate Hermite polynomials on a general affine plane.
 
-% Following the proof for the hyperplane GRT, we begin again with the transform of the generating function
+% Following the proof for the hyperplane GRT, we begin again with the transform of the generating function $\phi(x)$,
 % \[
 %   GR_\phi(\Lambda)
-%     = e^{p\langle \omega, y\rangle - \frac{\|y\|^2}2} \int_{\Lambda_0} e^{\langle x, y\rangle - \frac{\|x\|^2}2} (2\pi)^{-\frac d2}~dx
+%     = \int_{\Lambda_0} \phi(x) w_d(x - p\omega) ~dx
 % \]
 % which can be immediately expanded as 
 % \[
-%   GR_\phi(\Lambda) = \sum_{\alpha!}\frac{GR_{H_\alpha}(\Lambda)}{\alpha!}y^\alpha
+%   GR_\phi(\Lambda) = \sum_{\alpha!}\frac{GR_{H_\alpha}(\Lambda)}{\alpha!}y^\alpha.
+% \]
+% At the same time we can translate the integral over to $\Lambda_0$ such that
+% \[
+%   GR_\phi(\Lambda)
+%     = e^{p\langle \omega, y\rangle - \frac{\|y\|^2}2} \int_{\Lambda_0} e^{\langle x, y\rangle - \frac{\|x\|^2}2} (2\pi)^{-\frac d2}~dx
 % \]
 % As before, we decompose $y = y_{\Lambda_0} + y_{\Lambda_0^\perp}$, substitute $y_{\Lambda_0}$ for $y$ and complete the square so that the right hand integral is $e^{\frac{\|y_{\Lambda_0}\|^2}2}$.
 % \[
@@ -1067,13 +1125,14 @@ Now we can define the natural analogue of the RT for affine subspaces, which is 
 % \[
 %   something else
 % \]
-% via Ambar
+% via Ambar.
 
 % What if we just assume $\|y_{\Lambda_0^\perp}\|^2 = \langle\omega, y\rangle^2$? This is true essentially if $y \in \omega\RR + \Lambda_0$. In this case we have what we want,
 % \[
 %   \sum_{\alpha \in \NN_0^n} \frac{GR_{H_\alpha}(\Lambda)}{\alpha!} y^\alpha = \sum_{k=0}^\infty \sum_{|\alpha| = k} \frac{H_k(p)\omega^\alpha}{\alpha!} y^\alpha
 % \]
 % It doesn't seem like it should be enough for this to hold on a $d+1$ subspace, to conclude that we can compare coefficients. 
+
 % Now if $\omega$ and $P_{\Lambda_0^\perp} y$ are potentially linearly independent, where can we go from here?
 
 % Recall $\omega$ was chosen from $S^{n-1} \cap \Lambda_0^\perp$ and $y \in \RR^n$ is arbitrary, while $P_{\Lambda_0^\perp} y$ is in $\Lambda_0^\perp$. Suppose that $v^{(1)}, \ldots, v^{(n - d)}$ is an orthonormal basis for $\Lambda_0^\perp$. We can write
