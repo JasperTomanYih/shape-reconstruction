@@ -1033,7 +1033,29 @@ Now we can define the natural analogue of the RT for affine subspaces, which is 
   However keep in mind that these definitions are independent of the particular isometry \pn.
 \end{remark}
 
-
+In order to generalize the formula (\ref{eq:GRH}) to the general extended GRT setting it is useful to begin with a discussion of rotations of monomials. Suppose $R \in O(n)$, that is $R : \RR^n \to \RR^n$ is a linear isomorphism satisfying
+\[
+  R^\top R = RR^\top = I
+\]
+Since a linear subspace $\Lambda_0$ of dimension $d = 0, \ldots, n$ can be written as $R(\RR^d)$ for some $R \in O(n)$, and thus the affine subspace $\Lambda = p\omega + \Lambda_0$ as
+\[
+  \Lambda = p\omega + R(\Lambda_0),
+\]
+we can redefine the RT and GRT correspondingly. In particular,
+\[
+  GR_f(\Lambda) = \int_{\RR^d} f(p\omega + R^{-1}x)w(x)~dx
+\]
+For monomials $f(x) = x^\alpha$, $\alpha \in \NN_0^n$, we have
+\begin{align*}
+  f(R^{-1}x) 
+    &= (R^{-1}x)^\alpha
+    \\ 
+    &= (\sum_{i = 1}^n \inner{R^{-1}x, e_i})e_i)^\alpha
+    \\
+    &= \prod_{i = 1}^n \inner{R^{-1}x, e_i}^{\alpha_i}
+    \\
+    &= \prod_{i = 1}^n \inner{x, Re_i}^{\alpha_i}
+\end{align*}
 % To illustrate the calculation of a GRT with an explicit isometry, let
 % \[
 %   f(x) = e^{\langle x, y\rangle}
@@ -1151,12 +1173,12 @@ In order to draw a clearer line between the binomial and Gaussian densities we m
 \[
   x = (\text{\# of heads}) - (\text{\# of tails}) = k - (N - k) = 2k - N
 \]
-Now the set of possible positions is $x \in \{-N, -N+2, \ldots, N\}$, and the probability of each is precisely the probability of landing $k = \frac{N + x}2$ heads, that is,
+Now the set of possible positions is $x \in [[N]] := \{-N, -N+2, \ldots, N\}$, and the probability of each is precisely the probability of landing $k = \frac{N + x}2$ heads, that is,
 \[
   \binom{N}{\frac{N + x}2}p^{\frac{N + x}2}(1 - p)^{N - \frac{N + x}2}
   = \binom{N}{\frac{N + x}2}p^{\frac{N + x}2}(1 - p)^{\frac{N - x}2}
 \]
-We will define \emph{centered binomial density} supported on $\{-N, -N+2, \ldots, N\}$ by
+We will define \emph{centered binomial density} supported on $[[N]]$ by
 \[
   B_N(x) = \binom{N}{\frac{N+x}2}p^{\frac{N+x}2}(1-p)^{\frac{N-x}2}.
 \]
@@ -1183,10 +1205,10 @@ Then we have
 This limit is perhaps one of the simplest cases of the robust central limit theorem, but can be proven in a number of more elementary ways \cn.
 
 \begin{remark}
-  Under an analogous limit a random walk process becomes a Brownian motion process. \cn
+  Under an analogous limit a random walk process $x$ becomes a Brownian motion process $z$. \cn
 \end{remark}
 
-Having justified the the centered binomial densities $B_N(x)$ as discrete analogs of the Gaussian $w(z)$, we would like to define a sequence of polynomials orthogonal with respect to $B_N(x)$, as the Hermite polynomials are to $w(z)$.
+Having justified the the centered binomial densities $B_N(x)$ as discrete analogs of the Gaussian $w(z)$, we would like to define a sequence of polynomials orthogonal with respect to $B_N(x)$, as the Hermite polynomials are to $w(z)$. For convenience we start with a 
 
 \begin{definition}
   The Krawtchouk polynomials $K_k^{N,p}(x)$ may be defined by the generating function
@@ -1194,14 +1216,17 @@ Having justified the the centered binomial densities $B_N(x)$ as discrete analog
     \sum_{k=0}^N K^{N,p}_k(x)y^k = (1 + y)^{N - x}(1 - y)^x
   \]
 \end{definition}
+\begin{remark}
+  Note that this is an ordinary generating function, while that of the Hermite polynomials was a exponential generating function. Is this distinction consequential for us?
+\end{remark}
 
 The polynomials $K^{N,p}_k(x)$ satisfy the orthogonality property
 \[
-  \sum_{x = -N, -N+2, \ldots, N} K^{N,p}_k(x) K^{N,p}_\ell(x) B_N(x) = 0, \qquad k \neq \ell
+  \sum_{x \in [[N]]} K^{N,p}_k(x) K^{N,p}_\ell(x) B_N(x) = 0, \qquad k \neq \ell
 \]
 and can be written explicitly as
 \[
-  K^{N,p}_k(x) = 
+  K^{N,p}_k(x) = \text{\pn}
 \]
 
 The Krawtchouk and Hermite polynomials are related by the same limiting process.
@@ -1222,15 +1247,11 @@ Now heuristically we expect a formula analagous to (\ref{eq:GRH}) in the from
 \]
 where 
 \[
-  K^{N,p}_\alpha(x) = \prod_{i = n} K^{N,p}_{\alpha_i}(x_i)
+  K^{N,p}_\alpha(x) = \prod_{i = 1}^n K^{N,p}_{\alpha_i}(x_i)
 \]
 We should resolve the conflicting variables both named $p$.
 
-The desired formula would represent a discrete analog for the Gaussian Radon transform on the finite cubic lattice
-\[
-  \{-N, -N+2, \ldots, N\}^n
-\]
-however it is not yet clear how to interpret this analogue. An immediate concern is that the cubic lattice does not admit ``hyperplanes'' for arbitrary $p$ and $\omega$. Indeed in the worst case, if $\omega$ is not (?) then a hyperplane orthogonal can contain at most one lattice point. In the case when $\omega$ (?) we may restrict $p$ to the projection of the lattice onto the span of $\omega$. It remains to be seen whether such an interpretation agrees with the heuristic formula above.
+The desired formula would represent a discrete analog for the Gaussian Radon transform on the finite cubic lattice $[[N]]^n$, however it is not yet clear how to interpret this. An immediate concern is that the cubic lattice does not admit ``hyperplanes'' for arbitrary $p$ and $\omega$. Indeed in the worst case, if $\omega$ is not rational (that is the ratios between coordinates of $\omega$ are not rational, or equivalently the hyperspherical coordinates of $\omega$ include an angle which is an irrational multiple of $\pi$) then a hyperplane orthogonal can contain at most one lattice point. In the case when $\omega$ is rational — in the sense above — we may restrict $p$ to the projection of the lattice onto the span of $\omega$, and sum over the lattice hyperplane $\inner{x, \omega} = p$ with respect to the binomial weight centered on $p\omega$. It remains to be seen whether such an interpretation agrees with the heuristic formula above.
 
 
 
