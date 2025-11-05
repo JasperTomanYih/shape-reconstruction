@@ -1,0 +1,69 @@
+% \chapter{Long Title}{Short Title}
+% The Long Title will appear on the first page of the chapter.
+% The Short Title will appear in the table of contents.
+% If the Long Title isn't all that long, you can just call
+% \chapter{Long Title}{} and the same title will appear in
+% both places.
+
+
+\appendix{Tensor notation}{}
+
+Stepping back, let's review the notion of the tensor powers of a vector space. Let $V$ be a finite dimensional real vector space with basis $\{e_1, e_2, \ldots, e_n\}$. The tensor power $V^{\otimes k}$ is a real vector space, with basis
+\[
+  \{e_{i_1} \otimes e_{i_2} \otimes \cdots \otimes e_{i_k} : 1 \leq i_\ell \leq n, 1 \leq \ell \leq k \}
+\]
+By convention we order this basis lexicographically. For example in the case $n = 3$, $k = 2$, 
+\begin{align*}
+  \{ e_1 \otimes e_1,~
+  e_1 \otimes e_2,~
+  e_1 \otimes e_3, \\
+  e_2 \otimes e_1,~
+  e_2 \otimes e_2,~
+  e_2 \otimes e_3, \\
+  e_3 \otimes e_1,~
+  e_3 \otimes e_2,~
+  e_3 \otimes e_3, \}
+\end{align*}
+There is a natural embedding $V^k \hookrightarrow V^{\otimes k}$ given by
+\[
+  (v_1, v_2, \ldots, v_k) \mapsto v_1 \otimes v_2 \otimes \cdots \otimes v_k
+\]
+and the tensor power satisfies the following universal property: Any ``multilinear'' map out of $V^k$ can be factored as a linear map out of $V^{\otimes k}$ composed with the inclusion above. 
+
+\needed{Commutative diagram}
+
+% Take for a simple example the multiplication map $m: \RR^2 \to \RR$,
+% \[
+%   (v_1, v_2, \ldots, v_k) \mapsto v_1 v_2 \cdots v_k.
+% \]
+
+
+Given a linear transformation $T : V \to V$, the tensor power $T^{\otimes k}$ is the unique linear map $V^{\otimes k} \to V^{\otimes k}$ such that
+\[
+  T^{\otimes k} (v_1 \otimes \cdots \otimes v_k) 
+  = (Tv_1) \otimes \cdots \otimes (Tv_k)
+\]
+In the basis $\{e_{i_1} \otimes e_{i_2} \otimes \cdots \otimes e_{i_k}\}$ ordered lexicographically the matrix representation for $T^{\otimes k}$ is given explicitly by the $k$-fold Kronecker product of the matrix for $T$ in the basis $\{e_1, \ldots e_n\}$.
+The tensor power of a linear transformation satisfies
+\[
+  (T^{\otimes k})^\top = (T^\top)^{\otimes k}
+\]
+If $V$ is a Hilbert space then so is $V^{\otimes k}$ with the inner product
+\[
+  \inner{v_1 \otimes \cdots \otimes v_k, w_1 \otimes \cdots \otimes w_k}
+  = \inner{v_1, w_1} \cdots \inner{v_k, w_k}
+\]
+Now we can write the monomial $v^\alpha = \prod \inner{v, e_i}^{\alpha_i}$ in terms of the inner product by
+\[
+  v^\alpha = \inner{v^{\otimes k}, {\bf e}^{\otimes \alpha}}.
+\]
+Where ${\bf e} = (e_1, \ldots, e_n)$. 
+
+Now a rotation is $R \in O(n)$ is a linear transformation
+
+
+We claim that $\{{\bf e}^\beta\}_{|\beta| = k}$ is a basis for (what space?) so that 
+\[
+  \inner{v^{\otimes k}, {\bf e}^{\otimes \alpha}}
+  = \sum_{|\beta| = k} \inner{v^{\otimes k}, {\bf e}^\beta} \inner{{\bf e}^\beta, {\bf e}^\alpha}
+\]

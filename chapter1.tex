@@ -257,13 +257,13 @@ More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following
   \begin{align*}
     c^G_\alpha 
     &= \int_{\RR^n} x^\alpha w_n(x) ~dx \\
-    &= \prod_{\ell = 1}^n \int_{-\infty}^\infty x_\ell^{\alpha_\ell} w(x_\ell) ~dx \\
-    &= \prod_{\ell = 1}^n c^G_{\alpha_\ell}
+    &= \prod_{i = 1}^n \int_{-\infty}^\infty x_i^{\alpha_i} w(x_i) ~dx \\
+    &= \prod_{i = 1}^n c^G_{\alpha_i}
   \end{align*}
   where $\{c_k\}_{k \in \NN}$ are the univariate moments of $w(p)$.
   Thus $c^G_\alpha = 0$ if any $\alpha_i$ is odd. Otherwise, if every $\alpha_i$ is even then
   \[
-    c^G_\alpha = \prod_{\ell = 1}^n (\alpha_\ell - 1)!!
+    c^G_\alpha = \prod_{i = 1}^n (\alpha_i - 1)!!
   \]
 \end{myexample}
 
@@ -1033,29 +1033,131 @@ Now we can define the natural analogue of the RT for affine subspaces, which is 
   However keep in mind that these definitions are independent of the particular isometry \pn.
 \end{remark}
 
-In order to generalize the formula (\ref{eq:GRH}) to the general extended GRT setting it is useful to begin with a discussion of rotations of monomials. Suppose $R \in O(n)$, that is $R : \RR^n \to \RR^n$ is a linear isomorphism satisfying
+In order to generalize the formula (\ref{eq:GRH}) we begin with the integral of $H_\alpha$ over linear subspaces.
+
+We may note that the linear subspace $\Lambda_0$ is a rotation of $\RR^d \subseteq \RR^n$, that is there exists some $R \in SO(n)$ so that $\Lambda_0 = R(\RR^d)$. In particular
 \[
-  R^\top R = RR^\top = I
+  GR_f(\Lambda_0) = \int_{\RR^d} f(Rx)w(x)~dx.
 \]
-Since a linear subspace $\Lambda_0$ of dimension $d = 0, \ldots, n$ can be written as $R(\RR^d)$ for some $R \in O(n)$, and thus the affine subspace $\Lambda = p\omega + \Lambda_0$ as
+Since $R$ is a linear transformation $H_\alpha(Rx)$ is a polynomial of degree $|\alpha|$, it can be written in terms of the basis $H_\beta$ with $|\beta| = k$
 \[
-  \Lambda = p\omega + R(\Lambda_0),
+  H_\alpha(R(x)) = \sum_{|\beta| = k} C^\alpha_\beta(R) H_\beta(x).
 \]
-we can redefine the RT and GRT correspondingly. In particular,
+
+In determining the coefficients $C^\alpha_\beta(R)$ we will use the tensor product notation described in detail in appendix A. For clarity, we will write
 \[
-  GR_f(\Lambda) = \int_{\RR^d} f(p\omega + R^{-1}x)w(x)~dx
+  x^{\otimes k} = \underbrace{x \otimes x \otimes \cdots \otimes x}_{\hbox{$k$ times}}
 \]
-For monomials $f(x) = x^\alpha$, $\alpha \in \NN_0^n$, we have
+and with the vector notation ${\bf e} = (e_1, \ldots, e_n)$,
 \begin{align*}
-  f(R^{-1}x) 
-    &= (R^{-1}x)^\alpha
-    \\ 
-    &= (\sum_{i = 1}^n \inner{R^{-1}x, e_i})e_i)^\alpha
-    \\
-    &= \prod_{i = 1}^n \inner{R^{-1}x, e_i}^{\alpha_i}
-    \\
-    &= \prod_{i = 1}^n \inner{x, Re_i}^{\alpha_i}
+  {\bf e}^\alpha 
+  &= e_1^{\otimes \alpha_1} \otimes \cdots \otimes e_n^{\otimes \alpha_n}
+  \\
+  &= \underbrace{e_1 \otimes \cdots \otimes e_n}_{\hbox{$\alpha_1$ times}} \otimes \cdots \otimes \underbrace{e_n \otimes \cdots \otimes e_n}_{\hbox{$\alpha_n$ times}}
 \end{align*}
+for $\alpha \in \NN_0^n$. The inner product of tensors is
+\[
+  \inner{x_1 \otimes x_2 \otimes \cdots \otimes x_k,~ y_1 \otimes y_2 \otimes \cdots \otimes y_k}
+  = \inner{x_1, y_1} \inner{x_2, y_2} \cdots \inner{x_k, y_k}.
+\]
+Thus we can express the monomial $x^\alpha$ with degree $|\alpha| = k$ as
+\[
+  x^\alpha 
+  = \prod_{i = 1}^n \inner{x, e_i}^{\alpha} 
+  = \inner{x^{\otimes k}, {\bf e}^{\otimes |\alpha|}}
+\]
+Now consider the action of a rotation $R \in SO(n)$ on the monomial. First it should be noted that $(Rx)^\alpha$ is a polynomial, since $R$ is a linear transformation. Furthermore for any scalar $\lambda$ we have
+\[
+  (R(\lambda x))^\alpha = (\lambda Rx)^\alpha = \lambda^k (Rx)^\alpha
+\]
+so that it is a homogeneous polynomial of degree $k$. Now introducing the tensor notation above we have
+\begin{align*}
+  (Rx)^\alpha 
+  &= \inner{(Rx)^{\otimes k}, {\bf e}^{\otimes \alpha}}
+  \\
+  &= \inner{R^{\otimes k} x^{\otimes k}, {\bf e}^{\otimes \alpha}}
+  \\
+  &= \inner{x^{\otimes k}, (R^{-1})^{\otimes k}{\bf e}^{\otimes \alpha}}
+  \\
+  &= \inner{x^{\otimes k}, (R^{-1}{\bf e})^{\otimes \alpha}}
+\end{align*}
+where we use the shorthand $R^{-1}{\bf e} = (R^{-1}e_1, \ldots, R^{-1}e_n)$. Now we expand over the basis $\{{\bf e}^\beta: |\beta| = k\}$,
+\[
+  \inner{x^{\otimes k}, (R^{-1}{\bf e})^{\otimes \alpha}}
+  = \sum_{|\beta| = k} \inner{x^{\otimes k}, {\bf e}^{\otimes \beta}} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}}
+  = \sum_{|\beta| = k} x^\beta \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}}
+\]
+Let's take a moment to investigate the coefficients in this expansion. Take for an example $n = 3$, $k = 6$, $\alpha = (2, 1, 3)$, $\beta = (2, 2, 2)$. The tensors ${\bf e}^\beta$ and $(R^{-1}{\bf e})^{\alpha}$ are 
+\begin{align*}
+  {\bf e}^\beta &= &e_1 &\otimes &e_1 &\otimes &e_2 &\otimes &e_2 &\otimes &e_3 &\otimes &e_3
+  \\
+  (R^{-1}{\bf e})^{\alpha} &= &R^{-1}e_1 &\otimes &R^{-1}e_1 &\otimes &R^{-1}e_2 &\otimes &R^{-1}e_3 &\otimes &R^{-1}e_3 &\otimes &R^{-1}e_3
+\end{align*}
+which gives the itemwise inner product
+\begin{align*}
+  \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} 
+    &= &\inner{e_1, R^{-1}e_1} \inner{e_1, R^{-1}e_1} \inner{e_2, R^{-1}e_2} 
+    \\
+    &~ &\inner{e_2, R^{-1}e_3} \inner{e_3, R^{-1}e_3} \inner{e_3, R^{-1}e_3}
+\end{align*}
+
+Then with $f(x) = x^\alpha$
+\begin{align*}
+  GR_f(\Lambda_0) 
+  &= \int_{\RR^d}(Rx)^\alpha w_d(x) ~dx
+  \\
+  &= \int_{\RR^d} \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} x^\beta w_d(x) ~dx
+  \\
+  &= \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} \int_{\RR^d}x^\beta w_d(x) ~dx
+  \\
+  &= \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} c^G_\beta
+\end{align*}
+where $c^G_\beta$ are the Gaussian moments on $\RR^d$
+\[
+  c^G_\beta 
+  = \int_{\RR^d} x^\beta w_d(x) ~dx 
+  = 
+  \begin{cases}
+    \prod_{i = 1}^n (\beta_\ell - 1)!! & \hbox{every $\beta_i$ even} \\
+    0 & \hbox{any $\beta_i$ odd}
+  \end{cases}
+\]
+
+% Once again taking the generating function $\phi(x) = e^{\inner{x,y} - \frac{\norm{y}^2}2}$, we have
+% \[
+%   GR_\phi(\Lambda_0) 
+%   = \int_{\RR^d} e^{\inner{Rx,y} - \frac{\norm{y}^2}2}
+%   = \int_{\RR^d} e^{\inner{x,R^{-1}y} - \frac{\norm{R^{-1}y}^2}2}
+%   = \sum_{\alpha \in \NN_0^n} \frac{H}
+% \]
+
+% In order to generalize the formula (\ref{eq:GRH}) to the general extended GRT setting it is useful to begin with a discussion of rotations of monomials. Suppose $R \in O(n)$, that is $R : \RR^n \to \RR^n$ is a linear isomorphism satisfying
+% \[
+%   R^\top R = RR^\top = I
+% \]
+% Since a linear subspace $\Lambda_0$ of dimension $d = 0, \ldots, n$ can be written as $R(\RR^d)$ for some $R \in O(n)$, and thus the affine subspace $\Lambda = p\omega + \Lambda_0$ as
+% \[
+%   \Lambda = p\omega + R(\Lambda_0),
+% \]
+% we can redefine the RT and GRT correspondingly. In particular,
+% \[
+%   GR_f(\Lambda) = \int_{\RR^d} f(p\omega + R^{-1}x)w(x)~dx
+% \]
+% For monomials $f(x) = x^\alpha$, $\alpha \in \NN_0^n$, we have
+% \begin{align*}
+%   f(R^{-1}x) 
+%     &= (R^{-1}x)^\alpha
+%     \\ 
+%     &= (\sum_{i = 1}^n \inner{R^{-1}x, e_i})e_i)^\alpha
+%     \\
+%     &= \prod_{i = 1}^n \inner{R^{-1}x, e_i}^{\alpha_i}
+%     \\
+%     &= \prod_{i = 1}^n \inner{x, Re_i}^{\alpha_i}
+% \end{align*}
+
+
+
+
 % To illustrate the calculation of a GRT with an explicit isometry, let
 % \[
 %   f(x) = e^{\langle x, y\rangle}
