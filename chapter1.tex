@@ -1035,93 +1035,216 @@ Now we can define the natural analogue of the RT for affine subspaces, which is 
 
 In order to generalize the formula (\ref{eq:GRH}) we begin with the integral of $H_\alpha$ over linear subspaces.
 
-We may note that the linear subspace $\Lambda_0$ is a rotation of $\RR^d \subseteq \RR^n$, that is there exists some $R \in SO(n)$ so that $\Lambda_0 = R(\RR^d)$. In particular
-\[
-  GR_f(\Lambda_0) = \int_{\RR^d} f(Rx)w(x)~dx.
-\]
-Since $R$ is a linear transformation $H_\alpha(Rx)$ is a polynomial of degree $|\alpha|$, it can be written in terms of the basis $H_\beta$ with $|\beta| = k$
-\[
-  H_\alpha(R(x)) = \sum_{|\beta| = k} C^\alpha_\beta(R) H_\beta(x).
-\]
+Recall that the GRT of a function $f$ over a linear subspace $\Lambda_0$ can be written
+\begin{equation} \label{eq:GRRot}
+  GR_f(\Lambda_0) = \int\mclimits_{\RR^d \times \{0\}^{n-d}} f(Rx) w_d(x) ~dx
+\end{equation}
+where $R \in SO(n)$ is the a rotation sending $\RR^d \subseteq \RR^n$ to $\Lambda_0$. Thus we would like to investigate the action of rotations on certain functions of interest, namely monomials and Hermite polynomials.
 
-In determining the coefficients $C^\alpha_\beta(R)$ we will use the tensor product notation described in detail in appendix A. For clarity, we will write
-\[
-  x^{\otimes k} = \underbrace{x \otimes x \otimes \cdots \otimes x}_{\hbox{$k$ times}}
-\]
-and with the vector notation ${\bf e} = (e_1, \ldots, e_n)$,
-\begin{align*}
-  {\bf e}^\alpha 
-  &= e_1^{\otimes \alpha_1} \otimes \cdots \otimes e_n^{\otimes \alpha_n}
-  \\
-  &= \underbrace{e_1 \otimes \cdots \otimes e_n}_{\hbox{$\alpha_1$ times}} \otimes \cdots \otimes \underbrace{e_n \otimes \cdots \otimes e_n}_{\hbox{$\alpha_n$ times}}
-\end{align*}
-for $\alpha \in \NN_0^n$. The inner product of tensors is
-\[
-  \inner{x_1 \otimes x_2 \otimes \cdots \otimes x_k,~ y_1 \otimes y_2 \otimes \cdots \otimes y_k}
-  = \inner{x_1, y_1} \inner{x_2, y_2} \cdots \inner{x_k, y_k}.
-\]
-Thus we can express the monomial $x^\alpha$ with degree $|\alpha| = k$ as
-\[
-  x^\alpha 
-  = \prod_{i = 1}^n \inner{x, e_i}^{\alpha} 
-  = \inner{x^{\otimes k}, {\bf e}^{\otimes |\alpha|}}
-\]
-Now consider the action of a rotation $R \in SO(n)$ on the monomial. First it should be noted that $(Rx)^\alpha$ is a polynomial, since $R$ is a linear transformation. Furthermore for any scalar $\lambda$ we have
-\[
-  (R(\lambda x))^\alpha = (\lambda Rx)^\alpha = \lambda^k (Rx)^\alpha
-\]
-so that it is a homogeneous polynomial of degree $k$. Now introducing the tensor notation above we have
-\begin{align*}
-  (Rx)^\alpha 
-  &= \inner{(Rx)^{\otimes k}, {\bf e}^{\otimes \alpha}}
-  \\
-  &= \inner{R^{\otimes k} x^{\otimes k}, {\bf e}^{\otimes \alpha}}
-  \\
-  &= \inner{x^{\otimes k}, (R^{-1})^{\otimes k}{\bf e}^{\otimes \alpha}}
-  \\
-  &= \inner{x^{\otimes k}, (R^{-1}{\bf e})^{\otimes \alpha}}
-\end{align*}
-where we use the shorthand $R^{-1}{\bf e} = (R^{-1}e_1, \ldots, R^{-1}e_n)$. Now we expand over the basis $\{{\bf e}^\beta: |\beta| = k\}$,
-\[
-  \inner{x^{\otimes k}, (R^{-1}{\bf e})^{\otimes \alpha}}
-  = \sum_{|\beta| = k} \inner{x^{\otimes k}, {\bf e}^{\otimes \beta}} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}}
-  = \sum_{|\beta| = k} x^\beta \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}}
-\]
-Let's take a moment to investigate the coefficients in this expansion. Take for an example $n = 3$, $k = 6$, $\alpha = (2, 1, 3)$, $\beta = (2, 2, 2)$. The tensors ${\bf e}^\beta$ and $(R^{-1}{\bf e})^{\alpha}$ are 
-\begin{align*}
-  {\bf e}^\beta &= &e_1 &\otimes &e_1 &\otimes &e_2 &\otimes &e_2 &\otimes &e_3 &\otimes &e_3
-  \\
-  (R^{-1}{\bf e})^{\alpha} &= &R^{-1}e_1 &\otimes &R^{-1}e_1 &\otimes &R^{-1}e_2 &\otimes &R^{-1}e_3 &\otimes &R^{-1}e_3 &\otimes &R^{-1}e_3
-\end{align*}
-which gives the itemwise inner product
-\begin{align*}
-  \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} 
-    &= &\inner{e_1, R^{-1}e_1} \inner{e_1, R^{-1}e_1} \inner{e_2, R^{-1}e_2} 
-    \\
-    &~ &\inner{e_2, R^{-1}e_3} \inner{e_3, R^{-1}e_3} \inner{e_3, R^{-1}e_3}
-\end{align*}
+\begin{lemma}
+  Let $f(x) = x^\alpha$ for some multiindex $\alpha \in \NN_0^n$ of degree $|\alpha| = k$. Then the rotation $f(Rx)$ has the expansion
+  \begin{equation} \label{eq:monRot}
+    f(Rx) = \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} c(R)^\alpha_\beta x^{\beta}.
+  \end{equation}
+  The coefficients $c(R)^\alpha_\beta$ are given by
+  \[
+    c(R)^\alpha_\beta 
+    % = \binom{k}{\beta} \inner{P_s\bf{e}^{\otimes \beta}, \bf{e}^{\otimes \alpha}} = \sum_{i \in I(\beta)} \inner{\bf{e}_{\otimes i}, \bf{e}^{\otimes \alpha}}
+    % = \sum_{i \in I(\beta)} \prod_{j = 1}^n \inner{Re_{i_j}, e_{\alpha^j}}
+    = \sum_{i \in I(\beta)} \prod_{j = 1}^n \inner{Re_{i_j}, e_{\alpha^j}}
+  \]
+  where $\alpha^j = \ell$ if $0 < j - \alpha_1 - \cdots \alpha_{\ell - 1} \leq \alpha_\ell$ and
+  \[
+    I(\beta) = \{i \in \{1, \ldots, n\}^k: \hbox{$1, \ldots, n$ have multiplicity $\beta_1, \ldots \beta_n$ in $i$}\}
+  \]
+  Note that the inner products $\inner{Re_{i_j}, e_{\alpha^j}}$ are matrix entries for $R$. 
+\end{lemma}
+\begin{proof}
+  First one should note that $(Rx)^\alpha$ is a homogeneous polynomial of degree $k$; a polynomial because $R$ is a linear transformation, and homogeneous because $R \in SO(n)$ so that for $\lambda \in \RR$,
+  \[
+    (R\lambda x)^\alpha = (\lambda Rx)^\alpha = \lambda^k (Rx^\alpha).
+  \]
+  Using the tensor power notation from appendix A, we can write
+  \[
+    (Rx)^\alpha = \prod_{i = 1}^n \inner{Rx, e_i}^{\alpha_i} = \inner{R^{\otimes k} x^{\otimes k}, \bf{e}^{\otimes \alpha}} = \inner{x^{\otimes k}, (R^{-1})^{\otimes k}\bf{e}^{\otimes \alpha}}
+  \]
+  Now we expand over the basis $\{\bf{e}_{\otimes i}\}_{i \in \{1, \ldots, n\}^k}$, noting that each tuple $i \in \{1, \ldots, n\}^k$ is an anagram to exactly one multiindex of degree $k$. To be precise $\{I(\beta)\}_{|\beta| = k}$ is a partition of $\{1, \ldots, n\}^k$.
+  Thus 
+  \begin{align*}
+    \inner{x^{\otimes k}, (R^{-1})^{\otimes k}\bf{e}^{\otimes \alpha}}
+      % &= \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} \sum_{i \in I(\beta)} \inner{x^{\otimes k}, (R^{-1})^{\otimes k}\bf{e}^{\otimes \alpha}} \\
+      &= \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} \sum_{i \in I(\beta)} \inner{x^{\otimes k}, \bf{e}_{\otimes i}} \inner{\bf{e}_{\otimes i}, (R^{-1})^{\otimes k}\bf{e}^{\otimes \alpha}} \\
+      &= \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} x^\beta \sum_{i \in I(\beta)} \inner{\bf{e}_{\otimes i}, (R^{-1})^{\otimes k}\bf{e}^{\otimes \alpha}}.
+  \end{align*}
+  That we have the non-tensor expression 
+  \[
+    \inner{\bf{e}_{\otimes i}, (R^{-1})^{\otimes k}\bf{e}^{\otimes \alpha}} = \prod_{j = 1}^n \inner{e_{i_j}, R^{-1}e_{\alpha^j}} = \prod_{j = 1}^n \inner{Re_{i_j}, e_{\alpha^j}}
+  \]
+  follows from the definition of the inner product on $(\RR^n)^{\otimes k}$ and further notation from appendix A.
+\end{proof}
+\begin{remark}
+  We could write the coefficient $c(R)^\alpha_\beta$ in a slightly different form. If we define the non-decreasing tuple $\tilde{\alpha}$ associated with a multi-index $\alpha$ by
+  \[
+    \tilde{\alpha} = (\underbrace{1, \ldots, 1}_{\alpha_1 ~\text{times}}, \underbrace{2, \ldots, 2}_{\alpha_2 ~\text{times}}, \ldots , \underbrace{n, \ldots, n}_{\alpha_n ~\text{times}})
+  \]
+  then 
+  \[
+    c(R)^\alpha_\beta = \sum_{\sigma \in S_k} \prod_{j = 1}^n R_{\sigma \tilde{\beta}_j, \tilde{\alpha}_j}
+  \]
+  is similar in form to the matrix determinant.
+\end{remark}
+\begin{myexample}
+  For a simple example take the monomial $f(x) = x_1^2x_2$. Here $n = 2$, $\alpha = (2, 1)$ and $k = 3$. The partition of $\{1, 2\}^3$ over multi-indeces $|(\beta_1, \beta_2)| = 3$ is given by
+  \begin{align*}
+    I(3,0) &= \{(1, 1, 1)\} \\
+    I(2,1) &= \{(1, 1, 2), (1, 2, 1), (2, 1, 1)\} \\
+    I(1,2) &= \{(1, 2, 2), (2, 1, 2), (2, 2, 1)\} \\
+    I(0,3) &= \{(2, 2, 2)\}
+  \end{align*}
+  Now note that $(\alpha^1, \alpha^2, \alpha^3) = (1, 1, 2)$. If $R \in SO(2)$ is a $2 \times 2$ rotation matrix with entries $R_{i,j} = \inner{Re_i, e_j}$ then the formula (\ref{eq:monRot}) says 
+  \begin{align*}
+    (Rx)^\alpha 
+    &= x_1^3 R_{1,1}^2 R_{1,2} \\
+    &+ x_1^2x_2 \left(R_{1,1}^2R_{2,2} + 2R_{1,1}R_{2,1}R_{1,2}\right) \\
+    &+ x_1x_2^2 \left(2R_{1,1}R_{2,1}R_{2,2} + R_{2,1}^2R_{1,2}\right) \\
+    &+ x_2^3 R_{2,1}^2 R_{2,2}
+  \end{align*}
+  While tensor power notation is concise, this sort of representation is needed for computation.
+\end{myexample}
 
-Then with $f(x) = x^\alpha$
-\begin{align*}
-  GR_f(\Lambda_0) 
-  &= \int_{\RR^d}(Rx)^\alpha w_d(x) ~dx
-  \\
-  &= \int_{\RR^d} \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} x^\beta w_d(x) ~dx
-  \\
-  &= \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} \int_{\RR^d}x^\beta w_d(x) ~dx
-  \\
-  &= \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} c^G_\beta
-\end{align*}
-where $c^G_\beta$ are the Gaussian moments on $\RR^d$
-\[
-  c^G_\beta 
-  = \int_{\RR^d} x^\beta w_d(x) ~dx 
-  = 
-  \begin{cases}
-    \prod_{i = 1}^n (\beta_\ell - 1)!! & \hbox{every $\beta_i$ even} \\
-    0 & \hbox{any $\beta_i$ odd}
-  \end{cases}
-\]
+\begin{proposition}
+  The GRT of a monomial $f(x) = x^\alpha$ on a linear subspace $\Lambda_0$ is given by
+  \[
+    GR_f(\Lambda_0) = \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} c(R)^\alpha_\beta c^G_\beta
+  \]
+  where $c^G_\beta = \int_{\RR^d} x^\beta w_d(x) ~dx$ are the Gaussian moments on $\RR^d$.
+\end{proposition}
+
+\begin{proof}
+  We take (\ref{eq:GRRot}),
+  \[
+    GR_f(\Lambda_0) = \int\mclimits_{\RR^d \times \{0\}^{n-d}} (Rx)^\alpha w_d(x) ~dx,
+  \]
+  and expand by (\ref{eq:monRot}),
+  \begin{align*}
+    \int\mclimits_{\RR^d \times \{0\}^{n-d}} (Rx)^\alpha w_d(x) ~dx
+    &= \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} c(R)^\alpha_\beta \int_{\RR^d \times \{0\}^{n-d}} x^\beta w_d(x) ~dx
+  \end{align*}
+  as needed.
+\end{proof}
+
+\begin{proposition}
+  The GRT of a multivariate Hermite polynomial $H_\alpha$ on a linear subspace $\Lambda_0$ is given by
+  \[
+    GR_{H_\alpha}(\Lambda_0) = \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} 
+  \]
+\end{proposition}
+
+\begin{proof}
+  
+\end{proof}
+
+
+% We may note that the linear subspace $\Lambda_0$ is a rotation of $\RR^d \subseteq \RR^n$, that is there exists some $R \in SO(n)$ so that $\Lambda_0 = R(\RR^d)$. In particular
+% \[
+%   GR_f(\Lambda_0) = \int_{\RR^d} f(Rx)w(x)~dx.
+% \]
+% Since $R$ is a linear transformation $H_\alpha(Rx)$ is a polynomial of degree $|\alpha|$, it can be written in terms of the basis $H_\beta$ with $|\beta| = k$
+% \[
+%   H_\alpha(R(x)) = \sum_{|\beta| = k} C(R)^\alpha_\beta H_\beta(x).
+% \]
+% In determining the coefficients $C^\alpha_\beta(R)$ we will use the tensor product notation described in detail in appendix A. For clarity, we will write
+% \[
+%   x^{\otimes k} = \underbrace{x \otimes x \otimes \cdots \otimes x}_{\hbox{$k$ times}}
+% \]
+% and with the vector notation ${\bf e} = (e_1, \ldots, e_n) \in (\RR^n)^n$,
+% \begin{align*}
+%   {\bf e}_{\otimes i} &= e_{i_1} \otimes e_{i_2} \otimes \cdots \otimes e_{i_k} 
+%   \\
+%   {\bf e}^{\otimes \alpha}
+%   &= e_1^{\otimes \alpha_1} \otimes \cdots \otimes e_n^{\otimes \alpha_n}
+%   \\
+%   &= \underbrace{e_1 \otimes \cdots \otimes e_n}_{\hbox{$\alpha_1$ times}} \otimes \cdots \otimes \underbrace{e_n \otimes \cdots \otimes e_n}_{\hbox{$\alpha_n$ times}}
+% \end{align*}
+% where $i = (i_1, \ldots i_n) \in \{1, \ldots n\}^k$ and $\alpha \in \NN_0^n$. An inner product on tensors is defined by
+% \[
+%   \inner{x_1 \otimes x_2 \otimes \cdots \otimes x_k,~ y_1 \otimes y_2 \otimes \cdots \otimes y_k}
+%   = \inner{x_1, y_1} \inner{x_2, y_2} \cdots \inner{x_k, y_k}.
+% \]  
+% Thus we can express the monomial $x^\alpha$ with degree $|\alpha| = k$ as
+% \[
+%   x^\alpha 
+%   = \prod_{i = 1}^n \inner{x, e_i}^{\alpha} 
+%   = \inner{x^{\otimes k}, {\bf e}^{\otimes \alpha}}
+% \]
+% Since this expression is clearly independent of the particular order of the elements of ${\bf e}^{\otimes \alpha}$ we call the collection of its distinct anagrams of $I(\alpha)$. 
+% % introduce the symmetrization operator
+% % \[
+% %   P_s(v_1 \otimes v_2 \otimes \cdots v_k) = \frac1{k!}\sum_{\sigma \in S_k} v_{\sigma^{-1}1} \otimes v_{\sigma^{-1}2} \otimes \cdots \otimes v_{\sigma^{-1}k}
+% % \]
+% \begin{lemma}
+%   The action of a rotation $R \in SO(n)$ on the monomial $x^\alpha$ of degree $|\alpha| = k$ has the expansion
+%   \[
+%     (Rx)^\alpha = \sum_{|\beta| = k} x^{\alpha} \binom{k}{\beta} \sum_{i \in I(\alpha)} \inner{e_{\otimes i}, (R^{-1})^{\otimes k}{\bf e}^{\otimes \alpha}}
+%   \]
+% \end{lemma}
+% Now consider the action of a rotation $R \in SO(n)$ on the monomial. First it should be noted that $(Rx)^\alpha$ is a polynomial, since $R$ is a linear transformation. Furthermore for any scalar $\lambda$ we have
+% \[
+%   (R(\lambda x))^\alpha = (\lambda Rx)^\alpha = \lambda^k (Rx)^\alpha
+% \]
+% so that it is remains homogeneous polynomial of degree $k$. Now introducing the tensor notation above we have
+% \begin{align*}
+%   (Rx)^\alpha 
+%   &= \inner{(Rx)^{\otimes k}, {\bf e}^{\otimes \alpha}}
+%   \\
+%   &= \inner{R^{\otimes k} x^{\otimes k}, {\bf e}^{\otimes \alpha}}
+%   \\
+%   &= \inner{x^{\otimes k}, (R^{-1})^{\otimes k}{\bf e}^{\otimes \alpha}}
+%   \\
+%   &= \inner{x^{\otimes k}, (R^{-1}{\bf e})^{\otimes \alpha}}
+% \end{align*}
+% where we use the shorthand $R^{-1}{\bf e} = (R^{-1}e_1, \ldots, R^{-1}e_n)$. Now recall that $\{e_{i_1} \otimes e_{i_2} \otimes \cdots \otimes e_{i_k} : (i_1, \ldots, i_k) \in I^k\}$ where $I = \{1, \ldots n\}$ is a basis for the vector space $(\RR^n)^{\otimes k}$ of $k$-tensors, so that
+% \[
+%   \inner{x^{\otimes k}, (R^{-1}{\bf e})^{\otimes \alpha}} 
+%   = \sum_{(i_1, \ldots, i_k) \in I^k} \inner{x^{\otimes k}, e_{i_1} \otimes \cdots \otimes e_{i_k}}\inner{e_{i_1} \otimes \cdots \otimes e_{i_k}, (R^{-1}{\bf e})^{\otimes \alpha}}
+% \]
+
+
+% Let's take a moment to investigate the coefficients in this expansion. Take for an example $n = 3$, $k = 6$, $\alpha = (2, 1, 3)$, $\beta = (2, 2, 2)$. The tensors ${\bf e}^\beta$ and $(R^{-1}{\bf e})^{\alpha}$ are 
+% \begin{align*}
+%   {\bf e}^\beta &= &e_1 &\otimes &e_1 &\otimes &e_2 &\otimes &e_2 &\otimes &e_3 &\otimes &e_3
+%   \\
+%   (R^{-1}{\bf e})^{\alpha} &= &R^{-1}e_1 &\otimes &R^{-1}e_1 &\otimes &R^{-1}e_2 &\otimes &R^{-1}e_3 &\otimes &R^{-1}e_3 &\otimes &R^{-1}e_3
+% \end{align*}
+% which gives the itemwise inner product
+% \begin{align*}
+%   \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} 
+%     &= &\inner{e_1, R^{-1}e_1} \inner{e_1, R^{-1}e_1} \inner{e_2, R^{-1}e_2} 
+%     \\
+%     &~ &\inner{e_2, R^{-1}e_3} \inner{e_3, R^{-1}e_3} \inner{e_3, R^{-1}e_3}
+% \end{align*}
+
+% Then with $f(x) = x^\alpha$
+% \begin{align*}
+%   GR_f(\Lambda_0) 
+%   &= \int_{\RR^d}(Rx)^\alpha w_d(x) ~dx
+%   \\
+%   &= \int_{\RR^d} \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} x^\beta w_d(x) ~dx
+%   \\
+%   &= \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} \int_{\RR^d}x^\beta w_d(x) ~dx
+%   \\
+%   &= \sum_{|\beta| = k} \inner{{\bf e}^{\otimes \beta}, (R^{-1}{\bf e})^{\otimes \alpha}} c^G_\beta
+% \end{align*}
+% where $c^G_\beta$ are the Gaussian moments on $\RR^d$
+% \[
+%   c^G_\beta 
+%   = \int_{\RR^d} x^\beta w_d(x) ~dx 
+%   = 
+%   \begin{cases}
+%     \prod_{i = 1}^n (\beta_\ell - 1)!! & \hbox{every $\beta_i$ even} \\
+%     0 & \hbox{any $\beta_i$ odd}
+%   \end{cases}
+% \]
 
 % Once again taking the generating function $\phi(x) = e^{\inner{x,y} - \frac{\norm{y}^2}2}$, we have
 % \[
