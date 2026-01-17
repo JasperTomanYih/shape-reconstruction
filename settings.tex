@@ -64,7 +64,12 @@
 % avant, bookman, charter, cmbright, courier, helvet, newcent, times, palatino, pxfonts
 
 \usepackage{courier}
-\DeclareEmphSequence{\textbf}
+
+\usepackage{ulem}
+\normalem
+% \let\emph\relax % there's no \RedeclareTextFontCommand
+% \DeclareTextFontCommand{\emph}{\bfseries\em}
+\DeclareEmphSequence{\bfseries}
 % \usepackage{fontspec}
 % \setmainfont{Arial}
 
@@ -193,6 +198,19 @@
 
 \newcommand{\inner}[1]{\left\langle #1 \right\rangle}
 \newcommand{\norm}[1]{\left\| #1 \right\|}
+
+\newcommand*\pFqskip{8mu}
+\catcode`,\active
+\newcommand*\pFq{\begingroup
+        \catcode`\,\active
+        \def ,{\mskip\pFqskip\relax}%
+        \dopFq
+}
+\catcode`\,12
+\def\dopFq#1#2#3#4#5{%
+        {}_{#1}F_{#2}\biggl[\genfrac..{0pt}{}{#3}{#4};#5\biggr]%
+        \endgroup
+}
 
 \newcommand{\cn}{\emph{[CITATION NEEDED]}} 
 \newcommand{\pn}{\emph{[PROOF NEEDED]}}

@@ -1,4 +1,49 @@
-\chapter{Shape reconstruction}{}
+% \chapter{Long Title}{Short Title}
+% The Long Title will appear on the first page of the chapter.
+% The Short Title will appear in the table of contents.
+% If the Long Title isn't all that long, you can just call
+% \chapter{Long Title}{} and the same title will appear in
+% both places.
+
+
+\chapter{Shape reconstruction from moments}{}
+
+\section{Convergence results for the Gaussian Radon transform}
+
+Now we are in the position to assemble all the previous results into an approximation scheme to be used for reconstruction shapes of unbounded domains.
+
+Take a non-negative Lebesgue measureable function $f(x)$ on $\RR^n$ with finite multivariate Gaussian moments
+\[
+  c^G_\alpha = \int_{\RR^n} f(x)e^{-\|x\|^2/2} x^\alpha dx
+\]
+We have seen that the multivariate Stieltjes transform of $f(x)w_n(x)$, 
+\[
+  g(z) = \int_{\RR^n} \frac{f(x)e^{-\|x\|^2/2}}{1 + \langle x, \omega \rangle z} dx,
+\]
+is equal to the Hamburger transform of $GR_f(\omega, p)$, whose moments in turn are easily computed from the moments of $f$, for fixed $\omega$. Thus for $z$ in the one dimensional subspace spanned by $\omega$, $g(z)$ can be approximated well by Pad\'e approximants, under the integrability condition $GR_f(\omega, p) \in L^2(\RR, e^{-p^2}~dp)$. On the other hand as an integral on $\RR^n$, we can also approximate $g(z)$ by cubature formula,
+\[
+  \int_{\RR^n} \frac{f(x)e^{-\|x\|^2/2}}{1 + \langle x, \omega \rangle z} dx 
+  \approx \sum_{\ell = L} \frac{e^{-\|x_\ell\|^2/2}}{1 + \langle x_\ell, \omega \rangle z} w_\ell f(x_\ell)
+  =: \sum_{\ell = L} C_\ell(z) f(x_\ell).
+\]
+By equating these parallel approximations, 
+\[
+    \sum_{\ell = L} C_\ell(z) f(x_\ell) \approx R_M(z),
+\]
+with a sufficient quantity of sample points $z_j$ we have arrived at a linear system
+\[
+  \sum_{\ell = L} C_\ell(z_j) f(x_\ell) = R_M(z_j), 
+  \qquad j = 1, 2, \ldots, J
+\]
+from which we should be able to recover the value of $f$ on our cubature nodes $x_\ell$.
+
+
+
+% We have seen that the Hamburger transform of the GRT of $f$,
+% \[
+%     g(z) = \int_{-\infty}^\infty \frac{GR_f(\omega, p) e^{-p^2/2}}{1 + pz}dp
+% \]
+% can be approximated to an arbitrary degree by offdiagonal Pad\'e approximants, $R_M(z)$ near zero. On the other hand as an integral over $p$
 
 \section{Implementation}
 
@@ -106,4 +151,8 @@ Mathematica table: $GR_f(a, p)$ for $f(x,y) = x^i y^i$
 \]
 
 Unit ball in $\RR^3$? Annulus in $\RR^2$? Some asymmetric or off-center examples?
+
+
+
+
 
