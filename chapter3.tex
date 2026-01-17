@@ -8,11 +8,12 @@
 
 \chapter{Shape reconstruction from moments}{}
 
+In this chapter we describe a method for shape reconstruction from moments and propose an extension of the method to unbounded regions.
+
+
 \section{Convergence results for the Gaussian Radon transform}
 
-Now we are in the position to assemble all the previous results into an approximation scheme to be used for reconstruction shapes of unbounded domains.
-
-Take a non-negative Lebesgue measureable function $f(x)$ on $\RR^n$ with finite multivariate Gaussian moments
+Take a non-negative Lebesgue measurable function $f(x)$ on $\RR^n$ with finite multivariate Gaussian moments
 \[
   c^G_\alpha = \int_{\RR^n} f(x)e^{-\|x\|^2/2} x^\alpha dx
 \]
@@ -46,6 +47,9 @@ from which we should be able to recover the value of $f$ on our cubature nodes $
 % can be approximated to an arbitrary degree by offdiagonal Pad\'e approximants, $R_M(z)$ near zero. On the other hand as an integral over $p$
 
 \section{Implementation}
+
+We have spent some time implementing our proposed extension to the shape reconstruction method, mostly in the Wolfram Mathematica language. But of course in this process questions arose, both theoretical and pragmatic. 
+% We are limited in our knowledge of numerical and computational analysis, and welcome criticism.
 
 While the authors describe forming multivariate ``homogeneous'' Pade approximants — perhaps first proposed by Cuyt herself in~\cite{Cuyt84} — we opt to bypass this step using univariate approximants instead. Indeed, the only benefit to Cuyt's approximants explicitly cited by the authors, as compared to other multivariate generalizations of the Pade approximants, is that they are ``the only satisfying the following powerful slice theorem''~\cite{Cuyt05}. This slice theorem simply states that the homogeneous approximants when restricted to one dimensional subspaces, are equivalent to univariate Pade approximants. Since we only need a finite number of sample points it seems reasonable to compute a series of univariate approximants at various projection angles.
 
@@ -83,14 +87,14 @@ Now, a fundamental limitation with the proposed method which we have neglected t
 %     w_2(x, y) = \frac1{2\pi}e^{-\frac{x^2 + y^2}2}
 % \]
 
-\[
-    f : \RR^2 \rightarrow \RR
-\]
-\begin{align*}
-  GR_f(\theta, p) 
-  &= \int_{-\infty}^\infty f(x(t), y(t)) w(t)~dt \\
-  &= \int_{-\infty}^\infty f(t \sin\theta + p \cos\theta, -t \cos\theta + p \sin\theta) w(t)~dt
-\end{align*}
+% \[
+%     f : \RR^2 \rightarrow \RR
+% \]
+% \begin{align*}
+%   GR_f(\theta, p) 
+%   &= \int_{-\infty}^\infty f(x(t), y(t)) w(t)~dt \\
+%   &= \int_{-\infty}^\infty f(t \sin\theta + p \cos\theta, -t \cos\theta + p \sin\theta) w(t)~dt
+% \end{align*}
 
 % Let $f_{i,j} = x^i y^j$ for $i, j \in \NN_0$. Define $G_{i,j}(\theta, p) = GR_{f_{i,j}}(\theta, p)$
 % \[
@@ -105,52 +109,58 @@ Now, a fundamental limitation with the proposed method which we have neglected t
 %     &= \frac1{\sqrt{2\pi}}\int_{-\infty}^\infty (t \sin\theta + p \cos\theta) e^{-\frac{t^2}2}~dt
 % \end{align*}
 
-Let $H_\alpha(x) = H_{\alpha_1}(x_1)H_{\alpha_2}(x_2) \cdots H_{\alpha_n}(x_n)$ for $\alpha \in \NN_0^n$ and when $n=2$,
-\[
-  H_{i,j}(x,y) = H_i(x)H_j(y)
-\]
-Mathematica table: $\frac{GR_{H_{i,j}}(\theta,p)}{\cos^i\theta \sin^j\theta}$ for $i,j \leq 4$
-\[
-  \begin{array}{ccccc}
-    1 & p & p^2-1 & p^3-3 p & p^4-6 p^2+3 \\
-    p & p^2-1 & p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p \\
-    p^2-1 & p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 \\
-    p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 & p^7-21 p^5+105 p^3-105 p \\
-    p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 & p^7-21 p^5+105 p^3-105 p & p^8-28 p^6+210 p^4-420 p^2+105 \\
-  \end{array}
-\]
+% Let $H_\alpha(x) = H_{\alpha_1}(x_1)H_{\alpha_2}(x_2) \cdots H_{\alpha_n}(x_n)$ for $\alpha \in \NN_0^n$ and when $n=2$,
+% \[
+%   H_{i,j}(x,y) = H_i(x)H_j(y)
+% \]
+% Mathematica table: $\frac{GR_{H_{i,j}}(\theta,p)}{\cos^i\theta \sin^j\theta}$ for $i,j \leq 4$
+% \[
+%   \begin{array}{ccccc}
+%     1 & p & p^2-1 & p^3-3 p & p^4-6 p^2+3 \\
+%     p & p^2-1 & p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p \\
+%     p^2-1 & p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 \\
+%     p^3-3 p & p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 & p^7-21 p^5+105 p^3-105 p \\
+%     p^4-6 p^2+3 & p^5-10 p^3+15 p & p^6-15 p^4+45 p^2-15 & p^7-21 p^5+105 p^3-105 p & p^8-28 p^6+210 p^4-420 p^2+105 \\
+%   \end{array}
+% \]
 
-\textbf{Conjecture:} Based on a Mathematica table (at least up to $i,j\leq4$) it seems that the following formula holds:
-\[
-  GR_{H_{i,j}}(\theta, p) = H_{i+j}(p) \cos^i \theta \sin^j \theta 
-\]
-We further expect 
-\[
-  GR_{H_\alpha}(\omega, p) = H_{|\alpha|}(p) \omega^\alpha
-\]
-for $\alpha \in \NN_0^n$.
+% \textbf{Conjecture:} Based on a Mathematica table (at least up to $i,j\leq4$) it seems that the following formula holds:
+% \[
+%   GR_{H_{i,j}}(\theta, p) = H_{i+j}(p) \cos^i \theta \sin^j \theta 
+% \]
+% We further expect 
+% \[
+%   GR_{H_\alpha}(\omega, p) = H_{|\alpha|}(p) \omega^\alpha
+% \]
+% for $\alpha \in \NN_0^n$.
 
-Bogachev (for example): $(H_\alpha)_{\alpha \in \NN_0^n}$ is an orthogonal basis in $L^2(\gamma_n)$
+% Bogachev (for example): $(H_\alpha)_{\alpha \in \NN_0^n}$ is an orthogonal basis in $L^2(\gamma_n)$
 
-Mathematica table: $GR_f(a, p)$ for $f(x,y) = x^i y^i$
-\[
-\begin{array}{cccc}
-  1 & p \sin (a) & p^2 \sin ^2(a)+\cos ^2(a) & p \sin (a) \left(p^2 \sin ^2(a)+3 \cos ^2(a)\right) \\
-  p \cos (a) & \left(p^2-1\right) \sin (a) \cos (a) & p \cos (a) \left(\left(p^2-2\right) \sin ^2(a)+\cos ^2(a)\right) & \sin (a) \cos (a) \left(p^2 \left(p^2-3\right) \sin ^2(a)+3 \left(p^2-1\right) \cos ^2(a)\right) \\
-  p^2 \cos ^2(a)+\sin ^2(a) & p \sin (a) \left(\left(p^2-2\right) \cos ^2(a)+\sin ^2(a)\right) & \frac{1}{8} \left(-\left(p^4-6 p^2+3\right) \cos (4 a)+p^4+2 p^2+3\right) & \frac{1}{8} p \sin (a) \left(8 \left(p^2-3\right) \cos (2 a)-\left(p^4-10 p^2+15\right) \cos (4 a)+p^4+6 p^2-9\right) \\
-  p \cos (a) \left(p^2 \cos ^2(a)+3 \sin ^2(a)\right) & \frac{1}{4} \sin (2 a) \left(\left(p^4-6 p^2+3\right) \cos (2 a)+p^4-3\right) & \frac{1}{8} p \cos (a) \left(-8 \left(p^2-3\right) \cos (2 a)-\left(p^4-10 p^2+15\right) \cos (4 a)+p^4+6 p^2-9\right) & \frac{1}{16} \sin (2 a) \left(-\left(p^6-15 p^4+45 p^2-15\right) \cos (4 a)+p^6+9 p^4-27 p^2-15\right) \\
-  \end{array}
-\]
+% Mathematica table: $GR_f(a, p)$ for $f(x,y) = x^i y^i$
+% \[
+% \begin{array}{cccc}
+%   1 & p \sin (a) & p^2 \sin ^2(a)+\cos ^2(a) & p \sin (a) \left(p^2 \sin ^2(a)+3 \cos ^2(a)\right) \\
+%   p \cos (a) & \left(p^2-1\right) \sin (a) \cos (a) & p \cos (a) \left(\left(p^2-2\right) \sin ^2(a)+\cos ^2(a)\right) & \sin (a) \cos (a) \left(p^2 \left(p^2-3\right) \sin ^2(a)+3 \left(p^2-1\right) \cos ^2(a)\right) \\
+%   p^2 \cos ^2(a)+\sin ^2(a) & p \sin (a) \left(\left(p^2-2\right) \cos ^2(a)+\sin ^2(a)\right) & \frac{1}{8} \left(-\left(p^4-6 p^2+3\right) \cos (4 a)+p^4+2 p^2+3\right) & \frac{1}{8} p \sin (a) \left(8 \left(p^2-3\right) \cos (2 a)-\left(p^4-10 p^2+15\right) \cos (4 a)+p^4+6 p^2-9\right) \\
+%   p \cos (a) \left(p^2 \cos ^2(a)+3 \sin ^2(a)\right) & \frac{1}{4} \sin (2 a) \left(\left(p^4-6 p^2+3\right) \cos (2 a)+p^4-3\right) & \frac{1}{8} p \cos (a) \left(-8 \left(p^2-3\right) \cos (2 a)-\left(p^4-10 p^2+15\right) \cos (4 a)+p^4+6 p^2-9\right) & \frac{1}{16} \sin (2 a) \left(-\left(p^6-15 p^4+45 p^2-15\right) \cos (4 a)+p^6+9 p^4-27 p^2-15\right) \\
+%   \end{array}
+% \]
 
-\[
-  f(x) =
-  \begin{cases}
-    1, & \langle x, \varphi \rangle \leq 1/2 \\
-    0, & \text{otherwise}
-  \end{cases}
-\]
+% \[
+%   f(x) =
+%   \begin{cases}
+%     1, & \langle x, \varphi \rangle \leq 1/2 \\
+%     0, & \text{otherwise}
+%   \end{cases}
+% \]
 
-Unit ball in $\RR^3$? Annulus in $\RR^2$? Some asymmetric or off-center examples?
+First compare the methods on bounded regions: Unit ball in $\RR^3$? Annulus in $\RR^2$? Some asymmetric or off-center examples?
+
+More importantly, present examples for unbounded regions: Strips and cones come to mind. One-sided strips maybe. 
+
+How do we ``image'' an unbounded region in the first place? Our method places pixels upon the nodes of a cubature formula which is usually a bounded cubic lattice. What are appropriate nodes for, and how can we best ``image'' a region which does not fit within a bounded rectangle? 
+
+% Language is hard
 
 
 
