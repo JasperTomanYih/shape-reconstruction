@@ -1,1 +1,109 @@
 \chapter{Krawtchouk Polynomials and a Discrete GRT}{}
+
+Here we propose a sort of ``discrete Gaussian Radon transform'' defined via this results of the Chapter 4.
+
+\section{Krawtchouk polynomials}
+
+The formula (\ref{eq:GRH}) gives us a path toward defining a discrete analogue to the Gaussian Radon transform. We will begin introducing the centered binomial density and corresponding Krawtchouk polynomials by way of a classic model in probability.
+
+Consider flipping a loaded coin with probability $p \in [0,1]$ of landing on heads, and thus probability $(1 - p)$ of landing on tails. The probability of $k$ heads in $N$ coin flips is given by the binomial probability density,
+\[
+  \binom{N}{k}p^k(1-p)^{N-k}
+\]
+where $N \in \NN_0$ and $k = 0, 1, \ldots, N$. It is well known that the binomial distribution can be seen as a discrete analog to the Gaussian distribution. Thus we may expect that a discrete analog to the GRT may be defined via the binomial distribution.
+
+In order to draw a clearer line between the binomial and Gaussian densities we make use of an alternate probabilistic model: the Bernoulli random walk. Picture a particle ``walking'' along the integer lattice $\ZZ$, beginning at the origin $x = 0$. At every step, we flip the loaded coin described above, stepping to the right if it lands on heads, and the left if tails. After $N$ flips, the particle's position is 
+\[
+  x = (\text{\# of heads}) - (\text{\# of tails}) = k - (N - k) = 2k - N
+\]
+Now the set of possible positions is $x \in [[N]] := \{-N, -N+2, \ldots, N\}$, and the probability of each is precisely the probability of landing $k = \frac{N + x}2$ heads, that is,
+\[
+  \binom{N}{\frac{N + x}2}p^{\frac{N + x}2}(1 - p)^{N - \frac{N + x}2}
+  = \binom{N}{\frac{N + x}2}p^{\frac{N + x}2}(1 - p)^{\frac{N - x}2}
+\]
+We will define \emph{centered binomial density} supported on $[[N]]$ by
+\[
+  B_N(x) = \binom{N}{\frac{N+x}2}p^{\frac{N+x}2}(1-p)^{\frac{N-x}2}.
+\]
+Since the expected displacement at each (independent) step is $p - (1 - p) = 2p - 1$, we calculate the expected position after $N$ steps to be 
+\[
+  E(B_N) = 2Np-N.
+\]
+Furthermore the variance of each displacement step is $4p(1-p)$ so that the variance of $B_N$ is
+\[
+  Var(B_N) = 4Np(1-p)
+\]
+The earlier claim that the binomial density is a discrete analog to the Gaussian density can be made explicit by the following limit relation. Let \[
+  z = \frac{x - E(B_N)}{\sqrt{Var(B_N)}} 
+  = \frac{x - 2Np + N}{2\sqrt{Np(1-p)}}
+\]
+so that $z$ has mean $0$ and variance $1$ with respect to $B_n$. Equivalently we may set
+\[
+  x = z\sqrt{Var(B_N)} + E(B_N) = 2z\sqrt{Np(1-p)} + 2Np + N
+\]
+Then we have
+\[
+  \lim_{N \rightarrow \infty} B_N(x) = \frac{1}{(\sqrt{2\pi})}e^{-\frac{z^2}2} = w(z).
+\]
+This limit is perhaps one of the simplest cases of the robust central limit theorem, but can be proven in a number of more elementary ways \cn.
+
+\begin{remark}
+  Under an analogous limit a random walk process $x$ becomes a Brownian motion process $z$. \cn
+\end{remark}
+
+Having justified the the centered binomial densities $B_N(x)$ as discrete analogs of the Gaussian $w(z)$, we would like to define a sequence of polynomials orthogonal with respect to $B_N(x)$, as the Hermite polynomials are to $w(z)$. For convenience we start with a generating function 
+
+\begin{definition}
+  The Krawtchouk polynomials $K_k^{N,p}(x)$ may be defined by the generating function
+  \[
+    \sum_{k=0}^N K^{N,p}_k(x)y^k = (1 + y)^{\frac{N + x}2}(1 - y)^{\frac{N - x}2}
+  \]
+\end{definition}
+% \begin{remark}
+%   Note that this is an ordinary generating function, while that of the Hermite polynomials was a exponential generating function. Is this distinction consequential for us?
+% \end{remark}
+
+The polynomials $K^{N,p}_k(x)$ satisfy the orthogonality property
+\[
+  \sum_{x \in [[N]]} K^{N,p}_k(x) K^{N,p}_\ell(x) B_N(x) = 0, \qquad k \neq \ell
+\]
+and can be written explicitly as
+\[
+  K^{N,p}_k(x) = \binom{N}{k} \pFq{2}{1}{-k,(x - N)/2}{-N}{2}
+\]
+
+The Krawtchouk and Hermite polynomials are related by the same limiting process.
+\begin{proposition}
+  With $x = 2 z \sqrt{Np(1-p)} + 2Np + N$ we have the following limit relation:
+  \[
+    \lim_{N \rightarrow \infty} K^{N,p}_k(x) = H_k(z)
+  \]
+\end{proposition}
+
+\begin{proof}
+  \pn
+\end{proof}
+
+Now heuristically we expect a formula analagous to (\ref{eq:GRH}) in the from
+\[
+  GR_{K^{N,p}_\alpha}(\omega, p) = K^{N,p}_k(p)\omega^\alpha, \qquad |\alpha| = k
+\]
+where 
+\[
+  K^{N,p}_\alpha(x) = \prod_{i = 1}^n K^{N,p}_{\alpha_i}(x_i)
+\]
+We should resolve the conflicting variables both named $p$.
+
+The desired formula would represent a discrete analog for the Gaussian Radon transform on the finite cubic lattice $[[N]]^n$, however it is not yet clear how to interpret this. An immediate concern is that the cubic lattice does not admit ``hyperplanes'' for arbitrary $p$ and $\omega$. Indeed in the worst case, if $\omega$ is not rational (that is the ratios between coordinates of $\omega$ are not rational, or equivalently the hyperspherical coordinates of $\omega$ include an angle which is an irrational multiple of $\pi$) then a hyperplane orthogonal can contain at most one lattice point. In the case when $\omega$ is rational — in the sense above — we may restrict $p$ to the projection of the lattice onto the span of $\omega$, and sum over the lattice hyperplane $\inner{x, \omega} = p$ with respect to the binomial weight centered on $p\omega$. It remains to be seen whether such an interpretation agrees with the heuristic formula above.
+
+Take the symmetric random walk, where the coin is fair ($p = 1 - p = \frac12$). The position after $N$ flips has distribution
+\[
+  B_N(x) = \frac1{2^N}\binom{N}{\frac{N+x}2}, \qquad x \in [[N]]
+\]
+with expected value $E(B_N) = 0$ and variance $Var(B_N) = N$. The limiting process is then given by $B_N(x) \rightarrow w(z)$ where 
+\[
+  z = \frac{x}{\sqrt{N}}
+\]
+and further $K^{N,\frac12}_k(x) \rightarrow H_k(z)$.
+
+Now consider the following scenario in two dimensions. A particle starting at the origin $x = (x_1, x_2) = 0$ flips two fair coins, stepping down/up depending on the first coin, left/right depending on the second. This means the particle moves one unit up and right, up and left, down and right, or down and left, with equal probability. 
