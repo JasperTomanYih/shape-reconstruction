@@ -1,6 +1,8 @@
 \chapter{Moments of the RT and GRT}{}
 
-In this chapter we prove a basic result on the determinacy of certain multivariate moment problems by way of the Gaussian Radon transform.
+In this chapter we discuss some necessary conditions for the the determinacy of certain multivariate moment problems by way of the Radon and Gaussian Radon transforms.
+
+\section{Projection Moments and Petersen's Theorem}
 
 \begin{proposition}
   Let $c_\alpha (\omega) = \int_{-\infty}^\infty R_f(\omega, p) p^k dp$ be the projection moments of $f$ at a fixed $\omega$, and $c_\alpha$ the multivariate moments of $f$. Then
@@ -96,22 +98,51 @@ The following theorem, due to Petersen \cn, gives a way us to reduce the questio
   It suffices to note that the projections $R_\mu^{e_i}$ are compactly supported Borel measures on $\RR$, and thus determinate by \cn.
 \end{proof}
 
+\section{Determinate Gaussian Projection Moments}
 
-We show in section (2.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate (maybe this should be moved to section 1.2). Petersen's theorem allows us to generalize this result to $\RR^n$.
+We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate. By Petersen's theorem a function who's Gaussian projections lie in the same space is likewise determinate. Of interest to us are two families of determinate functions on $\RR^n$: First, bounded functions, including characteristic functions of Borel sets. And second, continuous functions with at most polynomial growth. 
 
-\begin{corollary}
-  If $f \in L^2(\RR^n, \gamma^n)$, then $f$ is determinate.
-\end{corollary}
+\begin{theorem}
+  If $f : \RR^n \to [0, \infty)$ is a Borel function that is bounded then its Gaussian moments are determinate.
+\end{theorem}
 
-\begin{proof}
-  % This follows from the product decomposition of the the Gaussian density
-  % \[
-  %   w_n(x) = \prod_{i = 1}^n w(x_i)
-  % \]
-  % so that
-  % \[
-  %   R_f(e_i, p) = \int_{x_i=p} f(x) w_n(x) dx
-  % \]
-  \pn
-\end{proof}
+\begin{lemma}
+  If $f : \RR^n \to [0, \infty)$ is continuous with at most polynomial support then the $GR_f(\omega, p): S^{n-1} \times \RR \to [0, \infty)$ is continuous and has at most polynomial growth as $p \rightarrow \pm \infty$. 
+\end{lemma}
 
+\begin{theorem}
+  If $f : \RR^n \to [0, \infty)$ is continuous with at most polynomial growth then its Gaussian moments are determinate.
+\end{theorem}
+
+% \begin{corollary}
+%   If $f \in L^2(\RR^n, \gamma^n)$, then $f$ is determinate.
+% \end{corollary}
+
+% \begin{proof}
+%   % This follows from the product decomposition of the the Gaussian density
+%   % \[
+%   %   w_n(x) = \prod_{i = 1}^n w(x_i)
+%   % \]
+%   % so that
+%   % \[
+%   %   R_f(e_i, p) = \int_{x_i=p} f(x) w_n(x) dx
+%   % \]
+%   \pn
+% \end{proof}
+
+% \begin{proposition}
+%   A function $f(p) \in L^2(\mathbb{R}, e^{-p^2}dp)$ such that the moments 
+%   \begin{equation}
+%     \label{eq:3}
+%     c_k = \int_{-\infty}^\infty p^k f(p) w(p) ~dp, ~ k = 0, 1 \ldots
+%   \end{equation}
+%   are finite, is uniquely determined by those moments.
+% \end{proposition}
+    
+% \begin{proof}
+%   It is sufficient to show that if $c_k = 0$ for all $k \geq 0$, then $f \equiv 0$ a.e. The Hermite moments are just linear combinations of $0$,
+%   \[
+%       \int_{-\infty}^\infty H_k(p) f(p) w(p) ~dp = 0, ~ k \geq 0
+%   \]
+%   where $H_k(p)$ is the Hermite polynomial of order $k$. Since the Hermite polynomials are complete in the space $L^2(\mathbb{R}, e^{-p^2}dp)$ then $f \equiv 0$.
+% \end{proof}

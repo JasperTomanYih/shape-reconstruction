@@ -1317,64 +1317,72 @@ We call this formal power series a Hamburger series.
 \end{proof}
 
 The previous lemma guarantees the existence of certain Pad\'e approximants; specifically those with $L-M+1$ even. 
-\begin{theorem}
+\begin{proposition}
   If $J$ is odd then the Pad\'e approximant $R^{[L/L+J]}(z)$ to the Hamburger series exists in Baker's sense.
-\end{theorem}
+\end{proposition}
 
 % Following Baker's definition [Baker] we say the Pad\'e approximant $R^{[L/M]}$ exists if it satisfies this order of accuracy condition. For details on the construction of Pad\'e approximants see [Baker], []. When the formal series is arbitrary one cannot guarantee the existence of any given $R^{[L/M]}$. However as we will see the situation for Pad\'e approximants to a Hamburger series, for which much is known from the classical theory of moment problems and orthogonal polynomials, is much nicer than the general theory.
 
-Let $R_M(z)$ be the ``offdiagonal'' approximant $R^{[M/M+1]}(z)$ to the Hamburger series of $\mu$,
+Let $R_M(z)$ be the off-diagonal $[M/M+1]$ approximant to the Hamburger series of $\mu$,
 \[
-  R_M(z) = \frac{P_M(z)}{Q_M(z)} \approx \sum_{k=0}^\infty c_k {(-z)}^k \simeq \int_{-\infty}^\infty \frac{f(p)}{1 + zp} ~dp
+  R_M(z) 
+  = \frac{P_M(z)}{Q_M(z)} 
+  \approx \sum_{k=0}^\infty c_k {(-z)}^k 
+  % \simeq \int_{-\infty}^\infty \frac{f(p)}{1 + zp} ~dp
 \]
-where $c_k = \int p^k f(p) dp$. In this section we will prove
+where $c_k = \int p^k f(p) dp$. 
 
-\begin{theorem}
-  The off-diagonal Pad\'e approximants $R_M(z)$ to the a determinate Hamburger series $\sum_{k=0}^\infty c_k {(-z)}^k$ exist and converge to $g(z)$ uniformly on compact subsets of the upper half plane $\{\text{Im} ~z > 0\}$.
-\end{theorem}
+The following theorem, paraphrased from Baker \cn, is central to the shape reconstruction method discussed in Chapter 3. 
 
-An outline of the proof is as follows: We first justify that the approximants exist in Baker's sense. Then it can be shown that limit of any convergent subsequence of $R_M$ must have a representation as the Hamburger transform of some Borel measure $\mu$ which is a solution to our moment problem, and that furthermore such convergent subsequences exist. Thus in order for the sequence $R_M$ to converge to $g(z)$ it will be necessary and sufficient that the moment problem be determinate.
+\begin{definition}
+  A family of continuous functions $\mathscr{F}$ is called \emph{normal} if every sequence in $\mathscr{F}$ contains a subsequence which converges \emph{locally uniformly}, that is, uniformly on compact sets.
+\end{definition}
+
+\begin{proposition}
+  The off-diagonal Pad\'e approximants $R_M(z)$ to a solvable Hamburger series $\sum_{k = 0}^\infty c_k {(-z)}^k$ form a normal family. The limit of a convergent subsequence of approximants must have an integral representation
+  \[
+    \int_{-\infty}^\infty \frac{d\mu}{1 + zp}
+  \]
+  where $\mu$ is some Borel measure with moments $c_k$.
+\end{proposition}
+
+% As a corollary, if the moments are determinate then all subsequences of the off-diagonal approximants converge locally uniformly to the Hamburger transform of the unique Borel measure $\mu$ with the given moments. Thus the entire sequence converges in the same way. 
+
+\begin{corollary}
+  If the moments $c_k$ are determinate, then the off-diagonal approximants to the Hamburger series converge locally uniformly to the Hamburger transform of $\mu$.
+\end{corollary}
+We discuss sufficient conditions for determinacy in section 1.3 and chapter 2.
+
+% \begin{theorem}
+%   The off-diagonal Pad\'e approximants $R_M(z)$ to the a determinate Hamburger series $\sum_{k=0}^\infty c_k {(-z)}^k$ exist and converge to $g(z)$ uniformly on compact subsets of the upper half plane $\{\text{Im} ~z > 0\}$.
+% \end{theorem}
+
+% An outline of the proof is as follows: We first justify that the approximants exist in Baker's sense. Then it can be shown that limit of any convergent subsequence of $R_M$ must have a representation as the Hamburger transform of some Borel measure $\mu$ which is a solution to our moment problem, and that furthermore such convergent subsequences exist. Thus in order for the sequence $R_M$ to converge to $g(z)$ it will be necessary and sufficient that the moment problem be determinate.
 
 % Convergence $R_M(z) \rightarrow g(z)$ is \tc{related in some way cant remember} to the determinacy of the moment problem for the sequence $\{c_k\}$. Recall that a moment problem is called determinate if it has a unique solution. \tc{In Akheizer's world, if the moment problem is determinate, then $w_\infty(z)$ is a point for all $z$. Each $R_M$ coresponds to a point $w_M(\omega) = \frac1\omega R_m(-\frac1\omega)$. The points $w_M$ must converge to $w_\infty$}
 
-\begin{proposition}
-  If the sequence $c_k$ gives a determinate moment problem then the off-diagonal Pad\'e approximants $R_M(z)$ converge to $g(z)$ locally uniformly.
-\end{proposition}
+% \begin{proposition}
+%   If the sequence $c_k$ gives a determinate moment problem then the off-diagonal Pad\'e approximants $R_M(z)$ converge to $g(z)$ locally uniformly.
+% \end{proposition}
 
-\begin{proof}
-  The Pad\'e approximant $R_M(z)$ has a convenient representation as an inner product in terms of a finite Jacobi matrix,
-  \[
-    R_M(z) = \langle \delta_0, {(1 + zA_M)}^{-1} \delta_0 \rangle.
-  \]
-  Now since $A_M$ is a real matrix and $\frac1{|w|} \geq \frac1{|\text{Im}(w)|}$ for any $w \in \CC$, we see that
-  \[
-    |zR_M(z)| = |\langle \delta_0, {(z^{-1} + A_M)}^{-1} \delta_0 \rangle| \leq \frac1{|\text{Im}(1/z)|}
-  \]
-  and thus
-  \[
-    |R_M(z)| \leq \frac1{|z||\text{Im}(1/z)|} = \frac{|z|}{|\text{Im}(z)|}.
-  \]
-  Since this bound is independent of $R_M$, Montel's theorem implies that the off-diagonal Pade approximants form a normal family. It can be shown that the limit of any convergent subsequence has a representation $\int (1+ xz)d\sigma(x)$ where $\sigma$ is a solution to the Hamburger moment problem. Since the moment problem is determinate, the sequence $R_M$ must converge to $g(z)$ uniformly on compact sets.
-\end{proof}
+% \begin{proof}
+%   The Pad\'e approximant $R_M(z)$ has a convenient representation as an inner product in terms of a finite Jacobi matrix,
+%   \[
+%     R_M(z) = \langle \delta_0, {(1 + zA_M)}^{-1} \delta_0 \rangle.
+%   \]
+%   Now since $A_M$ is a real matrix and $\frac1{|w|} \geq \frac1{|\text{Im}(w)|}$ for any $w \in \CC$, we see that
+%   \[
+%     |zR_M(z)| = |\langle \delta_0, {(z^{-1} + A_M)}^{-1} \delta_0 \rangle| \leq \frac1{|\text{Im}(1/z)|}
+%   \]
+%   and thus
+%   \[
+%     |R_M(z)| \leq \frac1{|z||\text{Im}(1/z)|} = \frac{|z|}{|\text{Im}(z)|}.
+%   \]
+%   Since this bound is independent of $R_M$, Montel's theorem implies that the off-diagonal Pade approximants form a normal family. It can be shown that the limit of any convergent subsequence has a representation $\int (1+ xz)^{-1}d\sigma(x)$ where $\sigma$ is a solution to the Hamburger moment problem. Since the moment problem is determinate, the sequence $R_M$ must converge to $g(z)$ uniformly on compact sets.
+% \end{proof}
 
-It remains to discuss the determinacy of the Hamburger moment problem. Here we need to add an additional constraint on the measure $d\mu = f(p)dp$, which is that $f(p)$ is $L^2$ integrable with respect to the Gaussian weight.
+% It remains to discuss the determinacy of the Hamburger moment problem. Here we need to add an additional constraint on the measure $d\mu = f(p)dp$, which is that $f(p)$ is $L^2$ integrable with respect to the Gaussian weight.
 
-\begin{proposition}
-  A function $f(p) \in L^2(\mathbb{R}, e^{-p^2}dp)$ such that the moments 
-  \begin{equation}
-    \label{eq:3}
-    c_k = \int_{-\infty}^\infty p^k f(p) e^{-p^2} ~dp, ~ k = 0, 1 \ldots
-  \end{equation}
-  are finite, is uniquely determined by those moments.
-\end{proposition}
-    
-\begin{proof}
-  It is sufficient to show that if $c_k = 0$ for all $k \geq 0$, then $f \equiv 0$ a.e. The Hermite moments are just linear combinations of $0$,
-  \[
-      \int_{-\infty}^\infty H_k(p) f(p) e^{-p^2} ~dp = 0, ~ k \geq 0
-  \]
-  where $H_k(p)$ is the Hermite polynomial of order $k$. Since the Hermite polynomials are complete in the space $L^2(\mathbb{R}, e^{-p^2}dp)$ then $f \equiv 0$.
-\end{proof}
 
 
 
