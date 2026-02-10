@@ -1,6 +1,8 @@
 \chapter{Krawtchouk Polynomials and a Discrete GRT}{}
 
-Here we propose a sort of ``discrete Gaussian Radon transform'' defined via this results of the Chapter 4.
+Here we discuss ``discrete Radon transforms'' and propose a sort of ``discrete Gaussian Radon transform'' defined via this results of the Chapter 4.
+
+\section{Discrete RTs of Diaconis and Beylkin}
 
 \section{Krawtchouk polynomials}
 
@@ -48,7 +50,7 @@ Then we have
 This limit is perhaps one of the simplest cases of the robust central limit theorem, but can be proven in a number of more elementary ways \cn.
 
 \begin{remark}
-  Under an analogous limit a random walk process $x$ becomes a Brownian motion process $z$. \cn
+  Under an analogous limit a random walk process $x$ is transformed into a Brownian motion process $z$. \cn
 \end{remark}
 
 Having justified the the centered binomial densities $B_N(x)$ as discrete analogs of the Gaussian $w(z)$, we would like to define a sequence of polynomials orthogonal with respect to $B_N(x)$, as the Hermite polynomials are to $w(z)$. For convenience we start with a generating function 
@@ -92,7 +94,7 @@ where
 \[
   K^{N,p}_\alpha(x) = \prod_{i = 1}^n K^{N,p}_{\alpha_i}(x_i)
 \]
-We should resolve the conflicting variables both named $p$.
+We should resolve the conflicting variables both named $p$, perhaps the Krawtchouk $p$ ought to be a $q$ or isn't necessary in the first place.
 
 The desired formula would represent a discrete analog for the Gaussian Radon transform on the finite cubic lattice $[[N]]^n$, however it is not yet clear how to interpret this. An immediate concern is that the cubic lattice does not admit ``hyperplanes'' for arbitrary $p$ and $\omega$. Indeed in the worst case, if $\omega$ is not rational (that is the ratios between coordinates of $\omega$ are not rational, or equivalently the hyperspherical coordinates of $\omega$ include an angle which is an irrational multiple of $\pi$) then a hyperplane orthogonal can contain at most one lattice point. In the case when $\omega$ is rational — in the sense above — we may restrict $p$ to the projection of the lattice onto the span of $\omega$, and sum over the lattice hyperplane $\inner{x, \omega} = p$ with respect to the binomial weight centered on $p\omega$. It remains to be seen whether such an interpretation agrees with the heuristic formula above.
 
@@ -107,3 +109,5 @@ with expected value $E(B_N) = 0$ and variance $Var(B_N) = N$. The limiting proce
 and further $K^{N,\frac12}_k(x) \rightarrow H_k(z)$.
 
 Now consider the following scenario in two dimensions. A particle starting at the origin $x = (x_1, x_2) = 0$ flips two fair coins, stepping down/up depending on the first coin, left/right depending on the second. This means the particle moves one unit up and right, up and left, down and right, or down and left, with equal probability. 
+
+\section{The proposed discrete GRT}

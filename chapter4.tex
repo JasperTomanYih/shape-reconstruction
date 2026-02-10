@@ -2,10 +2,7 @@
 
 Unlike the Radon transform, the Gaussian Radon transform is well defined on polynomials. In this chapter we investigate the GRT from this perspective, as a linear operator between polynomial spaces. In particular we prove a simple formula for the GRT of multivariate Hermite polynomials. We extend this result to some generalizations of the GRT.
 
-\section{The Radon transform of multivariate Hermite polynomials over general affine subspaces}
-
-% The goal of this section will be to explore the generalizations of the RT and GRT as functions of general affine subspaces. We discuss the analogues of many of the previous results in this context.
-We begin this section by proving a formula for the GRT of the multivariate Hermite polynomials defined in the previous section. Recall that for $\alpha \in \NN_0^n$ the polynomials $H_\alpha(x)$ can be defined by the generating function
+We begin this chapter by proving a formula for the GRT of the multivariate Hermite polynomials defined in the previous section. Recall that for $\alpha \in \NN_0^n$ the polynomials $H_\alpha(x)$ can be defined by the generating function
 \[
   e^{\langle x, y\rangle - \frac{\|y\|^2}2} = \sum_{\alpha \in \NN_0^n} \frac{H_\alpha(x)}{\alpha!} y^\alpha
 \]
@@ -131,9 +128,13 @@ where, for $k \in \NN_0^\infty$, the classical polynomials $H_{k}(p)$ can be def
   For details on modes convergence see (Dunkl or Thangavelu) \cn. 
 \end{remark}
 
+\section{The GRT of multivariate polynomials over general affine subspaces}
+
+% The goal of this section will be to explore the generalizations of the RT and GRT as functions of general affine subspaces. We discuss the analogues of many of the previous results in this context.
+
 In section 1.4 we defined the RT and GRT as the integrals of a function $f: \RR^n \rightarrow \RR$ over $n-1$ dimensional hyperplanes, the standard definitions. But there are many examples of geometric integral transforms, closely related to the hyperplane RT, which can be thought of as ``generalized Radon transforms''. In fact, the ``Funk transform'', which relates a function on the sphere $S^{3}$ to its integrals over great circles, was first introduced by Paul Funk in 1911, half a decade before Radon introduced the hyperplane RT.\. In the remainder of this chapter we discuss the notion of the RT and GRT on general $d$-dimensional affine subspaces of $\RR^n$, where $d = 0, \ldots, n$. For context, note that when $d = 1$, this is the so called ``X-ray transform'' which gets it's name from the direct application to radiology.
 
-Let $\Lambda_0$ be a $d$-dimensional linear subspace of $\RR^n$, and $v \in \RR^n$. Then the translation of $\Lambda_0$ by $p$
+Let $\Lambda_0$ be a $d$-dimensional linear subspace of $\RR^n$, and $v \in \RR^n$. Then the translation of $\Lambda_0$ by $v$
 \[
   \Lambda = v + \Lambda_0
 \]
@@ -166,7 +167,7 @@ Sometimes it is convenient to have an explicit coordinate system on an affine su
 \]
 By this embedding can define the Euclidean measure $dx$ on $\Lambda$ as the push-forward of the Lebesgue measure on $\RR^n$, and the standard Gaussian measure on $\Lambda$ as the push-forward of $\gamma^n$. Note the $x(t)$ is defined in such a way that $x(0) = v$ which is essential when defining the Gaussian measure on $\Lambda$.
 
-Other times we prefer not to invoke a basis-dependent isometry, and while $x(t)$ clearly depends on the choice of $u^{1}, \ldots, u^{(d)}$, we should note that the Euclidean and Gaussian measures on $\Lambda$ are independent of basis \pn.
+Other times we prefer not to invoke a basis-dependent isometry, and while $x(t)$ clearly depends on the choice of $u^{1}, \ldots, u^{(d)}$, we should note that the Euclidean and Gaussian measures on $\Lambda$ are independent of basis \cn.
 
 
 Now we can define the natural analogue of the RT for affine subspaces, which is sometimes called the \emph{$d$-plane transform}. To be consistent with the hyperplane RT we will write $v = p\omega$, where $\omega \in S^{n-1} \cap \Lambda_o^\perp$ and $p \in \RR$. Of course this notation is unique only up to the identification $(\omega, p) = (-\omega, -p)$.
@@ -180,7 +181,7 @@ Now we can define the natural analogue of the RT for affine subspaces, which is 
   \[
     GR_f(\Lambda) = \int_{\Lambda} f(x) w_d(x - p\omega) ~dx
   \]
-  where $d$ is the dimension of $\Lambda_0$.
+  where $d$ is the dimension of the linear subspace $\Lambda_0$.
 \end{definition}
 \begin{remark}
   Explicitly, if $x(t): \RR^d \rightarrow \Lambda$ is an Euclidean isometry then 
@@ -326,9 +327,9 @@ where $R \in SO(n)$ is the a rotation sending $\RR^d \subseteq \RR^n$ to $\Lambd
   \]
 \end{proof}
 
-\begin{myexample}
-  Let $n = 3, k = 1$
-\end{myexample}
+% \begin{myexample}
+%   Let $n = 3, k = 1$
+% \end{myexample}
 
 
 % We may note that the linear subspace $\Lambda_0$ is a rotation of $\RR^d \subseteq \RR^n$, that is there exists some $R \in SO(n)$ so that $\Lambda_0 = R(\RR^d)$. In particular
