@@ -105,7 +105,7 @@ In some special cases we will denote the moments $c_k$ in a particular form:
     c_k = \int f(x)x^k dx
   \]
   where $f(x)$ is the density of $\mu$ with respect to $dx$.
-  \item When $\mu$ is the Lebesgue measure on a set $A$ of finite measure, moments can be defined by
+  \item When $\mu$ is the Lebesgue measure on a set $A \subset \RR$ of finite measure, moments can be defined by
   \[
     c_k = \int_A x^k dx.
   \]
@@ -186,14 +186,14 @@ As in the classical case of Markov moment problems, determinacy is a consequence
   \]
   then the moment problem $(c_\alpha)_{\alpha \in \NN_0^n}$ is determinate.
 \end{proposition}
-We present a simple alternate proof in section 1.4 via the Radon transform.
+We present a simple alternate proof in chapter 2 via the Radon transform.
 
 \begin{myexample}
   An example of an indeterminate, unbounded, multivariate moment problem?
 \end{myexample}
 
 \section{Gaussian measures and the Hermite polynomials}
-We review the definitions of univariate and multivariate Gaussian measures and Hermite polynomials, and discuss some basic properties. An extensive investigation of Gaussian measures can be found in [Bogachev] \cn. The univariate Hermite polynomials are well known, but there are multiple multivariate generalizations. We use a simple product definition.
+We review the definitions of univariate and multivariate Gaussian measures and Hermite polynomials, and discuss some basic properties. An extensive exposition of Gaussian measures can be found in [Bogachev] \cn. The univariate Hermite polynomials are well known, but there are multiple multivariate generalizations. We use a simple product definition.
 
 First we review some basic properties of the univariate Gaussian measure.
 
@@ -329,14 +329,14 @@ More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following
 \end{definition}
 
 \begin{myexample}
-  Let $f:\RR^n \rightarrow \RR$ be the constant function $f(x)=1$. The Gaussian moments of $f$ are the multivariate moments of $w_n(x)$, and can be written as
+  Let $f:\RR^n \rightarrow \RR$ be the constant function $f(x)=1$. The Gaussian moments of $f$ are the multivariate moments of $w_n(x)$, and can be written
   \begin{align*}
     c^G_\alpha 
     &= \int_{\RR^n} x^\alpha w_n(x) ~dx \\
     &= \prod_{i = 1}^n \int_{-\infty}^\infty x_i^{\alpha_i} w(x_i) ~dx \\
     &= \prod_{i = 1}^n c^G_{\alpha_i}
   \end{align*}
-  where $\{c_k\}_{k \in \NN}$ are the univariate moments of $w(p)$.
+  where $\{c^G_k\}_{k \in \NN}$ are the univariate moments of $w(p)$.
   Thus $c^G_\alpha = 0$ if any $\alpha_i$ is odd. Otherwise, if every $\alpha_i$ is even then
   \[
     c^G_\alpha = \prod_{i = 1}^n (\alpha_i - 1)!!
@@ -398,9 +398,14 @@ where the boundary term $\left[H_k(p)w^{(k-1)}(p)\right]_{-\infty}^\infty$ vanis
 % \end{remark}
 
 The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the space of function $f : \RR \to \RR$ for which $\int_{-\infty}^\infty f(p)^2 w(p)~dp < \infty$. This is a Hilbert space with inner product $\langle f, g \rangle = \int_{-\infty}^\infty |f(p)g(p)| w(p)~dp$.
+
 \begin{proposition}
    The linear span of the Hermite polynomials $H_0(p), H_1(p), \ldots$ is dense in $L^2(\RR, w)$.
 \end{proposition}
+
+\begin{proof}
+  Note that since there are Hermite polynomials of all degrees $k \geq 0$, their linear span is the set of all polynomials. Thus the proposition is equivalent to polynomials being dense in the weighted $L^2$ space. 
+\end{proof}
 
 \begin{corollary}
   For any $f \in L^2(\RR)$ the moment problem given by
@@ -410,7 +415,7 @@ The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the 
   is determinate.
 \end{corollary}
 
-In the section 1.5 we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for an exponential generating function.
+In the chapter 4 we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for an exponential generating function.
 \begin{lemma}
   The Hermite polynomials have the \emph{generating function},
   \[

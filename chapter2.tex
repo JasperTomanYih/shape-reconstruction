@@ -100,19 +100,57 @@ The following theorem, due to Petersen \cn, gives a way us to reduce the questio
 
 \section{Determinate Gaussian projection moments}
 
-We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate. By Petersen's theorem a function who's Gaussian projections lie in the same space is likewise determinate. Of interest to us are two families of determinate functions on $\RR^n$: First, bounded functions, including characteristic functions of Borel sets. And second, continuous functions with at most polynomial growth. 
+We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate. By Petersen's theorem a function who's Gaussian projections lie in the same space is likewise determinate. Of interest to us are two families of determinate functions on $\RR^n$: First, bounded functions, including characteristic functions of Borel sets. And second, locally bounded functions with at most polynomial growth. 
 
 \begin{theorem}
-  If $f : \RR^n \to [0, \infty)$ is a Borel function that is bounded then its Gaussian moments are determinate.
+  If $f : \RR^n \to [0, \infty)$ is a bounded measurable function then its Gaussian moments are determinate as well as its Gaussian projection moments.
 \end{theorem}
+
+\begin{proof}
+  The characteristic function $f$ of $A$ is measureable and certainly has at most polynomial growth. In fact, this result is easily proven without theorem 2.2.2.\ in one line:
+  \[
+    GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) dx \leq \int\mclimits_{\inner{x, \omega} = p} w_{n-1}(x - p\omega) = 1
+  \]
+\end{proof}
 
 \begin{lemma}
-  If $f : \RR^n \to [0, \infty)$ is continuous with at most polynomial support then the $GR_f(\omega, p): S^{n-1} \times \RR \to [0, \infty)$ is continuous and has at most polynomial growth as $p \rightarrow \pm \infty$. 
+  If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then for all $\omega \in S^{n-1}$, the GRT $GR_f(\omega, p): \RR \to [0, \infty)$ converges, is locally bounded and has at most polynomial growth as $p \rightarrow \pm \infty$. 
 \end{lemma}
 
+\begin{proof}
+  Suppose that for some $D > 1$ and $m \in \NN$ we have
+  \[
+    f(x) \leq \norm{x}^m, \qquad \text{for } \norm{x} \geq D.
+  \]
+  Then for $|p| \geq D$, 
+  \begin{align*}
+    GR_f(\omega, p)
+      &= \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx \\
+      &\leq \int\mclimits_{\inner{x, \omega} = p} \norm{x}^m w_{n-1}(x - p\omega) ~dx \\
+      &= \int\mclimits_{\inner{x, \omega} = 0} \norm{x + p\omega}^m w_{n-1}(x) ~dx \\
+      &= \sum_{k = 0}^m \binom{m}{k} |p|^{m - k} \int\mclimits_{\inner{x, \omega} = 0} \norm{x}^k w_{n-1}(x) ~dx \\
+  \end{align*}
+  where the integrals are finite, and thus $GR_f(\omega, p)$ is dominated by at most some constant multiple of $|p|^m$. This implies local boundedness for $|p| \geq D$. For $|p| < D$ we note that
+  \begin{align*}
+    \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx
+      &= \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| < D}} f(x) w_{n-1}(x - p\omega) ~dx + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \geq D}} f(x) w_{n-1}(x - p\omega) ~dx \\
+      &\leq \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| < D}} f(x) w_{n-1}(x - p\omega) ~dx + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \geq D}} \norm{x}^m w_{n-1}(x - p\omega) ~dx
+  \end{align*}
+  where the first integral is bounded by the locally boundedness of $f$ and the second converges.
+\end{proof}
+
 \begin{theorem}
-  If $f : \RR^n \to [0, \infty)$ is continuous with at most polynomial growth then its Gaussian moments are determinate.
+  If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then its Gaussian moments are determinate. Furthermore for any $\omega \in S^{n-1}$ the GRT $GR_f(\omega, p)$ has determinate Gaussian moments.
 \end{theorem}
+
+\begin{proof}
+  By the lemma and proposition \cn it suffices to justify that a locally bounded measurable function $f(p) : \RR \to [0, \infty)$ with at most polynomial growth is in the weighted $L^2$ space $L^2(\RR, w)$. Suppose $|f(p)| < |x|^m$ for all $|x| > D$ and some $m \in \NN_0$. Then
+  \begin{align*}
+    \int_{-\infty}^\infty |f(p)|^2 w(p) ~dp 
+      &= \int_{|x| \leq D} |f(p)|^2 w(p) ~dp + \int_{|x| > D} |f(p)|^2 w(p) ~dp 
+  \end{align*} 
+  The first integral converges by local boundedness and the second by polynomial growth.
+\end{proof}
 
 % \begin{corollary}
 %   If $f \in L^2(\RR^n, \gamma^n)$, then $f$ is determinate.
