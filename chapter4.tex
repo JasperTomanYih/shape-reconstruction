@@ -2,7 +2,12 @@
 
 Unlike the Radon transform, the Gaussian Radon transform is well defined on polynomials. In this chapter we investigate the GRT from this perspective, as a linear operator between polynomial spaces. In particular we prove a simple formula for the GRT of multivariate Hermite polynomials. We extend this result to some generalizations of the GRT.
 
-We begin this chapter by proving a formula for the GRT of the multivariate Hermite polynomials defined in the previous section. Recall that for $\alpha \in \NN_0^n$ the polynomials $H_\alpha(x)$ can be defined by the generating function
+We begin this chapter by proving a formula for the GRT of the multivariate Hermite polynomials.
+
+\section{The GRT of multivariate Hermite polynomials}
+
+
+Recall that for $\alpha \in \NN_0^n$ the polynomials $H_\alpha(x)$ can be defined by the generating function
 \[
   e^{\langle x, y\rangle - \frac{\|y\|^2}2} = \sum_{\alpha \in \NN_0^n} \frac{H_\alpha(x)}{\alpha!} y^\alpha
 \]
@@ -125,7 +130,7 @@ where, for $k \in \NN_0^\infty$, the classical polynomials $H_{k}(p)$ can be def
     \\
     &= \sum_{k=0}^\infty H_k(p) \sum_{|\alpha| = k} a_\alpha^{(f)} \omega^\alpha
   \end{align*}
-  For details on modes convergence see (Dunkl or Thangavelu) \cn. 
+  For details on modes convergence see~\cite{DuXu01} or~\cite{Than93}. 
 \end{remark}
 
 \section{The GRT of multivariate polynomials over general affine subspaces}
@@ -167,8 +172,7 @@ Sometimes it is convenient to have an explicit coordinate system on an affine su
 \]
 By this embedding can define the Euclidean measure $dx$ on $\Lambda$ as the push-forward of the Lebesgue measure on $\RR^n$, and the standard Gaussian measure on $\Lambda$ as the push-forward of $\gamma^n$. Note the $x(t)$ is defined in such a way that $x(0) = v$ which is essential when defining the Gaussian measure on $\Lambda$.
 
-Other times we prefer not to invoke a basis-dependent isometry, and while $x(t)$ clearly depends on the choice of $u^{1}, \ldots, u^{(d)}$, we should note that the Euclidean and Gaussian measures on $\Lambda$ are independent of basis \cn.
-
+Other times we prefer not to invoke a basis-dependent isometry, and while $x(t)$ clearly depends on the choice of $u^{1}, \ldots, u^{(d)}$, we should note that both the Euclidean and Gaussian measures on $\Lambda$ are invariant under orthogonal transformations about $v$ and thus independent of basis.
 
 Now we can define the natural analogue of the RT for affine subspaces, which is sometimes called the \emph{$d$-plane transform}. To be consistent with the hyperplane RT we will write $v = p\omega$, where $\omega \in S^{n-1} \cap \Lambda_o^\perp$ and $p \in \RR$. Of course this notation is unique only up to the identification $(\omega, p) = (-\omega, -p)$.
 
@@ -279,7 +283,7 @@ where $R \in SO(n)$ is the a rotation sending $\RR^d \subseteq \RR^n$ to $\Lambd
   \[
     GR_f(\Lambda_0) = \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} c(R)^\alpha_\beta c^G_{\beta}
   \]
-  where $c^G_\beta = \int_{\RR^d} x^\beta w_d(x) ~dx$ are the Gaussian moments on $\RR^d$. \emph{This should be indexed by only the first $d$ entries of $\beta$. Feels weird}.
+  where $c^G_\beta = \int_{\RR^d} x^\beta w_d(x) ~dx$ are the Gaussian moments on $\RR^d$. \emph{Should be indexed by only the first $d$ entries of $\beta$? Feels weird}.
 \end{proposition}
 
 \begin{proof}

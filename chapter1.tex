@@ -193,7 +193,7 @@ We present a simple alternate proof in chapter 2 via the Radon transform.
 \end{myexample}
 
 \section{Gaussian measures and the Hermite polynomials}
-We review the definitions of univariate and multivariate Gaussian measures and Hermite polynomials, and discuss some basic properties. An extensive exposition of Gaussian measures can be found in [Bogachev] \cn. The univariate Hermite polynomials are well known, but there are multiple multivariate generalizations. We use a simple product definition.
+We review the definitions of univariate and multivariate Gaussian measures and Hermite polynomials, and discuss some basic properties. An extensive exposition of Gaussian measures can be found in~\cite{bogachev_gaussian_1998}. The univariate Hermite polynomials are well known, but there are multiple multivariate generalizations. We use a simple product definition.
 
 First we review some basic properties of the univariate Gaussian measure.
 
@@ -734,7 +734,7 @@ An early and natural question in the study of the RT is that of inversion. Radon
 
 If one is interested in inverting the RT then a prerequisite concern is of course: Is the transform injective? The answer clearly depends on what space we draw the function $f$ from. Radon~\cite{Rado17}~\cite{Rado86} provides a set of sufficient regularity conditions such that the RT is invertible. Other similar results followed \cite{????}. On the other hand counterexamples have been constructed by, for example, Lawrence Zalcman~\cite{Zalc82}, of continuous and nontrivial functions for which the RT is identically zero.
 
-By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@ Mihai and Sengupta prove the general result if real, separable, infinite Hilbert spaces \cn.
+By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@ Mihai and Sengupta prove the general result if real, separable, infinite Hilbert spaces~\cite{Miha04}.
 
 \begin{proposition}[Gaussian Slice Theorem] 
   Let $f:\RR^n \rightarrow \RR$ and $F:\RR \rightarrow \RR$ be measurable functions. If $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty(\RR)$ then
@@ -895,7 +895,7 @@ Since the integrand has a singularity only when $p = -1/z$ a Markov transform mu
 \end{remark}
 
 
-When $z$ is a real number $g(z)$ may not converge. In particular $g(z)$ does not converge when $z = -1/p$ for some $p$ in the support of $\mu$ \pn.  Thus if $\mu$ has bounded support $g$ converges in a neighborhood of $0$. On the other hand if $\mu$ has unbounded support $g(0)$ is not defined. However — as we will see — even in the Hamburger transform case, a formal series expansion at $z = 0$ holds valuable information. The results of this section are described in detail in section 5.6 of (Baker) \cn
+When $z$ is a real number $g(z)$ may not converge. In particular $g(z)$ does not converge when $z = -1/p$ for some $p$ in the support of $\mu$ \pn.  Thus if $\mu$ has bounded support $g$ converges in a neighborhood of $0$. On the other hand if $\mu$ has unbounded support $g(0)$ is not defined. However — as we will see — even in the Hamburger transform case, a formal series expansion at $z = 0$ holds valuable information. The results of this section are described in detail in section 5.6 of~\cite{Bake81}.
 
 By a geometric series expansion,
 \[
@@ -1337,7 +1337,7 @@ Let $R_M(z)$ be the off-diagonal $[M/M+1]$ approximant to the Hamburger series o
 \]
 where $c_k = \int p^k f(p) dp$. 
 
-The following theorem, paraphrased from Baker \cn, is central to the shape reconstruction method discussed in Chapter 3. 
+The following theorem, paraphrased from Baker~\cite{Bake81}, is central to the shape reconstruction method discussed in Chapter 3. 
 
 \begin{definition}
   A family of continuous functions $\mathscr{F}$ is called \emph{normal} if every sequence in $\mathscr{F}$ contains a subsequence which converges \emph{locally uniformly}, that is, uniformly on compact sets.
@@ -1353,7 +1353,7 @@ The following theorem, paraphrased from Baker \cn, is central to the shape recon
 
 % As a corollary, if the moments are determinate then all subsequences of the off-diagonal approximants converge locally uniformly to the Hamburger transform of the unique Borel measure $\mu$ with the given moments. Thus the entire sequence converges in the same way. 
 
-\begin{corollary}
+\begin{corollary} \label{cr:determinacypade}
   If the moments $c_k$ are determinate, then the off-diagonal approximants to the Hamburger series converge locally uniformly to the Hamburger transform of $\mu$.
 \end{corollary}
 We discuss sufficient conditions for determinacy in section 1.3 and chapter 2.
@@ -1538,14 +1538,19 @@ For convenience we will use the vector notation ${\bf e} = (e_1, \ldots, e_n)$ f
 \[
   \bf{e}_{\otimes i} = e_{i_1} \otimes e_{i_2} \otimes \cdots \otimes e_{i_k}
 \]
-for the elements of the induced basis of $V^{\otimes k}$, where $i = (i_1, i_2, \ldots i_k) \in \{1, 2, \ldots, n\}^k$.
+for the elements of the induced basis of $V^{\otimes k}$, where $i = (i_1, i_2, \ldots i_k) \in {\{1, 2, \ldots, n\}}^k$.
 There is a natural embedding $V^k \hookrightarrow V^{\otimes k}$ given by
 \[
   (v_1, v_2, \ldots, v_k) \mapsto v_1 \otimes v_2 \otimes \cdots \otimes v_k
 \]
 and the tensor power satisfies the following universal property: Any ``multilinear'' map out of $V^k$ can be factored as a linear map out of $V^{\otimes k}$ composed with the inclusion above. 
+\begin{figure}[h] \centering
+\begin{tikzcd}
+  V^k \arrow[r, hook] \arrow[dr] & V^{\otimes k} \arrow[d] \\
+  & W 
+\end{tikzcd}
+\end{figure}
 
-\needed{Commutative diagram}
 
 % Take for a simple example the multiplication map $m: \RR^2 \to \RR$,
 % \[
@@ -1556,7 +1561,7 @@ and the tensor power satisfies the following universal property: Any ``multiline
 Given a linear transformation $T : V \to V$, the tensor power $T^{\otimes k}$ is the unique linear map $V^{\otimes k} \to V^{\otimes k}$ such that
 \[
   T^{\otimes k} (\bf{e}_{\otimes i}) 
-  = (Te_{i_1}) \otimes \cdots \otimes (Te_{i_k})
+  = (Te_{i_1}) \otimes \cdots \otimes (Te_{i_k}).
 \]
 In the basis $\{\bf{e}_{\otimes i}\}$ ordered lexicographically the matrix representation for $T^{\otimes k}$ is given explicitly by the $k$-fold Kronecker product of the matrix for $T$ in the basis $\bf{e}$.
 Tensor powers of linear maps commute with transposes

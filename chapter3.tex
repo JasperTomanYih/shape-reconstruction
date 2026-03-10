@@ -8,7 +8,7 @@
 
 \chapter{Shape reconstruction from moments}{}
 
-In this chapter we describe a method for shape reconstruction from moments and propose an extension of the method to unbounded regions. In the first section we summarize the method for bounded sets. This is the work of Cuyt et al. \cn which we extend in the following sections to unbounded shapes and positive functions of at most polynomial growth. 
+In this chapter we describe a method for shape reconstruction from moments and propose an extension of the method to unbounded regions. In the first section we summarize the method for bounded sets. This is the work of Cuyt et al.~\cite{Cuyt05} which we extend in the following sections to unbounded shapes and positive functions of at most polynomial growth. 
 
 \section{Reconstruction of bounded shapes}
 
@@ -48,7 +48,7 @@ which is analytic at $z = 0$ converging to the Stieltjes transform
   % = 
   \int_{-\infty}^\infty \frac{R_A(\omega, p)}{1 + pz} ~dp = \int_{A} \frac1{1 + z\inner{x, \omega}}~dx. 
 \]
-By \cn, $g_{\omega}(z)$ is the uniform limit of the off-diagonal Pad\'e approximants $R_M(z)$. The rate of convergence in this case can be controlled further by \cn. 
+Recall that since $A$ is bounded, it has determinate multivariate moments and projection moments. By corollary~\ref{cr:determinacypade}, $g_{\omega}(z)$ is the uniform limit of the off-diagonal Pad\'e approximants $R_M(z)$. The rate of convergence in this case can be controlled further by results found in~\cite{Bake81}. 
 
 On the other hand suppose $g_\omega(z)$ can be approximated by a cubature formula
 \[
@@ -90,7 +90,7 @@ from which we should be able to recover the value of $f$ on our cubature nodes $
 % \]
 % can be approximated to an arbitrary degree by offdiagonal Pad\'e approximants, $R_M(z)$ near zero. On the other hand as an integral over $p$
 
-\section{Reconstruction of polynomial bounded functions}
+\section{Reconstruction of polynomial-bounded functions}
 \section{Implementation}
 
 We have spent some time implementing our proposed extension to the shape reconstruction method, mostly in the Wolfram Mathematica language. But of course in this process questions arose, both theoretical and pragmatic. 
@@ -118,9 +118,9 @@ The SVD and truncated SVD are used to solve the linear least squares problem as 
 
 Mathematica offers a few built in functions for this. LeastSquares packages a number of methods to solve a linear least squares based on the sparsity of the System (our system is dense). SingularValueDecomposition can be restricted to a certain number of singular values. PsuedoInverse can specify a ``tolerance'' zeroing out singular values less than some proportion of  the maximum singular value. While LeastSquares is the simplest option, it does not seem to support truncated solutions. Between SingularValueDecomposition and PsuedoInverse, both can handle truncated problems, but the latter seems — at least superficially — better suited for out application.
 
-On Gaussian shape reconstruction. There remain some minor practical concerns about, for example, the choice of quadrature formula and sample points. An obvious choice would be to continue with the Gauss-Legendre product formula, now applied on a Gaussian-weighted $f$. Some consideration should be taken as to the viability of other Gaussian quadrature formulas defined particulary for the Gaussian measure. 
+On Gaussian shape reconstruction. There remain some minor practical concerns about, for example, the choice of quadrature formula and sample points. An obvious choice would be to continue with the Gauss-Legendre product formula, now applied on a Gaussian-weighted $f$. Some consideration should be taken as to the viability of other Gaussian quadrature formulas defined particularly for the Gaussian measure. 
 
-Now, a fundamental limitation with the proposed method which we have neglected to mention is the practical one: As a computational method we are necessarily restriced to the finite — finite moments, finite order approximations, and most problamatic, bounded domains. In what application would one even be interested in unbounded shape reconstruction, while also having access of Gaussian moments? It would be reasonable to question the use of a computational method in an unbounded context. As with any finite approximation, the unboundedness should be thought of as an idealized limit; perhaps an unbounded approximation is a limit of bounded approximations. But then, the original method applies just as well if all we wanted was a sequence of reconstructions expanding in range. We can only speculate at this point that perhaps this method, being taylored specifically for unbounded reconstruction, could hold some practical advantages over its predecessor; or be satisfied with impracticality.
+Now, a fundamental limitation with the proposed method which we have neglected to mention is the practical one: As a computational method we are necessarily restricted to the finite — finite moments, finite order approximations, and most problematic, bounded domains. In what application would one even be interested in unbounded shape reconstruction, while also having access of Gaussian moments? It would be reasonable to question the use of a computational method in an unbounded context. As with any finite approximation, the unboundedness should be thought of as an idealized limit; perhaps an unbounded approximation is a limit of bounded approximations. But then, the original method applies just as well if all we wanted was a sequence of reconstructions expanding in range. We can only speculate at this point that perhaps this method, being tailored specifically for unbounded reconstruction, could hold some practical advantages over its predecessor; or be satisfied with impracticality.
 
 
 \section{An example}
