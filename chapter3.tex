@@ -8,9 +8,52 @@
 
 \chapter{Shape reconstruction from moments}{}
 
-In this chapter we describe a method for shape reconstruction from moments and propose an extension of the method to unbounded regions.
+In this chapter we describe a method for shape reconstruction from moments and propose an extension of the method to unbounded regions. In the first section we summarize the method for bounded sets. This is the work of Cuyt et al. \cn which we extend in the following sections to unbounded shapes and positive functions of at most polynomial growth. 
 
 \section{Reconstruction of bounded shapes}
+
+% Suppose $A \subseteq \RR^n$ is a bounded measurable set. Then it has finite multivariate moments
+% \[
+%   c_\alpha = \int_{A} x^{\alpha} ~dx.
+% \]
+% For any $\omega \in S^{n-1}$ the RT is well defined,
+% \[
+%   R_A(\omega, p) = \int_A 1_{\inner{x, \omega} = p} dx
+% \]
+% and measurable as a function of $p \in \RR$ \cn. The integral of $R_A(\omega, p)$ over $p \in \RR$ is the measure of $A$ by Fubini's theorem. By \cn\ the projection moments
+% \[
+%   c_k(\omega) = \int_A 1_{\inner{x, \omega} = p} p^k dp
+% \]
+% are finite and determinate. The Stieltjes transform
+% \[
+%   g_{\omega}(z) = \int_{-\infty}^\infty \frac{R_A(\omega, p)}{1 + pz} ~dp = \sum_{k = 0}^\infty c_k(\omega) (-z)^k
+% \]
+% is analytic at $z = 0$ and has uniformly convergent off-diagonal Pad\'e approximants $R_M(z)$. The rate of convergence in this case can be controlled further by \cn. On the other hand $g_\omega(z)$ can be approximated as an integral by a cubature formula
+Suppose $A \subseteq \RR^n$ is a bounded measurable set. Then it has finite multivariate moments
+\[
+  c_\alpha = \int_{A} x^{\alpha} ~dx.
+\]
+The projection moments for any $\omega \in S^{n-1}$, given by
+\[
+  c_k(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} c_\alpha \omega^\alpha
+\]
+are coefficients to the Stieltjes series
+\[
+  g_{\omega}(z) 
+  = \sum_{k = 0}^\infty c_k(\omega) (-z)^k
+\]
+which is analytic at $z = 0$ converging to the Stieltjes transform
+\[
+  % g_{\omega}(z) 
+  % = 
+  \int_{-\infty}^\infty \frac{R_A(\omega, p)}{1 + pz} ~dp = \int_{A} \frac1{1 + z\inner{x, \omega}}~dx. 
+\]
+By \cn, $g_{\omega}(z)$ is the uniform limit of the off-diagonal Pad\'e approximants $R_M(z)$. The rate of convergence in this case can be controlled further by \cn. 
+
+On the other hand suppose $g_\omega(z)$ can be approximated by a cubature formula
+\[
+  \sum_{i = 0}^I w_i(z) 1_A(x_i)  \approx \int_{A} \frac1{1 + z\inner{x, \omega}}~dx  
+\]
 
 \section{Reconstruction of unbounded shapes}
 

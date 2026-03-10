@@ -67,8 +67,8 @@
 
 \usepackage{ulem}
 \normalem
-% \let\emph\relax % there's no \RedeclareTextFontCommand
-% \DeclareTextFontCommand{\emph}{\bfseries\em}
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\bfseries\em}
 \DeclareEmphSequence{\bfseries}
 % \usepackage{fontspec}
 % \setmainfont{Arial}
@@ -76,20 +76,21 @@
 %%
 %% JASPER'S PACKAGES
 %%
-\usepackage{amsrefs} % ams style references
+% \usepackage{amsrefs} % ams style references
 \newcommand{\description}{} % necessary for some reason
 \usepackage{enumitem} % better than enumerate
+% \usepackage{enumerate}
 \usepackage{ulem} % strikeout and various underline types
 \usepackage{tikz} % tikz figures
 \usepackage{mathtools} % mathclap primarily
-\usepackage{hyperref} % in-document hyperlinks
+% \usepackage{hyperref} % in-document hyperlinks
 
 %%
 %% DEF. THM. LEMMA AND THE REST 
 %%
 
 % Comment the following line out if you want "Theorem 1.2.3" and not "1.2.3 Theorem"
-% \swapnumbers 
+\swapnumbers 
 
 % Equations will be numbered with their section number, i.e. (1.1.1), (1.1.2), (1.2.1) and so on.
 % Commenting this out put will result in all equations being numbered (1), (2), (3), ... (999) which

@@ -100,18 +100,7 @@ The following theorem, due to Petersen \cn, gives a way us to reduce the questio
 
 \section{Determinate Gaussian projection moments}
 
-We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate. By Petersen's theorem a function who's Gaussian projections lie in the same space is likewise determinate. Of interest to us are two families of determinate functions on $\RR^n$: First, bounded functions, including characteristic functions of Borel sets. And second, locally bounded functions with at most polynomial growth. 
-
-\begin{theorem}
-  If $f : \RR^n \to [0, \infty)$ is a bounded measurable function then its Gaussian moments are determinate as well as its Gaussian projection moments.
-\end{theorem}
-
-\begin{proof}
-  The characteristic function $f$ of $A$ is measureable and certainly has at most polynomial growth. In fact, this result is easily proven without theorem 2.2.2.\ in one line:
-  \[
-    GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) dx \leq \int\mclimits_{\inner{x, \omega} = p} w_{n-1}(x - p\omega) = 1
-  \]
-\end{proof}
+We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate. By Petersen's theorem a function who's Gaussian projections lie in the same space is likewise determinate. Of interest to us are two families of determinate functions on $\RR^n$: First, bounded functions, including characteristic functions of Borel sets. And second, locally bounded functions with at most polynomial growth. Recall that a function $f : \RR^n \to \RR$ is locally bounded if every $x \in \RR^n$ has a neighborhood on which $f$ is bounded. 
 
 \begin{lemma}
   If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then for all $\omega \in S^{n-1}$, the GRT $GR_f(\omega, p): \RR \to [0, \infty)$ converges, is locally bounded and has at most polynomial growth as $p \rightarrow \pm \infty$. 
@@ -120,9 +109,9 @@ We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \
 \begin{proof}
   Suppose that for some $D > 1$ and $m \in \NN$ we have
   \[
-    f(x) \leq \norm{x}^m, \qquad \text{for } \norm{x} \geq D.
+    f(x) \leq \norm{x}^m, \qquad \text{for } \norm{x} > D.
   \]
-  Then for $|p| \geq D$, 
+  Then for $|p| > D$, 
   \begin{align*}
     GR_f(\omega, p)
       &= \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx \\
@@ -130,17 +119,19 @@ We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \
       &= \int\mclimits_{\inner{x, \omega} = 0} \norm{x + p\omega}^m w_{n-1}(x) ~dx \\
       &= \sum_{k = 0}^m \binom{m}{k} |p|^{m - k} \int\mclimits_{\inner{x, \omega} = 0} \norm{x}^k w_{n-1}(x) ~dx \\
   \end{align*}
-  where the integrals are finite, and thus $GR_f(\omega, p)$ is dominated by at most some constant multiple of $|p|^m$. This implies local boundedness for $|p| \geq D$. For $|p| < D$ we note that
+  where the integrals are finite, and thus $GR_f(\omega, p)$ is dominated by at most some constant multiple of $|p|^m$. This implies local boundedness for $|p| \geq D$. For $|p| \leq D$
   \begin{align*}
     \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx
-      &= \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| < D}} f(x) w_{n-1}(x - p\omega) ~dx + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \geq D}} f(x) w_{n-1}(x - p\omega) ~dx \\
-      &\leq \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| < D}} f(x) w_{n-1}(x - p\omega) ~dx + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \geq D}} \norm{x}^m w_{n-1}(x - p\omega) ~dx
+      &= \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \leq D}} f(x) w_{n-1}(x - p\omega) ~dx 
+        + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| > D}} f(x) w_{n-1}(x - p\omega) ~dx \\
+      &\leq \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \leq D}} f(x) w_{n-1}(x - p\omega) ~dx 
+        + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| > D}} \norm{x}^m w_{n-1}(x - p\omega) ~dx.
   \end{align*}
-  where the first integral is bounded by the locally boundedness of $f$ and the second converges.
+  Since a locally bounded function is bounded on compact sets, the first integral is uniformly bounded by $\max\{f(x) | \norm{x} \leq D\}$. The second is bounded above by $\int_{\inner{x, \omega} = D}\norm{x}^m dx$.
 \end{proof}
 
 \begin{theorem}
-  If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then its Gaussian moments are determinate. Furthermore for any $\omega \in S^{n-1}$ the GRT $GR_f(\omega, p)$ has determinate Gaussian moments.
+  If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then its Gaussian moments are determinate. Furthermore for any $\omega \in S^{n-1}$ the GRT $GR_f(\omega, p)$ has determinate Gaussian moments. 
 \end{theorem}
 
 \begin{proof}
@@ -152,6 +143,16 @@ We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \
   The first integral converges by local boundedness and the second by polynomial growth.
 \end{proof}
 
+\begin{corollary}
+  If $f : \RR^n \to [0, \infty)$ is a bounded measurable function then its Gaussian moments are determinate as well as its Gaussian projection moments.
+\end{corollary}
+
+\begin{proof}
+  The characteristic function $f$ of $A$ is bounded and certainly has at most polynomial growth. In fact, this result is easily proven without theorem 2.2.2.\ in one line:
+  \[
+    GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) dx \leq \int\mclimits_{\inner{x, \omega} = p} w_{n-1}(x - p\omega) = 1
+  \]
+\end{proof}
 % \begin{corollary}
 %   If $f \in L^2(\RR^n, \gamma^n)$, then $f$ is determinate.
 % \end{corollary}
