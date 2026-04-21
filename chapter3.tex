@@ -8,7 +8,12 @@
 
 \chapter{Shape reconstruction from moments}{}
 
-In this chapter we describe a method for shape reconstruction from moments and propose an extension of the method to unbounded regions. In the first section we summarize the method for bounded sets. This is the work of Cuyt et al.~\cite{Cuyt05} which we extend in the following sections to unbounded shapes and positive functions of at most polynomial growth. 
+In this chapter we describe a method for shape reconstruction from moments and propose an extension of the method to unbounded regions. In the first section we summarize the method for bounded sets. This is the work of Cuyt et al.~\cite{Cuyt05} which we extend in the following sections to unbounded shapes and positive functions of at most polynomial growth. The methods all each have the basic structure:
+\begin{enumerate}
+  \item From moments of $f$ compute Pad\'e approximants to its Stieltjes transform.
+  \item Choosing a set of nodes on which to approximate $f$, construct an appropriate cubature formula to the Stieltjes transform.
+  \item Solve — or approximate a solution to — the linear system given by equating the Pad\'e approximants and cubature formula. 
+\end{enumerate}
 
 \section{Reconstruction of bounded shapes}
 
@@ -29,7 +34,7 @@ In this chapter we describe a method for shape reconstruction from moments and p
 %   g_{\omega}(z) = \int_{-\infty}^\infty \frac{R_A(\omega, p)}{1 + pz} ~dp = \sum_{k = 0}^\infty c_k(\omega) (-z)^k
 % \]
 % is analytic at $z = 0$ and has uniformly convergent off-diagonal Pad\'e approximants $R_M(z)$. The rate of convergence in this case can be controlled further by \cn. On the other hand $g_\omega(z)$ can be approximated as an integral by a cubature formula
-Suppose $A \subseteq \RR^n$ is a bounded measurable set. Then it has finite multivariate moments
+Suppose $A \subseteq \RR^n$ is a bounded measurable set with indicator function $f$. Then it has finite multivariate moments
 \[
   c_\alpha = \int_{A} x^{\alpha} ~dx.
 \]
@@ -39,48 +44,70 @@ The projection moments for any $\omega \in S^{n-1}$, given by
 \]
 are coefficients to the Stieltjes series
 \[
-  g_{\omega}(z) 
-  = \sum_{k = 0}^\infty c_k(\omega) (-z)^k
+  \sum_{k = 0}^\infty c_k(\omega) (-z)^k,
 \]
-which is analytic at $z = 0$ converging to the Stieltjes transform
+which is converges in a neighborhood of $z = 0$ to the Stieltjes transform
 \[
-  % g_{\omega}(z) 
-  % = 
+  g_{\omega}(z) 
+  = 
   \int_{-\infty}^\infty \frac{R_A(\omega, p)}{1 + pz} ~dp = \int_{A} \frac1{1 + z\inner{x, \omega}}~dx. 
 \]
-Recall that since $A$ is bounded, it has determinate multivariate moments and projection moments. By corollary~\ref{cr:determinacypade}, $g_{\omega}(z)$ is the uniform limit of the off-diagonal Pad\'e approximants $R_M(z)$. The rate of convergence in this case can be controlled further by results found in~\cite{Bake81}. 
+Recall that since $A$ is bounded, it has determinate multivariate moments and projection moments. By corollary~\ref{cr:determinacypade}, $g_{\omega}(z)$ is the uniform limit of the off-diagonal Pad\'e approximants $R_M(z)$ to the Stieltjes series. The rate of convergence in this case is known, and can be found in~\cite{Bake81}. 
 
-On the other hand suppose $g_\omega(z)$ can be approximated by a cubature formula
+We consider $g_\omega(z)$ as the restriction of the multivariate Stieltjes transform
 \[
-  \sum_{i = 0}^I w_i(z) 1_A(x_i)  \approx \int_{A} \frac1{1 + z\inner{x, \omega}}~dx  
+  g(y) = \int_{A} \frac{1}{1 + \inner{x, y}} dx, \qquad y \in \RR^n
 \]
+to a the linear span of $\omega \in S^{n-1}$. That is, for $z \in \RR$,
+\[
+  g(z\omega) = \int_{A} \frac{1}{1 + z\inner{x, \omega}} dx = g_\omega(z).
+\]
+Thus for any $y \in \RR^n$, we can compute projection moments with $\omega = y/\norm{y}$, from which we can approximate $g(y) = g_\omega(\norm{y})$ by way of the Pad\'e approximants described above. Let us denote this approximation by $\tilde g(y)$.
+
+Now suppose $g(y)$ can be simultaneously approximated by a cubature formula
+\[
+  \sum_{i = 0}^I w_i(y) f(x_i) \approx \int_{A} \frac1{1 + \inner{x, y}}~dx,
+\]
+where $f(x) = 1_A(x)$. Consider the linear system,
+\[
+  \sum_{i = 0}^I w_i(y_j) \tilde f_i = \tilde g(y_j), \qquad j = 0, \ldots, J
+\]
+where $y_0, \ldots, y_J \in \RR^n$ are a set of distinct sample points and $J > I$. At least heuristically, we expect a solution to this system in the form of the values to approximate the values of the characteristic function
+\[
+  \tilde f_i \approx f(x_i), \qquad i = 0, \ldots, I,
+\]
+at the cubature nodes $x_i$. Thus if, for example, we use a cubature formula with nodes on a finite integer lattice around $A$, we will have computed an approximate pixel image of $A$.
+
+Our discussion thus far clearly avoided some technical details.
 
 \section{Reconstruction of unbounded shapes}
 
-Take a non-negative Lebesgue measurable function $f(x)$ on $\RR^n$ with finite multivariate Gaussian moments
-\[
-  c^G_\alpha = \int_{\RR^n} f(x)e^{-\|x\|^2/2} x^\alpha dx
-\]
-We have seen that the multivariate Stieltjes transform of $f(x)w_n(x)$, 
-\[
-  g(z) = \int_{\RR^n} \frac{f(x)e^{-\|x\|^2/2}}{1 + \langle x, \omega \rangle z} dx,
-\]
-is equal to the Hamburger transform of $GR_f(\omega, p)$, whose moments in turn are easily computed from the moments of $f$, for fixed $\omega$. Thus for $z$ in the one dimensional subspace spanned by $\omega$, $g(z)$ can be approximated well by Pad\'e approximants, under the integrability condition $GR_f(\omega, p) \in L^2(\RR, e^{-p^2}~dp)$. On the other hand as an integral on $\RR^n$, we can also approximate $g(z)$ by cubature formula,
-\[
-  \int_{\RR^n} \frac{f(x)e^{-\|x\|^2/2}}{1 + \langle x, \omega \rangle z} dx 
-  \approx \sum_{\ell = L} \frac{e^{-\|x_\ell\|^2/2}}{1 + \langle x_\ell, \omega \rangle z} w_\ell f(x_\ell)
-  =: \sum_{\ell = L} C_\ell(z) f(x_\ell).
-\]
-By equating these parallel approximations, 
-\[
-    \sum_{\ell = L} C_\ell(z) f(x_\ell) \approx R_M(z),
-\]
-with a sufficient quantity of sample points $z_j$ we have arrived at a linear system
-\[
-  \sum_{\ell = L} C_\ell(z_j) f(x_\ell) = R_M(z_j), 
-  \qquad j = 1, 2, \ldots, J
-\]
-from which we should be able to recover the value of $f$ on our cubature nodes $x_\ell$.
+
+
+% Take a non-negative Lebesgue measurable function $f(x)$ on $\RR^n$ with finite multivariate Gaussian moments
+% \[
+%   c^G_\alpha = \int_{\RR^n} f(x)e^{-\|x\|^2/2} x^\alpha dx
+% \]
+% We have seen that the multivariate Stieltjes transform of $f(x)w_n(x)$, 
+% \[
+%   g(z) = \int_{\RR^n} \frac{f(x)e^{-\|x\|^2/2}}{1 + \langle x, \omega \rangle z} dx,
+% \]
+% is equal to the Hamburger transform of $GR_f(\omega, p)$, whose moments in turn are easily computed from the moments of $f$, for fixed $\omega$. Thus for $z$ in the one dimensional subspace spanned by $\omega$, $g(z)$ can be approximated well by Pad\'e approximants, under the integrability condition $GR_f(\omega, p) \in L^2(\RR, e^{-p^2}~dp)$. On the other hand as an integral on $\RR^n$, we can also approximate $g(z)$ by cubature formula,
+% \[
+%   \int_{\RR^n} \frac{f(x)e^{-\|x\|^2/2}}{1 + \langle x, \omega \rangle z} dx 
+%   \approx \sum_{\ell = L} \frac{e^{-\|x_\ell\|^2/2}}{1 + \langle x_\ell, \omega \rangle z} w_\ell f(x_\ell)
+%   =: \sum_{\ell = L} C_\ell(z) f(x_\ell).
+% \]
+% By equating these parallel approximations, 
+% \[
+%     \sum_{\ell = L} C_\ell(z) f(x_\ell) \approx R_M(z),
+% \]
+% with a sufficient quantity of sample points $z_j$ we have arrived at a linear system
+% \[
+%   \sum_{\ell = L} C_\ell(z_j) f(x_\ell) = R_M(z_j), 
+%   \qquad j = 1, 2, \ldots, J
+% \]
+% from which we should be able to recover the value of $f$ on our cubature nodes $x_\ell$.
 
 
 

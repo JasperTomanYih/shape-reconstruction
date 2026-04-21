@@ -4,8 +4,10 @@ In this chapter we discuss some necessary conditions for the the determinacy of 
 
 \section{Projection moments and Petersen's theorem}
 
+% We first show that the projection moments can be computed from the
+
 \begin{proposition}
-  Let $c_\alpha (\omega) = \int_{-\infty}^\infty R_f(\omega, p) p^k dp$ be the projection moments of $f$ at a fixed $\omega$, and $c_\alpha$ the multivariate moments of $f$. Then
+  Let $c_k (\omega) = \int_{-\infty}^\infty R_f(\omega, p) p^k dp$ be the projection moments of $f$ in a fixed  derection $\omega \in S^{n-1}$, where $f : \RR^n \to [0, \infty)$ has finite multivariate moments $c_\alpha$. Then
   \[
       c_k(\omega) = \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c_\alpha
   \]
@@ -34,7 +36,7 @@ In this chapter we discuss some necessary conditions for the the determinacy of 
 Similarly, moments of the GRT (Gaussian projection moments) can be expressed in terms of multivariate gaussian moments.
 
 \begin{proposition}
-  Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) dp$ be the Gaussian moments of the GRT of $f$ at a fixed $\omega$. Let $c^G_\alpha = \int_{\RR^n} f(x) w_n(x) x^\alpha dx$ be the Gaussian multivariate moments of $f$. Then
+  Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) dp$ be the Gaussian moments of the GRT of $f$ at a fixed $\omega$, where $f:\RR^n \to [0, \infty)$ has finite Gaussian multivariate moments $c^G_\alpha = \int_{\RR^n} f(x) w_n(x) x^\alpha dx$. Then
   \[
     c^G_k(\omega) = \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c^G_\alpha.
   \]
@@ -69,26 +71,46 @@ Similarly, moments of the GRT (Gaussian projection moments) can be expressed in 
     &= \sum_{|\alpha| = k} \binom{k}{\alpha} e_i^\alpha c_\alpha \\
     &= c_{ke_i}
   \end{align*}
-  since $e_i^\alpha = 0$ unless $\alpha = ke_i$.
+  since $e_i^\alpha = 0$ unless $\alpha = ke_i$. 
 \end{myexample}
 
 The following theorem, due to Petersen~\cite{Pete82}, gives a way us to reduce the question of determinacy for multivariate moment problems to the classical case.
 
 \begin{proposition}[Petersen's theorem]
-  Let $\mu$ be a Borel measure with finite moments on $\RR^n$, and $e_1, \ldots, e_n$ the standard basis for $\RR^n$. If each $R_\mu^{e_1}, \ldots, R_\mu^{e_n}$ is determinate, then $\mu$ is determinate.
+  Let $\mu$ be a Borel measure with finite moments on $\RR^n$, and $e_1, \ldots, e_n$ the standard basis for $\RR^n$. If each $R_\mu^{e_1}, \ldots, R_\mu^{e_n}$ is determinate as a measure on $\RR$, then $\mu$ is determinate.
 \end{proposition}
 
 \begin{proof}
-  An outline of the proof is as follows. Preliminarily, note that the solution set $[\mu]$ of Borel measures with equivalent moments to $\mu$ is convex \cn, and a $\mu$ is an extreme point in $[\mu]$ if and only if polynomials are dense in $L^1(\RR^n, \mu)$ \cn. Thus it suffices to show that polynomials are dense in $L^1(\RR^n, \mu')$ for any $\mu' \in [\mu]$.
+  An outline of the proof is as follows: Preliminarily, note that the solution set $[\mu]$ of Borel measures with equivalent moments to $\mu$ is convex, and $\mu$ is an extreme point in $[\mu]$ if and only if polynomials are dense in $L^1(\RR^n, \mu)$ \cite{A2021}. Thus it suffices to show that polynomials are dense in $L^1(\RR^n, \mu')$ for any $\mu' \in [\mu]$.
   
-  The family of products of continuous functions of compact support $f(x) = \prod_{i=1}^n f_i(x_i)$ where each $f_i \in C_c(\RR)$, is dense in $L_1(\mu)$ \cn. Furthermore, since $R_\mu^{e_i}$, $i = 1, \ldots, n$ are determinate, polynomials are dense in each $L^2(\RR, R_\mu^{e_i})$ \cn. Petersen constructs a series of polynomials $P_i : \RR \rightarrow \RR$ such that the polynomial product $P(x) = \prod_{i = 1}^n P_i(x_i)$ arbitrarily close to $f$ in $L^1(\mu)$. Thus polynomials are dense in $L^1(\RR^n, \mu)$ and the moment problem is determinate. \pn 
-  
-  Note Schm\"udgen proves this via Borel characteristic functions. Not clear what the benefit is.
+  The family of products of continuous functions of compact support $f(x) = \prod_{i=1}^n f_i(x_i)$ where each $f_i \in C_c(\RR)$, is dense in $L^1(\mu)$ \cn. Furthermore, since $R_\mu^{e_i}$, $i = 1, \ldots, n$ are determinate, polynomials are dense in each $L^2(\RR, R_\mu^{e_i})$ \cn. Petersen constructs a series of polynomials $P_i : \RR \rightarrow \RR$ such that the polynomial product $P(x) = \prod_{i = 1}^n P_i(x_i)$ arbitrarily close to $f$ in $L^1(\mu)$. Thus polynomials are dense in $L^1(\RR^n, \mu)$ and the moment problem is determinate. \pn 
+  % Note Schm\"udgen proves this via Borel characteristic functions. Not clear what the benefit is.
 \end{proof}
 
 \begin{remark}
-  Conjecture? We expect this result to hold true for any orthonormal basis, and likely any basis. Will have to check this. Arguable benefit for us is that we in theory can use any $n$ linearly independent projections to reconstruct $\mu$.
+  Petersen's theorem is not basis dependent. Indeed, given an orthonormal basis $\tilde e_1, \ldots, \tilde e_n \in \RR^n$, the orthogonal matrix $R$ defined by $Re_i = \tilde e_i$, $i = 1, \ldots, n$, induces a one-to-one mapping between moment net $c_\alpha$ and the moment net $\tilde c_\alpha$ given by
+  \[
+    \tilde c_\alpha = \int_{\RR^n} f(x) \sum_{i = 1}^n \inner{x, \tilde e_i} ~dx
+  \]
 \end{remark}
+% \begin{remark}
+%   Conjecture? We expect this result to hold true for any orthonormal basis, and likely any basis. Will have to check this. Arguable benefit for us is that we in theory can use any $n$ linearly independent projections to reconstruct $\mu$.
+% \end{remark}
+
+% \begin{proof}
+%   Let $T : \RR^n \to \RR^n$ be an invertible change of basis matrix given by $Te_i = b_i$, for some basis $b_1, \ldots, b_n \in \RR^n$. The moments of a function $f$ with respect to the new basis $b_1, \ldots, b_n$ can be written
+%   \[
+%     \int_{\RR^n} f(x) \sum_{i = 1}^n \inner{x, b_i}^{\alpha_i} ~dx
+%     = 
+%   \]
+  
+%   One can transform the multivariate moments 
+%   \[
+%     \int_{\RR^n} f(x) (T^{-1}x)^\alpha ~dx = \det T \int_{\RR^n} f(Tx) x^\alpha ~dx.
+%   \]
+%   The 
+  
+% \end{proof}
 
 \begin{corollary}
   If $\mu$ is compactly supported Borel measure on $\RR^n$, then the multivariate moment problem is determinate.
@@ -100,59 +122,143 @@ The following theorem, due to Petersen~\cite{Pete82}, gives a way us to reduce t
 
 \section{Determinate Gaussian projection moments}
 
-We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ is determinate. By Petersen's theorem a function who's Gaussian projections lie in the same space is likewise determinate. Of interest to us are two families of determinate functions on $\RR^n$: First, bounded functions, including characteristic functions of Borel sets. And second, locally bounded functions with at most polynomial growth. Recall that a function $f : \RR^n \to \RR$ is locally bounded if every $x \in \RR^n$ has a neighborhood on which $f$ is bounded. 
-
-\begin{lemma}
-  If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then for all $\omega \in S^{n-1}$, the GRT $GR_f(\omega, p): \RR \to [0, \infty)$ converges, is locally bounded and has at most polynomial growth as $p \rightarrow \pm \infty$. 
-\end{lemma}
-
-\begin{proof}
-  Suppose that for some $D > 1$ and $m \in \NN$ we have
-  \[
-    f(x) \leq \norm{x}^m, \qquad \text{for } \norm{x} > D.
-  \]
-  Then for $|p| > D$, 
-  \begin{align*}
-    GR_f(\omega, p)
-      &= \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx \\
-      &\leq \int\mclimits_{\inner{x, \omega} = p} \norm{x}^m w_{n-1}(x - p\omega) ~dx \\
-      &= \int\mclimits_{\inner{x, \omega} = 0} \norm{x + p\omega}^m w_{n-1}(x) ~dx \\
-      &= \sum_{k = 0}^m \binom{m}{k} |p|^{m - k} \int\mclimits_{\inner{x, \omega} = 0} \norm{x}^k w_{n-1}(x) ~dx \\
-  \end{align*}
-  where the integrals are finite, and thus $GR_f(\omega, p)$ is dominated by at most some constant multiple of $|p|^m$. This implies local boundedness for $|p| \geq D$. For $|p| \leq D$
-  \begin{align*}
-    \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx
-      &= \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \leq D}} f(x) w_{n-1}(x - p\omega) ~dx 
-        + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| > D}} f(x) w_{n-1}(x - p\omega) ~dx \\
-      &\leq \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \leq D}} f(x) w_{n-1}(x - p\omega) ~dx 
-        + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| > D}} \norm{x}^m w_{n-1}(x - p\omega) ~dx.
-  \end{align*}
-  Since a locally bounded function is bounded on compact sets, the first integral is uniformly bounded by $\max\{f(x) | \norm{x} \leq D\}$. The second is bounded above by $\int_{\inner{x, \omega} = D}\norm{x}^m dx$.
-\end{proof}
+We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ has determinate Gaussian moments. By Petersen's theorem if $GR_f(e_i, \cdot)$ has determinate Gaussian moments for each $i = 1, \ldots, n$ then the function $f: \RR^n \to [0, \infty)$ has determinate Gaussian moments. For the purposes of the shape reconstruction method we note that the GRT of an indicator function is bounded,
+\[
+  GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x)w_{n-1}(x - p\omega)dx \leq \int\mclimits_{\inner{x, \omega} = p} w_{n-1}(x - p\omega)dx = 1,
+\]
+thus all measurable sets have determinate Gaussian moments. We make a stronger claim: 
 
 \begin{theorem}
-  If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then its Gaussian moments are determinate. Furthermore for any $\omega \in S^{n-1}$ the GRT $GR_f(\omega, p)$ has determinate Gaussian moments. 
+  If $f : \RR^n \to [0, \infty)$ is measurable and
+  \[
+    \int_{\RR^n} |f(x)|^2 w_n(x) dx < \infty,
+  \]
+  then the Gaussian moments of $GR_f(\omega, p)$ given by
+  \[
+    c^G_k(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) ~dp
+  \]
+  are determinate for any $\omega \in S^{n-1}$, and as a consequence the Gaussian moments of $f$ are determinate.
 \end{theorem}
 
 \begin{proof}
-  By the lemma and proposition \cn it suffices to justify that a locally bounded measurable function $f(p) : \RR \to [0, \infty)$ with at most polynomial growth is in the weighted $L^2$ space $L^2(\RR, w)$. Suppose $|f(p)| < |x|^m$ for all $|x| > D$ and some $m \in \NN_0$. Then
+  Fix $\omega \in S^{n-1}$. By the Cauchy-Shwarz inequality,
   \begin{align*}
-    \int_{-\infty}^\infty |f(p)|^2 w(p) ~dp 
-      &= \int_{|x| \leq D} |f(p)|^2 w(p) ~dp + \int_{|x| > D} |f(p)|^2 w(p) ~dp 
-  \end{align*} 
-  The first integral converges by local boundedness and the second by polynomial growth.
+    \left|GR_f(\omega, p)\right|^2 
+    &\leq \int\mclimits_{\inner{\omega, x} = p} |f(x)|^2 w_{n-1}(x - p\omega) ~ dx.
+  \end{align*}
+  Thus by the Gaussian slice theorem 
+  \begin{align*}
+    \int_{-\infty}^\infty \left|GR_f(\omega, p)\right|^2 w(p) ~dp 
+    &\leq \int_{-\infty}^\infty \int\mclimits_{\inner{x, \omega} = p} \left|f(x)\right|^2 w_{n-1}(x - p\omega) ~dx w(p) ~dp \\
+    &= \int_{\RR^n} |f(x)|^2 w_n(x) dx < \infty.
+  \end{align*}
+  Since $GR_f(\omega, p) \in L^2(w(p))$ the determinacy of the Gaussian projection moments follows. By Petersen's theorem, the Gaussian moments of $f$ are determinate.
 \end{proof}
 
-\begin{corollary}
-  If $f : \RR^n \to [0, \infty)$ is a bounded measurable function then its Gaussian moments are determinate as well as its Gaussian projection moments.
-\end{corollary}
 
-\begin{proof}
-  The characteristic function $f$ of $A$ is bounded and certainly has at most polynomial growth. In fact, this result is easily proven without theorem 2.2.2.\ in one line:
-  \[
-    GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) dx \leq \int\mclimits_{\inner{x, \omega} = p} w_{n-1}(x - p\omega) = 1
-  \]
-\end{proof}
+
+% We call a positive function $f(x) : \RR^n$ is \emph{polynomially bounded} if $f \leq |P|$ for some polynomial $P$ on $\RR^n$. 
+% % Since any polynomial $a_nx^n + a_{n-1}x^{n-1} + \cdots + c_1x + c_0$ is bounded by 
+% This is equivalent to the condition,
+% \[
+%   f(x) \leq \norm{x}^K + C, \quad x \in \RR^n,
+% \]
+% for some $K \in \NN_0$ and $C > 0$. Indeed, $\norm{x}^K + C$ is polynomially bounded because,
+% \[
+%   \norm{x} \leq \frac{1 + \norm{x}^2}2.
+% \]
+% On the other hand, for any polynomial $P$ we take $K$ greater than its total degree, so that $P(x) \leq \norm{x}^K$ outside of some compact ball $B \subseteq \RR^n$ and set $C = \sup\{P(x) | x \in B\}$.
+% % This bound may not be sharp, but is sufficient for our purposes.
+
+% \begin{lemma}
+%   Let $f : \RR^n \to [0, \infty)$ be a polynomially bounded measurable function. Then $f$ has finite Gaussian moments, and the GRT of $f$ is polynomially bounded as well,
+%   \[
+%     GR_f(\omega, p) \leq |p|^{K} + C, \quad p \in \RR.
+%   \]
+%   for some $K, C > 0$.
+% \end{lemma}
+
+% \begin{proof}
+%   The existance of finite Gaussian moments follows from the fact that the Gaussian weight dominates polynomials at infinity. 
+
+%   To show that the GRT is polynomially bounded, 
+%   \begin{align*}
+%     GR_f(\omega, p) 
+%     &= \int_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx \\
+%     &= \int_{\inner{x, \omega} = 0} f(x + p\omega) w_{n-1}(x) ~dx \\
+%     &\leq \int_{\inner{x, \omega} = 0} \left(\norm{x + p\omega}^K + C \right)w_{n-1}(x)~dx \\
+%     &= \int_{\inner{x, \omega} = 0} \norm{x + p\omega}^K w_{n-1}(x)~dx + C \int_{\inner{x, \omega} = 0} w_{n-1}(x)~dx.
+%   \end{align*}
+%   The right-most integral is a constant and the left-most expands to:
+%   \begin{align*}
+%     \int_{\inner{x, \omega} = 0} \norm{x + p\omega}^K w_{n-1}(x)~dx
+%     &= \sum_{k = 0}^K \binom{K}{k} |p|^k \int_{\inner{x, \omega} = 0} \norm{x}^{K-k} w_{n-1}(x)~dx,
+%   \end{align*}
+%   which is clearly polynomially bounded in $p$.
+% \end{proof}
+
+% \begin{theorem}
+%   If $f : \RR^n \to [0, \infty)$ is measurable and polynomially bounded then $GR_f(\omega, p)$ has determinate Gaussian moments for any $\omega \in S^{n-1}$, and as a consequence $f$ has determinate multivariate Gaussian moments.
+% \end{theorem}
+
+% \begin{proof}
+%   Since $GR_f(\omega, p)$ is polynomially bounded it is in $L^2(\RR, \gamma)$ and thus has determinate Gaussian moments. The rest follows from Petersen's theorem.
+% \end{proof}
+% In light of the shape reconstruction we are particularly interested in the indicator functions of unbounded measurable sets, but we make a stronger statement: If $f : \RR^n \to [0, \infty)$ is polynomially bounded then its Gaussian moments are determinate. 
+
+% Of interest to us are two families of determinate functions on $\RR^n$: First, bounded functions, including characteristic functions of Borel sets. And second, locally bounded functions with at most polynomial growth. Recall that a function $f : \RR^n \to \RR$ is locally bounded if every $x \in \RR^n$ has a neighborhood on which $f$ is bounded. 
+
+% \begin{lemma}
+%   If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then for all $\omega \in S^{n-1}$, the GRT $GR_f(\omega, p): \RR \to [0, \infty)$ converges, is locally bounded and has at most polynomial growth as $p \rightarrow \pm \infty$. 
+% \end{lemma}
+
+% \begin{proof}
+%   Suppose that for some $D > 1$ and $m \in \NN$ we have
+%   \[
+%     f(x) \leq \norm{x}^m, \qquad \text{for } \norm{x} > D.
+%   \]
+%   Then for $|p| > D$, 
+%   \begin{align*}
+%     GR_f(\omega, p)
+%       &= \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx \\
+%       &\leq \int\mclimits_{\inner{x, \omega} = p} \norm{x}^m w_{n-1}(x - p\omega) ~dx \\
+%       &= \int\mclimits_{\inner{x, \omega} = 0} \norm{x + p\omega}^m w_{n-1}(x) ~dx \\
+%       &= \sum_{k = 0}^m \binom{m}{k} |p|^{m - k} \int\mclimits_{\inner{x, \omega} = 0} \norm{x}^k w_{n-1}(x) ~dx \\
+%   \end{align*}
+%   where the integrals are finite, and thus $GR_f(\omega, p)$ is dominated by at most some constant multiple of $|p|^m$. This implies local boundedness for $|p| \geq D$. For $|p| \leq D$
+%   \begin{align*}
+%     \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) ~dx
+%       &= \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \leq D}} f(x) w_{n-1}(x - p\omega) ~dx 
+%         + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| > D}} f(x) w_{n-1}(x - p\omega) ~dx \\
+%       &\leq \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| \leq D}} f(x) w_{n-1}(x - p\omega) ~dx 
+%         + \int\mclimits_{\substack{\inner{x, \omega} = p \\ |x| > D}} \norm{x}^m w_{n-1}(x - p\omega) ~dx.
+%   \end{align*}
+%   Since a locally bounded function is bounded on compact sets, the first integral is uniformly bounded by $\max\{f(x) | \norm{x} \leq D\}$. The second is bounded above by $\int_{\inner{x, \omega} = D}\norm{x}^m dx$.
+% \end{proof}
+
+% \begin{theorem}
+%   If a Borel measurable $f : \RR^n \to [0, \infty)$ is locally bounded and has at most polynomial growth then its Gaussian moments are determinate. Furthermore for any $\omega \in S^{n-1}$ the GRT $GR_f(\omega, p)$ has determinate Gaussian moments. 
+% \end{theorem}
+
+% \begin{proof}
+%   By the lemma and proposition \cn it suffices to justify that a locally bounded measurable function $f(p) : \RR \to [0, \infty)$ with at most polynomial growth is in the weighted $L^2$ space $L^2(\RR, w)$. Suppose $|f(p)| < |x|^m$ for all $|x| > D$ and some $m \in \NN_0$. Then
+%   \begin{align*}
+%     \int_{-\infty}^\infty |f(p)|^2 w(p) ~dp 
+%       &= \int_{|x| \leq D} |f(p)|^2 w(p) ~dp + \int_{|x| > D} |f(p)|^2 w(p) ~dp 
+%   \end{align*} 
+%   The first integral converges by local boundedness and the second by polynomial growth.
+% \end{proof}
+
+% \begin{corollary}
+%   If $f : \RR^n \to [0, \infty)$ is a bounded measurable function then its Gaussian moments are determinate as well as its Gaussian projection moments.
+% \end{corollary}
+
+% \begin{proof}
+%   The characteristic function $f$ of $A$ is bounded and certainly has at most polynomial growth. In fact, this result is easily proven without theorem 2.2.2.\ in one line:
+%   \[
+%     GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x) w_{n-1}(x - p\omega) dx \leq \int\mclimits_{\inner{x, \omega} = p} w_{n-1}(x - p\omega) = 1
+%   \]
+% \end{proof}
 % \begin{corollary}
 %   If $f \in L^2(\RR^n, \gamma^n)$, then $f$ is determinate.
 % \end{corollary}

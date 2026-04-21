@@ -6,8 +6,8 @@
 % both places.
 
 
-\chapter{Background}{}
-\section{Basic Notation}
+\chapter{Background}{Background} \label{chap:background}
+\section{Basic Notation}\label{sec:notation}
 First recall the conventional multi-index notation. Let $\NN_0$ denote the nonnegative integers. A multi-index $\alpha = (\alpha_1, \alpha_2, \ldots, \alpha_n) \in \NN_0^n$ is an $n$-tuple of nonnegative integers. The degree of a multi-index is $|\alpha| = \alpha_1 + \alpha_2 + \cdots + \alpha_n$. Multivariate exponentiation is defined as follows. For $x = (x_1, x_2, \ldots, x_n) \in \RR^n$,
 \[
   x^\alpha = x_1^{\alpha_1}x_2^{\alpha_2} \cdots x_n^{\alpha_n}.
@@ -70,7 +70,7 @@ Unless otherwise indicated all measures are Euclidean measures — that is the B
 \]
 the measure $dx$ is to be understood as the $n$-dimensional and $(n-1)$-dimensional Euclidean measure respectively.
 
-\section{Classical and multivariate moment problems}
+\section{Classical and multivariate moment problems} \label{sec:momentproblem}
 % Let $f(x)$ be a measurable function on $\RR$. For $k \in \NN_0$, define the $k$th moment of $f$ as
 % \[
 %   c_k = \int_{-\infty}^\infty f(x)x^k ~dx.
@@ -192,7 +192,7 @@ We present a simple alternate proof in chapter 2 via the Radon transform.
   An example of an indeterminate, unbounded, multivariate moment problem?
 \end{myexample}
 
-\section{Gaussian measures and the Hermite polynomials}
+\section{Gaussian measures and the Hermite polynomials}\label{sec:gaussian}
 We review the definitions of univariate and multivariate Gaussian measures and Hermite polynomials, and discuss some basic properties. An extensive exposition of Gaussian measures can be found in~\cite{bogachev_gaussian_1998}. The univariate Hermite polynomials are well known, but there are multiple multivariate generalizations. We use a simple product definition.
 
 First we review some basic properties of the univariate Gaussian measure.
@@ -481,7 +481,7 @@ which we note is absolutely convergent for all $x, y \in \RR^n$. Here we use the
 % derived independently by Sengupta, looks similar but is very different. z
 
 
-\section{The Radon and Gaussian Radon transforms}
+\section{The Radon and Gaussian Radon transforms}\label{sec:RTGRT}
 
 Let $f$ be a function on the $n$-dimensional Euclidean space $\RR^n$. We imagine taking ``slices'' of $f$ by restricting it to a $(n-1)$-dimensional hyperplane $\Lambda$. These hyperplanes form the domain of the Radon Transform. More precisely, the Radon Transform associates each slice with a corresponding integral
 \[
@@ -734,7 +734,7 @@ An early and natural question in the study of the RT is that of inversion. Radon
 
 If one is interested in inverting the RT then a prerequisite concern is of course: Is the transform injective? The answer clearly depends on what space we draw the function $f$ from. Radon~\cite{Rado17}~\cite{Rado86} provides a set of sufficient regularity conditions such that the RT is invertible. Other similar results followed \cite{????}. On the other hand counterexamples have been constructed by, for example, Lawrence Zalcman~\cite{Zalc82}, of continuous and nontrivial functions for which the RT is identically zero.
 
-By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@ Mihai and Sengupta prove the general result if real, separable, infinite Hilbert spaces~\cite{Miha04}.
+By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@ Mihai and Sengupta give a more general result for the GRT on real, separable, infinite Hilbert spaces~\cite{Miha04}.
 
 \begin{proposition}[Gaussian Slice Theorem] 
   Let $f:\RR^n \rightarrow \RR$ and $F:\RR \rightarrow \RR$ be measurable functions. If $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty(\RR)$ then
@@ -772,7 +772,7 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
 %     For an equivalent 
 % \end{remark}
 
-\section{The Radon transform of measures}
+\section{The Radon transform of measures}\label{sec:RTmeasure}
 
 % Here we extend the definitions of the RT and GRT to apply to 
 
@@ -815,7 +815,7 @@ Can we similarly define the GRT of a measure?
 
 
 
-\section{The Stieltjes transform}
+\section{The Stieltjes transform}\label{sec:stieltjes}
 
 Let $\mu$ be a Borel measure with finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. 
 
@@ -1052,7 +1052,7 @@ Similarly the GRT slice theorem with $F(p) = {(1 + zp)}^{-1}$ is
   \int_{-\infty}^\infty \frac{GR_f(\omega, p) w(p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)w_n(x)}{1 + z\langle x, \omega \rangle} dx.
 \]
 
-\section{Pad\'e approximants}
+\section{Pad\'e approximants}\label{sec:pade}
 
 In this section we recall the necessary definitions and results. Then we will prove some new results to be applied to the Gaussian Radon transform later.
 
@@ -1517,7 +1517,7 @@ We discuss sufficient conditions for determinacy in section 1.3 and chapter 2.
 
 % \tc{...insert the construction of multi pade}
 
-\section{Symmetric tensors and polynomials}
+\section{Symmetric tensors and polynomials} \label{sec:tensors}
 Let $V$ be a finite dimensional real vector space with basis $\{e_1, e_2, \ldots, e_n\}$. The tensor power $V^{\otimes k}$ is a real vector space, with basis
 \[
   \{e_{i_1} \otimes e_{i_2} \otimes \cdots \otimes e_{i_k}\}_{(i_1, \ldots i_k) \in \{1, \ldots n\}^k}
@@ -1667,7 +1667,7 @@ Now the monomial expression in terms of symmetric tensors takes the simple form
 \]
 Taken further, the correspondence between homogeneous polynomials of degree $k$ and symmetric $k$-tensors can be shown to be a vector space isomorphism, and extended to an isomorphism between the entire polynomial space and the graded space formed by symmetric tensors of all orders.
 
-In the end one might wonder, if symmetric tensors are just polynomials in disguise, why bother with them?
+% In the end one might wonder, if symmetric tensors are just polynomials in disguise, why bother with them?
 
 % Let $V$ be vector space over a field $K$. A function $f$ out of $V^k$ is multilinear if it is linear in each entry, with all others held constant.
 % \[
