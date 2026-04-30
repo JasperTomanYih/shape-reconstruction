@@ -31,14 +31,14 @@ where, for $k \in \NN_0^\infty$, the classical polynomials $H_{k}(p)$ can be def
   Recall that the generating function $\phi(x) = e^{\langle x, y\rangle - \frac{\|y\|^2}2}$ converges absolutely for all $x,y \in \RR^n$. Consider the GRT of $\phi$,
   \begin{align*}
     GR_{\phi}(\omega, p) 
-      &= \int\mclimits_{\langle x, \omega \rangle = p} \phi(x) w_{n-1}(x - p\omega)~dx.
+      &= \int\mclimits_{\langle x, \omega \rangle = p} \phi(x) \gamma_{n-1}(x - p\omega)~dx.
     % \\&= \int\mclimits_{\langle x, \omega \rangle = 0} \phi(x + p\omega) w_{n-1}(x)~dx
   \end{align*}
   Immediately we can expand $\phi(x)$, interchanging integral and series, to see
   \begin{equation} \label{eq:GRTPhiExpansion1}
     \begin{split}
       GR_{\phi}(\omega, p)
-        &= \sum_{\alpha \in \NN_0^n} \frac1{\alpha!} y^\alpha \int\mclimits_{\langle x, \omega\rangle = p} H_\alpha(x) w_{n-1}(x - p\omega)~dx
+        &= \sum_{\alpha \in \NN_0^n} \frac1{\alpha!} y^\alpha \int\mclimits_{\langle x, \omega\rangle = p} H_\alpha(x) \gamma_{n-1}(x - p\omega)~dx
       \\&= \sum_{\alpha \in \NN_0^n} \frac{GR_{H_\alpha}(\omega, p)}{\alpha!} y^\alpha.
     \end{split}
   \end{equation}
@@ -51,7 +51,7 @@ where, for $k \in \NN_0^\infty$, the classical polynomials $H_{k}(p)$ can be def
   \begin{equation}\label{eq:GRTPhiExpansion21}
     \begin{split}
       GR_{\phi}(\omega, p) 
-        &= \int\mclimits_{\langle x, \omega\rangle = 0} \phi(x + p\omega) w_{n-1}(x) ~dx 
+        &= \int\mclimits_{\langle x, \omega\rangle = 0} \phi(x + p\omega) \gamma_{n-1}(x) ~dx 
       \\&= \int\mclimits_{\langle x, \omega\rangle = 0} e^{\langle x + p\omega, y \rangle - \frac{\|y\|^2}2}(2\pi)^{-\frac{n-1}2}e^{-\frac{\|x\|^2}2} ~dx
       \\&= e^{p \langle \omega, y\rangle - \frac{\|y\|^2}2} \int\mclimits_{\langle x, \omega\rangle = 0}e^{\langle x, y\rangle - \frac{\|x\|^2}2} (2\pi)^{-\frac{n-1}2} ~dx
     \end{split}
@@ -102,22 +102,22 @@ where, for $k \in \NN_0^\infty$, the classical polynomials $H_{k}(p)$ can be def
 \end{proof}
 
 \begin{remark}
-  The proof above was written by Dr. Sengupta. Recall that the Hermite polynomials $H_\alpha$ form a complete orthogonal basis for $L^2(\RR^n, w_n)$. In this sense the formula (\ref{eq:GRH}) completely defines the Gaussian Radon transform on this space. Indeed, it can be shown that any function $f \in L^2(\RR^n, w_n)$ has an expansion
+  The proof above was written by Dr. Sengupta. Recall that the Hermite polynomials $H_\alpha$ form a complete orthogonal basis for $L^2(\RR^n, \gamma_n)$. In this sense the formula (\ref{eq:GRH}) completely defines the Gaussian Radon transform on this space. Indeed, it can be shown that any function $f \in L^2(\RR^n, \gamma_n)$ has an expansion
   \[
     f(x) = \sum_{\alpha \in \NN_0^n} a^{(f)}_\alpha H_\alpha(x)
   \]
   where
   \[
-    a_\alpha^{(f)} = \int_{\RR^n} f(x)H_\alpha(x) w_n(x) ~dx.
+    a_\alpha^{(f)} = \int_{\RR^n} f(x)H_\alpha(x) \gamma_n(x) ~dx.
   \]
   If this expansion converges nicely on $\Lambda$ then
   \begin{align*}
     GR_f(\Lambda) 
-    &= \int_\Lambda f(x) w_n(x-p_0)~dx 
+    &= \int_\Lambda f(x) \gamma_n(x-p_0)~dx 
     \\ 
-    &= \int_\Lambda \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} H_\alpha(x) w_n(x-p_0) ~dx
+    &= \int_\Lambda \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} H_\alpha(x) \gamma_n(x-p_0) ~dx
     \\
-    &= \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} \int_\Lambda H_\alpha(x) w_n(x-p_0) ~dx
+    &= \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} \int_\Lambda H_\alpha(x) \gamma_n(x-p_0) ~dx
     \\
     &= \sum_{\alpha \in \NN_0^n} a_\alpha^{(f)} GR_{H_\alpha}(\Lambda)
   \end{align*}
@@ -170,7 +170,7 @@ Sometimes it is convenient to have an explicit coordinate system on an affine su
 \[
   x(t) = v + t_1u^{(1)} + \cdots + t_d u^{(d)}, \qquad t \in \RR^d.
 \]
-By this embedding can define the Euclidean measure $dx$ on $\Lambda$ as the push-forward of the Lebesgue measure on $\RR^n$, and the standard Gaussian measure on $\Lambda$ as the push-forward of $\gamma^n$. Note the $x(t)$ is defined in such a way that $x(0) = v$ which is essential when defining the Gaussian measure on $\Lambda$.
+By this embedding can define the Euclidean measure $dx$ on $\Lambda$ as the pushforward of the Lebesgue measure on $\RR^n$, and the standard Gaussian weight on $\Lambda$ as $w_d(t)$. Note the $x(t)$ is defined in such a way that $x(0) = v$ which is essential when defining the Gaussian measure on $\Lambda$.
 
 Other times we prefer not to invoke a basis-dependent isometry, and while $x(t)$ clearly depends on the choice of $u^{1}, \ldots, u^{(d)}$, we should note that both the Euclidean and Gaussian measures on $\Lambda$ are invariant under orthogonal transformations about $v$ and thus independent of basis.
 
@@ -179,31 +179,36 @@ Now we can define the natural analogue of the RT for affine subspaces, which is 
 \begin{definition}
   Let $f:\RR^n \rightarrow \RR$. For any affine subspace $\Lambda = p\omega + \Lambda_0$, we define the \emph{Radon Transform of $f$ on $\Lambda$} by
   \[
-    R_f(\Lambda) = \int_{\Lambda} f(x)~dx
+    R_f(\Lambda) = \int_{\Lambda} f(x)~dx,
   \]
   and the \emph{Gaussian Radon Transform of $f$ on $\Lambda$} by 
   \[
-    GR_f(\Lambda) = \int_{\Lambda} f(x) w_d(x - p\omega) ~dx
+    GR_f(\Lambda) = \int_{\Lambda} f(x) \gamma_d(x - p\omega) ~dx,
   \]
-  where $d$ is the dimension of the linear subspace $\Lambda_0$.
+  where $d$ is the dimension of the linear subspace $\Lambda_0$. In both definitions $dx$ denotes the $d$-dimensional Lebesgue measure on $\Lambda$.
 \end{definition}
 \begin{remark}
-  Explicitly, if $x(t): \RR^d \rightarrow \Lambda$ is an Euclidean isometry then 
+  Explicitly, if $x(t): \RR^d \rightarrow \Lambda$ is a Euclidean isometry then 
   \[
-    R_f(\Lambda) = \int_{\RR^d} f(x(t))~dt
+    R_f(\Lambda) = \int_{\RR^d} f(x(t))~dt.
   \]
   If furthermore $x(0) = p\omega$ then
   \[
-    GR_f(\Lambda) = \int_{\RR^d} f(x(t))w(t)~dt
+    GR_f(\Lambda) = \int_{\RR^d} f(x(t))\gamma(t)~dt.
   \]
-  However keep in mind that these definitions are independent of the particular isometry \pn.
+  However keep in mind that these definitions are independent of the particular isometry.
 \end{remark}
 
-In order to generalize the formula (\ref{eq:GRH}) we begin with the integral of $H_\alpha$ over linear subspaces.
+% \begin{remark}
+%   More generally one the $d$-plane GRT can be seen as a 
+%   \[
+%     \frac{(2\pi)^{-\frac{n}2}}{\sqrt{\det(\Sigma)}} \int_{\RR^n} e^{-\frac12 \inner{\Sigma^{-1}x, x}} ~dx
+%   \]
+% \end{remark}
 
-Recall that the GRT of a function $f$ over a linear subspace $\Lambda_0$ can be written
+In order to generalize the formula (\ref{eq:GRH}) we begin with the integral of $H_\alpha$ over linear subspaces. Recall that the GRT of a function $f$ over a linear subspace $\Lambda_0$ can be written
 \begin{equation} \label{eq:GRRot}
-  GR_f(\Lambda_0) = \int\mclimits_{\RR^d \times {\{0\}}^{n-d}} f(Rx) w_d(x) ~dx
+  GR_f(\Lambda_0) = \int\mclimits_{\RR^d \times {\{0\}}^{n-d}} f(Rx) \gamma_d(x) ~dx
 \end{equation}
 where $R \in SO(n)$ is the a rotation sending $\RR^d \subseteq \RR^n$ to $\Lambda_0$. Thus we would like to investigate the action of rotations on certain functions of interest, namely monomials and Hermite polynomials.
 
@@ -283,18 +288,18 @@ where $R \in SO(n)$ is the a rotation sending $\RR^d \subseteq \RR^n$ to $\Lambd
   \[
     GR_f(\Lambda_0) = \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} c(R)^\alpha_\beta c^G_{\beta}
   \]
-  where $c^G_\beta = \int_{\RR^d} x^\beta w_d(x) ~dx$ are the Gaussian moments on $\RR^d$. \emph{Should be indexed by only the first $d$ entries of $\beta$? Feels weird}.
+  where $c^G_\beta = \int_{\RR^d} x^\beta \gamma_d(x) ~dx$ are the Gaussian moments on $\RR^d$. \emph{Should be indexed by only the first $d$ entries of $\beta$? Feels weird}.
 \end{proposition}
 
 \begin{proof}
   We take (\ref{eq:GRRot}),
   \[
-    GR_f(\Lambda_0) = \int\mclimits_{\RR^d \times {\{0\}}^{n-d}} {(Rx)}^\alpha w_d(x) ~dx,
+    GR_f(\Lambda_0) = \int\mclimits_{\RR^d \times {\{0\}}^{n-d}} {(Rx)}^\alpha \gamma_d(x) ~dx,
   \]
   and expand by (\ref{eq:monRot}),
   \begin{align*}
-    \int\mclimits_{\RR^d \times {\{0\}}^{n-d}} (Rx)^\alpha w_d(x) ~dx
-    &= \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} {c(R)}^\alpha_\beta \int_{\RR^d \times {\{0\}}^{n-d}} x^\beta w_d(x) ~dx
+    \int\mclimits_{\RR^d \times {\{0\}}^{n-d}} (Rx)^\alpha \gamma_d(x) ~dx
+    &= \sum_{\substack{\beta \in \NN_0^n \\ |\beta| = k}} {c(R)}^\alpha_\beta \int_{\RR^d \times {\{0\}}^{n-d}} x^\beta \gamma_d(x) ~dx
   \end{align*}
   as needed.
 \end{proof}

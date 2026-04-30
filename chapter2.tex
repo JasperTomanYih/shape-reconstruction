@@ -36,7 +36,7 @@ In this chapter we discuss some necessary conditions for the the determinacy of 
 Similarly, moments of the GRT (Gaussian projection moments) can be expressed in terms of multivariate gaussian moments.
 
 \begin{proposition}
-  Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) dp$ be the Gaussian moments of the GRT of $f$ at a fixed $\omega$, where $f:\RR^n \to [0, \infty)$ has finite Gaussian multivariate moments $c^G_\alpha = \int_{\RR^n} f(x) w_n(x) x^\alpha dx$. Then
+  Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k \gamma(p) dp$ be the Gaussian moments of the GRT of $f$ at a fixed $\omega$, where $f:\RR^n \to [0, \infty)$ has finite Gaussian multivariate moments $c^G_\alpha = \int_{\RR^n} f(x) \gamma_n(x) x^\alpha dx$. Then
   \[
     c^G_k(\omega) = \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c^G_\alpha.
   \]
@@ -46,17 +46,17 @@ Similarly, moments of the GRT (Gaussian projection moments) can be expressed in 
 \begin{proof}
   The proof follows as it did for the RT.\@ This time we apply the GRT slice theorem (\ref{eq:GST}) with $F(p) = p^k$, 
   \begin{align*}
-    \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) ~dp
-    &= \int_{\RR^n} f(x) \langle x, \omega \rangle^k w_n(x) ~dx
+    \int_{-\infty}^\infty GR_f(\omega, p) p^k \gamma(p) ~dp
+    &= \int_{\RR^n} f(x) \langle x, \omega \rangle^k \gamma_n(x) ~dx
   \end{align*}
   Again we use the multinomial expansion of $\langle x, \omega\rangle^n$ and rearrange:
   \[
-    \int_{\RR^n} f(x) \langle x, \omega \rangle^k w_n(x) ~dx
-    = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha \int_{\RR^n} f(x) w_n(x)x^\alpha dx. 
+    \int_{\RR^n} f(x) \langle x, \omega \rangle^k \gamma_n(x) ~dx
+    = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha \int_{\RR^n} f(x) \gamma_n(x)x^\alpha dx. 
   \]
   Thus
   \[
-    c^G(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha c^G_\alpha.
+    c^G_k(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha c^G_\alpha.
   \]
 \end{proof}
 
@@ -124,18 +124,18 @@ The following theorem, due to Petersen~\cite{Pete82}, gives a way us to reduce t
 
 We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ has determinate Gaussian moments. By Petersen's theorem if $GR_f(e_i, \cdot)$ has determinate Gaussian moments for each $i = 1, \ldots, n$ then the function $f: \RR^n \to [0, \infty)$ has determinate Gaussian moments. For the purposes of the shape reconstruction method we note that the GRT of an indicator function is bounded,
 \[
-  GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x)w_{n-1}(x - p\omega)dx \leq \int\mclimits_{\inner{x, \omega} = p} w_{n-1}(x - p\omega)dx = 1,
+  GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x)\gamma_{n-1}(x - p\omega)dx \leq \int\mclimits_{\inner{x, \omega} = p} \gamma_{n-1}(x - p\omega)dx = 1,
 \]
 thus all measurable sets have determinate Gaussian moments. We make a stronger claim: 
 
 \begin{theorem}
   If $f : \RR^n \to [0, \infty)$ is measurable and
   \[
-    \int_{\RR^n} |f(x)|^2 w_n(x) dx < \infty,
+    \int_{\RR^n} |f(x)|^2 \gamma_n(x) ~dx < \infty,
   \]
   then the Gaussian moments of $GR_f(\omega, p)$ given by
   \[
-    c^G_k(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k w(p) ~dp
+    c^G_k(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k \gamma(p) ~dp
   \]
   are determinate for any $\omega \in S^{n-1}$, and as a consequence the Gaussian moments of $f$ are determinate.
 \end{theorem}
@@ -144,15 +144,15 @@ thus all measurable sets have determinate Gaussian moments. We make a stronger c
   Fix $\omega \in S^{n-1}$. By the Cauchy-Shwarz inequality,
   \begin{align*}
     \left|GR_f(\omega, p)\right|^2 
-    &\leq \int\mclimits_{\inner{\omega, x} = p} |f(x)|^2 w_{n-1}(x - p\omega) ~ dx.
+    &\leq \int\mclimits_{\inner{\omega, x} = p} |f(x)|^2 \gamma_{n-1}(x - p\omega) ~ dx.
   \end{align*}
   Thus by the Gaussian slice theorem 
   \begin{align*}
-    \int_{-\infty}^\infty \left|GR_f(\omega, p)\right|^2 w(p) ~dp 
-    &\leq \int_{-\infty}^\infty \int\mclimits_{\inner{x, \omega} = p} \left|f(x)\right|^2 w_{n-1}(x - p\omega) ~dx w(p) ~dp \\
-    &= \int_{\RR^n} |f(x)|^2 w_n(x) dx < \infty.
+    \int_{-\infty}^\infty \left|GR_f(\omega, p)\right|^2 \gamma(p) ~dp 
+    &\leq \int_{-\infty}^\infty \int\mclimits_{\inner{x, \omega} = p} \left|f(x)\right|^2 \gamma_{n-1}(x - p\omega) ~dx \gamma(p) ~dp \\
+    &= \int_{\RR^n} |f(x)|^2 \gamma_n(x) dx < \infty.
   \end{align*}
-  Since $GR_f(\omega, p) \in L^2(w(p))$ the determinacy of the Gaussian projection moments follows. By Petersen's theorem, the Gaussian moments of $f$ are determinate.
+  Since $GR_f(\omega, p) \in L^2(\gamma(p))$ the determinacy of the Gaussian projection moments follows. By Petersen's theorem, the Gaussian moments of $f$ are determinate.
 \end{proof}
 
 

@@ -198,20 +198,20 @@ We review the definitions of univariate and multivariate Gaussian measures and H
 First we review some basic properties of the univariate Gaussian measure.
 
 \begin{definition}
-  Let $w(p) : \RR \rightarrow \RR$  be the standard Gaussian density on $\RR$,
+  Let $\gamma(p) : \RR \rightarrow \RR$  be the standard Gaussian density on $\RR$,
   \[
-    w(p) = \frac1{\sqrt{2\pi}} e^{\frac{-p^2}2}
+    \gamma(p) = \frac1{\sqrt{2\pi}} e^{\frac{-p^2}2}
   \]
-  and $w_n(x) : \RR^n \rightarrow \RR$ the standard Gaussian density on $\RR^n$,
+  and $\gamma_n(x) : \RR^n \rightarrow \RR$ the standard Gaussian density on $\RR^n$,
   \[
-    w_n(x) = {(2\pi)}^{-\frac n2} e^{\frac{-\|x\|^2}2}.
+    \gamma_n(x) = {(2\pi)}^{-\frac n2} e^{\frac{-\|x\|^2}2}.
   \]
-  Note that $w = w_1$.
+  Note that $\gamma = \gamma_1$.
 \end{definition}
 
-A couple of formulas: First the Gaussian integral,
+The normalization constant $(2\pi)^{-\frac{n}2}$ ensures that $\gamma_n(x)$ defines a probability distribution,
 \[
-  \int_{-\infty}^\infty w(p) ~dp = 1.
+  \int_{-\infty}^\infty \gamma(p) ~dp = 1.
 \]
 This can be proven in a number of clever ways.
 
@@ -227,19 +227,19 @@ This can be proven in a number of clever ways.
 \end{proof}
 Second: The derivative
 \[
-  w'(p) = -pw(p).
+  \gamma'(p) = -p\gamma(p).
 \]
 
 Third: The Gaussian function dominates polynomials in the sense that
 \[
-  \lim_{p \rightarrow -\infty} P(p)w(p) = 0 = \lim_{p \rightarrow \infty} P(p)w(p)
+  \lim_{p \rightarrow -\infty} P(p)\gamma(p) = 0 = \lim_{p \rightarrow \infty} P(p)\gamma(p)
 \]
 for any polynomial $P$.
 
 \begin{definition}
   The \textit{Gaussian moments} of a function $f: \RR^n \rightarrow \RR$ are
   \[
-    c^G_\alpha = \int_{\RR^n} f(x)x^\alpha w(x) ~dx
+    c^G_\alpha = \int_{\RR^n} f(x)x^\alpha \gamma(x) ~dx
   \]
   for $\alpha \in \NN_0^n$.
 \end{definition}
@@ -255,16 +255,16 @@ for any polynomial $P$.
   \]
   We have already seen $c_0 = 1$. Furthermore it is not hard to see that for odd $k$, 
   \[
-    c^G_k = \int_{-\infty}^\infty p^k w(p) ~dp = 0
+    c^G_k = \int_{-\infty}^\infty p^k \gamma(p) ~dp = 0
   \]
-  since $p^k w(p)$ is an odd function.
+  since $p^k \gamma(p)$ is an odd function.
 
   Now for $\ell = 1, 2, \ldots$, we derive a recurrence formula for $c_{2\ell}$ by integrating by parts
   \begin{align*}
     c^G_{2\ell}
-    &= \int_{-\infty}^\infty p^{2\ell} w(p) ~dp \\
-    &= -\int_{-\infty}^\infty p^{2\ell-1} \left(-p w(p)\right) ~dp \\
-    &= - \left[p^{2\ell-1} w(p)\right]_{-\infty}^\infty + (2\ell-1)\int_{-\infty}^\infty p^{2\ell-2} w(p) ~dp \\
+    &= \int_{-\infty}^\infty p^{2\ell} \gamma(p) ~dp \\
+    &= -\int_{-\infty}^\infty p^{2\ell-1} \left(-p \gamma(p)\right) ~dp \\
+    &= - \left[p^{2\ell-1} \gamma(p)\right]_{-\infty}^\infty + (2\ell-1)\int_{-\infty}^\infty p^{2\ell-2} \gamma(p) ~dp \\
     &= (2\ell-1)c^G_{2\ell-2}.
   \end{align*}
   Thus by induction,
@@ -272,7 +272,7 @@ for any polynomial $P$.
     c^G_{2\ell} = (2\ell - 1)(2\ell - 3) \cdots c_0 = (2\ell-1)!!.
   \]
 
-  As an alternate derivation, for readers familiar with the gamma function $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}$ we present the following. Since $p^{2\ell} w(p)$ is even,
+  As an alternate derivation, for readers familiar with the gamma function $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t} dt$ we present the following. Since $p^{2\ell} \gamma(p)$ is even,
   \begin{align*}
     \int_{-\infty}^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
       &= 2\int_0^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
@@ -298,45 +298,44 @@ A relationship between the univariate and multivariate Gaussian densities can be
 \]
 implies that
 \begin{align*}
-  w_n(x) 
+  \gamma_n(x) 
   &= {(2\pi)}^{-\frac n2} e^{\frac{-\|x\|^2}2} \\
   &= {(2\pi)}^{-\frac{n-1}2} e^{\frac{-\|x - p\omega\|^2}2} {(2\pi)}^{-\frac12} e^{\frac{-p^2}2} \\
-  &= w_{n-1}(x - p\omega)w(p)
+  &= \gamma_{n-1}(x - p\omega)\gamma(p)
 \end{align*}
 The equation
 \begin{equation}\label{eq:gaussPythag}
-  w_n(x) = w_{n-1}(x - p\omega)w(p)
+  \gamma_n(x) = \gamma_{n-1}(x - p\omega)\gamma(p)
 \end{equation}
 is in some respect the defining property of the Gaussian measure described below. Indeed if $x = (x_1, x_2, \ldots, x_n)$, by repeated application of (\ref{eq:gaussPythag}) one can write the decomposition
 \[
-  w_n(x) = \prod_{k = 1}^n w(x_k).
+  \gamma_n(x) = \prod_{k = 1}^n \gamma(x_k).
 \]
-Thus the $w_n(x)$ is the product of $n$ copies of $w$. The standard Gaussian measure $\gamma^n$ is thus a measure whose cardinal projections are standard Gaussian measures.
+Thus the $\gamma_n(x)$ is the product of $n$ copies of $\gamma$. The standard Gaussian measure $\gamma^n$ is thus a measure whose cardinal projections are standard Gaussian measures.
 
-\begin{definition}
-Let $\gamma^n$ be the Borel measure on $\RR^n$ with density $w_n$,
-\[
-  \int_{\RR^n} f(x) d\gamma^n = \int_{\RR^n} f(x) w_n(x) ~dx.
-\]
-We call $\gamma^n$ the \textit{standard Gaussian measure}. 
-More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following $\gamma^{n}_{a, \sigma^2}$ are \textit{Gaussian measures},
-\begin{align*}
-  \int_{\RR^n} f(x) d\gamma^n_{a,\sigma^2}
-  &= \frac{{(2\pi)}^{-\frac n2}}{\sigma}  \int_{\RR^n} f(x) e^{-\frac{\|x - a\|^2}{2\sigma^2}} ~dx \\
-  &= \int_{\RR^n} f(\sigma x + a) d\gamma^n
-\end{align*}
-% (Most general defn of Gaussian measures includes degenerate $\delta$ functions, and any product of Gaussian measures).
-\end{definition}
+% \begin{definition}
+% Let $\gamma^n$ be the Borel measure on $\RR^n$ with density $w_n$,
+% \[
+%   \gamma^n(A) = \int_{A} w_n(x) ~dx.
+% \]
+% We will call $\gamma^n$ the \emph{standard Gaussian measure} on $\RR^n$. 
+% % A more general notion can be defined by a $n \times n$ covariance matrix $\Sigma$, and vector $a \in \RR^n$. If $\Sigma$ is a symmetric positive definite matrix we define the \emph{Gaussian measure} $d\gamma_{\Sigma, a}$, 
+% % \begin{align*}
+% %   \int_{\RR^n} f(x) d\gamma^n_{\Sigma, a}
+% %   &= \frac{{(2\pi)}^{-\frac n2}}{\sqrt{\det\Sigma}}  \int_{\RR^n} f(x) e^{-\frac12\Sigma x, x}} ~dx
+% % \end{align*}
+% % can be called \emph{Gaussian measures}
+% \end{definition}
 
 \begin{myexample}
-  Let $f:\RR^n \rightarrow \RR$ be the constant function $f(x)=1$. The Gaussian moments of $f$ are the multivariate moments of $w_n(x)$, and can be written
+  Let $f:\RR^n \rightarrow \RR$ be the constant function $f(x) = 1$. The Gaussian moments of $f$ are the multivariate moments of $\gamma_n(x)$, and can be written
   \begin{align*}
     c^G_\alpha 
-    &= \int_{\RR^n} x^\alpha w_n(x) ~dx \\
-    &= \prod_{i = 1}^n \int_{-\infty}^\infty x_i^{\alpha_i} w(x_i) ~dx \\
+    &= \int_{\RR^n} x^\alpha \gamma_n(x) ~dx \\
+    &= \prod_{i = 1}^n \int_{-\infty}^\infty x_i^{\alpha_i} \gamma(x_i) ~dx \\
     &= \prod_{i = 1}^n c^G_{\alpha_i}
   \end{align*}
-  where $\{c^G_k\}_{k \in \NN}$ are the univariate moments of $w(p)$.
+  where $\{c^G_k\}_{k \in \NN}$ are the univariate moments of $\gamma(p)$.
   Thus $c^G_\alpha = 0$ if any $\alpha_i$ is odd. Otherwise, if every $\alpha_i$ is even then
   \[
     c^G_\alpha = \prod_{i = 1}^n (\alpha_i - 1)!!
@@ -348,22 +347,22 @@ More generally, for mean $a \in \RR^n$, and variance $\sigma > 0$, the following
 \begin{definition}
   The \emph{Hermite polynomials} can be defined by the Rodrigues formula
   \[
-      H_k(p) = {(-1)}^k \frac{w^{(k)}(p)}{w(p)}
+      H_k(p) = {(-1)}^k \frac{\gamma^{(k)}(p)}{\gamma(p)}
   \]
   
 \end{definition}
 
-We can derive a recurrence relation for $H_k$ with some basic differential calculus. First multiplying both sides by $(-1)^k w(p)$, we get
+We can derive a recurrence relation for $H_k$ with some basic differential calculus. First multiplying both sides by $(-1)^k \gamma(p)$, we get
 \[
-   w^{(k)}(p) = {(-1)}^k w(p)H_k(p)
+   \gamma^{(k)}(p) = {(-1)}^k \gamma(p)H_k(p)
 \]
 Now we differentiate both sides 
 \[
-  w^{(k+1)}(p) 
-    = {(-1)}^{k} (-pw(p)H_k(p) + w(p)H_k'(p)) 
-    = {(-1)}^{k+1} w(p)(pH_k(p) - H_k'(p))
+  \gamma^{(k+1)}(p) 
+    = {(-1)}^{k} (-p \gamma(p) H_k(p) + \gamma(p)H_k'(p)) 
+    = {(-1)}^{k+1} \gamma(p)(pH_k(p) - H_k'(p))
 \]
-so that, dividing both sides by ${(-1)}^{k+1} w(p)$, we have
+so that, dividing both sides by ${(-1)}^{k+1} \gamma(p)$, we have
 \[
   H_{k+1}(p) = pH_k(p) - H_k'(p)
 \]
@@ -379,28 +378,28 @@ Since $H_0(p)$ is trivially the constant $1$ we compute the first handful of pol
 Note that each $H_k$ is a monic polynomial of  degree $k$, and $H_k$ is an even (odd resp.) function if $k$ is even (odd resp.).
 The Hermite polynomials are mutually orthogonal in the sense that for nonnegative integers $\ell < k$,
 \begin{align}\label{eq:HOrth}
-  \int_{-\infty}^\infty H_\ell(p) H_k(p) w(p)~dp 
+  \int_{-\infty}^\infty H_\ell(p) H_k(p) \gamma(p)~dp 
   = 0
 \end{align}
 To see this, substitute the Rodrigues formula for $H_k$,
 \[
-  (-1)^k \int_{-\infty}^\infty H_\ell(p) w^{(k)}(p)~dp
+  (-1)^k \int_{-\infty}^\infty H_\ell(p) \gamma^{(k)}(p)~dp
 \]
 and integrate by parts
 \begin{align*}
-  (-1)^k \left(\left[H_k(p)w^{(k-1)}(p)\right]_{-\infty}^\infty - \int_{-\infty}^\infty H'_\ell(p) w^{(k-1)}(p)~dp\right) \\
-  = (-1)^{k-1}\int_{-\infty}^\infty H'_\ell(p) w^{(k-1)}(p)
+  (-1)^k \left(\left[H_k(p)\gamma^{(k-1)}(p)\right]_{-\infty}^\infty - \int_{-\infty}^\infty H'_\ell(p) \gamma^{(k-1)}(p)~dp\right) \\
+  = (-1)^{k-1}\int_{-\infty}^\infty H'_\ell(p) \gamma^{(k-1)}(p)
 \end{align*}
-where the boundary term $\left[H_k(p)w^{(k-1)}(p)\right]_{-\infty}^\infty$ vanishes because of $w(p)$'s rapid decay at $\pm \infty$. Repeat this process until $H_\ell$ is annihilated.
+where the boundary term $\left[H_k(p)\gamma^{(k-1)}(p)\right]_{-\infty}^\infty$ vanishes because of $\gamma(p)$'s rapid decay at $\pm \infty$. Repeat this process until $H_\ell$ is annihilated.
 
 % \begin{remark}
 %   We describe (\ref{eq:HOrth}) in terms of ``orthogonality'' because 
 % \end{remark}
 
-The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the space of function $f : \RR \to \RR$ for which $\int_{-\infty}^\infty f(p)^2 w(p)~dp < \infty$. This is a Hilbert space with inner product $\langle f, g \rangle = \int_{-\infty}^\infty |f(p)g(p)| w(p)~dp$.
+The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the space of function $f : \RR \to \RR$ for which $\int_{-\infty}^\infty f(p)^2 \gamma(p)~dp < \infty$. This is a Hilbert space with inner product $\langle f, g \rangle = \int_{-\infty}^\infty |f(p)g(p)| \gamma(p)~dp$.
 
 \begin{proposition}
-   The linear span of the Hermite polynomials $H_0(p), H_1(p), \ldots$ is dense in $L^2(\RR, w)$.
+   The linear span of the Hermite polynomials $H_0(p), H_1(p), \ldots$ is dense in $L^2(\RR, \gamma)$.
 \end{proposition}
 
 \begin{proof}
@@ -410,7 +409,7 @@ The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the 
 \begin{corollary}
   For any $f \in L^2(\RR)$ the moment problem given by
   \[
-    c_n = \int_{-\infty}^\infty f(p) w(p) dp
+    c_n = \int_{-\infty}^\infty f(p) \gamma(p) dp
   \]
   is determinate.
 \end{corollary}
@@ -430,12 +429,12 @@ Note that
 \[
   e^{pt - \frac{t^2}2} 
     = \frac{e^{-\frac{(p-t)^2}2}}{e^{-\frac{p^2}2}} 
-    = \frac{w(p - t)}{w(p)}
+    = \frac{\gamma(p - t)}{\gamma(p)}
 \]
 so that the Taylor coefficients are precisely
 \[
-  \left[\frac{d^k}{dt^k}\frac{w(p - t)}{w(p)}\right]_{t = 0} 
-    = (-1)^k \frac{w^{(k)}(p)}{w(p)} = H_k(p).
+  \left[\frac{d^k}{dt^k}\frac{\gamma(p - t)}{\gamma(p)}\right]_{t = 0} 
+    = (-1)^k \frac{\gamma^{(k)}(p)}{\gamma(p)} = H_k(p).
 \]
 \end{proof}
 
@@ -452,15 +451,17 @@ Hermite polynomials
 The multivariate Hermite polynomials have many useful properties corresponding to those of the classical polynomials. In particular we have the Rodrigues formula
 \[
   H_\alpha(x) 
-    = (-1)^{|\alpha|}\frac{\partial^{\alpha}w_n(x)}{w_n(x)}
+    = (-1)^{|\alpha|}\frac{\partial_{\alpha}\gamma_n(x)}{w_n(x)}
 \]
-where $\partial^\alpha = \frac{\partial^{\alpha_1 + \cdots + \alpha_n}}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}}$. Just like the classical case, this formula can be used to define $H_\alpha$ as multivariate Taylor coefficients for the generating function:
+where $\partial_\alpha = \frac{\partial^{\alpha_1 + \cdots + \alpha_n}}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}}$. Just like the classical case, this formula can be used to define $H_\alpha$ as multivariate Taylor coefficients for the generating function:
 \[
   \phi(x) = e^{\langle x, y\rangle - \frac{\|y\|^2}2} 
-    = \frac{w_n(x - y)}{w_n(x)} 
+    = \frac{\gamma_n(x - y)}{\gamma_n(x)} 
       = \sum_{\alpha \in \NN_0^n} \frac{H_\alpha(x)}{\alpha!}y^\alpha
 \]
 which we note is absolutely convergent for all $x, y \in \RR^n$. Here we use the same symbol $\phi$ for the univariate and multivariate generating functions at the risk of confusion. It should be clear from context.
+
+
 
 % An interesting formula relating the classical and multivariate Hermite polynomials:
 % \[
@@ -554,6 +555,7 @@ The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the histor
 Now consider an example of an unbounded region.
 
 \begin{myexample}
+  \label{ex:RTStrip}
 Let $S = \{(x,y) : |y| \leq \frac12\} \subseteq \RR^2$ be a strip centered on the $x$-axis with width $1$. Clearly if $\theta = \pi/2$ or $3\pi/2$ then 
 \[
   R_S(\theta, p) = 
@@ -613,11 +615,11 @@ Our main addition to previous work will be the use of a modified RT, the Gaussia
 The \textit{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is defined similarly to the RT.\@ Given $\omega \in S^{n-1}$ and $-\infty < p < \infty$, the GRT is
 \[
   GR_f(\omega, p) = 
-  \int\mclimits_{\langle x, \omega \rangle = p} f(x) w_{n-1}(x - p\omega) ~dx.
+  \int\mclimits_{\langle x, \omega \rangle = p} f(x) \gamma_{n-1}(x - p\omega) ~dx.
 \]
 provided the integral converges. Note the Gaussian density 
 \[
-  w_{n-1}(x - p\omega) = {(2\pi)}^{-(n-1)/2}e^{-\|x - p\omega\|^2/2}
+  \gamma_{n-1}(x - p\omega) = {(2\pi)}^{-(n-1)/2}e^{-\|x - p\omega\|^2/2}
 \] 
 is centered on the point of the hyperplane closest to the origin.
 \end{definition}
@@ -631,13 +633,14 @@ is centered on the point of the hyperplane closest to the origin.
 \begin{remark}
   It may be helpful to understand the GRT as a simple modification of the RT with respect to a Gaussian measure on $\RR^n$. From the relation
   \begin{align*}
-    \int\mclimits_{\langle x, \omega \rangle = p} f(x) w_n(x) ~dx
-    &= \int\mclimits_{\langle x, \omega \rangle = p} f(x) w_{n-1}(x) ~dx~ w(p),
+    \int\mclimits_{\langle x, \omega \rangle = p} f(x) \gamma_n(x) ~dx
+    &= \int\mclimits_{\langle x, \omega \rangle = p} f(x) \gamma_{n-1}(x) ~dx~ \gamma(p),
   \end{align*}
-  we can express the GRT of $f$ in terms of the $RT$ of the function $g(x) = f(x)w_n(x)$:
+  we can express the GRT of $f$ in terms of the $RT$ of the function $g(x) = f(x)\gamma_n(x)$:
   \begin{equation}
     \label{eq:GRTPythag}
-    R_g(\omega, p) = GR_f(\omega, p) w(p), \qquad g(x) := f(x)w_n(x).
+    R_g(\omega, p) = GR_f(\omega, p) \gamma(p), \qquad 
+    g(x) := f(x)\gamma_n(x).
   \end{equation}
   The relation above provides decent intuition for the GRT, and is also a useful tool proving some basic properties of the transform. Expand on intuition (maybe with example.)
 \end{remark}
@@ -645,11 +648,11 @@ is centered on the point of the hyperplane closest to the origin.
 \begin{myexample}
   If $x(t):\RR^{n-1} \to \RR^n$ is a parametrization of $\langle x, \omega\rangle = p$ as described above, then
   \[
-    GR_f(\omega, p) = \int_{\RR^{n-1}}f(x(t)) w_{n-1}(t) dt
+    GR_f(\omega, p) = \int_{\RR^{n-1}}f(x(t)) \gamma_{n-1}(t) dt
   \]
   In particular for $f:\RR^2 \to \RR$
   \[
-    GR_f(\omega, p) = \int_{-\infty}^\infty f(t \sin \theta + p \cos \theta, -t \cos \theta + p \sin \theta) w(t)~dt
+    GR_f(\omega, p) = \int_{-\infty}^\infty f(t \sin \theta + p \cos \theta, -t \cos \theta + p \sin \theta) \gamma(t)~dt
   \]
   where $\omega = (\cos \theta, \sin \theta)$.
 \end{myexample}
@@ -657,12 +660,16 @@ is centered on the point of the hyperplane closest to the origin.
 \begin{myexample}
   The Gaussian Radon transform is bounded for any measurable region $A \subseteq \RR^n$. Indeed 
   \[
-      GR_A(\omega, p) \leq GR_1(\omega, p) = \int_{\RR^{n-1}} w_{n-1}(t)dt w(p) = w(p)
+      GR_A(\omega, p) 
+      \leq \int\mclimits_{\inner{x, \omega} = p} \gamma_{n-1}(x) ~dx = 1
+      % \leq GR_1(\omega, p) 
+      % = \int_{\RR^{n-1}} \gamma_{n-1}(t)~dt ~\gamma(p) 
+      % = \gamma(p)
   \]
 \end{myexample}
 
 \begin{myexample}
-  Consider the Strip $S \subseteq \RR^2$ from [earlier example]. While the RT of $S$ was divergent for $\theta = \pi/2$ or $3\pi/2$, the GRT converges. In particular,
+  Consider the strip $S \subseteq \RR^2$ from example \ref{ex:RTStrip}. While the RT of $S$ was divergent for $\theta = \pi/2$ or $3\pi/2$, the GRT converges. In particular,
   \[
     GR_S(\theta, p)
     = \begin{cases}
@@ -680,7 +687,7 @@ Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p
 \[
     \int_{-\infty}^\infty R(\omega, p) ~dp = \int_{\RR^n} f(x) ~dx
 \]
-The so called ``slice theorem'' further generalizes this observation:
+The following theorem further generalizes this observation:
 
 \begin{proposition}[Slice Theorem]
   % If $f: \RR^n \rightarrow \RR$ and $F: \RR \rightarrow \RR$ are measureable, then
@@ -737,19 +744,19 @@ If one is interested in inverting the RT then a prerequisite concern is of cours
 By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@ Mihai and Sengupta give a more general result for the GRT on real, separable, infinite Hilbert spaces~\cite{Miha04}.
 
 \begin{proposition}[Gaussian Slice Theorem] 
-  Let $f:\RR^n \rightarrow \RR$ and $F:\RR \rightarrow \RR$ be measurable functions. If $f \in L^1(\RR^n, w_n)$ and $F \in L^\infty(\RR)$ then
+  Let $f:\RR^n \rightarrow \RR$ and $F:\RR \rightarrow \RR$ be measurable functions. If $f \in L^1(\RR^n, \gamma_n)$ and $F \in L^\infty(\RR)$ then
   \begin{equation}\label{eq:GST}
-    \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp
-    = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) w_n(x) ~dx. 
+    \int_{-\infty}^\infty GR_f(\omega, p)F(p) \gamma(p) ~dp
+    = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) \gamma_n(x) ~dx. 
   \end{equation}
 \end{proposition}
 
 \begin{remark}
   Again the more general Fubini condition
   \[
-    \int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) w_n(x)| dx < \infty
+    \int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) \gamma_n(x)| dx < \infty
   \]
-  may be used. Further, whatever conditions on $f$ and $F$ are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked of $f(x)w_n(x)$ and $F(p)w(p)$. I'll need to check these conditions more carefully.
+  may be used. Further, whatever conditions on $f$ and $F$ are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked of $f(x)\gamma_n(x)$ and $F(p)\gamma(p)$. I'll need to check these conditions more carefully.
 \end{remark}
 
 
@@ -757,13 +764,13 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
 \begin{proof}
   From (\ref{eq:GRTPythag})
   \[
-    \int_{-\infty}^\infty GR_f(\omega, p)F(p) w(p) ~dp 
+    \int_{-\infty}^\infty GR_f(\omega, p) F(p) \gamma(p) ~dp 
     = \int_{-\infty}^\infty R_g(\omega, p) F(p) ~dp
   \]
-  where $g(x) = f(x)e^{-\|x\|^2/2}$. Note that $\|g\|_1 = \|f\|_{1,w_n} < \infty$ and. Then applying the slice theorem:
+  where $g(x) = f(x)e^{-\|x\|^2/2}$. Then applying the slice theorem:
   \[
     \int_{-\infty}^\infty R_g(\omega, p) F(p) ~dp 
-    = \int_{\RR^n} f(x)F(\langle x, \omega \rangle) w_n(x) ~dx,
+    = \int_{\RR^n} f(x)F(\langle x, \omega \rangle) \gamma_n(x) ~dx,
   \]
   completing the proof.
 \end{proof}
@@ -807,7 +814,8 @@ so that in fact $\mu_\omega$ is absolutely continuous with respect to the Lebesg
   \]
   where $F:\RR \rightarrow \RR$ is integrable with respect to $dR^\omega_\mu$ if and only if $F\circ\pi_\omega : \RR^n \rightarrow \RR$ is integrable with respect to $\mu$.
 \end{remark}
-Can we similarly define the GRT of a measure?
+
+% Can we similarly define the GRT of a measure?
 
 
 
@@ -820,7 +828,7 @@ Can we similarly define the GRT of a measure?
 Let $\mu$ be a Borel measure with finite moments $c_k = \int_{-\infty}^\infty p^k d\mu$. 
 
 \begin{definition}
-  The complex function $g$ defined by
+  The function $g : \CC \to \CC$ defined by
   \[
     g(z) = \int_{-\infty}^\infty\frac{d\mu}{1+zp}
   \]
@@ -1049,7 +1057,7 @@ By applying the slice theorem, with $F(p) = {(1+zp)}^{-1}$ we see that the Hambu
 \]
 Similarly the GRT slice theorem with $F(p) = {(1 + zp)}^{-1}$ is
 \[
-  \int_{-\infty}^\infty \frac{GR_f(\omega, p) w(p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)w_n(x)}{1 + z\langle x, \omega \rangle} dx.
+  \int_{-\infty}^\infty \frac{GR_f(\omega, p) \gamma(p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)\gamma_n(x)}{1 + z\langle x, \omega \rangle} dx.
 \]
 
 \section{Pad\'e approximants}\label{sec:pade}

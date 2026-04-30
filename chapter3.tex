@@ -76,13 +76,59 @@ where $y_0, \ldots, y_J \in \RR^n$ are a set of distinct sample points and $J > 
 \[
   \tilde f_i \approx f(x_i), \qquad i = 0, \ldots, I,
 \]
-at the cubature nodes $x_i$. Thus if, for example, we use a cubature formula with nodes on a finite integer lattice around $A$, we will have computed an approximate pixel image of $A$.
+at the cubature nodes $x_i$. Thus, if for example, we use a cubature formula with nodes $x_i$ on a finite integer lattice around $A$, we will have computed an approximate pixel image of $A$.
 
-Our discussion thus far clearly avoided some technical details.
+Our discussion thus far clearly avoided some technical details. The choice of cubature formula and well-posedness of the linear system are obvious concerns, which we touch on briefly in section \ref{sec:implementation}.
 
 \section{Reconstruction of unbounded shapes}
 
+Our proposed extension to the method above follows roughly the same trajectory, but applies to a much broader class of functions. We will start with the prime example of indicator functions of unbounded measurable sets, and discuss the generalization in the next section.
 
+Let $A \subseteq \RR^n$ be a measurable set with indicator function $f$. Then $f$ necessarily has finite Gaussian moments,
+\[
+  c^G_\alpha = \int_{\RR^n} f(x) x^\alpha \gamma_n(x) ~dx.
+\]
+The Gaussian projection moments for any $\omega \in S^{n-1}$ are given by
+\[
+  c^G_k(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} c^G_\alpha \omega^\alpha.
+\]
+Now the Stieltjes series
+\[
+  \sum_{k = 0}^\infty c^G_k(\omega) (-z)^k
+\]
+is generally formal. Likewise, the Stieltjes transform
+\[
+  g_\omega(z) = \int_{-\infty}^\infty \frac{GR_A(\omega, p)}{1 + pz} \gamma(p)~dp = \int_A \frac{1}{1 + z\inner{x, \omega}} \gamma_n(x) ~dx
+\]
+may be undefined on the real line, but is analytic on the upper half plane $\im z > 0$. In this case the Stieltjes series is an asymptotic expansion to the Stieltjes transform in the sense of nontangential convergence,
+\[
+  g_\omega(z) \simeq \sum_{k = 0}^\infty c^G_k(\omega) (-z)^k.
+\]
+For more details on the Stieltjes series and transform in the case of Hamburger moments see section \ref{sec:stieltjes}. 
+
+Now we note that $GR_A(\omega, p)$ is a bounded function, so that the Gaussian projection moments are determinate. Thus, as discussed in section \ref{sec:pade}, the $[M-1/M]$ Pad\'e approximants to the Stieltjes series converge locally uniformly on the upper half plane to the Stieltjes transform.
+
+Once again, we consider $g_\omega(z)$ as a restriction of a multivariate Stieltjes transform. For $z \in \RR$ in the upper half plane $\im z > 0$ and $\omega \in S^{n-1}$ we have 
+\[
+  g_\omega(iz) 
+  = \int_A \frac{1}{1 + iz\inner{x, \omega}} \gamma_n(x) ~dx 
+\]
+Now 
+% \[
+%   g_\omega(z) 
+%   = \int_A \frac{1}{1 + z\inner{x, \omega}} w_n(x) ~dx 
+% \]
+
+% \[
+%   g(y) = \int_A \frac{1}{1 + \inner{x, y}} w_n(x) ~dx,
+% \]
+% however we can not in general expect this transform to exist for any real $y$. In particular, for $z$ in the upper half plane $\im z > 0$ and $\omega \in S^{n-1}$ we have
+% \[
+%   g(z\omega) 
+%   = \int_A \frac{1}{1 + z\inner{x, \omega}} w_n(x) ~dx 
+%   = g_\omega(z).
+% \]
+% Thus for complex vectors of the form $y = z\omega$
 
 % Take a non-negative Lebesgue measurable function $f(x)$ on $\RR^n$ with finite multivariate Gaussian moments
 % \[
@@ -117,8 +163,11 @@ Our discussion thus far clearly avoided some technical details.
 % \]
 % can be approximated to an arbitrary degree by offdiagonal Pad\'e approximants, $R_M(z)$ near zero. On the other hand as an integral over $p$
 
-\section{Reconstruction of polynomial-bounded functions}
-\section{Implementation}
+\section{Reconstruction of functions in weighted $L^2$ space}
+
+
+
+\section{Implementation} \label{sec:implementation}
 
 We have spent some time implementing our proposed extension to the shape reconstruction method, mostly in the Wolfram Mathematica language. But of course in this process questions arose, both theoretical and pragmatic. 
 % We are limited in our knowledge of numerical and computational analysis, and welcome criticism.
