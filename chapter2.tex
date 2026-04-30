@@ -1,4 +1,5 @@
 \chapter{Moments of the RT and GRT}{}
+\label{chap:RTmoments}
 
 In this chapter we discuss some necessary conditions for the the determinacy of certain multivariate moment problems by way of the Radon and Gaussian Radon transforms.
 
@@ -36,9 +37,10 @@ In this chapter we discuss some necessary conditions for the the determinacy of 
 Similarly, moments of the GRT (Gaussian projection moments) can be expressed in terms of multivariate gaussian moments.
 
 \begin{proposition}
-  Let $c_k^G(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k \gamma(p) dp$ be the Gaussian moments of the GRT of $f$ at a fixed $\omega$, where $f:\RR^n \to [0, \infty)$ has finite Gaussian multivariate moments $c^G_\alpha = \int_{\RR^n} f(x) \gamma_n(x) x^\alpha dx$. Then
+  Let $c_k^\gamma(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k \gamma(p) dp$ be the Gaussian moments of the GRT of $f$ at a fixed $\omega$, where $f:\RR^n \to [0, \infty)$ has finite Gaussian multivariate moments $c^\gamma_\alpha = \int_{\RR^n} f(x) \gamma_n(x) x^\alpha dx$. Then
   \[
-    c^G_k(\omega) = \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c^G_\alpha.
+    c^\gamma_k(\omega) 
+    = \sum_{|\alpha| = k}\binom{k}{\alpha} \omega^\alpha c^\gamma_\alpha.
   \]
 \end{proposition}
 
@@ -56,7 +58,7 @@ Similarly, moments of the GRT (Gaussian projection moments) can be expressed in 
   \]
   Thus
   \[
-    c^G_k(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha c^G_\alpha.
+    c^\gamma_k(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} \omega^\alpha c^\gamma_\alpha.
   \]
 \end{proof}
 
@@ -121,8 +123,9 @@ The following theorem, due to Petersen~\cite{Pete82}, gives a way us to reduce t
 \end{proof}
 
 \section{Determinate Gaussian projection moments}
+\label{sec:GRTdeterminacy}
 
-We show in section (1.2) that any function $f$ in the weighted space $L^2(\RR, \gamma)$ has determinate Gaussian moments. By Petersen's theorem if $GR_f(e_i, \cdot)$ has determinate Gaussian moments for each $i = 1, \ldots, n$ then the function $f: \RR^n \to [0, \infty)$ has determinate Gaussian moments. For the purposes of the shape reconstruction method we note that the GRT of an indicator function is bounded,
+We show in section (1.2) that any function $f$ in the weighted space $L^2(\gamma)$ has determinate Gaussian moments. By Petersen's theorem if $GR_f(e_i, \cdot)$ has determinate Gaussian moments for each $i = 1, \ldots, n$ then the function $f: \RR^n \to [0, \infty)$ has determinate Gaussian moments. For the purposes of the shape reconstruction method we note that the GRT of an indicator function is bounded,
 \[
   GR_f(\omega, p) = \int\mclimits_{\inner{x, \omega} = p} f(x)\gamma_{n-1}(x - p\omega)dx \leq \int\mclimits_{\inner{x, \omega} = p} \gamma_{n-1}(x - p\omega)dx = 1,
 \]
@@ -135,7 +138,7 @@ thus all measurable sets have determinate Gaussian moments. We make a stronger c
   \]
   then the Gaussian moments of $GR_f(\omega, p)$ given by
   \[
-    c^G_k(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k \gamma(p) ~dp
+    c^\gamma_k(\omega) = \int_{-\infty}^\infty GR_f(\omega, p) p^k \gamma(p) ~dp
   \]
   are determinate for any $\omega \in S^{n-1}$, and as a consequence the Gaussian moments of $f$ are determinate.
 \end{theorem}
@@ -149,8 +152,8 @@ thus all measurable sets have determinate Gaussian moments. We make a stronger c
   Thus by the Gaussian slice theorem 
   \begin{align*}
     \int_{-\infty}^\infty \left|GR_f(\omega, p)\right|^2 \gamma(p) ~dp 
-    &\leq \int_{-\infty}^\infty \int\mclimits_{\inner{x, \omega} = p} \left|f(x)\right|^2 \gamma_{n-1}(x - p\omega) ~dx \gamma(p) ~dp \\
-    &= \int_{\RR^n} |f(x)|^2 \gamma_n(x) dx < \infty.
+    &\leq \int_{-\infty}^\infty \int\mclimits_{\inner{x, \omega} = p} \left|f(x)\right|^2 \gamma_{n-1}(x - p\omega) ~dx ~ \gamma(p) ~dp \\
+    &= \int_{\RR^n} |f(x)|^2 \gamma_n(x) ~dx < \infty.
   \end{align*}
   Since $GR_f(\omega, p) \in L^2(\gamma(p))$ the determinacy of the Gaussian projection moments follows. By Petersen's theorem, the Gaussian moments of $f$ are determinate.
 \end{proof}

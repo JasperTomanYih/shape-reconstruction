@@ -239,15 +239,15 @@ for any polynomial $P$.
 \begin{definition}
   The \textit{Gaussian moments} of a function $f: \RR^n \rightarrow \RR$ are
   \[
-    c^G_\alpha = \int_{\RR^n} f(x)x^\alpha \gamma(x) ~dx
+    c^\gamma_\alpha = \int_{\RR^n} f(x)x^\alpha \gamma(x) ~dx
   \]
   for $\alpha \in \NN_0^n$.
 \end{definition}
 
 \begin{myexample}
-  Let $f: \RR \rightarrow \RR$ be the constant function $f(p)=1$. The Gaussian moments of $f$, i.e.\ the moments of $w(p)$, are
+  Let $f: \RR \rightarrow \RR$ be the constant function $f(p)=1$. The Gaussian moments of $f$, i.e.\ the moments of $\gamma(p)$, are
   \[
-    c^G_k 
+    c^\gamma_k 
     = \begin{cases}
         (k-1)!!, & k~\text{even} \\
         0, & k~\text{odd}
@@ -255,21 +255,21 @@ for any polynomial $P$.
   \]
   We have already seen $c_0 = 1$. Furthermore it is not hard to see that for odd $k$, 
   \[
-    c^G_k = \int_{-\infty}^\infty p^k \gamma(p) ~dp = 0
+    c^\gamma_k = \int_{-\infty}^\infty p^k \gamma(p) ~dp = 0
   \]
   since $p^k \gamma(p)$ is an odd function.
 
   Now for $\ell = 1, 2, \ldots$, we derive a recurrence formula for $c_{2\ell}$ by integrating by parts
   \begin{align*}
-    c^G_{2\ell}
+    c^\gamma_{2\ell}
     &= \int_{-\infty}^\infty p^{2\ell} \gamma(p) ~dp \\
     &= -\int_{-\infty}^\infty p^{2\ell-1} \left(-p \gamma(p)\right) ~dp \\
     &= - \left[p^{2\ell-1} \gamma(p)\right]_{-\infty}^\infty + (2\ell-1)\int_{-\infty}^\infty p^{2\ell-2} \gamma(p) ~dp \\
-    &= (2\ell-1)c^G_{2\ell-2}.
+    &= (2\ell-1)c^\gamma_{2\ell-2}.
   \end{align*}
   Thus by induction,
   \[
-    c^G_{2\ell} = (2\ell - 1)(2\ell - 3) \cdots c_0 = (2\ell-1)!!.
+    c^\gamma_{2\ell} = (2\ell - 1)(2\ell - 3) \cdots c_0 = (2\ell-1)!!.
   \]
 
   As an alternate derivation, for readers familiar with the gamma function $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t} dt$ we present the following. Since $p^{2\ell} \gamma(p)$ is even,
@@ -286,7 +286,7 @@ for any polynomial $P$.
   \end{align*}
   so that
   \[
-    c^G_{2\ell} = \frac{2^{\ell}}{\sqrt{\pi}} \Gamma\left(\ell + \frac12\right) = (2\ell - 1)!!
+    c^\gamma_{2\ell} = \frac{2^{\ell}}{\sqrt{\pi}} \Gamma\left(\ell + \frac12\right) = (2\ell - 1)!!
   \]
 \end{myexample}
 
@@ -330,15 +330,15 @@ Thus the $\gamma_n(x)$ is the product of $n$ copies of $\gamma$. The standard Ga
 \begin{myexample}
   Let $f:\RR^n \rightarrow \RR$ be the constant function $f(x) = 1$. The Gaussian moments of $f$ are the multivariate moments of $\gamma_n(x)$, and can be written
   \begin{align*}
-    c^G_\alpha 
+    c^\gamma_\alpha 
     &= \int_{\RR^n} x^\alpha \gamma_n(x) ~dx \\
     &= \prod_{i = 1}^n \int_{-\infty}^\infty x_i^{\alpha_i} \gamma(x_i) ~dx \\
-    &= \prod_{i = 1}^n c^G_{\alpha_i}
+    &= \prod_{i = 1}^n c^\gamma_{\alpha_i}
   \end{align*}
-  where $\{c^G_k\}_{k \in \NN}$ are the univariate moments of $\gamma(p)$.
-  Thus $c^G_\alpha = 0$ if any $\alpha_i$ is odd. Otherwise, if every $\alpha_i$ is even then
+  where $\{c^\gamma_k\}_{k \in \NN}$ are the univariate moments of $\gamma(p)$.
+  Thus $c^\gamma_\alpha = 0$ if any $\alpha_i$ is odd. Otherwise, if every $\alpha_i$ is even then
   \[
-    c^G_\alpha = \prod_{i = 1}^n (\alpha_i - 1)!!
+    c^\gamma_\alpha = \prod_{i = 1}^n (\alpha_i - 1)!!
   \]
 \end{myexample}
 
@@ -396,7 +396,7 @@ where the boundary term $\left[H_k(p)\gamma^{(k-1)}(p)\right]_{-\infty}^\infty$ 
 %   We describe (\ref{eq:HOrth}) in terms of ``orthogonality'' because 
 % \end{remark}
 
-The Hermite polynomials form a complete orthogonal basis for $L^2(\RR, w)$, the space of function $f : \RR \to \RR$ for which $\int_{-\infty}^\infty f(p)^2 \gamma(p)~dp < \infty$. This is a Hilbert space with inner product $\langle f, g \rangle = \int_{-\infty}^\infty |f(p)g(p)| \gamma(p)~dp$.
+The Hermite polynomials form a complete orthogonal basis for $L^2(\gamma)$, the space of function $f : \RR \to \RR$ for which $\int_{-\infty}^\infty f(p)^2 \gamma(p)~dp < \infty$. This is a Hilbert space with inner product $\langle f, g \rangle = \int_{-\infty}^\infty |f(p)g(p)| \gamma(p)~dp$.
 
 \begin{proposition}
    The linear span of the Hermite polynomials $H_0(p), H_1(p), \ldots$ is dense in $L^2(\RR, \gamma)$.
@@ -451,9 +451,9 @@ Hermite polynomials
 The multivariate Hermite polynomials have many useful properties corresponding to those of the classical polynomials. In particular we have the Rodrigues formula
 \[
   H_\alpha(x) 
-    = (-1)^{|\alpha|}\frac{\partial_{\alpha}\gamma_n(x)}{w_n(x)}
+    = (-1)^{|\alpha|}\frac{\partial_{\alpha}\gamma_n(x)}{\gamma_n(x)}
 \]
-where $\partial_\alpha = \frac{\partial^{\alpha_1 + \cdots + \alpha_n}}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}}$. Just like the classical case, this formula can be used to define $H_\alpha$ as multivariate Taylor coefficients for the generating function:
+where $\partial_\alpha = \frac{\partial^{\alpha_1 + \cdots + \alpha_n}}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}}$ is a partial differential operator. Just like the classical case, this formula can be used to define $H_\alpha$ as multivariate Taylor coefficients for the generating function:
 \[
   \phi(x) = e^{\langle x, y\rangle - \frac{\|y\|^2}2} 
     = \frac{\gamma_n(x - y)}{\gamma_n(x)} 
@@ -529,7 +529,11 @@ The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the histor
   \[
     V_n(r) = \frac{\pi^{n/2}}{\Gamma(\frac n2+1)} r^n.
   \]
-  Note that as a bounded domain, we can guarantee $B(r)$ is integrable on all hyperplanes. In fact the RT of any subset of $B(r)$ is sharply bounded by $R_{B(r)} \leq V_{n-1}(r)$. Also note that $B(r)$ is rotation invariant, hence $R_{B(r)}(\omega, p)$ is independent of $\omega$.
+  Note that as a bounded domain, we can guarantee $B(r)$ is integrable on all hyperplanes. In fact, the RT of any subset $A \subseteq B(r)$ is bounded by 
+  \[
+    R_{A} \leq V_{n-1}(r).
+  \]
+  Also note that $B(r)$ is rotation invariant, hence $R_{B(r)}(\omega, p)$ is independent of $\omega$.
   
   \begin{figure}[h]
     \centering
@@ -609,7 +613,7 @@ Note because $S$ is unbounded, that $R_S$ is not only unbounded, but even diverg
 % \]
 \end{myexample}
 
-Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian density $w_{n-1}(x)$ in the integral allows for convergence on a larger class of functions $f$. This includes for example unbounded regions. In a broader context the Gaussian Radon transform also has the advantages of generalizing to infinite dimensional Hilbert spaces~\cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
+Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian density $\gamma_{n-1}(x)$ in the integral allows for convergence on a larger class of functions $f$. This includes for example unbounded regions. In a broader context the Gaussian Radon transform also has the advantages of generalizing to infinite dimensional Hilbert spaces~\cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
 
 \begin{definition}
 The \textit{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is defined similarly to the RT.\@ Given $\omega \in S^{n-1}$ and $-\infty < p < \infty$, the GRT is

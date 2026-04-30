@@ -49,10 +49,12 @@ are coefficients to the Stieltjes series
 which is converges in a neighborhood of $z = 0$ to the Stieltjes transform
 \[
   g_{\omega}(z) 
-  = 
-  \int_{-\infty}^\infty \frac{R_A(\omega, p)}{1 + pz} ~dp = \int_{A} \frac1{1 + z\inner{x, \omega}}~dx. 
+  = \int_{-\infty}^\infty \frac{R_A(\omega, p)}{1 + pz} ~dp 
+  = \int_{A} \frac1{1 + z\inner{x, \omega}}~dx. 
 \]
-Recall that since $A$ is bounded, it has determinate multivariate moments and projection moments. By corollary~\ref{cr:determinacypade}, $g_{\omega}(z)$ is the uniform limit of the off-diagonal Pad\'e approximants $R_M(z)$ to the Stieltjes series. The rate of convergence in this case is known, and can be found in~\cite{Bake81}. 
+Note that since $A$ is bounded, say by $\norm{x} \leq r$ for all $x \in A$, then $RT_A(\omega, p)$ vanishes for $|p| > r$. Singularities in the integrand can only occur when $z = -1/p$ so we conclude $g_\omega(z)$ is well defined for $|z| < 1/r$. 
+
+Recall that since $A$ is bounded, it has determinate multivariate moments and projection moments. By corollary~\ref{cr:determinacypade}, $g_{\omega}(z)$ is the uniform limit of the off-diagonal Pad\'e approximants $R_M(z)$ to the Stieltjes series. The rate of convergence in this case is known, and can be found in~\cite{Bake81}.
 
 We consider $g_\omega(z)$ as the restriction of the multivariate Stieltjes transform
 \[
@@ -62,7 +64,7 @@ to a the linear span of $\omega \in S^{n-1}$. That is, for $z \in \RR$,
 \[
   g(z\omega) = \int_{A} \frac{1}{1 + z\inner{x, \omega}} dx = g_\omega(z).
 \]
-Thus for any $y \in \RR^n$, we can compute projection moments with $\omega = y/\norm{y}$, from which we can approximate $g(y) = g_\omega(\norm{y})$ by way of the Pad\'e approximants described above. Let us denote this approximation by $\tilde g(y)$.
+Here $g(z\omega)$ is well defined for $|z| < 1/r$ so that the multivariate transform is well defined for $\norm{y} < 1/r$. For any $y \in \RR^n$, we can compute projection moments with $\omega = y/\norm{y}$, from which we can approximate $g(y) = g_\omega(\norm{y})$ by way of the Pad\'e approximants described above. Let us denote this approximation by $\tilde g(y)$. 
 
 Now suppose $g(y)$ can be simultaneously approximated by a cubature formula
 \[
@@ -72,7 +74,7 @@ where $f(x) = 1_A(x)$. Consider the linear system,
 \[
   \sum_{i = 0}^I w_i(y_j) \tilde f_i = \tilde g(y_j), \qquad j = 0, \ldots, J
 \]
-where $y_0, \ldots, y_J \in \RR^n$ are a set of distinct sample points and $J > I$. At least heuristically, we expect a solution to this system in the form of the values to approximate the values of the characteristic function
+where $y_0, \ldots, y_J \in \RR^n$ are a set of distinct sample points with $y_i < 1/r$ and $J > I$. At least heuristically, we expect a solution to this system in the form of the values to approximate the values of the characteristic function
 \[
   \tilde f_i \approx f(x_i), \qquad i = 0, \ldots, I,
 \]
@@ -86,34 +88,61 @@ Our proposed extension to the method above follows roughly the same trajectory, 
 
 Let $A \subseteq \RR^n$ be a measurable set with indicator function $f$. Then $f$ necessarily has finite Gaussian moments,
 \[
-  c^G_\alpha = \int_{\RR^n} f(x) x^\alpha \gamma_n(x) ~dx.
+  c^\gamma_\alpha = \int_{\RR^n} f(x) x^\alpha \gamma_n(x) ~dx.
 \]
 The Gaussian projection moments for any $\omega \in S^{n-1}$ are given by
 \[
-  c^G_k(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} c^G_\alpha \omega^\alpha.
+  c^\gamma_k(\omega) = \sum_{|\alpha| = k} \binom{k}{\alpha} c^\gamma_\alpha \omega^\alpha.
 \]
 Now the Stieltjes series
 \[
-  \sum_{k = 0}^\infty c^G_k(\omega) (-z)^k
+  \sum_{k = 0}^\infty c^\gamma_k(\omega) (-z)^k
 \]
 is generally formal. Likewise, the Stieltjes transform
 \[
-  g_\omega(z) = \int_{-\infty}^\infty \frac{GR_A(\omega, p)}{1 + pz} \gamma(p)~dp = \int_A \frac{1}{1 + z\inner{x, \omega}} \gamma_n(x) ~dx
+  g^\gamma_\omega(z) := \int_{-\infty}^\infty \frac{GR_A(\omega, p)}{1 + pz} \gamma(p)~dp = \int_A \frac{1}{1 + z\inner{x, \omega}} \gamma_n(x) ~dx
 \]
-may be undefined on the real line, but is analytic on the upper half plane $\im z > 0$. In this case the Stieltjes series is an asymptotic expansion to the Stieltjes transform in the sense of nontangential convergence,
+may be undefined on the real line, but is analytic on the half planes $\im z \neq 0$. In this case the Stieltjes series is an asymptotic expansion to the Stieltjes transform in the sense of nontangential convergence,
 \[
-  g_\omega(z) \simeq \sum_{k = 0}^\infty c^G_k(\omega) (-z)^k.
+  g^\gamma_\omega(z) \simeq \sum_{k = 0}^\infty c^\gamma_k(\omega) (-z)^k.
 \]
 For more details on the Stieltjes series and transform in the case of Hamburger moments see section \ref{sec:stieltjes}. 
 
-Now we note that $GR_A(\omega, p)$ is a bounded function, so that the Gaussian projection moments are determinate. Thus, as discussed in section \ref{sec:pade}, the $[M-1/M]$ Pad\'e approximants to the Stieltjes series converge locally uniformly on the upper half plane to the Stieltjes transform.
+Now we note that $GR_A(\omega, p)$ is a bounded function, so that the Gaussian projection moments are determinate. Thus, as discussed in section \ref{sec:pade}, the $[M-1/M]$ Pad\'e approximants to the Stieltjes series converge locally uniformly on the half planes to the Stieltjes transform.
 
-Once again, we consider $g_\omega(z)$ as a restriction of a multivariate Stieltjes transform. For $z \in \RR$ in the upper half plane $\im z > 0$ and $\omega \in S^{n-1}$ we have 
+Once again, we view $g^\gamma_\omega(z)$ as a restriction of a multivariate Stieltjes transform. Following the lead of the previous method, we consider the function $g^\gamma : \CC^n \to \CC^n$ given by the integral representation
 \[
-  g_\omega(iz) 
-  = \int_A \frac{1}{1 + iz\inner{x, \omega}} \gamma_n(x) ~dx 
+  g^\gamma(y) = \int_{A} \frac{1}{1 + \inner{x, y}} \gamma_n(x) ~dx
+\] 
+whenever well defined. Here $\inner{\cdot, \cdot}$ is the standard inner product on $\CC^n$. We have seen that $g^\gamma(y)$ exists when $y = z\omega$ for $\omega \in S^{n-1}$ and $z \in \CC$ has nonzero imaginary part,
+\[
+  g^\gamma(z\omega) 
+  = \int_{A} \frac{1}{1 + z\inner{x, y}} \gamma_n(x) ~dx
+  = g^\gamma_\omega(z)
 \]
-Now 
+(We assume the complex inner product is conjugate linear in the first variable and linear in the second for simplicity). 
+
+Again, suppose $g^\gamma(y)$ can be simultaneously approximated by a cubature formula
+\[
+  \sum_{i = 0}^I w_i(y) f^\gamma(x_i) \approx \int_{A} \frac1{1 + \inner{x, y}}~dx,
+\]
+where $f^\gamma(x) = 1_A(x)\gamma_n(x)$. Consider the linear system,
+\[
+  \sum_{i = 0}^I w_i(y_j) \tilde {f}^\gamma_i = \tilde g^\gamma(y_j), \qquad j = 0, \ldots, J
+\]
+where $y_0, \ldots, y_J \in \CC^n$ are a set of distinct sample points and $J > I$. In this case we require our sample points to take the form $y = z\omega$ sufficient for the existence of $g^\gamma(y)$. At least heuristically, we expect a solution to this system in the form of the values to approximate the values
+\[
+  \tilde f^\gamma_i \approx f^\gamma(x_i), \qquad i = 0, \ldots, I,
+\]
+at the cubature nodes $x_i$. In order to approximate $A$ we simply remove the Gaussian weight,
+\[
+  \frac{\tilde f^\gamma_i}{\gamma_n(x_i)} 
+  \approx \frac{f^\gamma(x_i)}{\gamma_n(x_i)}
+  = 1_A(x_i).
+\]
+
+Here we may still use a finite lattice to produce a pixel image, but importantly neither the sample points $y_i$ nor the Pad\'e approximant $\tilde g^\gamma$ depend on the choice of cubature formula. In other words, with $\tilde g^\gamma(y_i)$ precomputed, image approximations to $A$ can — in theory — be constructed for arbitrary pixel grids. We suspect that careful choice of cubature formulas may lead to additional redundancy in computing the weights $w_i(y_j)$.
+
 % \[
 %   g_\omega(z) 
 %   = \int_A \frac{1}{1 + z\inner{x, \omega}} w_n(x) ~dx 
@@ -165,7 +194,19 @@ Now
 
 \section{Reconstruction of functions in weighted $L^2$ space}
 
-
+As discussed in section \ref{sec:GRTdeterminacy}, the Gaussian moments of a function in the weighted space $L^2(\gamma_n)$ are determinate. Thus the method for unbounded shape reconstruction evidently applies just as well to all measurable functions $f: \RR^n \to [0, \infty)$ which satisfy
+\[
+  \int_{\RR^n} f(x)^2 \gamma_n(x) ~dx < \infty.
+\]
+We will not repeat the construction, but in short, the Gaussian Moments
+\[
+  c^\gamma_\alpha = \int_{\RR^n} f(x) x^\alpha \gamma_n(x) ~dx \qquad \alpha \in \NN_0^n
+\]
+can be used to approximate a multivariate Stieltjes transform
+\[
+  g(y) = \int_{\RR^n} \frac{f(x)}{1 + \inner{x, y}} \gamma_n(x) ~dx
+\]
+where $y \in \CC^n$ is required to take a specific form. Simultaneously approximating $g(y)$ by a cubature formula, we forma a linear system for which approximate values of $f$ on the cubature nodes is a solution.
 
 \section{Implementation} \label{sec:implementation}
 
