@@ -124,7 +124,7 @@ whenever well defined. Here $\inner{\cdot, \cdot}$ is the standard inner product
 
 Again, suppose $g^\gamma(y)$ can be simultaneously approximated by a cubature formula
 \[
-  \sum_{i = 0}^I w_i(y) f^\gamma(x_i) \approx \int_{A} \frac1{1 + \inner{x, y}}~dx,
+  \sum_{i = 0}^I w_i(y) f^\gamma(x_i) \approx \int_{A} \frac1{1 + \inner{x, y}} \gamma_n(x) ~dx,
 \]
 where $f^\gamma(x) = 1_A(x)\gamma_n(x)$. Consider the linear system,
 \[
@@ -141,7 +141,7 @@ at the cubature nodes $x_i$. In order to approximate $A$ we simply remove the Ga
   = 1_A(x_i).
 \]
 
-Here we may still use a finite lattice to produce a pixel image, but importantly neither the sample points $y_i$ nor the Pad\'e approximant $\tilde g^\gamma$ depend on the choice of cubature formula. In other words, with $\tilde g^\gamma(y_i)$ precomputed, image approximations to $A$ can — in theory — be constructed for arbitrary pixel grids. We suspect that careful choice of cubature formulas may lead to additional redundancy in computing the weights $w_i(y_j)$.
+Here we may still use a finite lattice to produce a pixel image, but importantly neither the sample points $y_i$ nor the Pad\'e approximant $\tilde g^\gamma$ depend on the choice of cubature formula. In other words, with $\tilde g^\gamma(y_j)$ precomputed, image approximations to $A$ can — in theory — be constructed for arbitrary pixel grids. We suspect that careful choice of cubature formulas may lead to additional redundancy in computing the weights $w_i(y_j)$.
 
 % \[
 %   g_\omega(z) 
@@ -206,41 +206,58 @@ can be used to approximate a multivariate Stieltjes transform
 \[
   g(y) = \int_{\RR^n} \frac{f(x)}{1 + \inner{x, y}} \gamma_n(x) ~dx
 \]
-where $y \in \CC^n$ is required to take a specific form. Simultaneously approximating $g(y)$ by a cubature formula, we forma a linear system for which approximate values of $f$ on the cubature nodes is a solution.
+where $y \in \CC^n$ is required to take a specific form. Simultaneously approximating $g(y)$ by a cubature formula, we forma a linear system for which approximate values of $f$ on the cubature nodes is a solution. 
 
-\section{Implementation} \label{sec:implementation}
+\section{Implementation and practical limitations} \label{sec:implementation}
 
-We have spent some time implementing our proposed extension to the shape reconstruction method, mostly in the Wolfram Mathematica language. But of course in this process questions arose, both theoretical and pragmatic. 
-% We are limited in our knowledge of numerical and computational analysis, and welcome criticism.
+Here we will briefly discuss some of the computational aspects in implementation of the shape reconstruction methods. The following discussion is based on a series of examples tested in Mathematica, and is not intended to be rigorous.
 
-While the authors describe forming multivariate ``homogeneous'' Pade approximants — perhaps first proposed by Cuyt herself in~\cite{Cuyt84} — we opt to bypass this step using univariate approximants instead. Indeed, the only benefit to Cuyt's approximants explicitly cited by the authors, as compared to other multivariate generalizations of the Pade approximants, is that they are ``the only satisfying the following powerful slice theorem''~\cite{Cuyt05}. This slice theorem simply states that the homogeneous approximants when restricted to one dimensional subspaces, are equivalent to univariate Pade approximants. Since we only need a finite number of sample points it seems reasonable to compute a series of univariate approximants at various projection angles.
+To the best of our knowledge, no rigorous analysis of the presented methods from a numerical or computational perspective exist. Nor are we qualified to undertake such an analysis ourselves. Of the most obvious concerns are the accuracy of the cubature approximation, the solvability of the high dimensional linear system, and stability with respect to errors in moments.
 
-The decision to drop the homogenous approximants has the following potential consequences: On the one hand, the univariate approximants are simpler to compute, with methods built in to many CASs. On the other, while the authors select sample points from a cubic lattice, it would be inefficient (though potentially less so with careful selection of projection angles via, say, Farey sequences) to do so with one dimensional subspaces. Instead we take a collection of equidistant projection angles forming a radial grid of sample points. This seems acceptable, as it is unclear if there is any benefit to the sample points having a particular geometric structure. We should also agknowledge the potential that forming a single homogeneous appoximant is more computationally efficient than many univariate approximants. This requires further investigation, but we note that (anecdotally) in computational tests the formation of approximants is not very intensive compared to the subsequent solving of the high dimensional linear system. Some thought was given to the possibility that sampling from a cubic lattice provides some structure which makes the system easier to solve, but so far we have no hard evidence of this.
+While any sufficiently accurate cubature formula should work, those with nodes on a uniform cubic lattice – trapazoid and Simpson's formulas, e.g. – have the benefit of producing an approximation easily visualized as a grayscale pixel image. Product formulas formed from compound Gaussian quadrature rules should also be considered. Indeed the examples in \cite{Cuyt05} are computed using a compound two-point Gauss-Legendre formula. Such cubature formulas have nodes on a "nearly" uniform cubic grid, leading to some distortion when viewed as an image, however the distortion scales down as image resolution increases. 
 
-A couple of notes on computational details: First we should be explicit about the line of computation. At the outset, the given information is a certain multivariate moment sequence (up to a finite order with some accuracy assumption) which we assume belongs to a region within some fixed bounding box. In evaluating the computational viability of the method we take note of which steps depend on the moments, and which can be precomputed. In order to form univariate approximants we first compute projection moments. While these of course depend on the moment sequence, the multinomial formula used for this computation only depends on the projection angle. Thus with a preditermined set of projection angles this is partially precomputed. Since the cubature formula itself only depends on the choice of quadrature nodes and sample points, it can be precomputed and applied to any moment sequence. The choice of quadrature formula is somewhat arbitrary. Lacking expertise in the area of numerical integration, we follow the authors, opting for the four-point Gauss-Legendre product formula. This formula takes nodes from a nearly cubic lattice, which is implicitly quantized when forming the pixel image. We have not evaluated the error introduced by this quantization but expect it to be minimal and to approach zero with higher pixel resolution.
+For the proposed extensions to the method, we suggest a product Gauss-Hermite formula, whose nodes are given by the cartesian product of the zeros of a Hermite polynomial. This is a natural choice for numerical integration with a Gaussian weight. Importantly, we expect a good degree of accuracy due to the density of polynomials in $L^2(\gamma_n)$. Furthermore the zeros of Hermite polynomials have roughly uniform spacing, and it is common practice to ``prune'' the nodes furthest from the origin where spacing is most distorted. The nodes and weights for Gauss-Hermite cubature can be computed efficiently even for high degrees. For increasing degree, we get smaller spacing over a larger neighborhood. 
 
-We don't expect the linear system to have an exact solution, let alone one that whose computation is tractable for high resolutions. We may try Mathematica's LeastSquares method, but Cuyt et al.\ specifically mention using a truncated singular value decomposition.
+In experiments we have found the most computationally intensive portion of the method to be the formation and solving of the linear system. Unsurprisingly, for even the mildest examples, this system tends to be higly dimensional and generally ill-determined. The authors of \cite{Cuyt05} suggest using a truncated singular value decomposition, discarding singular values below a threshold. We have had reasonable success via Mathematica's \Verb|PsuedoInverse| method. We should also note that the introduction of non-real terms in the proposed methods presents some additional complications. In particular, approximate solutions tend to be complex valued.
 
-For my own benefit, let's review singular value decompositions. An $i \times j$ matrix $A$ of rank $r$ can be written as 
-\[
-  A=U\Sigma V^\top,
-\]
-where $\Sigma$ is the diagonal matrix of singular values $\sigma_1, \sigma_2, \ldots, \sigma_r$, and $U$ and $V$ are unitary matrices. The truncated singular value decomposition gives us a reduced rank approximation to $A$ by replacing all but the largest (first) $k$ singular values in $\Sigma$ with zeros,
-\[
-  \tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \ldots, \sigma_k, 0, \ldots, 0)
-\] 
-The truncated SVD matrix $\tilde{A} = U \tilde{\Sigma} V^\top$ is optimal in the sense that it is the closest rank-$k$ matrix to $A$ in the Frobenius norm.
+Finally, we should discuss the elephant in the room. The discrete reconstructions formed by our methods are necessarily finite, which is at odds to their utility as approximations to unbounded objects. One might propose instead applying the method for bounded shape reconstruction where we restrict unbounded objects to some bounded region. We argue that even in constructing a finite approximation, there is some benefit to working with global information. Assuming one has access to the Gaussian moments, it is convenient that our method does not impose an arbitrary ristriction on the scale of the object. Consider a situation where we would like to construct a series of improving approximations to an unbounded object. Since the approximate sample values $\tilde g^\gamma (y_j)$ can be precomputed (and further sample points $y_j$ can be added at little cost), we are able to increase both the overall size of the approximation as well as the granularity of node spacing without much adjustment. 
+% In particular when using Gauss-Hermite cubature, 
 
-The SVD and truncated SVD are used to solve the linear least squares problem as follows: From $U\Sigma V^\top f = p$ we get $f=V \Sigma^{-1} U^\top p$, and similarly $f = \tilde{V} \tilde{\Sigma}^{-1} U^\top p$. Note that the psuedoinverse $\tilde\Sigma^{-1}$ is a diagonal matrix made up of the reciprocal singular values.
-
-Mathematica offers a few built in functions for this. LeastSquares packages a number of methods to solve a linear least squares based on the sparsity of the System (our system is dense). SingularValueDecomposition can be restricted to a certain number of singular values. PsuedoInverse can specify a ``tolerance'' zeroing out singular values less than some proportion of  the maximum singular value. While LeastSquares is the simplest option, it does not seem to support truncated solutions. Between SingularValueDecomposition and PsuedoInverse, both can handle truncated problems, but the latter seems — at least superficially — better suited for out application.
-
-On Gaussian shape reconstruction. There remain some minor practical concerns about, for example, the choice of quadrature formula and sample points. An obvious choice would be to continue with the Gauss-Legendre product formula, now applied on a Gaussian-weighted $f$. Some consideration should be taken as to the viability of other Gaussian quadrature formulas defined particularly for the Gaussian measure. 
-
-Now, a fundamental limitation with the proposed method which we have neglected to mention is the practical one: As a computational method we are necessarily restricted to the finite — finite moments, finite order approximations, and most problematic, bounded domains. In what application would one even be interested in unbounded shape reconstruction, while also having access of Gaussian moments? It would be reasonable to question the use of a computational method in an unbounded context. As with any finite approximation, the unboundedness should be thought of as an idealized limit; perhaps an unbounded approximation is a limit of bounded approximations. But then, the original method applies just as well if all we wanted was a sequence of reconstructions expanding in range. We can only speculate at this point that perhaps this method, being tailored specifically for unbounded reconstruction, could hold some practical advantages over its predecessor; or be satisfied with impracticality.
+There is much more to be said on the practical limitations of these methods, but as we have hopefully shown, their theoretical foundation is solid and there is good reason to expect them to work in practice. Further investigation into the questions of numerical stability and computational efficiency is needed.
 
 
-\section{An example}
+
+% We have spent some time implementing our proposed extension to the shape reconstruction method, mostly in the Wolfram Mathematica language. But of course in this process questions arose, both theoretical and pragmatic. 
+% % We are limited in our knowledge of numerical and computational analysis, and welcome criticism.
+
+% While the authors describe forming multivariate ``homogeneous'' Pade approximants — perhaps first proposed by Cuyt herself in~\cite{Cuyt84} — we opt to bypass this step using univariate approximants instead. Indeed, the only benefit to Cuyt's approximants explicitly cited by the authors, as compared to other multivariate generalizations of the Pade approximants, is that they are ``the only satisfying the following powerful slice theorem''~\cite{Cuyt05}. This slice theorem simply states that the homogeneous approximants when restricted to one dimensional subspaces, are equivalent to univariate Pade approximants. Since we only need a finite number of sample points it seems reasonable to compute a series of univariate approximants at various projection angles.
+
+% The decision to drop the homogenous approximants has the following potential consequences: On the one hand, the univariate approximants are simpler to compute, with methods built in to many CASs. On the other, while the authors select sample points from a cubic lattice, it would be inefficient (though potentially less so with careful selection of projection angles via, say, Farey sequences) to do so with one dimensional subspaces. Instead we take a collection of equidistant projection angles forming a radial grid of sample points. This seems acceptable, as it is unclear if there is any benefit to the sample points having a particular geometric structure. We should also agknowledge the potential that forming a single homogeneous appoximant is more computationally efficient than many univariate approximants. This requires further investigation, but we note that (anecdotally) in computational tests the formation of approximants is not very intensive compared to the subsequent solving of the high dimensional linear system. Some thought was given to the possibility that sampling from a cubic lattice provides some structure which makes the system easier to solve, but so far we have no hard evidence of this.
+
+% A couple of notes on computational details: First we should be explicit about the line of computation. At the outset, the given information is a certain multivariate moment sequence (up to a finite order with some accuracy assumption) which we assume belongs to a region within some fixed bounding box. In evaluating the computational viability of the method we take note of which steps depend on the moments, and which can be precomputed. In order to form univariate approximants we first compute projection moments. While these of course depend on the moment sequence, the multinomial formula used for this computation only depends on the projection angle. Thus with a preditermined set of projection angles this is partially precomputed. Since the cubature formula itself only depends on the choice of quadrature nodes and sample points, it can be precomputed and applied to any moment sequence. The choice of quadrature formula is somewhat arbitrary. Lacking expertise in the area of numerical integration, we follow the authors, opting for the four-point Gauss-Legendre product formula. This formula takes nodes from a nearly cubic lattice, which is implicitly quantized when forming the pixel image. We have not evaluated the error introduced by this quantization but expect it to be minimal and to approach zero with higher pixel resolution.
+
+% We don't expect the linear system to have an exact solution, let alone one that whose computation is tractable for high resolutions. We may try Mathematica's LeastSquares method, but Cuyt et al.\ specifically mention using a truncated singular value decomposition.
+
+% For my own benefit, let's review singular value decompositions. An $i \times j$ matrix $A$ of rank $r$ can be written as 
+% \[
+%   A=U\Sigma V^\top,
+% \]
+% where $\Sigma$ is the diagonal matrix of singular values $\sigma_1, \sigma_2, \ldots, \sigma_r$, and $U$ and $V$ are unitary matrices. The truncated singular value decomposition gives us a reduced rank approximation to $A$ by replacing all but the largest (first) $k$ singular values in $\Sigma$ with zeros,
+% \[
+%   \tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \ldots, \sigma_k, 0, \ldots, 0)
+% \] 
+% The truncated SVD matrix $\tilde{A} = U \tilde{\Sigma} V^\top$ is optimal in the sense that it is the closest rank-$k$ matrix to $A$ in the Frobenius norm.
+
+% The SVD and truncated SVD are used to solve the linear least squares problem as follows: From $U\Sigma V^\top f = p$ we get $f=V \Sigma^{-1} U^\top p$, and similarly $f = \tilde{V} \tilde{\Sigma}^{-1} U^\top p$. Note that the psuedoinverse $\tilde\Sigma^{-1}$ is a diagonal matrix made up of the reciprocal singular values.
+
+% Mathematica offers a few built in functions for this. LeastSquares packages a number of methods to solve a linear least squares based on the sparsity of the System (our system is dense). SingularValueDecomposition can be restricted to a certain number of singular values. PsuedoInverse can specify a ``tolerance'' zeroing out singular values less than some proportion of  the maximum singular value. While LeastSquares is the simplest option, it does not seem to support truncated solutions. Between SingularValueDecomposition and PsuedoInverse, both can handle truncated problems, but the latter seems — at least superficially — better suited for out application.
+
+% On Gaussian shape reconstruction. There remain some minor practical concerns about, for example, the choice of quadrature formula and sample points. An obvious choice would be to continue with the Gauss-Legendre product formula, now applied on a Gaussian-weighted $f$. Some consideration should be taken as to the viability of other Gaussian quadrature formulas defined particularly for the Gaussian measure. 
+
+% Now, a fundamental limitation with the proposed method which we have neglected to mention is the practical one: As a computational method we are necessarily restricted to the finite — finite moments, finite order approximations, and most problematic, bounded domains. In what application would one even be interested in unbounded shape reconstruction, while also having access of Gaussian moments? It would be reasonable to question the use of a computational method in an unbounded context. As with any finite approximation, the unboundedness should be thought of as an idealized limit; perhaps an unbounded approximation is a limit of bounded approximations. But then, the original method applies just as well if all we wanted was a sequence of reconstructions expanding in range. We can only speculate at this point that perhaps this method, being tailored specifically for unbounded reconstruction, could hold some practical advantages over its predecessor; or be satisfied with impracticality.
+
+
+% \section{An example}
 
 % \[
 %     w(x) = w_1(x) = \frac1{\sqrt{2\pi}}e^{-\frac{x^2}2}
@@ -316,11 +333,11 @@ Now, a fundamental limitation with the proposed method which we have neglected t
 %   \end{cases}
 % \]
 
-First compare the methods on bounded regions: Unit ball in $\RR^3$? Annulus in $\RR^2$? Some asymmetric or off-center examples?
+% First compare the methods on bounded regions: Unit ball in $\RR^3$? Annulus in $\RR^2$? Some asymmetric or off-center examples?
 
-More importantly, present examples for unbounded regions: Strips and cones come to mind. One-sided strips maybe. 
+% More importantly, present examples for unbounded regions: Strips and cones come to mind. One-sided strips maybe. 
 
-How do we ``image'' an unbounded region in the first place? Our method places pixels upon the nodes of a cubature formula which is usually a bounded cubic lattice. What are appropriate nodes for, and how can we best ``image'' a region which does not fit within a bounded rectangle? 
+% How do we ``image'' an unbounded region in the first place? Our method places pixels upon the nodes of a cubature formula which is usually a bounded cubic lattice. What are appropriate nodes for, and how can we best ``image'' a region which does not fit within a bounded rectangle? 
 
 % Language is hard
 
