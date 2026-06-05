@@ -7,6 +7,7 @@
 
 
 \chapter{Shape reconstruction from moments}{}
+\label{chap:shapereconstruction}
 
 In this chapter we describe a method for shape reconstruction from moments and propose an extension of the method to unbounded regions. In the first section we summarize the method for bounded sets. This is the work of Cuyt et al.~\cite{Cuyt05} which we extend in the following sections to unbounded shapes and positive functions of at most polynomial growth. The methods all each have the basic structure:
 \begin{enumerate}
@@ -14,6 +15,8 @@ In this chapter we describe a method for shape reconstruction from moments and p
   \item Choosing a set of nodes on which to approximate $f$, construct an appropriate cubature formula to the Stieltjes transform.
   \item Solve — or approximate a solution to — the linear system given by equating the Pad\'e approximants and cubature formula. 
 \end{enumerate}
+
+We will not discuss the technical aspects of the reconstruction, other than to point to the computation examples given in \cite{Cuyt05}, which utilize cubature formulas compiled in \cite{Stro71}. We have independenly verified that the method produces reasonably accurate reconstructions. To be clear however, our aim is only to show how the results of chapter~\ref{chap:RTmoments} fit in to the shape reconstruction method, and suggest an extension to the method.
 
 \section{Reconstruction of bounded shapes}
 
@@ -80,7 +83,7 @@ where $y_0, \ldots, y_J \in \RR^n$ are a set of distinct sample points with $y_i
 \]
 at the cubature nodes $x_i$. Thus, if for example, we use a cubature formula with nodes $x_i$ on a finite integer lattice around $A$, we will have computed an approximate pixel image of $A$.
 
-Our discussion thus far clearly avoided some technical details. The choice of cubature formula and well-posedness of the linear system are obvious concerns, which we touch on briefly in section \ref{sec:implementation}.
+% Our discussion thus far clearly avoided some technical details. The choice of cubature formula and well-posedness of the linear system are obvious concerns, which we touch on briefly in section \ref{sec:implementation}.
 
 \section{Reconstruction of unbounded shapes}
 
@@ -208,22 +211,22 @@ can be used to approximate a multivariate Stieltjes transform
 \]
 where $y \in \CC^n$ is required to take a specific form. Simultaneously approximating $g(y)$ by a cubature formula, we forma a linear system for which approximate values of $f$ on the cubature nodes is a solution. 
 
-\section{Implementation and practical limitations} \label{sec:implementation}
+% \section{Implementation and practical limitations} \label{sec:implementation}
 
-Here we will briefly discuss some of the computational aspects in implementation of the shape reconstruction methods. The following discussion is based on a series of examples tested in Mathematica, and is not intended to be rigorous.
+% Here we will briefly discuss some of the computational aspects in implementation of the shape reconstruction methods. The following discussion is based on a series of examples tested in Mathematica, and is not intended to be rigorous.
 
-To the best of our knowledge, no rigorous analysis of the presented methods from a numerical or computational perspective exist. Nor are we qualified to undertake such an analysis ourselves. Of the most obvious concerns are the accuracy of the cubature approximation, the solvability of the high dimensional linear system, and stability with respect to errors in moments.
+% To the best of our knowledge, no rigorous analysis of the presented methods from a numerical or computational perspective exist. Nor are we qualified to undertake such an analysis ourselves. Of the most obvious concerns are the accuracy of the cubature approximation, the solvability of the high dimensional linear system, and stability with respect to errors in moments.
 
-While any sufficiently accurate cubature formula should work, those with nodes on a uniform cubic lattice – trapazoid and Simpson's formulas, e.g. – have the benefit of producing an approximation easily visualized as a grayscale pixel image. Product formulas formed from compound Gaussian quadrature rules should also be considered. Indeed the examples in \cite{Cuyt05} are computed using a compound two-point Gauss-Legendre formula. Such cubature formulas have nodes on a "nearly" uniform cubic grid, leading to some distortion when viewed as an image, however the distortion scales down as image resolution increases. 
+% While any sufficiently accurate cubature formula should work, those with nodes on a uniform cubic lattice – trapazoid and Simpson's formulas, e.g. – have the benefit of producing an approximation easily visualized as a grayscale pixel image. Product formulas formed from compound Gaussian quadrature rules should also be considered. Indeed the examples in \cite{Cuyt05} are computed using a compound two-point Gauss-Legendre formula. Such cubature formulas have nodes on a "nearly" uniform cubic grid, leading to some distortion when viewed as an image, however the distortion scales down as image resolution increases. 
 
-For the proposed extensions to the method, we suggest a product Gauss-Hermite formula, whose nodes are given by the cartesian product of the zeros of a Hermite polynomial. This is a natural choice for numerical integration with a Gaussian weight. Importantly, we expect a good degree of accuracy due to the density of polynomials in $L^2(\gamma_n)$. Furthermore the zeros of Hermite polynomials have roughly uniform spacing, and it is common practice to ``prune'' the nodes furthest from the origin where spacing is most distorted. The nodes and weights for Gauss-Hermite cubature can be computed efficiently even for high degrees. For increasing degree, we get smaller spacing over a larger neighborhood. 
+% For the proposed extensions to the method, we suggest a product Gauss-Hermite formula, whose nodes are given by the cartesian product of the zeros of a Hermite polynomial. This is a natural choice for numerical integration with a Gaussian weight. Importantly, we expect a good degree of accuracy due to the density of polynomials in $L^2(\gamma_n)$. Furthermore the zeros of Hermite polynomials have roughly uniform spacing, and it is common practice to ``prune'' the nodes furthest from the origin where spacing is most distorted. The nodes and weights for Gauss-Hermite cubature can be computed efficiently even for high degrees. For increasing degree, we get smaller spacing over a larger neighborhood. 
 
-In experiments we have found the most computationally intensive portion of the method to be the formation and solving of the linear system. Unsurprisingly, for even the mildest examples, this system tends to be higly dimensional and generally ill-determined. The authors of \cite{Cuyt05} suggest using a truncated singular value decomposition, discarding singular values below a threshold. We have had reasonable success via Mathematica's \Verb|PsuedoInverse| method. We should also note that the introduction of non-real terms in the proposed methods presents some additional complications. In particular, approximate solutions tend to be complex valued.
+% In experiments we have found the most computationally intensive portion of the method to be the formation and solving of the linear system. Unsurprisingly, for even the mildest examples, this system tends to be higly dimensional and generally ill-determined. The authors of \cite{Cuyt05} suggest using a truncated singular value decomposition, discarding singular values below a threshold. We have had reasonable success via Mathematica's \Verb|PsuedoInverse| method. We should also note that the introduction of non-real terms in the proposed methods presents some additional complications. In particular, approximate solutions tend to be complex valued.
 
-Finally, we should discuss the elephant in the room. The discrete reconstructions formed by our methods are necessarily finite, which is at odds to their utility as approximations to unbounded objects. One might propose instead applying the method for bounded shape reconstruction where we restrict unbounded objects to some bounded region. We argue that even in constructing a finite approximation, there is some benefit to working with global information. Assuming one has access to the Gaussian moments, it is convenient that our method does not impose an arbitrary ristriction on the scale of the object. Consider a situation where we would like to construct a series of improving approximations to an unbounded object. Since the approximate sample values $\tilde g^\gamma (y_j)$ can be precomputed (and further sample points $y_j$ can be added at little cost), we are able to increase both the overall size of the approximation as well as the granularity of node spacing without much adjustment. 
-% In particular when using Gauss-Hermite cubature, 
+% Finally, we should discuss the elephant in the room. The discrete reconstructions formed by our methods are necessarily finite, which is at odds to their utility as approximations to unbounded objects. One might propose instead applying the method for bounded shape reconstruction where we restrict unbounded objects to some bounded region. We argue that even in constructing a finite approximation, there is some benefit to working with global information. Assuming one has access to the Gaussian moments, it is convenient that our method does not impose an arbitrary ristriction on the scale of the object. Consider a situation where we would like to construct a series of improving approximations to an unbounded object. Since the approximate sample values $\tilde g^\gamma (y_j)$ can be precomputed (and further sample points $y_j$ can be added at little cost), we are able to increase both the overall size of the approximation as well as the granularity of node spacing without much adjustment. 
+% % In particular when using Gauss-Hermite cubature, 
 
-There is much more to be said on the practical limitations of these methods, but as we have hopefully shown, their theoretical foundation is solid and there is good reason to expect them to work in practice. Further investigation into the questions of numerical stability and computational efficiency is needed.
+% There is much more to be said on the practical limitations of these methods, but as we have hopefully shown, their theoretical foundation is solid and there is good reason to expect them to work in practice. Further investigation into the questions of numerical stability and computational efficiency is needed.
 
 
 

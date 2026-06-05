@@ -70,6 +70,25 @@ Unless otherwise indicated all measures are Euclidean measures — that is the B
 \]
 the measure $dx$ is to be understood as the $n$-dimensional and $(n-1)$-dimensional Euclidean measure respectively.
 
+% Throughout this work we use standard notation for some common function spaces:
+
+% \begin{itemize}
+  % \item 
+  For $1 \leq p < \infty$, $L^p = L^p(\RR^n)$ is the space of Lebesgue measurable functions $f : \RR^n \to \RR$ satisfying
+  \[
+    \int_{\RR^n} |f(x)|^p ~dx < \infty.
+  \]
+  As usual these functions are only defined modulo differences on sets of Lebesgue measure zero. For the Gaussian weight $\gamma_n$ we similarly define $L^p(\gamma_n)$ for functions satisfying
+  \[
+    \int_{\RR^n} |f(x)|^p \gamma_n(x) ~dx < \infty
+  \]
+  modulo Lebesgue measure zero sets.
+
+  % \item For $m \in \NN$ we denote by $C^m = C^m(\RR^n)$ the space of $m$-times continuously differentiable functions on $\RR^n$, and by $C^\infty = C^\infty(\RR^n)$ the space of smooth functions. The subspaces of bounded functions, those with compact support, and those vanishing at infinity are denoted by $C_b^m$, $C_c^m$, and $C_0^m$ respectively, where $m \in \NN \cup \{\infty\}$.
+  
+  % \item The set of real polynomials on $\RR^n$ of degree at most $k$ is denoted $\mathcal{P}_k = \mathcal{P}_k(\RR^n)$ and the set polynomials of arbitrary degreee $\mathcal{P} = \mathcal{P}(\RR^n)$.
+% \end{itemize}
+
 \section{Classical and multivariate moment problems} \label{sec:momentproblem}
 % Let $f(x)$ be a measurable function on $\RR$. For $k \in \NN_0$, define the $k$th moment of $f$ as
 % \[
@@ -118,9 +137,12 @@ There are two natural questions one can ask about a moment problem:
   \item \emph{Determinacy}: Is a solution unique? If not, what can be said about the set of solutions?
 \end{itemize}
 
-For our purposes we will assume existence. In terms of the shape reconstruction method of Chapter 3 it is taken as a given that a solution exists, but that we have access only to the moments. Furthermore in practical application we encounter a followup question to determinacy: How can we reconstruct the solution?
+% For our purposes we will assume existence. 
+In the context of the shape reconstruction method of Chapter 3 it is taken as a given that a solution exists, but that we have access only to the moments. Furthermore, in practical application we encounter a followup question to determinacy: How can we reconstruct the solution?
 
-In the classical cases (Markov, Stieltjes, Hamburger) these questions have been more or less resolved. Precise conditions for solvable and determinate moment problems have been found, and the nature of solution sets to indeterminate moment problems are well understood. For instance, all solvable Markov moment problems are unique. This result follows from the Weierstrass approximation theorem:
+In the classical cases (Markov, Stieltjes, Hamburger) these questions have been more or less resolved. Precise conditions for solvable and determinate moment problems have been found, and the nature of solution sets to indeterminate moment problems are well understood. A good reference for the theory of classical moment problems can be found in \cite{A2021}.
+
+For instance, all solvable Markov moment problems are unique. This result follows from the Weierstrass approximation theorem:
 
 \begin{proposition}
   All Markov moment problems are determinate. If $\mu, \nu$ are Borel measures on the unit interval $[0,1]$ with equal moments,
@@ -134,11 +156,11 @@ In the classical cases (Markov, Stieltjes, Hamburger) these questions have been 
 %   By linearity it is sufficient to show that if $c_k = 0$ for all $k \in \NN_0$, then $\mu = 0$. Furthermore, 
 % \end{proof}
 
-\begin{myexample}
-  An example of an indeterminate Stieltjes moment problem?
-\end{myexample}
+% \begin{myexample}
+%   An example of an indeterminate Stieltjes moment problem?
+% \end{myexample}
 
-However, in the case of multivariate moment problems remain largely open. Let $\mu$ be a Borel measure now on $\RR^n$. For $\alpha \in \NN_0^n$. Define the $\alpha$th multivariate moment of $f$ as 
+We now define multivariate moment problems. Let $\mu$ be a Borel measure, now defined on $\RR^n$. For $\alpha \in \NN_0^n$. Define the $\alpha$th multivariate moment of $f$ as 
 \[
   c_\alpha = \int_{\RR^n} x^\alpha ~d\mu(x).
 \]
@@ -176,9 +198,9 @@ The moment sequence ${(c_\alpha)}_{\alpha \in \NN_0^n}$ is now multi-indexed, bu
   \]
 \end{enumerate}
 
-While conditions for the solvability or determinacy of multivariate moment problems have been found in certain cases \cn, they are nowhere near as comprehensive as those of classical moment problems. One straightforward, albeit limited, approach is to reduce and $n$-variate moment problem to a set of $n$ univariate moment problems~\cite{Pete82}. For example, we employ this strategy in our proofs of propositions [determinacy for bounded domain and gaussian measures].
+While conditions for the solvability or determinacy of multivariate moment problems have been found in certain cases, they are nowhere near as comprehensive as those of classical moment problems. One straightforward, albeit limited, approach is to reduce and $n$-variate moment problem to a set of $n$ univariate moment problems~\cite{Pete82}. For example, we employ this strategy in chapter \ref{chap:RTmoments}.
 
-As in the classical case of Markov moment problems, determinacy is a consequence of Stone-Weierstrass ($n$-variate polynomials):
+As in the classical case of Markov moment problems, determinacy is a consequence of the Stone-Weierstrass theorem for $n$-variate polynomials:
 \begin{proposition}
   If $\mu$ is a Borel measure on the unit cube $A = {[0,1]}^n$, with moments
   \[
@@ -186,7 +208,7 @@ As in the classical case of Markov moment problems, determinacy is a consequence
   \]
   then the moment problem $(c_\alpha)_{\alpha \in \NN_0^n}$ is determinate.
 \end{proposition}
-We present a simple alternate proof in chapter 2 via the Radon transform.
+We present a simple alternate proof in chapter \ref{chap:RTmoments} via the Radon transform.
 
 % \begin{myexample}
 %   An example of an indeterminate, unbounded, multivariate moment problem?
@@ -233,7 +255,7 @@ in the univariate case and more generally,
 \[
   \frac{\partial}{\partial x_i} \gamma_n(x) = -x_i \gamma_n(x), \qquad i = 1, \ldots, n.
 \]
-Notably, the exponential decay of $\gamma_n(x)$ at infinity means that the Gaussian density dominates polynomials in the sense that $P(x)\gamma_n(x) \to 0$ as $\norm{x} \to \infty$, even
+Notably, the exponential decay of $\gamma_n(x)$ at infinity means that the Gaussian density dominates polynomial growth in the sense that $P(x)\gamma_n(x) \to 0$ as $\norm{x} \to \infty$, even
 \[
   \int_{\RR^n} P(x) \gamma_n(x) ~dx < \infty
 \]
@@ -280,7 +302,7 @@ for all polynomials $P:\RR^n \to \RR$.
     c^\gamma_{2\ell} = (2\ell - 1)(2\ell - 3) \cdots c_0 = (2\ell-1)!!.
   \]
 
-  As an alternate derivation, for readers familiar with the gamma function $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t} dt$ we present the following. Since $p^{2\ell} \gamma(p)$ is even,
+  As an alternate derivation, for readers familiar with the gamma function $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t} dt$ we present the following: Since $p^{2\ell} \gamma(p)$ is even,
   \begin{align*}
     \int_{-\infty}^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
       &= 2\int_0^\infty p^{2\ell} e^{-\frac{p^2}2} dp 
@@ -415,14 +437,14 @@ The Hermite polynomials form a complete orthogonal basis for $L^2(\gamma)$, the 
 % \end{proof}
 
 \begin{corollary}
-  For any $f \in L^2(\RR)$ the moment problem given by
+  For any positive function $f \in L^2(\gamma)$ the moment problem given by
   \[
-    c_n = \int_{-\infty}^\infty f(p) \gamma(p) dp
+    c^\gamma_n = \int_{-\infty}^\infty f(p) \gamma(p) dp
   \]
   is determinate.
 \end{corollary}
 
-In the chapter 4 we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for an exponential generating function.
+In the chapter \ref{chap:GRTpoly} we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for an exponential generating function.
 \begin{lemma}
   The Hermite polynomials have the \emph{generating function},
   \[
@@ -621,7 +643,7 @@ Note because $S$ is unbounded, that $R_S$ is not only unbounded, but even diverg
 % \]
 \end{myexample}
 
-Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT). This transform is very similar to the RT, but the inclusion of a Gaussian density $\gamma_{n-1}(x)$ in the integral allows for convergence on a larger class of functions $f$. This includes for example unbounded regions. In a broader context the Gaussian Radon transform also has the advantages of generalizing to infinite dimensional Hilbert spaces~\cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
+Our main addition to previous work will be the use of a modified RT, the Gaussian Radon transform (GRT) \cite{Miha04} \cite{Seng12} \cite{Seng14}. This transform is very similar to the RT, but the inclusion of a Gaussian density $\gamma_{n-1}(x)$ in the integral allows for convergence on a larger class of functions $f$. This includes for example unbounded regions. In a broader context the Gaussian Radon transform also has the advantages of generalizing to infinite dimensional Hilbert spaces~\cite{Seng14} (on which the Lebesgue measure is not defined), as well as having a natural probabilistic interpretation.
 
 \begin{definition}
 The \textit{Gaussian Radon transform} $GR_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is defined similarly to the RT.\@ Given $\omega \in S^{n-1}$ and $-\infty < p < \infty$, the GRT is
@@ -680,46 +702,106 @@ is centered on the point of the hyperplane closest to the origin.
   \]
 \end{myexample}
 
-\begin{myexample}
-  Consider the strip $S \subseteq \RR^2$ from example \ref{ex:RTStrip}. While the RT of $S$ was divergent for $\theta = \pi/2$ or $3\pi/2$, the GRT converges. In particular,
-  \[
-    GR_S(\theta, p)
-    = \begin{cases}
-      \frac1{\sqrt{2\pi}}e^{-\frac{p^2}2}, & |p| \leq \frac12 \\
-      0, & |p| > \frac12
-    \end{cases}
-  \]
-  This is the density of a ``truncated'' normal distribution on $[-\frac12,\frac12]$. For other angles $GR_S(\theta, p)$ is likewise the density of a truncated normal distribution, this time with arbitrary endpoints $[a, b]$, given by
-  \[
-    a = ?, \qquad b = a + \sec\theta
-  \]
-\end{myexample}
+% \begin{myexample}
+%   Consider the strip $S \subseteq \RR^2$ from example \ref{ex:RTStrip}. While the RT of $S$ was divergent for $\theta = \pi/2$ or $3\pi/2$, the GRT converges. In particular,
+%   \[
+%     GR_S(\theta, p)
+%     = \begin{cases}
+%       \frac1{\sqrt{2\pi}}e^{-\frac{p^2}2}, & |p| \leq \frac12 \\
+%       0, & |p| > \frac12
+%     \end{cases}
+%   \]
+%   This is the density of a ``truncated'' normal distribution on $[-\frac12,\frac12]$. For other angles $GR_S(\theta, p)$ is likewise the density of a truncated normal distribution, this time with arbitrary endpoints $[a, b]$, given by
+%   \[
+%     a = ?, \qquad b = a + \sec\theta
+%   \]
+% \end{myexample}
 
-Now imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p$, $R(\omega, p)$ can be seen as a projection of $f$ onto the linear subspace spanned by $\omega$. It is not surprising that integrating this projection over $-\infty < p < \infty$ we get the same result as the $n$-fold integral of $f$ over $\RR^n$.
+Now, imagine sweeping a hyperplanar ``slice'' across $\RR^n$. As a function of $p$, $R(\omega, p)$ can be seen as a projection of $f$ onto the linear subspace spanned by $\omega$. Intuitively, since the parallel slices covere the entirety of the space with no overlap, it is not surprising that integrating this projection over $-\infty < p < \infty$ we get the same result as the $n$-fold integral of $f$ over $\RR^n$.
 \[
     \int_{-\infty}^\infty R(\omega, p) ~dp = \int_{\RR^n} f(x) ~dx
 \]
 The following theorem further generalizes this observation:
 
 \begin{proposition}[Slice Theorem]
-  % If $f: \RR^n \rightarrow \RR$ and $F: \RR \rightarrow \RR$ are measureable, then
-  If $f \in L^1(\RR^n)$ and $F \in L^\infty(\RR)$, then
+  If $f: \RR^n \rightarrow \RR$ and $F: \RR \rightarrow \RR$ are measureable, then
+  % If $f \in L^1(\RR^n)$ and $F$ is bounded, then
+  % If $f \in L^1(\RR^n)$ and $F \in L^\infty(\RR)$, then
   % If $f \in C_c(\RR^n)$ and $F \in L^1_{loc}(\RR)$, then
   % \needed{EXTRA CONDITIONS} (i.e. non-negative Fubnini,  Tonelli)
   \begin{align}
     \label{eq:ST}
-    \int_{-\infty}^\infty R_f(\omega, p) F(p) dp 
+    \int_{-\infty}^\infty R_f(\omega, p) F(p) ~dp 
     % &= \int_{-\infty}^\infty \int_{\langle x, \omega \rangle = p} f(x) F(p) ~d\mu(x) ~dp 
-    &= \int_{\mathbb{R}^n} f(x) F(\langle x, \omega \rangle) dx,
+    &= \int_{\mathbb{R}^n} f(x) F(\langle x, \omega \rangle) ~dx,
   \end{align}
+  provided
+  \[
+    \int_{\mathbb{R}^n} f(x) F(\langle x, \omega \rangle) ~dx < \infty.
+  \]
+  In particular, the slice relation holds under the following conditions:
+  \begin{enumerate}
+    \item $f \in L^1(\RR)$ and $F$ is bounded,
+    \item $f \in L^1(\RR)$ has compact support and $F$ is locally bounded.
+  \end{enumerate}
   % so long as one of the two is finite.
 \end{proposition}
 
 \begin{proof}
-  This is a corollary of the Fubini-Tonelli theorem, which guarantees the slice formula as the integrals on either side converge absolutely. To see this note that there is a rigid transformation (Hilbert space isomorphism) taking this to an iterated integral over $\RR^{n-1}$ and $\RR$. Further, $F(\langle x, \omega \rangle) \in L^\infty(\RR^n)$, so the proposition follows by H\"older's inequality
+  Pulling $F(p)$ into the RT integral, we can substitute $p = \inner{x, \omega}$,
+  \begin{align*}
+    \int_{-\infty}^\infty R_f(\omega, p) F(p) ~dp
+    &= \int_{-\infty}^\infty \int_{\inner{x, \omega} = p} f(x) F(\inner{x, \omega}) ~dx ~dp
+  \end{align*}
+  then it remains to show that the itterated integrals can be combined. This is a relatively straightforward application of Fubini's theorem. Assume for example $\omega = (0, \ldots, 0, 1)$, so that $\inner{x, \omega} = x_n$ for any $x = (x_1, \ldots, x_n) \in \RR^n$. In this simple case Fubini's theorem says for any measurable function $g : \RR^n \to \CC$ 
+  \begin{align*}
+    \int_{-\infty}^\infty \int_{\RR^{n - 1}} g(x_1, \ldots, x_{n - 1}, p) ~dx_1 \cdots dx_{n - 1} ~dp
+    &= \int_{\RR^n} g(x_1, \ldots, x_n) dx
+  \end{align*}
+  provided that either integral converges. The general direction $\omega \in S^{n-1}$ is equivalent to this special case after a rotation (under which the Lebesgue integrals are invariant).
+
+  Fubini's theorem only requires that the left hand integral converges. We show this condition is satisfied in the two cases
+  \begin{enumerate}
+    \item Since $F$ is bounded, say $|F| \leq M$ for some $M > 0$. We have
   \[
-    \int_{\RR^n} \left|f(x) F(\langle x, \omega \rangle)\right| ~dx \leq \int_{\RR^n}|f(x)| ~dx \|F(\langle x, \omega \rangle)\|_\infty <  \infty
-  \] 
+    \int_{\RR^n} |f(x) F(\inner{x, \omega})| ~dx 
+    \leq \int_{\RR^n} |f(x)| M ~dx 
+    = M \int_{\RR^n} |f(x)| ~dx < \infty
+  \]
+  since $f \in L^1(\RR^n)$.
+  \item If $\supp(f)$ is compact then so is $\{p : \inner{x, \omega} = p \text{ for some } x \in \supp(f)\}$, since the mapping $x \mapsto \inner{x, \omega}$ is continuous. Thus $F(\inner{x, \omega})$ is bounded on $\supp(f)$ and the rest of the proof is identical to the previous case.
+  \end{enumerate}
+  
+  % We will first prove the special case when $\omega$ is $n$th standard basis vector,
+  % \[
+  %   \omega = e_n = (0, \ldots, 0, 1) \in \RR^n.
+  % \]
+  % In this case the proposition is related to Fubini's theorem. Identifying $x \in \RR^n$ with $(x', x_n) \in \RR^{n - 1} \times \RR$, where $x' = (x_1, \ldots, x_{n - 1})$, we note that $\inner{x, e_n} = x_n$, so that can rewrite the RT,
+  % \[
+  %   R_f(e_n, p) = \int_{\RR^{n - 1}} f(x', p) ~dx'.
+  % \]
+  % Here it should be noted that as an immediate consequence of Fubini's theorem, the functions $p \mapsto R_f(e_n, p)$ is measurable and finite for almost every $p \in \RR$, and furthermore we get the basic slice theorem
+  % \[
+  %   \int_{\infty}^\infty R_f(e_n, p)~ dp 
+  %   = \int_{\RR} \int_{\RR^{n - 1}} f(x', p) ~ dx' ~ dp 
+  %   = \int_{\RR^n} f(x) ~ dx.
+  % \]
+  % If $F(p)$ is bounded then
+  % \[
+  %   \int_{-\infty}^\infty R_f(e_n, p) F(p) ~dp
+  %   = \int_{\RR} \int_{\RR^{n - 1}} f(x', p) F(x_n) ~dx' ~dp
+  %   = \int_{\RR^n} f(x) ~dx
+  % \]
+
+  % Let $\omega^\perp$ . Briefly, we may decompose $\RR^n$ as a direct product $\Lambda \otimes \Lambda^\perp$, where $\Lambda$ is the linear subspace given by $\inner{x, \omega} = 0$ and $\Lambda^\perp$ is the subspace spanned by $\omega$. Thus by Fubini's theorem
+  % \[
+  %   \int_{-\infty}^\infty R_f(\omega, p) F(p) ~dp
+  %   = \int_{-\infty}^\infty \int_{x_n = p} f(x', x_n) F(x_n)~dx' ~dp
+  % \]
+  % This is a corollary of the Fubini-Tonelli theorem, which guarantees the slice formula as the integrals on either side converge absolutely. To see this note that there is a rigid transformation (Hilbert space isomorphism) taking this to an iterated integral over $\RR^{n-1}$ and $\RR$. Further, $F(\langle x, \omega \rangle) \in L^\infty(\RR^n)$, so the proposition follows by H\"older's inequality
+  % \[
+  %   \int_{\RR^n} \left|f(x) F(\langle x, \omega \rangle)\right| ~dx~ \leq \int_{\RR^n}|f(x)| ~dx \|F(\langle x, \omega \rangle)\|_\infty <  \infty
+  % \]
   % (under which the Euclidean measures are invariant), the is an integral over $\RR^{n-1}$
   % Fubini's theorem applies since if 
   % Inserting the definition of the RT, the left side is
@@ -730,17 +812,18 @@ The following theorem further generalizes this observation:
   % Up to a rigid transformation (under which the Euclidean measures are invariant) this is essentially an iterated integral over $\RR$ and $\RR^{n-1}$. Thus given the integrability requirement, Fubini's theorem applies and the slice theorem is proved.
 \end{proof}
 
-\begin{remark}
-  % Although we invoke the general Fubini condition here, we note a couple of more convenient sufficient conditions. First, if $f \in L^1(\RR^n)$ and $F \in L^\infty(\RR)$ then,
-  The sufficient conditions for the slice theorem above can loosened significantly. We can take for example the straightforward Fubini condition 
-  \[
-      \int_{\RR^n} |f(x)F(\langle x, \omega \rangle )| < \infty
-  \]
-  which is necessary, but not convenient. We may also use the condition $f$ has bounded support and $F \in L^1_{loc}(\RR)$.
+% \begin{remark}
+%   % Although we invoke the general Fubini condition here, we note a couple of more convenient sufficient conditions. First, if $f \in L^1(\RR^n)$ and $F \in L^\infty(\RR)$ then,
+%   We 
+%   The sufficient conditions for the slice theorem above can loosened significantly. We can take for example the straightforward Fubini condition 
+%   \[
+%       \int_{\RR^n} |f(x)F(\langle x, \omega \rangle )| < \infty
+%   \]
+%   which is necessary, but not convenient. We may also use the condition $f$ has bounded support and $F \in L^1_{loc}(\RR)$.
 
-  The conditions on $f$ and $F$ can be reduced somewhat. In general the convergence of either the left or right side above is sufficient. One 
-  % We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.  
-\end{remark}
+%   The conditions on $f$ and $F$ can be reduced somewhat. In general the convergence of either the left or right side above is sufficient. One 
+%   % We can specify various conditions for convergence. If $F(p)$ is bounded then $\int |f(x)| dx < \infty$ suffices for convergence. If $f$ is continuous with compact support then $F(p)$ only needs to be integrable.  
+% \end{remark}
 
 If $F(p) = e^{-ip}$ and $f(x)$ is such that $\int_{-\infty}^\infty R_f(\omega, p) dp < \infty$ then (\ref{eq:ST}) becomes the well known Fourier slice theorem
 \[
@@ -756,7 +839,7 @@ If one is interested in inverting the RT then a prerequisite concern is of cours
 By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theorem for the GRT.\@ Mihai and Sengupta give a more general result for the GRT on real, separable, infinite Hilbert spaces~\cite{Miha04}.
 
 \begin{proposition}[Gaussian Slice Theorem] 
-  Let $f:\RR^n \rightarrow \RR$ and $F:\RR \rightarrow \RR$ be measurable functions. If $f \in L^1(\RR^n, \gamma_n)$ and $F \in L^\infty(\RR)$ then
+  Let $f:\RR^n \rightarrow \RR$ and $F:\RR \rightarrow \RR$ be measurable functions. If $f \in L^1(\RR^n, \gamma_n)$ and $F$ is bounded then
   \begin{equation}\label{eq:GST}
     \int_{-\infty}^\infty GR_f(\omega, p)F(p) \gamma(p) ~dp
     = \int_{\mathbb{R}^n}f(x) F(\langle x, \omega\rangle) \gamma_n(x) ~dx. 
@@ -768,7 +851,7 @@ By way of the relation (\ref{eq:GRTPythag}) we can prove an analogous slice theo
   \[
     \int_{\mathbb{R}^n} |f(x) F(\langle x, \omega\rangle) \gamma_n(x)| dx < \infty
   \]
-  may be used. Further, whatever conditions on $f$ and $F$ are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked of $f(x)\gamma_n(x)$ and $F(p)\gamma(p)$. I'll need to check these conditions more carefully.
+  may be used. Of course, whatever conditions on $f$ and $F$ are sufficient for convergence in (\ref{eq:ST}) are then sufficient conditions to be checked of $f(x)\gamma_n(x)$ and $F(p)\gamma(p)$.
 \end{remark}
 
 
@@ -820,7 +903,7 @@ so that in fact $\mu_\omega$ is absolutely continuous with respect to the Lebesg
 \end{definition}
 
 \begin{remark}
-  It seems that the slice theorem is analogous to — and perhaps generalized by — the change of variables formula for the push-forward measure $R^\omega_\mu$:
+  The slice theorem is analogous to — in fact a special case of — the change of variables formula for the push-forward measure $R^\omega_\mu$:
   \[
     \int_{-\infty}^\infty F(p) dR^\omega_\mu(p) = \int_{\RR^n} F(\pi_\omega(x)) d\mu
   \]
@@ -844,7 +927,7 @@ Let $\mu$ be a Borel measure with finite moments $c_k = \int_{-\infty}^\infty p^
   \[
     g(z) = \int_{-\infty}^\infty\frac{d\mu}{1+zp}
   \]
-  is called the Markov (Hamburger resp.) transform of $\mu$ when $\mu$ has bounded (unbounded resp.) support.
+  is called the Stieltjes transform of a Borel measure $\mu$ on $\RR^n$.
 \end{definition}
 
 It is worth noting at the outset that $g(z)$ is defined at least for non-real $z$. To see this we note that if $\im z \neq 0$,
@@ -862,10 +945,10 @@ which gives the bound
   = \frac{|z|}{|\im z|}c_0
 \end{equation}
 
-Since the integrand has a singularity only when $p = -1/z$ a Markov transform must converge in some neighborhood of zero. This cannot be said in general for a Hamburger transform. 
+Since the integrand has a singularity only when $p = -1/z$ the Stieltjes transform of a measure of bounded support must converge in some neighborhood of zero. This cannot be said in general for Stieltjes transforms. 
 
 \begin{remark}
-  The bound above has a useful geometric interpretation. For starters we note that,
+  The bound above has a helpful geometric interpretation. For starters we note that,
   \[
     \frac{|\im z|}{|z|} = |\sin(\arg z)|,
   \]
@@ -911,7 +994,7 @@ Since the integrand has a singularity only when $p = -1/z$ a Markov transform mu
   \[
     g(\bar z) = \int_\infty^\infty\frac{d\mu}{1+\bar zp} = \overline{\int_\infty^\infty\frac{d\mu}{1+zp}} = \overline{g(z)}.
   \]
-  For this reason, although $g(z)$ is defined for all non-real $z$, we will only concern ourselves with its values on the upper half plane $\im z > 0$ going forward. In chapter 3 we should restrict our sample points to the upper half plane, since samples in the lower half may be redundant.
+  For this reason, although $g(z)$ is defined for all non-real $z$, we will only concern ourselves with its values on the upper half plane $\im z > 0$ going forward. As a consequence in chapter \ref{chap:shapereconstruction} we restrict sample points to the upper half plane to avoid redundancy.
 \end{remark}
 
 
@@ -1039,20 +1122,28 @@ While $g(z)$ does not generally converge at $z = 0$, in a non-tangential sense t
 %   An interesting connection — which I don't know enough about to discuss yet — is beginning to be revealed here between moment problems and analytic functions on the upper half plane (in particular, their behavior near the real boundary). This leads us to the notion of interpolation problems.
 % \end{remark}
 
-Evidently the asymptotic series expansion $g(z) \simeq \sum_{k=0}^\infty c_k {(-z)}^k$ is generally formal, having zero radius of convergence except in the Markov case. However as we will see in the next section, rational functions constructed from this formal series exist which approximate $g(z)$ on the upper half plane $\{\text{Im} z > 0\}$.
+Evidently the asymptotic series expansion $g(z) \simeq \sum_{k=0}^\infty c_k {(-z)}^k$ is generally formal, having zero radius of convergence except in the Markov case. However as we will see in the next section, rational functions constructed from this formal series exist which approximate $g(z)$ on the upper half plane $\im z > 0$.
 
-Finally we prove two propositions regarding the Hamburger transform of a RT projection. Let $\omega \in S^{n-1}$ be fixed and consider
-\[
-  g(z) = \int_\infty^\infty \frac{R(\omega, p)}{1 + zp} dp
-\]
-for some function $f: \RR^n \to \RR$. 
+Finally, we mention a relationship between the Stieltjes transform of an RT and the ``multivariate Stieltjes'' transform:
 \begin{definition}
-  The multivariate Markov (Hamburger resp.) transform of a Borel measure $\mu$ on $\RR^n$ of bounded (unbounded resp.) support is defined by
+  The \emph{multivariate Stieltjes transform} of a Borel measure $\mu$ on $\RR^n$ is defined by
   \[
     g(y) = \int_{\RR^n} \frac{d\mu(x)}{1 + \langle x, y\rangle} \simeq \sum_{\alpha \in \NN_0^n} c_\alpha(-y)^\alpha
   \]
-  when $\mu$ has finite moments $c_\alpha = \int_{\RR^n} x^\alpha d\mu$.
+  when $\mu$ has finite moments $c_\alpha = \int_{\RR^n} x^\alpha d\mu$. The series expansion is generally formal, but again can be understood via the notion of non-tangential convergence.
 \end{definition}
+
+\begin{remark}
+  Much like the univariate case, for measures $\mu$ supported on a bounded subset of $\RR^n$, the multivariate Stieltjes transform is well defined in a neighborhood of the origin and equal to the power series expansion. 
+
+  If $\mu$ has unbounded support in $\RR^n$ we can not expect $g(y)$ to be defined on $\RR^n$, and are forced to consider the Stieltjes transform as a function of multiple complex variables $g : \CC^n \to \CC$. Here we see singularities in the integrand when $y \in \CC^n$ satisfies
+  \[
+    \inner{x, y} = -1, \text{ for some } x \in \RR^n
+  \]
+  We should also note that we implicitly take the complex inner product here assumed to be conjugate linear in the first entry.
+\end{remark}
+
+A precise description of the domain of definition for the multivariate Stieltjes transform will not be necessary for our purposes. Instead we will take a sufficient condition from the following slice relations:
 % \begin{proposition}
 %   The Hamburger transform of the Radon transform of a function $f$ is 
 %   \[
@@ -1063,14 +1154,24 @@ for some function $f: \RR^n \to \RR$.
 % \begin{proposition}
   
 % \end{proposition}
-By applying the slice theorem, with $F(p) = {(1+zp)}^{-1}$ we see that the Hamburger transform of a projection can be represented by a similar multivariate integral of $f$ over $\RR^n$.
+\begin{proposition}
+If $f \in L^1(\RR)$ has compact support then taking $F(p) = {(1+zp)}^{-1}$ in the slice theorem~\ref{eq:ST} we have
 \[
-  \int_{-\infty}^\infty \frac{R_f(\omega, p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)}{1 + z\langle x, \omega \rangle} dx
+  \int_{-\infty}^\infty \frac{R_f(\omega, p)}{1 + zp} ~dp = \int_{\RR^n} \frac{f(x)}{1 + z\langle x, \omega \rangle} ~dx.
 \]
-Similarly the GRT slice theorem with $F(p) = {(1 + zp)}^{-1}$ is
+Similarly if $f \in L^1$ with possibly unbounded support by the Gaussian slice theorem~\ref{eq:GST},
 \[
-  \int_{-\infty}^\infty \frac{GR_f(\omega, p) \gamma(p)}{1 + zp} dp = \int_{\RR^n} \frac{f(x)\gamma_n(x)}{1 + z\langle x, \omega \rangle} dx.
+  \int_{-\infty}^\infty \frac{GR_f(\omega, p) \gamma(p)}{1 + zp} ~dp = \int_{\RR^n} \frac{f(x)\gamma_n(x)}{1 + z\langle x, \omega \rangle} ~dx.
 \]
+\end{proposition}
+
+Note that the first relation makes sense in some neighborhood of $z = 0$, while the second applies only if $\im z \neq 0$.
+
+In chapter \ref{chap:shapereconstruction} we note that the integrals above can be seen as particular restrictions of the multivariate Stieltjes transform. That is, for $y \in \CC^n$ of the form $y = z\omega$ where $\im z > 0$ and $\omega \in S^{n - 1}$,
+\[
+  \int_{\RR^n} \frac{f(x)}{1 + \inner{x, y}} ~dx = \int_{-\infty}^\infty \frac{R_f(\omega, p)}{1 + zp} ~dp.
+\]
+Thus we consider the multivariate Stieltjes transform to be defined for $y \in \CC^n$ in this form, as guarenteed by the relation above. An equivalent relation holds for the GRT via the previous proposition.
 
 \section{Pad\'e approximants}\label{sec:pade}
 
@@ -1109,7 +1210,7 @@ In the classical theory of Pad\'e approximants (\ref{eq:CPade}) was often taken 
   If no such rational function exists we say the Pad\'e approximant does not exist.
 \end{definition}
 
-Note that the two definitions are equivalent if $b_0 = Q^{L/M}(0) \neq 0$ \pn. Hence a sufficient condition for the existence of the Pad\'e approximant by Baker's definition is that $b_0 = Q^{L/M}(0) \neq 0$. 
+Note that the two definitions are equivalent if $b_0 = Q^{L/M}(0) \neq 0$. Hence a sufficient condition for the existence of the Pad\'e approximant by Baker's definition is that $b_0 = Q^{L/M}(0) \neq 0$. 
 
 Equating coefficients of $z^k$, $k = 0, 1, \ldots, L+M$ in (\ref{eq:CPade}) gives two linear systems
 \begin{align*}
@@ -1341,7 +1442,7 @@ We call this formal power series a Hamburger series.
   if and only if $\mu$ is supported entirely on the zeros of the polynomial $p^n\sum_{k=0}^m x_k p^{k}$. However by assumption $\mu$ has infinite support. So in fact $G$ is strictly positive definite. We conclude, by Sylvester's criterion for example, that associated Hankel matrix has positive determinant. That is, $H(2n, m) > 0$.
 \end{proof}
 
-The previous lemma guarantees the existence of certain Pad\'e approximants; specifically those with $L-M+1$ even. 
+The previous lemma guarantees the existence of certain Pad\'e approximants, specifically those with $L-M+1$ even. 
 \begin{proposition}
   If $J$ is odd then the Pad\'e approximant $R^{[L/L+J]}(z)$ to the Hamburger series exists in Baker's sense.
 \end{proposition}
@@ -1377,6 +1478,8 @@ The following theorem, paraphrased from Baker~\cite{Bake81}, is central to the s
   If the moments $c_k$ are determinate, then the off-diagonal approximants to the Hamburger series converge locally uniformly to the Hamburger transform of $\mu$.
 \end{corollary}
 We discuss sufficient conditions for determinacy in section \ref{sec:momentproblem} and chapter \ref{chap:RTmoments}.
+
+Finally it should be noted that the shape reconstruction method of \cite{Cuyt05} utilized a certain multivariate generalization of the Pad\'e approximants defined in \cite{Cuyt84}. Since a defining feature of these multivariate Pad\'e approximants is that they coincide with Baker's univariate approximants on slices — precisely corresponding to our method of relating the multivariate Stieltjes transform to the univariate Stieltjes transform of projections — we choose to skip this description.
 
 % \begin{theorem}
 %   The off-diagonal Pad\'e approximants $R_M(z)$ to the a determinate Hamburger series $\sum_{k=0}^\infty c_k {(-z)}^k$ exist and converge to $g(z)$ uniformly on compact subsets of the upper half plane $\{\text{Im} ~z > 0\}$.
@@ -1538,6 +1641,8 @@ We discuss sufficient conditions for determinacy in section \ref{sec:momentprobl
 % \tc{...insert the construction of multi pade}
 
 \section{Symmetric tensors and polynomials} \label{sec:tensors}
+In chapter~\ref{chap:GRTpoly} we make some limited use of a tensor notation for multivariable polynomials. For reference we record some basic concepts in this section.
+
 Let $V$ be a finite dimensional real vector space with basis $\{e_1, e_2, \ldots, e_n\}$. The tensor power $V^{\otimes k}$ is a real vector space, with basis
 \[
   \{e_{i_1} \otimes e_{i_2} \otimes \cdots \otimes e_{i_k}\}_{(i_1, \ldots i_k) \in \{1, \ldots n\}^k}

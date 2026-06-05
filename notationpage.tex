@@ -1,7 +1,7 @@
 \begin{notationpage}
 
 \vskip 15mm
-(This section should be for reference only and most of these symbols should be defined in the text)
+% (This section should be for reference only and most of these symbols should be defined in the text)
 % \begin{enumerate}[label=\alph*)]
 %   \item Multiindex notation
 %   \begin{itemize}
@@ -72,6 +72,24 @@ Unless otherwise indicated all measures are Euclidean measures, that is the Bore
   \int_{\RR^n}~dx \qquad \text{and} \qquad \int_{\langle x, \omega\rangle = p} ~dx,
 \]
 the measure $dx$ is to be understood as the $n$-dimensional and $(n-1)$-dimensional Euclidean measure respectively.
+
+Throughout this work we use standard notation for some common function spaces:
+
+\begin{itemize}
+  \item For $1 < p < \infty$, $L^p = L^p(\RR^n)$ is the space of Lebesgue measurable functions $f : \RR^n \to \RR$ satisfying
+  \[
+    \int_{\RR^n} |f(x)|^p ~dx < \infty.
+  \]
+  As usual these functions are only defined modulo differences on sets of Lebesgue measure zero. For the Gaussian weight $\gamma_n$ we similarly define $L^p(\gamma_n)$ for functions satisfying
+  \[
+    \int_{\RR^n} |f(x)|^p \gamma_n(x) ~dx < \infty
+  \]
+  modulo Lebesgue measure zero sets.
+
+  \item For $m \in \NN$ we denote by $C^m = C^m(\RR^n)$ the space of $m$-times continuously differentiable functions on $\RR^n$, and by $C^\infty = C^\infty(\RR^n)$ the space of smooth functions. The subspaces of bounded functions, those with compact support, and those vanishing at infinity are denoted by $C_b^m$, $C_c^m$, and $C_0^m$ respectively, where $m \in \NN \cup \{\infty\}$.
+  
+  \item The set of real polynomials on $\RR^n$ of degree at most $k$ is denoted $\mathcal{P}_k = \mathcal{P}_k(\RR^n)$ and the set polynomials of arbitrary degreee $\mathcal{P} = \mathcal{P}(\RR^n)$.
+\end{itemize}
 
 % \begin{enumerate}[label = \Alph*) ]
 %   \item \bf{Spaces}

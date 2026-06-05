@@ -1,4 +1,5 @@
 \chapter{Krawtchouk Polynomials and a Discrete GRT}{}
+\label{chap:DGRT}
 
 Here we discuss discrete Radon transforms (DRTs) with the goal of developing a suitable discrete analogue to the Gaussian Radon transform (DGRT). Building on the formulas from the previous chapter we propose a DGRT defined via the Krawtchouk polynomials, which are discrete analogues to the Hermite polynomials.
 
@@ -12,7 +13,94 @@ For now, we a new DGRT following a somewhat roundabout path via the formulas of 
 
 \section{Krawtchouk polynomials}
 
-The formula (\ref{eq:GRH}) gives us a path toward defining a discrete analogue to the Gaussian Radon transform. We will begin introducing the centered binomial density and corresponding Krawtchouk polynomials by way of a classic model in probability.
+The formula (\ref{eq:GRH}) gives us a path toward defining a discrete analogue to the Gaussian Radon transform. 
+% We will begin by introducing the binomial density and corresponding Krawtchouk polynomials.
+We will begin with the simple random walk as a motivating example. 
+
+Consider flipping $N$ fair coins, and counting the number of heads. We can model each coin by independant identically distributed (i.i.d.) random variables $X_t$, $t = 1, \ldots, N$ taking the value $0$ or $1$ with equal probability. Then the total number of heads is given by
+$
+  S_N = \sum_{t = 1}^{N} X_t.
+$
+Since the number of ways to choose $x$ coins to land on heads is $\binom{N}{x}$, we have the probabilities
+\[
+  P\{S_N = x\} = \frac1{2^n}\binom{N}{x}.
+\]
+This defines the density of the standard binomial distribution.
+
+\begin{definition}
+  The \emph{binomial distribution}, modeling the number of heads in $N$ flips of a possibly biased coin, has the density
+  \[
+    B_{N, p}(x) = \binom{N}{x} p^x(1 - p)^{N - x}, \quad x = 0, \ldots, N
+  \]
+  where $p$ is the probability that the coin lands heads. In the case of a fair coin $p = 1/2$ and we simply write
+  \[
+    B_N(x) = \binom{N}{x}.
+  \]
+\end{definition}
+
+Now imagine taking a walk on the integer lattice $\ZZ$ where a coin flip decides whether we step to the right or left. If $p$ is the probability of stepping to the right, then the stochastic process
+\[
+  W_N 
+  % = \sum_{t = 1}^N -1 + 2X_t 
+  = -N + 2B_{N, p},
+\]
+represents our position after $N$ coin flips, assuming we start at the origin $W_0 = 0$. We can think of this as a centered binomial distribution. We will stick to the symmetric case $p = \frac12$.
+
+\begin{definition}
+  The \emph{symmetric simple random walk} in one dimension is a stochastic proccess $\{W_N\}_{N = 0}^\infty$ defined by
+  \[
+    W_N = 2B_{N} - N = \sum_{t = 1}^N (2X_t - 1)
+  \]
+  where $2X_t - 1$ takes the values $\pm 1$ with equal probability.
+\end{definition}
+
+Some immediate properties can be deduced by i.i.d. random variables $2X_t - 1$. For instance, we have the mean
+\[
+  \mathrm{E}[W_N] = \sum_{t = 1}^N \mathrm{E}(2X_t - 1) = 0,
+\]
+and variance
+\[
+  \mathrm{Var}[W_N] = \sum_{t = 1}^N \mathrm{Var}[2X_t - 1] = \sum_{t = 1}^N 1 = N.
+\]
+Furthermore we can compute characteristic function
+\[
+  \mathrm{E}[e^{isW_N}] = \prod_{t = 1}^N \mathrm{E}[e^{is(2X_t - 1)}] = \left(\frac{e^{is} - e^{-is}}2\right)^N = \cos^N(s).
+\]
+
+We would like to understand assymptotic charactaristics of $W_N$ as $N \to \infty$, but we quickly run into a problem. 
+
+
+\begin{proposition}
+  The normalized binomial distribution $\tilde{W}_N = \frac1{\sqrt{N}}W_N$ converges in distribution to the standard Gaussian $\gamma$.
+\end{proposition}
+
+\begin{proof}
+  Since $W_N$ is defined as a sum of i.i.d. random variables this is simple application of the central limit theorem. We present a more elementary proof. This proof requires only Levy's continuity theorem (from which it is standard to prove the central limit theorem), and some basic calculus.
+
+  By Levy's continuity theorem it will suffice to show that the characteristic function to the normalized binomial converges to the that of $\gamma$. In particular, we will show that 
+  \[
+    \mathrm{E}[e^{is\frac1{\sqrt{N}}W_N}] = \cos^N(\frac1{\sqrt{N}}s) \to e^{-\frac12 s^2}.
+  \]
+\end{proof}
+
+% Notably, this concept can be used to construct a continuous-time analogue known as a Wiener proccess. We could first consider normalizing the random walk so that it completes $N$ steps over some fixed unit of time. However with the step size $\delta = 1$ we travel a total of $N$ units in that time. We further normalize the step size $\delta = 1/\sqrt{N}$ so that the total distance traveled is precisely $\delta^2N = 1$. 
+
+
+
+
+% We begin with the well known fact that the symmetric binomial distribution given by
+% \[
+%   f \mapsto \frac{1}{2^N} \sum_{x = 0}^N \binom{N}{x} f(x)
+% \]
+% converges in some sense to the Gaussian distribution. The symmetric binomial distribution models the number of successes in a series of $N$ repeated independent Bernoulli trials, each defined by
+% \[
+%   X_t =
+%   \begin{cases}
+%     0 & \text{with probability } \frac12 \\
+%     1 & \text{with probability } \frac12
+%   \end{cases}
+% \]
+
 
 Consider flipping a loaded coin with probability $p \in [0,1]$ of landing on heads, and thus probability $(1 - p)$ of landing on tails. The probability of $k$ heads in $N$ coin flips is given by the binomial probability density,
 \[
@@ -53,10 +141,10 @@ Then we have
 \[
   \lim_{N \rightarrow \infty} B_N(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}2} = \gamma(z).
 \]
-This limit is perhaps one of the simplest cases of the robust central limit theorem, but can be proven in a number of more elementary ways \cn.
+This limit is perhaps one of the simplest cases of the robust central limit theorem, but can be proven in a  more elementary ways.
 
 \begin{remark}
-  Under an analogous limit a random walk process $x$ is transformed into a Brownian motion process $z$. \cn
+  Under an analogous limit a random walk process $x$ is transformed into a Brownian motion process $z$. 
 \end{remark}
 
 Having justified the the centered binomial densities $B_N(x)$ as discrete analogs of the Gaussian $w(z)$, we would like to define a sequence of polynomials orthogonal with respect to $B_N(x)$, as the Hermite polynomials are to $w(z)$. For convenience we start with a generating function 
@@ -89,10 +177,10 @@ The Krawtchouk and Hermite polynomials are related by the same limiting process.
 \end{proposition}
 
 \begin{proof}
-  \pn
+  We prove the simpler 
 \end{proof}
 
-Now heuristically we expect a formula analagous to (\ref{eq:GRH}) in the from
+Now, heuristically we expect a formula analagous to (\ref{eq:GRH}) in the from
 \[
   GR_{K^{N,p}_\alpha}(\omega, p) = K^{N,p}_k(p)\omega^\alpha, \qquad |\alpha| = k
 \]
@@ -117,3 +205,10 @@ and further $K^{N,\frac12}_k(x) \rightarrow H_k(z)$.
 Now consider the following scenario in two dimensions. A particle starting at the origin $x = (x_1, x_2) = 0$ flips two fair coins, stepping down/up depending on the first coin, left/right depending on the second. This means the particle moves one unit up and right, up and left, down and right, or down and left, with equal probability. 
 
 \section{The proposed discrete GRT}
+
+% \section{A limit for powers of cosine}
+
+% Here we will prove the following limit:
+% \[
+  
+% \]

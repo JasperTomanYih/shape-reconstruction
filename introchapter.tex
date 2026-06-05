@@ -8,76 +8,167 @@
 
 \introchapter{}{}
 
+% \section{Goals}
 
-\section{TO DO}
-\begin{itemize}
-    \item To write:
-    \begin{itemize}
-        \item Document. Fix bibliography
-        \item Intro. More formulas in intro.
-        \item Moments. Prove (again, better): Determinacy result for gaussian weighted L2.
-        \item Moments. Find good reference for terminology and history. 
-        \item GF/M.\@ Define Hermite polynomials, uni- and multi-variate.
-        \item GF/M.\@ Prove determinacy from Rodrigues formula
-        \item RT/GRT.\@ Define RT/GRT on distributions (See Helgason or Gelfand). Discuss: do these extended definitions satisfy the same purpose as the GRT?\@ If so then what is the advantage of the GRT?\@
-        \item RT/GRT.\@ Slice theorem: connect sufficient conditions to Fubini conditions.
-        \item RT/GRT.\@ Work on notation for Gaussian measure. In particular $w$ and $\omega$ are too similar. 
-        \item RT/GRT.\@ Search for references on G projection moments etc
-        \item RT/GRT.\@ Expand background, historical context, etc\ldots
-        \item Moments. Prove: Bounded regions are uniquely determined by moments? Maybe fits in RT/GRT since it can be formulated in terms of RT.\@
-        \item Implementation. Output some figures from Mathematica. For example sample points, moment tables, and reconstructions.
-        \item Example. Try to prove the conjecture (RT Hermite)
-        \item Split Ch2 in half: Theory and application.
-    \end{itemize}
+The primary goal of this dissertation is to establish that a method for the reconstruction of bounded shapes from their moments, described by Cuyt et al.\@ in~\cite{Cuyt05}, can be extended to unbounded shapes. The proposed extension utilizes the Gaussian Radon transform, and the combination of these topics will bring with it some related problems. The shape reconstruction method falls in the intersection of two distinct fields of active research: multivariate moment problems and the Radon transform.
 
-    \item To research:
-    \begin{itemize}
-        \item Everywhere (ongoing). Provide examples for $n = 2, 3$ of as many results as we can.
-        \item GRT.\@ Domains of defintion, i.e. $GRT: L^2 \rightarrow L^2$ and such.
-        \item GRT.\@ Integration by parts formula for $GRT$ of $\partial f/\partial x_i$ (found dR/dp and thus dGR/dp)
-        \item GRT.\@ Verify the conjecture for $n=3$
-        \item GRT.\@ Prove the conjecture on GRT of Hermite polynomials.
-        \item Try to derive GRT of monomials from Hermite polynomials.
-        \item Mathematica. Implement Gaussian shape reconstruction method, try some example shapes. Clearly lay out the choices made: Series of expanding images, or compactified $\RR^n$? How to complexify points?
-    \end{itemize}
-\end{itemize}
+% [Applications]
 
-\section{Shape Reconstruction}
-The shape reconstruction method: In a 2005 paper, Annie Cuyt et.\ al.\ \cite{Cuyt05} proposed a method for shape reconstruction from moments, via Pade approximants to a multidimensional integral transform. Given a set of multivariate moments of some region $A$ in $\RR^n$, the method produces a pixel image approximating $A$. 
+% [Background on multivariate moment problems]
+The task of determining a measure from the integrals of monomials is called a moment problem. While classical moment problems for positive measures on $\RR$ have been well understood for at least a century, somewhat less is known in the corresponding study in multiple variables. The method presented by Cuyt et al.\@ is a procedure which, given the moments of the indicator function $f(x)$ of a measurable set $A \subseteq \RR^n$, reconstructs an approximation of $A$ in the form of a pixel image (more precisely, an approximation to $f(x)$ restricted the nodes of a cubature formula). The initial focus of this dissertation will be a pivotal question of convergence in this paper, rather than the numerical method itself which hinges on the solution of a large and generally ill-determined linear system.
 
-Suppose $A \subset \RR^n$, and let $f(x)$ be its indicator function. We may assume $f$ is measurable and has bounded support, and thus finite moments. The moment sequence gives Taylor coefficients in a neighborhood of zero for a certain holomorphic function with integral representation
-\begin{align*}
-    g(y) = \int_{\RR^n} \frac{f(x)}{1 + \langle x, y\rangle} ~dx \approx \sum_{\alpha \in \NN_0^n} \binom{|\alpha|}{\alpha} c_\alpha {(-y)}^\alpha.
-\end{align*}
-Thus the function $g(y)$ may be approximated to a certain degree of accuracy depending on the number of available moments.
-
-At the same time $g$ can be approximated by a multivariate quadrature formula
+% [Description of the method]
+Alhough it is described as a shape reconstruction method, Cuyt et al.\@ show that it can be applied more generally to positive measurable functions $f(x)$ with compact support. The method relies crucially on the approximation of the multivariate Stieltjes transform of $f(x)$ which is given by the integral representation
 \[
-    \int_{\RR^n} \frac{f(x)}{1 + \langle x, y\rangle} ~dx
-    = \sum_{i} \frac1{1+\langle x_i, y\rangle} f(x_i)
-    = \sum_{i} w(x_i, y) f(x_i)
+  g(y) 
+  := \int_{\RR^n} \frac{f(x)}{1 + \langle y,x \rangle}dx, \quad y \in \RR^n.
 \]
-Where the nodes $x_i$ lie, for example, on a cubic lattice. We can then sample a Pade approximant to $g$ at some sufficinetly large group of points $y = y_j$ forming a linear system of equations, from which we solve for $f(x_i)$. If all goes well we have approximations of $f(x_i)$ on a node lattice, which can be turned into a pixel image of $A$.
-
-For now we will gloss over the numerical discussion of quadrature and linear systems, taking for granted that such methods are applicable in at least some simple cases. Computational tests (to be included in, say, section 10) further support the validity of the method. Our focus will be on demonstrating that one can approximate $g$ by rational Pad\'e approximants constructed from moments. To this end we show that, when restricted to one dimensional subspaces, $g$ is equivalent to the Stieltjes transform of the Radon transform of $f$ at a fixed projection angle. 
+When restricted to a one-dimensional subspace, the multivariate Stieltjes transform coincides with the univariate Stieltjes transform of the Radon transform of $f$ in the direction of the subspace. That is, setting $y = z\omega$ for any $\omega \in S^{n-1}$ and $z \in \RR$,
 \[
-    g(z\omega) = \int_{-\infty}^\infty \frac{R_f(\omega,p)}{1 + zp}dp
+  \int_{\RR^n} \frac{f(x)}{1 + z\langle \omega,x \rangle} dx 
+  = \int_\RR \frac{R_f(\omega, p)}{1 + zp} dp,
 \]
-where $\omega \in S^{n-1}, z\in \RR$. Thus we are able to leverage the more well understood properties of these univariate transforms. 
-
-In particular, the ``projection moments'' of $R_f(\omega, p)$ in any fixed direction $\omega$, may be computed from the multivariate moments of $f$. Further, it can be shown that Pad\'e approximants to a moment sequence converge to the Stieltjes transform, and thus to $g$. Returning to shape reconstruction, it then follows that one can approximate $g$ at various sample points $y_j = z_j\omega_j$ via Pad\'e approximants on linear subspaces at a selection of angles $\omega$, as is needed to form our linear system.
-
-Now let us briefly discuss our proposed modification to the shape reconstruction method, the theoretical complications and computational considerations. Essentially what we propose is to recreate the method with a Gaussian measure applied, thus allowing for convergence on a larger class of regions $A$. In particular, the proposed method would apply to unbounded regions, for which we cannot guarentee finite moments, convergence of the function $g(y)$ (let alone the explicit series expansion in terms of moments), or convergence of the Radon transform.
-
-Here we will briefly discuss the potential challenges that this proposed method presents, which we address more carefully in sections 5 through 8. First and foremost instead of the standard moments (with respect to the Lebesgue measure), we are now given a Gaussian moment sequence — that is, moments with respect to the standard Gaussian measure on $\RR^n$. On the other end, the reconstructed region may be recovered as normal by simply inverting the Gaussian weight. 
-
-From a theoretical standpoint, proving the validity of the proposed method presents a few challenges. Firstly, even a quick glance at the classical literature tells us that moment problems on bounded domains are substantially better behaved than their unbounded counterparts. Whereas all moment problems on a bounded interval are determinate, we now have the potential to run in to indeterminate problems. We show that we can guarentee determinacy in a Gaussian-weighted $L^2$ completion of the space of polynomials. This of course includes our primary use case: indicator functions. 
-
-Secondly, we must address the effect of the proposed modifications on the Radon transform. We will define the Gaussian Radon transform, which unlike the Radon transform exists for unbounded regions $A$. 
-
-The Stieltjes transform on unbounded domains is significantly more complicated than the original case. From the integral representation
+where $R_f : S^{n-1} \times \RR \to \RR$ is the Radon transform (RT) given by the integral of $f(x)$ over the hyperplane $\{x \in \RR^n : \langle \omega, x \rangle = p\}$. Thus the problem is reduced that of approximating univariate Stieltjes transforms of the form
 \[
-    g(y) = \int_{\RR^n} \frac{f(x)}{1 + \langle x, y\rangle} ~dx,
+  g_\omega(z) :=
+  \int_\RR \frac{F(p)}{1 + zp} dp.
 \]
-one can start to see a problem: If $f(x)$ has unbounded support $g(y)$ has the potential to not converge for any $y \in \RR^n$. In particular $g(y)$ may not exist in a neighborhood of $0$, meaning our series expansion and thus the explicit conection to moments, may be broken. We need now to consider $g$ as a function on some non-real domain. Here we show Pade approximants can be computed from moments which still approximate $g$ on, for example, a half space. The convergence of these approximants is tied to the question determinacy of the moment problem, which we resolve as described above. Thus we simply take sample points avoiding the problematic real space and the method is validated.
+Note that $F(p) = R_f(\omega, p)$ also has compact support. 
+
+% The $[M-1/M]$ Pad\'e approximant to a power series is a rational function with numerator and denominator of degree $M \in \NN_0$ and $M+1$ respectively whose Taylor series agrees with the given power series to the highest degree possible. The precise definition given by Baker~\cite{Bake81} requires that the series agree up to at least the degree $2M$ coefficient. 
+The $[M-1/M]$ Pad\'e approximant to a power series $\sum_{k = 0}^\infty c_k z^k$ is the rational function $P/Q$, where $P(z)$ and $Q(z)$ are polynomials of degree $M-1$ and $M$ respectively, satisfying
+\[
+  \frac{P(z)}{Q(z)} = \sum_{i = 0}^{2M} c_k z^k + O(z^{2M + 1}),
+\]
+provided such polynomials exist. The series expansion of the Stieltjes transform is $\sum_{k = 0}^\infty c_k(-z)^k$, where $c_k$ are the moments of the function $F(p)$. If $F(p)$ has compact support then the Stieltjes transform is analytic in a neighborhood of zero and its $[M-1/M]$ Pad\'e approximants converge locally uniformly in that neighborhood~\cite{Bake81}. Since the moments of $F(p) = R_f(\omega, p)$ can be computed easily from the moments of $f(x)$, the shape reconstruction method method is theoretically justified.
+
+% [Proposed extension via GRT]
+Extending this method to unbounded shapes presents two substantial challenges. First, an unbounded set may not even have well defined moments, and the RT hyperplane integrals may be infinite. To this end, it is useful to introduce Gaussian weighted moments, and the Gaussian Radon transform (GRT) of $f$, given by
+\begin{equation} \label{eq:GRT}
+  GR_f(\omega, p) = (2\pi)^{-\frac{n-1}{2}} \int_{\langle \omega, x \rangle = p} f(x) e^{-\frac{\norm{x - p\omega}^2}{2}} dx.
+\end{equation}
+
+The GRT as defined above was first studied in and of itself by Sengupta and Mihai in~\cite{Miha04}, although it showed up in the earlier work of Bogachev~\cite{Boga98} for one example. Compared to the RT it has the advantages of a clear probabilistic interpretation, as well as being generalizable to infinite dimensional hilbert spaces~\cite{Miha04}. For the purposes of this dissertation, it suffices to note that it can be applied to indicator functions of unbounded sets without fear of divergent hyperplane integrals.
+
+Secondly, the Stieltjes transform of a function $F(p)$ of unbounded support may not be well defined over the real line. However, provided $F(p)$ has finite moments, the univariate Stieltjes transform can be defined as an analytic function on the half plane $\im z > 0$. Furthermore, under certain conditions, the $[M-1/M]$ Pad\'e approximants constructed from the possibly formal series $\sum_{k = 0}^\infty c_k(-z)^k$, will converge to the Stieltjes transform locally uniformly in the half plane~\cite{Bake81}. If the function $F$ is uniquely determined by its moments, then the Pad\'e approximants converge as described. Hence, in chapters \ref{chap:RTmoments} and \ref{chap:shapereconstruction} we establish the following result:
+\begin{theorem}
+  Let $f : \RR^n \to [0, \infty)$ be a function with finite Gaussian weighted moments,
+  \[
+    c^G_\alpha = (2\pi)^{-\frac{n}{2}} \int_{\RR^n} x^\alpha f(x) e^{-\frac{\norm{x}^2}{2}} dx, \quad \alpha \in \NN_0^n
+  \]
+  If $f$ is polynomially bounded, then the GRT of $f$ defined by (\ref{eq:GRT})
+  % \[
+  %   GR_f(\omega, p) = (2\pi)^{-\frac{n-1}{2}} \int_{\langle \omega, x \rangle = p} f(x) e^{-\frac{\norm{x - p\omega}^2}{2}} dx,
+  % \]
+  is well defined for all $\omega \in S^{n-1}$, $p \in \RR$. The $[M-1/M]$ Pade approximants computed from the moments $\{c^G_\alpha\}_{\alpha \in \NN_0^n}$ converge locally uniformly in the upper half plane to the Stieltjes transform of $GR_f(\omega, \cdot)$ with a Gaussian weight,
+  \[
+    \frac1{\sqrt{2\pi}}\int_{\RR} \frac{GR_f(\omega, p)}{1 + zp} e^{-\frac{\norm{p }^2}2}dp,
+  \]
+  where $\im z > 0$.
+\end{theorem}
+
+Of particular interest to us are the cases when $f$ is the indicator function of an unbounded measurable set $A \subseteq \RR^n$ and when $f$ is a polynomial. 
+% [GRT of polynomials]
+Unlike the RT, the GRT is well defined on the vector space of the polynomials on $\RR^n$, raising the question of how exactly the GRT acts on polynomials. Some early computation indicates that there is a simple relationship between the Hermite polynomials and the GRT.\@ For example in $\RR^2$, the tensor product multivariate Hermite polynomials given by 
+\[
+  H_{k, \ell}(x, y) := H_k(x)H_\ell(y), \quad x,y \in \RR, \quad k, \ell \in \NN_0,
+\]
+where $\{H_k\}_{k \in \NN_0}$ are the Hermite polynomials, appear to follow the relation,
+\[
+  GR_{H_{k, \ell}}(\omega, p) = H_{k + \ell}(p)\omega_1^k \omega_2^\ell, \quad k, \ell \in \NN_0,
+\]
+where $\omega = (\omega_1, \omega_2) \in S^1$. Extrapolating from the given computational evidence, in chapter \ref{chap:GRTpoly} we are able to prove the following theorem, as well as an extension to the $d$-plane GRT:
+\begin{theorem}
+  For multiindex $\alpha = (\alpha_1, \ldots, \alpha_n) \in \NN_0^n$ let 
+  \[
+    H_\alpha(x) := H_{\alpha_1}(x_1) H_{\alpha_2}(x_2) \cdots H_{\alpha_n}(x_n),
+    \quad x = (x_1 \ldots, x_n) \in \RR^n,
+  \] 
+  where $\{H_k\}_{k \in \NN_0}$ are the Hermite polynomials. Then for any $\omega = (\omega_1, \ldots, \omega_n) \in S^{n-1}$, $p \in \RR$ we have
+  \begin{equation}\label{eq:GRTH}
+    GR_{H_\alpha}(\omega, p) = H_k(p)\omega^\alpha, \quad \alpha \in \NN_0^n,
+  \end{equation}
+  where $k = \alpha_1 + \cdots + \alpha_n$ and $\omega^\alpha = \omega_1^{\alpha_1} \cdots \omega_n^{\alpha_n}$.
+\end{theorem}
+
+Finally, the above claim gives a potential path toward solving a related problem. Sometimes from a modern scientific perspective, discrete models are prefered to continuous models. In particular, discretization is often necessary for computational methods such as the shape reconstruction procedure. Various discrete analogs to the Radon transform have been studied. See for example Beylkin's discrete RT defined over a finite two-dimensional grid~\cite{Beyl87}, and Abouelaz and Ihsane's over the integer lattice $\mathbb{Z}^n$~\cite{Abou08}. A discrete GRT, on the other hand, has yet to be introduced. Discretizing formula (\ref{eq:GRTH}) may fill this gap.
+
+The Krawtchouk polynomials are orthogonal polynomials with respect to the binomial distribution. As the binomial distribution is a discrete version the Gaussian, so the Krawtchouk polynomials are discrete versions of the Hermite polynomials. Furthermore by a certain limiting procedure, the binomial distribution and Krawtchouk polynomials converge respectively to the Gaussian distribution and Hermite polynomials.
+
+It seems reasonable to expect that some discrete GRT may be defined with a binomial — rather than Gaussian — weight by replacing the Hermite polynomials with the Krawtchouk in formula (\ref{eq:GRTH}). This formal substitution allows us to define a new transform with a similar relation to the Krawtchouk polynomials. In chapter \ref{chap:DGRT}, we introduce the descretization of formula (\ref{eq:GRTH}) via the Krawtchouk polynomials, explore its properties, and discuss the relationship to known discrete RTs.
+
+% \section{Stylistic note}
+
+% As academics and educators, we believe it is important to make an effort to communicate to as broad an audience as possible. The form of this dissertation may be unusual, as we have made an effort to include more background, illustrative examples, and intuitive language, than is usually expected. We hope that those readers unfamiliar with the concepts utilized will benefit from the additional exposition, and that those familiar will have the skill to cut through to the results of interest. What good is knowledge that cannot be communicated? 
+
+% \section{TO DO}
+% \begin{itemize}
+%     \item To write:
+%     \begin{itemize}
+%         \item Intro. More formulas in intro.
+%         \item Moments. Prove (again, better): Determinacy result for gaussian weighted L2.
+%         \item Moments. Find good reference for terminology and history. 
+%         \item GF/M.\@ Define Hermite polynomials, uni- and multi-variate.
+%         \item GF/M.\@ Prove determinacy from Rodrigues formula
+%         \item RT/GRT.\@ Define RT/GRT on distributions (See Helgason or Gelfand). Discuss: do these extended definitions satisfy the same purpose as the GRT?\@ If so then what is the advantage of the GRT?\@
+%         \item RT/GRT.\@ Slice theorem: connect sufficient conditions to Fubini conditions.
+%         \item RT/GRT.\@ Work on notation for Gaussian measure. In particular $w$ and $\omega$ are too similar. 
+%         \item RT/GRT.\@ Search for references on G projection moments etc
+%         \item RT/GRT.\@ Expand background, historical context, etc\ldots
+%         \item Moments. Prove: Bounded regions are uniquely determined by moments? Maybe fits in RT/GRT since it can be formulated in terms of RT.\@
+%         \item Implementation. Output some figures from Mathematica. For example sample points, moment tables, and reconstructions.
+%         \item Example. Try to prove the conjecture (RT Hermite)
+%         \item Split Ch2 in half: Theory and application.
+%     \end{itemize}
+
+%     \item To research:
+%     \begin{itemize}
+%         \item Everywhere (ongoing). Provide examples for $n = 2, 3$ of as many results as we can.
+%         \item GRT.\@ Domains of defintion, i.e. $GRT: L^2 \rightarrow L^2$ and such.
+%         \item GRT.\@ Integration by parts formula for $GRT$ of $\partial f/\partial x_i$ (found dR/dp and thus dGR/dp)
+%         \item GRT.\@ Verify the conjecture for $n=3$
+%         \item GRT.\@ Prove the conjecture on GRT of Hermite polynomials.
+%         \item Try to derive GRT of monomials from Hermite polynomials.
+%         \item Mathematica. Implement Gaussian shape reconstruction method, try some example shapes. Clearly lay out the choices made: Series of expanding images, or compactified $\RR^n$? How to complexify points?
+%     \end{itemize}
+% \end{itemize}
+
+% \section{Shape Reconstruction}
+% The shape reconstruction method: In a 2005 paper, Annie Cuyt et.\ al.\ \cite{Cuyt05} proposed a method for shape reconstruction from moments, via Pade approximants to a multidimensional integral transform. Given a set of multivariate moments of some region $A$ in $\RR^n$, the method produces a pixel image approximating $A$. 
+
+% Suppose $A \subset \RR^n$, and let $f(x)$ be its indicator function. We may assume $f$ is measurable and has bounded support, and thus finite moments. The moment sequence gives Taylor coefficients in a neighborhood of zero for a certain holomorphic function with integral representation
+% \begin{align*}
+%     g(y) = \int_{\RR^n} \frac{f(x)}{1 + \langle x, y\rangle} ~dx \approx \sum_{\alpha \in \NN_0^n} \binom{|\alpha|}{\alpha} c_\alpha {(-y)}^\alpha.
+% \end{align*}
+% Thus the function $g(y)$ may be approximated to a certain degree of accuracy depending on the number of available moments.
+
+% At the same time $g$ can be approximated by a multivariate quadrature formula
+% \[
+%     \int_{\RR^n} \frac{f(x)}{1 + \langle x, y\rangle} ~dx
+%     = \sum_{i} \frac1{1+\langle x_i, y\rangle} f(x_i)
+%     = \sum_{i} w(x_i, y) f(x_i)
+% \]
+% Where the nodes $x_i$ lie, for example, on a cubic lattice. We can then sample a Pade approximant to $g$ at some sufficinetly large group of points $y = y_j$ forming a linear system of equations, from which we solve for $f(x_i)$. If all goes well we have approximations of $f(x_i)$ on a node lattice, which can be turned into a pixel image of $A$.
+
+% For now we will gloss over the numerical discussion of quadrature and linear systems, taking for granted that such methods are applicable in at least some simple cases. Computational tests (to be included in, say, section 10) further support the validity of the method. Our focus will be on demonstrating that one can approximate $g$ by rational Pad\'e approximants constructed from moments. To this end we show that, when restricted to one dimensional subspaces, $g$ is equivalent to the Stieltjes transform of the Radon transform of $f$ at a fixed projection angle. 
+% \[
+%     g(z\omega) = \int_{-\infty}^\infty \frac{R_f(\omega,p)}{1 + zp}dp
+% \]
+% where $\omega \in S^{n-1}, z\in \RR$. Thus we are able to leverage the more well understood properties of these univariate transforms. 
+
+% In particular, the ``projection moments'' of $R_f(\omega, p)$ in any fixed direction $\omega$, may be computed from the multivariate moments of $f$. Further, it can be shown that Pad\'e approximants to a moment sequence converge to the Stieltjes transform, and thus to $g$. Returning to shape reconstruction, it then follows that one can approximate $g$ at various sample points $y_j = z_j\omega_j$ via Pad\'e approximants on linear subspaces at a selection of angles $\omega$, as is needed to form our linear system.
+
+% Now let us briefly discuss our proposed modification to the shape reconstruction method, the theoretical complications and computational considerations. Essentially what we propose is to recreate the method with a Gaussian measure applied, thus allowing for convergence on a larger class of regions $A$. In particular, the proposed method would apply to unbounded regions, for which we cannot guarentee finite moments, convergence of the function $g(y)$ (let alone the explicit series expansion in terms of moments), or convergence of the Radon transform.
+
+% Here we will briefly discuss the potential challenges that this proposed method presents, which we address more carefully in sections 5 through 8. First and foremost instead of the standard moments (with respect to the Lebesgue measure), we are now given a Gaussian moment sequence — that is, moments with respect to the standard Gaussian measure on $\RR^n$. On the other end, the reconstructed region may be recovered as normal by simply inverting the Gaussian weight. 
+
+% From a theoretical standpoint, proving the validity of the proposed method presents a few challenges. Firstly, even a quick glance at the classical literature tells us that moment problems on bounded domains are substantially better behaved than their unbounded counterparts. Whereas all moment problems on a bounded interval are determinate, we now have the potential to run in to indeterminate problems. We show that we can guarentee determinacy in a Gaussian-weighted $L^2$ completion of the space of polynomials. This of course includes our primary use case: indicator functions. 
+
+% Secondly, we must address the effect of the proposed modifications on the Radon transform. We will define the Gaussian Radon transform, which unlike the Radon transform exists for unbounded regions $A$. 
+
+% The Stieltjes transform on unbounded domains is significantly more complicated than the original case. From the integral representation
+% \[
+%     g(y) = \int_{\RR^n} \frac{f(x)}{1 + \langle x, y\rangle} ~dx,
+% \]
+% one can start to see a problem: If $f(x)$ has unbounded support $g(y)$ has the potential to not converge for any $y \in \RR^n$. In particular $g(y)$ may not exist in a neighborhood of $0$, meaning our series expansion and thus the explicit conection to moments, may be broken. We need now to consider $g$ as a function on some non-real domain. Here we show Pade approximants can be computed from moments which still approximate $g$ on, for example, a half space. The convergence of these approximants is tied to the question determinacy of the moment problem, which we resolve as described above. Thus we simply take sample points avoiding the problematic real space and the method is validated.
 
