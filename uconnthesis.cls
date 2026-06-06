@@ -55,6 +55,7 @@
 \def\myPreviousDegreeShort#1{\gdef\@myPreviousDegreeShort{#1}}
 \def\myPreviousDegreeLong#1{\gdef\@myPreviousDegreeLong{#1}}
 \def\myMajorAdvisor#1{\gdef\@myMajorAdvisor{#1}}
+\def\myCoMajorAdvisor#1{\gdef\@myCoMajorAdvisor{#1}}
 \def\myAssociateAdvisorA#1{\gdef\@myAssociateAdvisorA{#1}}
 \def\myAssociateAdvisorB#1{\gdef\@myAssociateAdvisorB{#1}}
 \def\myAssociateAdvisorC#1{\gdef\@myAssociateAdvisorC{#1}}
@@ -296,11 +297,18 @@
       \begin{tabular}{l c c}
              Major Advisor     & \hspace{7mm} & \underline{\hspace{77mm}} \\
                                &              & \@myMajorAdvisor          \\
-         \ifthenelse{\isundefined{\@myAssociateAdvisorA}}{}%
+        \ifthenelse{\isundefined{\@myCoMajorAdvisor}}{}%
            { 
              & & \\
              & & \\
              Co-Major Advisor & & \underline{\hspace{77mm}} \\
+                               & & \@myCoMajorAdvisor     \\
+           }
+         \ifthenelse{\isundefined{\@myAssociateAdvisorA}}{}%
+           { 
+             & & \\
+             & & \\
+             Associate Advisor & & \underline{\hspace{77mm}} \\
                                & & \@myAssociateAdvisorA     \\
            }
          \ifthenelse{\isundefined{\@myAssociateAdvisorB}}{}
