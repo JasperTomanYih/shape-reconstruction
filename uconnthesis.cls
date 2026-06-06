@@ -300,7 +300,7 @@
            { 
              & & \\
              & & \\
-             Associate Advisor & & \underline{\hspace{77mm}} \\
+             Co-Major Advisor & & \underline{\hspace{77mm}} \\
                                & & \@myAssociateAdvisorA     \\
            }
          \ifthenelse{\isundefined{\@myAssociateAdvisorB}}{}
