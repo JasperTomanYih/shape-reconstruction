@@ -129,7 +129,7 @@ In some special cases we will denote the moments $c_k$ in a particular form:
     c_k = \int_A x^k dx.
   \]
 \end{enumerate}
-We often use these representations interchangeably. For example, we may say a function $f$ is determinate, or a set $A$ is indeterminate, if the corresponding measure $\mu$ has that property.
+We often use these representations interchangeably. For example, we may say a function $f$ is determinate, or a set $A$ is indeterminate, if the corresponding measure $\mu$ has that property. 
 
 There are two natural questions one can ask about a moment problem:
 \begin{itemize}[label=]
@@ -437,12 +437,37 @@ The Hermite polynomials form a complete orthogonal basis for $L^2(\gamma)$, the 
 % \end{proof}
 
 \begin{corollary}
-  For any positive function $f \in L^2(\gamma)$ the moment problem given by
+  For any non-negative function $f \in L^2(\RR, \gamma)$ the moment problem given by
   \[
-    c^\gamma_n = \int_{-\infty}^\infty f(p) \gamma(p) dp
+    c^\gamma_k = \int_{-\infty}^\infty f(p) p^k \gamma(p) dp
   \]
   is determinate.
 \end{corollary}
+
+% \[
+%   (\int_\RR f(p) p^k d\gamma)^2 \leq \int_{\RR} f(p)^2 d\gamma \int_{\RR} p^{2k} d\gamma < \infty
+% \]
+% \[
+%   \inner{f , p^k}^2 \leq \|f\|_2^2 \|p^k\|_2^2
+% \]
+
+% \begin{proof}
+%   \[
+%     f(x) = \sum_{k = 0}^\infty b_k H_k(x), \quad 
+%     b_k = \int_{\RR} f(x) H_k(x) \gamma(x) dx
+%   \]
+%   Assume $f \neq g$ have the same moments $c_k^\gamma$. Let
+%   \[
+%     g(x) = \sum_{k = 0}^\infty a_k H_k(x), \quad 
+%     a_k = \int_{\RR} g(x) H_k(x) \gamma(x) dx
+%   \]
+%   Then $a_k = b_k$.
+%   \[
+%     \int_\RR \left(g(x) - \sum_{k = 0}^N a_k H_k(x)\right)^2 d\gamma \to 0
+%   \]
+%   x
+% \end{proof}
+
 
 In the chapter \ref{chap:GRTpoly} we will make use of a different definition for the Hermite polynomials, as Taylor series coefficients for an exponential generating function.
 \begin{lemma}
@@ -520,7 +545,8 @@ Let $f$ be a function on the $n$-dimensional Euclidean space $\RR^n$. We imagine
 \]
 which can be thought of as a $(n-1)$-dimensional measurement of $f$. To be more precise we parametrize the collection of hyperplanes $\Lambda$ by normal vector, $\omega \in S^{n-1}$, and (signed) distance from the origin $-\infty < p < \infty$. Indeed any hyperplane can be described in the form $\Lambda = \{x \in \RR^n: \langle x, \omega\rangle = p\}$. As mentioned, there is a slight inconsistency in these definitions where a hyperplane $\Lambda$ can be indexed by both $\langle \omega, x \rangle = p$ and $\langle -\omega, x \rangle = -p$. This difference is inconsequential for our purposes so we choose the latter definition for clarity.
 
-The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the history of, with references, in this paragraph. The transform gets its name from Johann Radon, whose first defined the transform in the form below in 1917, although a similar transform was introduced by Paul Funk in 1911. It is interesting to note that the primary application of the RT in medical imaging (CT scans) was not invented for another half century. I can only hope that in 2076 my dissertation will serve as an absorbent coffee coaster for a sleep deprived student.
+The Radon transform~\cite{Helg65} (RT) is a thing that I will discuss the history of, with references, in this paragraph. The transform gets its name from Johann Radon, whose first defined the transform in the form below in 1917, although a similar transform was introduced by Paul Funk in 1911. It is interesting to note that the primary application of the RT in medical imaging (CT scans) was not invented for another half century. 
+% I can only hope that in 2076 my dissertation will serve as an absorbent coffee coaster for a sleep deprived student.
 
 \begin{definition}
   Let $f$ be a nonnegative measurable function on $\mathbb{R}^n$. The \emph{Radon transform} $R_f : S^{n-1} \times \RR \rightarrow \RR$ of $f$ is a function which, given a unit vector $\omega \in \RR^n$ and $p \in \RR$, is defined as
