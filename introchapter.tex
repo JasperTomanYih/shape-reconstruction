@@ -23,7 +23,7 @@ Alhough it is described as a shape reconstruction method, Cuyt et al.\@ show tha
   g(y) 
   := \int_{\RR^n} \frac{f(x)}{1 + \langle y,x \rangle}dx, \quad y \in \RR^n.
 \]
-When restricted to a one-dimensional subspace, the multivariate Stieltjes transform coincides with the univariate Stieltjes transform of the Radon transform of $f$ in the direction of the subspace. That is, setting $y = z\omega$ for any $\omega \in S^{n-1}$ and $z \in \RR$,
+When restricted to a one-dimensional subspace, the multivariate Stieltjes transform coincides with the univariate Stieltjes transform of the Radon transform of $f$ in the direction of the subspace. That is, if $y = z\omega$ for any $\omega \in S^{n-1}$ and $z \in \RR$,
 \[
   \int_{\RR^n} \frac{f(x)}{1 + z\langle \omega,x \rangle} dx 
   = \int_\RR \frac{R_f(\omega, p)}{1 + zp} dp,
@@ -38,23 +38,23 @@ Note that $F(p) = R_f(\omega, p)$ also has compact support.
 % The $[M-1/M]$ Pad\'e approximant to a power series is a rational function with numerator and denominator of degree $M \in \NN_0$ and $M+1$ respectively whose Taylor series agrees with the given power series to the highest degree possible. The precise definition given by Baker~\cite{Bake81} requires that the series agree up to at least the degree $2M$ coefficient. 
 The $[M-1/M]$ Pad\'e approximant to a power series $\sum_{k = 0}^\infty c_k z^k$ is the rational function $P/Q$, where $P(z)$ and $Q(z)$ are polynomials of degree $M-1$ and $M$ respectively, satisfying
 \[
-  \frac{P(z)}{Q(z)} = \sum_{i = 0}^{2M} c_k z^k + O(z^{2M + 1}),
+  \frac{P(z)}{Q(z)} = \sum_{i = 0}^{2M} c_k z^k + O(z^{2M + 1}).
 \]
-provided such polynomials exist. The series expansion of the Stieltjes transform is $\sum_{k = 0}^\infty c_k(-z)^k$, where $c_k$ are the moments of the function $F(p)$. If $F(p)$ has compact support then the Stieltjes transform is analytic in a neighborhood of zero and its $[M-1/M]$ Pad\'e approximants converge locally uniformly in that neighborhood~\cite{Bake81}. Since the moments of $F(p) = R_f(\omega, p)$ can be computed easily from the moments of $f(x)$, the shape reconstruction method method is theoretically justified.
+Provided such polynomials exist, the rational approximant is unique. The series expansion of the Stieltjes transform is $\sum_{k = 0}^\infty c_k(-z)^k$, where $c_k$ are the moments of the function $F(p)$. If $F(p)$ has compact support then the Stieltjes transform is analytic in a neighborhood of zero and its $[M-1/M]$ Pad\'e approximants converge locally uniformly in that neighborhood~\cite{Bake81}. Since the moments of $F(p) = R_f(\omega, p)$ can be computed easily from the moments of $f(x)$, the shape reconstruction method method is theoretically justified.
 
 % [Proposed extension via GRT]
-Extending this method to unbounded shapes presents two substantial challenges. First, an unbounded set may not even have well defined moments, and the RT hyperplane integrals may be infinite. To this end, it is useful to introduce Gaussian weighted moments, and the Gaussian Radon transform (GRT) of $f$, given by
+Extending this method to unbounded shapes presents two substantial challenges. First, an unbounded set may not even have well defined moments, and the RT hyperplane integrals may be infinite. To this end, it is useful to introduce a Gaussian weight and the Gaussian Radon transform (GRT) of $f$ given by
 \begin{equation} \label{eq:GRT}
   GR_f(\omega, p) = (2\pi)^{-\frac{n-1}{2}} \int_{\langle \omega, x \rangle = p} f(x) e^{-\frac{\norm{x - p\omega}^2}{2}} dx.
 \end{equation}
 
-The GRT as defined above was first studied in and of itself by Sengupta and Mihai in~\cite{Miha04}, although it showed up in the earlier work of Bogachev~\cite{Boga98} for one example. Compared to the RT it has the advantages of a clear probabilistic interpretation, as well as being generalizable to infinite dimensional hilbert spaces~\cite{Miha04}. For the purposes of this dissertation, it suffices to note that it can be applied to indicator functions of unbounded sets without fear of divergent hyperplane integrals.
+The GRT as defined above was first studied in and of itself by Sengupta and Mihai in~\cite{Miha04}, although it showed up in the earlier work of Bogachev~\cite{bogachev_gaussian_1998} for one example. Compared to the RT it has the advantages of a clear probabilistic interpretation, as well as being generalizable to infinite dimensional hilbert spaces~\cite{Miha04}. For the purposes of this dissertation, it suffices to note that it can be applied to indicator functions of unbounded sets without fear of divergent hyperplane integrals.
 
-Secondly, the Stieltjes transform of a function $F(p)$ of unbounded support may not be well defined over the real line. However, provided $F(p)$ has finite moments, the univariate Stieltjes transform can be defined as an analytic function on the half plane $\im z > 0$. Furthermore, under certain conditions, the $[M-1/M]$ Pad\'e approximants constructed from the possibly formal series $\sum_{k = 0}^\infty c_k(-z)^k$, will converge to the Stieltjes transform locally uniformly in the half plane~\cite{Bake81}. If the function $F$ is uniquely determined by its moments, then the Pad\'e approximants converge as described. Hence, in chapters \ref{chap:RTmoments} and \ref{chap:shapereconstruction} we establish the following result:
+Secondly, the Stieltjes transform of a function $F(p)$ of unbounded support may not be well defined over the real line. However, provided $F(p)$ has finite moments, the univariate Stieltjes transform can be defined as an analytic function on the half plane $\im z > 0$. Furthermore, under certain conditions, the $[M-1/M]$ Pad\'e approximants constructed from the possibly formal series $\sum_{k = 0}^\infty c_k(-z)^k$, will converge to the Stieltjes transform locally uniformly in the half plane~\cite{Bake81}. If the function $F$ is uniquely determined by its moments, then the Pad\'e approximants converge as described. In chapters \ref{chap:RTmoments} and \ref{chap:shapereconstruction} we establish the following result:
 \begin{theorem}
   Let $f : \RR^n \to [0, \infty)$ be a function with finite Gaussian weighted moments,
   \[
-    c^G_\alpha = (2\pi)^{-\frac{n}{2}} \int_{\RR^n} x^\alpha f(x) e^{-\frac{\norm{x}^2}{2}} dx, \quad \alpha \in \NN_0^n
+    c^G_\alpha = (2\pi)^{-\frac{n}{2}} \int_{\RR^n} x^\alpha f(x) e^{-\frac{\norm{x}^2}{2}} dx < \infty, \quad \alpha \in \NN_0^n
   \]
   If $f$ is polynomially bounded, then the GRT of $f$ defined by (\ref{eq:GRT})
   % \[
@@ -69,15 +69,22 @@ Secondly, the Stieltjes transform of a function $F(p)$ of unbounded support may 
 
 Of particular interest to us are the cases when $f$ is the indicator function of an unbounded measurable set $A \subseteq \RR^n$ and when $f$ is a polynomial. 
 % [GRT of polynomials]
-Unlike the RT, the GRT is well defined on the vector space of the polynomials on $\RR^n$, raising the question of how exactly the GRT acts on polynomials. Some early computation indicates that there is a simple relationship between the Hermite polynomials and the GRT.\@ For example in $\RR^2$, the tensor product multivariate Hermite polynomials given by 
+Unlike the RT, the GRT is well defined on the vector space of the polynomials on $\RR^n$, raising the question, addressed in chapter \ref{chap:GRTpoly}, of how exactly the GRT acts on polynomials.
+
+Exploratory computation in the $2$-dimensional case suggests the relation
 \[
-  H_{k, \ell}(x, y) := H_k(x)H_\ell(y), \quad x,y \in \RR, \quad k, \ell \in \NN_0,
+  GR_{H_k H_\ell}(\omega, p) = H_{k + \ell}(p) \omega_1^k \omega_2^\ell, \quad k, \ell \in \NN_0,
 \]
-where $\{H_k\}_{k \in \NN_0}$ are the Hermite polynomials, appear to follow the relation,
-\[
-  GR_{H_{k, \ell}}(\omega, p) = H_{k + \ell}(p)\omega_1^k \omega_2^\ell, \quad k, \ell \in \NN_0,
-\]
-where $\omega = (\omega_1, \omega_2) \in S^1$. Extrapolating from the given computational evidence, in chapter \ref{chap:GRTpoly} we are able to prove the following theorem, as well as an extension to the $d$-plane GRT:
+where $\{H_k\}_{k \in \NN_0}$ are the Hermite polynomials and $\omega = (\omega_1, \omega_2) \in S^1$, from which we form and prove the following generalization in chapter \ref{chap:GRTpoly}:
+% Some early computation indicate that there is a simple relationship between the Hermite polynomials and the GRT.\@ For example in $\RR^2$, the tensor product multivariate Hermite polynomials given by 
+% \[
+%   H_{k, \ell}(x, y) := H_k(x)H_\ell(y), \quad x,y \in \RR, \quad k, \ell \in \NN_0,
+% \]
+% where $\{H_k\}_{k \in \NN_0}$ are the Hermite polynomials, appear to follow the relation,
+% \[
+%   GR_{H_{k, \ell}}(\omega, p) = H_{k + \ell}(p)\omega_1^k \omega_2^\ell, \quad k, \ell \in \NN_0,
+% \]
+% where $\omega = (\omega_1, \omega_2) \in S^1$. Extrapolating from the given computational evidence, in chapter \ref{chap:GRTpoly} we are able to prove the following theorem, as well as an extension to the $d$-plane GRT:
 \begin{theorem}
   For multiindex $\alpha = (\alpha_1, \ldots, \alpha_n) \in \NN_0^n$ let 
   \[
@@ -90,6 +97,8 @@ where $\omega = (\omega_1, \omega_2) \in S^1$. Extrapolating from the given comp
   \end{equation}
   where $k = \alpha_1 + \cdots + \alpha_n$ and $\omega^\alpha = \omega_1^{\alpha_1} \cdots \omega_n^{\alpha_n}$.
 \end{theorem}
+
+We extend this result further to a generalized ``$d$-plane'' Gaussian Radon Transform in the same chapter.
 
 % Finally, the above claim gives a potential path toward solving a related problem. Sometimes from a modern scientific perspective, discrete models are prefered to continuous models. In particular, discretization is often necessary for computational methods such as the shape reconstruction procedure. Various discrete analogs to the Radon transform have been studied. See for example Beylkin's discrete RT defined over a finite two-dimensional grid~\cite{Beyl87}, and Abouelaz and Ihsane's over the integer lattice $\mathbb{Z}^n$~\cite{Abou08}. A discrete GRT, on the other hand, has yet to be introduced. Discretizing formula (\ref{eq:GRTH}) may fill this gap.
 

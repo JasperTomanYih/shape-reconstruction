@@ -255,24 +255,98 @@ in the univariate case and more generally,
 \[
   \frac{\partial}{\partial x_i} \gamma_n(x) = -x_i \gamma_n(x), \qquad i = 1, \ldots, n.
 \]
-Notably, the exponential decay of $\gamma_n(x)$ at infinity means that the Gaussian density dominates polynomial growth in the sense that $P(x)\gamma_n(x) \to 0$ as $\norm{x} \to \infty$, even
+Notably, the exponential decay of $\gamma_n(x)$ at infinity means that the Gaussian weight dominates polynomial growth in the sense that 
 \[
-  \int_{\RR^n} P(x) \gamma_n(x) ~dx < \infty
+  \int_{\RR^n} P(x) \gamma_n(x) ~dx < \infty,
 \]
-for all polynomials $P:\RR^n \to \RR$.
+for all polynomials $P : \RR^n \to \RR$.
+
 % Third: The Gaussian function dominates polynomials in the sense that
 % \[
 %   \lim_{p \rightarrow -\infty} P(p)\gamma(p) = 0 = \lim_{p \rightarrow \infty} P(p)\gamma(p)
 % \]
 % for any polynomial $P$.
 
+
+
 \begin{definition}
-  The \textit{Gaussian moments} of a function $f: \RR^n \rightarrow \RR$ are,
+  The \textit{Gaussian moments} of a function $f: \RR^n \rightarrow [0, \infty)$ are,
   \[
     c^\gamma_\alpha = \int_{\RR^n} f(x)x^\alpha \gamma(x) ~dx
   \]
   for $\alpha \in \NN_0^n$, provided they exist.
 \end{definition}
+
+\begin{remark}
+  The Gaussian moments asocciated with a non-negative function $f$ can be understood simply as the moments of the Gaussian-weighted function $f \gamma$. Alternatively we might think of them as a type of generalized moment. For motivation notice that if $X$ is a standard normal random variable then for $\alpha \in \NN_0^n$, the expected value of $f(X) X^\alpha$ where is precisely $c_\alpha^\gamma$.
+\end{remark}
+
+
+Next we prove a sufficient condition for the existence and determinacy of Gaussian moments by way of the well known \emph{Cramer's condition}.
+
+\begin{proposition}[Cramer's condition]
+
+  Let $\mu$ be a Radon measure on $\RR$. If there exists $\epsilon > 0$ such that
+  \[
+    \int_{-\infty}^\infty e^{\epsilon |p|} ~d\mu(p) < \infty
+  \]
+  then $\mu$ has finite and determinate moments.
+  
+\end{proposition}
+
+\begin{theorem}
+
+  Let $f : \RR \to [0, \infty)$ be a non-negative measurable function. If 
+  \[
+    \int_{-\infty}^\infty f(p)^2 \gamma(p) dp < \infty,
+  \]
+  then the Gaussian moments
+  \[
+    c^\gamma_k = \int_{-\infty}^\infty f(p) p^k \gamma(p) dp
+  \]
+  exist (are finite) and determinate.
+
+\end{theorem}
+
+\begin{proof}
+
+  We begin by showing that
+  \begin{equation} \label{eq:expGaussConvergence}
+    \int_{-\infty}^\infty e^{\epsilon |p|} \gamma(p) dp < \infty
+  \end{equation}
+  for any $\epsilon > 0$. This is somewhat stronger than we need, but suffices for Cramer's condition. First note that by completing the square
+
+  \begin{align*}
+    e^{\epsilon |p|} \gamma(p) = (2\pi)^{-\frac12} e^{\epsilon |p| - \frac{p^2}2} =  (2\pi)^{-\frac12} e^{-\frac{\epsilon^2}2} e^{-\frac12 (\epsilon - |p|)^2} = e^{-\frac{\epsilon^2}2} \gamma(\epsilon - |p|).
+  \end{align*}
+
+  Thus we can rewrite
+
+  \begin{align*}
+    \int_{-\infty}^\infty e^{\epsilon |p|} \gamma(p) dp 
+    % &= (2\pi)^{-\frac 12} \int_{-\infty}^\infty e^{\epsilon |p| - \frac{p^2}2} dp \\
+    &= e^{-\frac{\epsilon^2}2} \int_{-\infty}^\infty \gamma(\epsilon - |p|) ~dp.
+  \end{align*}
+
+  Now the right hand integral can be compared to the Gaussian integral
+  
+  \begin{align*}
+    \int_{-\infty}^\infty \gamma(\epsilon - |p|) ~dp
+    = 2 \int_0^\infty \gamma(\epsilon - p) ~dp < 2 \int_{-\infty}^\infty \gamma(\epsilon - p) = 2,
+  \end{align*}
+  
+  so that \ref{eq:expGaussConvergence} holds for arbitrary $\epsilon > 0$. In particular we will use the fact that
+  \[
+    \int_{-\infty}^\infty (e^{|p|})^2 \gamma(p) dp = \int_{-\infty}^\infty e^{2|p|} \gamma(p) dp < \infty.
+  \]
+
+  Let $f(p)$ satisfy the conditions of the theorem. Then by the Cauchy-Shwarz inequality we have
+  \[
+    \int_{-\infty}^\infty e^{|p|} f(p) \gamma(p) dp \leq \int_{-\infty}^\infty (e^{|p|})^2 \gamma(p) dp \int_{-\infty}^\infty f(x)^2 \gamma(p) dp < \infty.
+  \]
+  Thus by Cramer's condition $f(p) \gamma(p)$ has finite and determinate moments.
+\end{proof}
+
 
 \begin{myexample}
   Let $f: \RR \rightarrow \RR$ be the constant function $f(p)=1$. The Gaussian moments of $f$, i.e.\ the moments of $\gamma(p)$, are
@@ -435,14 +509,6 @@ The Hermite polynomials form a complete orthogonal basis for $L^2(\gamma)$, the 
 % \begin{proof}
 %   Note that since there are Hermite polynomials of all degrees $k \geq 0$, their linear span is the set of all polynomials. Thus the proposition is equivalent to polynomials being dense in the weighted $L^2$ space. 
 % \end{proof}
-
-\begin{corollary}
-  For any non-negative function $f \in L^2(\RR, \gamma)$ the moment problem given by
-  \[
-    c^\gamma_k = \int_{-\infty}^\infty f(p) p^k \gamma(p) dp
-  \]
-  is determinate.
-\end{corollary}
 
 % \[
 %   (\int_\RR f(p) p^k d\gamma)^2 \leq \int_{\RR} f(p)^2 d\gamma \int_{\RR} p^{2k} d\gamma < \infty
